@@ -1,0 +1,195 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+  binaryTargets   = ["native", "darwin-arm64"]
+}
+
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // uses connection pooling
+  directUrl = env("DIRECT_URL") // uses a direct connection
+}
+
+enum CompanyMemberRole {
+  Owner
+  Manager
+  Contributor
+}
+
+model Profile {
+  id         String   @unique
+  email      String
+  name       String?
+  imageUrl   String?
+  customerId String?  @unique // Stripe
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  companies CompanyMember[]
+  comments  Comment[]
+  votes     Vote[]
+  posts     Post[]
+}
+
+model Company {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  /// [CompanySettingsJson]
+  settings Json @default("{}")
+
+  // Relations
+  members      CompanyMember[]
+  domain       Domain?
+  subscription Subscription?
+  boards       Board[]
+  tags         Tag[]
+  posts        Post[]
+  statuses     Status[]
+}
+
+model CompanyMember {
+  role CompanyMemberRole @default(Contributor)
+
+  // Relations
+  user      Profile @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+
+  // Indexes
+  @@id([userId, companyId])
+}
+
+model Subscription {
+  id                 String  @id @unique
+  status             String
+  productId          String
+  currentPeriodStart Int
+  currentPeriodEnd   Int
+  cancelAtPeriodEnd  Boolean @default(false)
+
+  // Relations
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String  @unique
+}
+
+model Domain {
+  id        String   @id @default(cuid())
+  name      String   @unique @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String  @unique
+}
+
+model Board {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String
+  order     Int      @default(99)
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+  posts     Post[]
+
+  // Indexes
+  @@unique([companyId, slug])
+}
+
+model Status {
+  id        String   @id @default(cuid())
+  name      String
+  color     String
+  order     Int      @default(99)
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+  posts     Post[]
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String
+  color     String
+  order     Int      @default(99)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+  posts     Post[]
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  author    Profile?  @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  authorId  String?
+  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+  board     Board     @relation(fields: [boardId], references: [id])
+  boardId   String
+  status    Status    @relation(fields: [statusId], references: [id])
+  statusId  String
+  tags      Tag[]
+  comments  Comment[]
+  votes     Vote[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  isPinned  Boolean  @default(false)
+  isPrivate Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  author   Profile   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String
+  post     Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId   String
+  parent   Comment?  @relation("CommentChildren", fields: [parentId], references: [id], onDelete: SetNull)
+  parentId String?
+  children Comment[] @relation("CommentChildren")
+}
+
+model Vote {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  author   Profile @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String
+  post     Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId   String
+
+  // Indexes
+  @@unique([authorId, postId])
+}

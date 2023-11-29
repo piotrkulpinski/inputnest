@@ -3,6 +3,7 @@ import superjson from "superjson";
 import { Clerk } from "@clerk/backend";
 import { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
 import { Env } from ".";
+import { db } from "@repo/database";
 
 /**
  * 1. CONTEXT
@@ -27,7 +28,7 @@ type CreateContextOptions = FetchCreateContextFnOptions & {
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
 const createInnerTRPCContext = ({ userId }: {userId: string | null}) => {
-  return { userId } // TODO: Add DB connection here
+  return { userId, db }
 }
 
 /**

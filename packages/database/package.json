@@ -1,0 +1,27 @@
+{
+  "name": "@repo/database",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "db:generate": "prisma generate  --schema=./prisma/schema.prisma",
+    "db:migrate": "prisma migrate dev --name ",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:push": "prisma db push --skip-generate",
+    "db:reset": "prisma migrate reset",
+    "format": "prisma format",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@epic-web/remember": "^1.0.2",
+    "@prisma/client": "^5.6.0",
+    "@prisma/extension-accelerate": "^0.6.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "prisma": "^5.6.0",
+    "prisma-json-types-generator": "^3.0.3"
+  }
+}

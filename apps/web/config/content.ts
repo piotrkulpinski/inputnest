@@ -1,27 +1,4 @@
 export const contentConfig = {
-  reservedSlugs: [
-    "backpack-scout",
-    "admin",
-    "auth",
-    "staging",
-    "checkout",
-    "feedback",
-    "root",
-    "blog",
-    "cms",
-    "app",
-    "demo",
-    "docs",
-    "test",
-    "settings",
-    "analytics",
-    "status",
-    "mail",
-    "email",
-    "host",
-    "www",
-  ],
-
   defaultBoards: [
     { name: "Feature Requests", slug: "feature-requests", isDefault: true }, //
   ],

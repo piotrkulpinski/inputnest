@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@clerk/backend": "^0.34.2",
+    "@repo/database": "workspace:*",
     "@trpc/server": "^10.44.1",
     "superjson": "^2.2.1",
     "zod": "^3.22.4"

@@ -9,9 +9,11 @@ export const exampleRouter = createTRPCRouter({
         name: z.string(),
       })
     )
-    .query(({ input }) => {
+    .query(async ({ ctx: { db, userId }, input }) => {
+      const company = await db.company.findFirst({});
+
       return {
-        greeting: `Hello ${input.name}`,
+        greeting: `Hello ${company?.name}`,
       };
     }),
 });

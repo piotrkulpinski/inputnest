@@ -6,6 +6,8 @@
   "pipeline": {
     "build": {
       "dependsOn": [
+        "^db:generate",
+        "^db:migrate:deploy",
         "^build"
       ],
       "outputs": [
@@ -15,15 +17,34 @@
     },
     "lint": {
       "dependsOn": [
+        "^db:generate",
         "^lint"
       ]
     },
     "dev": {
+      "dependsOn": [
+        "^db:generate"
+      ],
       "cache": false,
       "persistent": true
     },
     "deploy": {
       "dependsOn": []
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    },
+    "db:migrate:deploy": {
+      "cache": false
+    },
+    "db:push": {
+      "cache": false
+    },
+    "db:reset": {
+      "cache": false
     }
   }
 }

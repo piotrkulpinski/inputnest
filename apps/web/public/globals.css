@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::selection {
+  @apply bg-blue-700;
+  @apply text-white;
+}
+
+a,
+button,
+label[for],
+[class*="group-hover"] {
+  @apply transition;
+  @apply ease-out;
+  @apply duration-150;
+  @apply cursor-pointer;
+}
+
+a[target="_blank"]:not([class*="hover:bg"]) {
+  @apply hover:underline;
+}
+
+svg[stroke="currentColor"] {
+  @apply stroke-[1.5];
+  @apply h-icon;
+  @apply w-icon;
+}
+
+div[class^="cl-internal"]:last-child {
+  display: none;
+}
+
+/* Scroll Margin */
+* {
+  @apply scroll-mt-16;
+}
