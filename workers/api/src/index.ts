@@ -1,18 +1,26 @@
 import { appRouter } from "./router";
-import { createContext } from "./trpc";
+import { createTRPCContext } from "./trpc";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
+export interface Env {
+  CLERK_SECRET_KEY: string;
+}
+
 export default {
-  async fetch(request: Request): Promise<Response> {
+  async fetch(request: Request, env: Env): Promise<Response> {
     if (request.method === "OPTIONS") {
       return handleCORSPreflight();
     }
 
+    const createContext = () => {
+      return createTRPCContext({ env, req: request, resHeaders: new Headers() })
+    }
+
     const response = await fetchRequestHandler({
       req: request,
-      createContext,
       endpoint: "",
       router: appRouter,
+      createContext,
       onError: ({ path, error }) => {
         console.error(`❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`)
       },

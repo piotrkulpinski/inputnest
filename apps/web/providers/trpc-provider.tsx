@@ -3,10 +3,11 @@
 import type { QueryClientConfig } from "@tanstack/react-query"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import { unstable_httpBatchStreamLink } from "@trpc/client"
+import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client"
 import { useState } from "react"
 import superjson from "superjson"
 import { api } from "../utils/trpc"
+import { env, isDev } from "~/env"
 
 const queryClientConfig: QueryClientConfig = {
   defaultOptions: {
@@ -19,22 +20,37 @@ const queryClientConfig: QueryClientConfig = {
   },
 }
 
-export function TRPCProvider(props: { children: React.ReactNode; cookies: string }) {
+type TRPCProviderProps = {
+  children: React.ReactNode;
+  headers: Headers
+  sessionId: string | null
+  token: string | null
+}
+
+export function TRPCProvider({children, headers, sessionId, token}: TRPCProviderProps) {
   const [queryClient] = useState(() => new QueryClient(queryClientConfig))
 
   const [trpcClient] = useState(() =>
     api.createClient({
       transformer: superjson,
       links: [
-        // loggerLink({
-        //   enabled: (opts) => isDev || (opts.direction === "down" && opts.result instanceof Error),
-        // }),
+        loggerLink({
+          enabled: (opts) => isDev || (opts.direction === "down" && opts.result instanceof Error),
+        }),
         unstable_httpBatchStreamLink({
-          url: `https://userpledge-api.piotr-f64.workers.dev`,
-          headers: () => ({
-            cookie: props.cookies,
-            "x-trpc-source": "react",
-          }),
+          url: env.NEXT_PUBLIC_API_URL,
+          headers() {
+            const headerMap = new Map(headers);
+
+            // Set the source header to react
+            headerMap.set("x-trpc-source", "react");
+
+            // Set the auth headers if they exist
+            token && headerMap.set("x-clerk-auth-token", token);
+            sessionId && headerMap.set("x-clerk-auth-session-id", sessionId);
+
+            return Object.fromEntries(headerMap);
+          },
         }),
       ],
     }),
@@ -43,7 +59,7 @@ export function TRPCProvider(props: { children: React.ReactNode; cookies: string
   return (
     <QueryClientProvider client={queryClient}>
       <api.Provider client={trpcClient} queryClient={queryClient}>
-        {props.children}
+        {children}
         <ReactQueryDevtools initialIsOpen={false} />
       </api.Provider>
     </QueryClientProvider>
