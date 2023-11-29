@@ -1,16 +1,26 @@
 'use client'
 
-import { useClerk } from "@clerk/nextjs"
+import { useAuth, useClerk } from "@clerk/nextjs"
+import { useRouter } from "next/navigation"
+import { config } from "~/config"
 
 export const SignOut = () => {
+  const router = useRouter()
+  const { isSignedIn } = useAuth()
   const { signOut } = useClerk()
 
+  const handleClick = async () => {
+    if (isSignedIn) {
+      await signOut()
+      router.push(config.routes.dashboard)
+    } else {
+      router.push(config.routes.signIn)
+    }
+  }
+
   return (
-    <button
-      className="bg-black text-white font-medium text-sm py-3 px-6 normal-case"
-      onClick={async () => await signOut()}
-    >
-      Sign Out
+    <button onClick={handleClick}>
+      Sign {isSignedIn ? "Out" : "In"}
     </button>
   )
 }

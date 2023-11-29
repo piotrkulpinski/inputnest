@@ -3,14 +3,14 @@
 import { api } from "../utils/trpc"
 
 export const SayHello = () => {
-  const { data, isLoading, isSuccess } = api.example.sayHello.useQuery({ name: 'Piotr' })
+  const { data, isLoading, isError } = api.example.sayHello.useQuery({ name: 'Piotr' })
 
   if (isLoading) {
     return <div>Loading...</div>
   }
 
-  if (!isSuccess) {
-    return null
+  if (isError) {
+    return "Error"
   }
 
   return (
