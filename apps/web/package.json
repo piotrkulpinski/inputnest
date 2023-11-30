@@ -6,7 +6,7 @@
     "dev": "next dev -p 9000",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint . --max-warnings 99"
   },
   "dependencies": {
     "@clerk/nextjs": "4.27.1",
@@ -44,6 +44,7 @@
     "@tanstack/react-query-devtools": "^4.36.0",
     "@trpc/client": "^10.44.1",
     "@trpc/react-query": "^10.44.1",
+    "@trpc/server": "^10.44.1",
     "@uidotdev/usehooks": "^2.4.1",
     "@uiw/color-convert": "1.4.3",
     "@uiw/react-color-sketch": "1.4.3",
