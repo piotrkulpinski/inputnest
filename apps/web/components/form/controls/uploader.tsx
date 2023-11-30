@@ -53,9 +53,7 @@ export const FormUploader = ({
   }
 
   const onInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      await onUpload(e.target.files[0])
-    }
+    e.target.files?.length && (await onUpload(e.target.files[0]!))
 
     // Reset input value
     e.target.value = ""
