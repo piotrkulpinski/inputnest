@@ -1,9 +1,9 @@
+import type { AppRouter } from "@repo/api/router"
 import type { TRPCClientErrorLike } from "@trpc/client"
 
-import type { Router } from "~/api/router"
 import { createQueryCell } from "~/utils/query-cell"
 
-export const QueryCell = createQueryCell<TRPCClientErrorLike<Router>>({
+export const QueryCell = createQueryCell<TRPCClientErrorLike<AppRouter>>({
   loading: () => null,
   error: () => null,
 })

@@ -5,7 +5,7 @@ import type { HTMLAttributes, ReactNode } from "react"
 
 import { BoxFooter, BoxOverlay } from "~/components/interface/box"
 import { Copy } from "~/components/interface/copy"
-import { H3 } from "~/components/interface/heading"
+import { H2 } from "~/components/interface/heading"
 import { Logo } from "~/components/interface/logo"
 import { config } from "~/config"
 
@@ -24,7 +24,7 @@ export const AuthLayout = ({ children, title, subtitle, ...props }: AuthLayoutPr
           </Logo>
         </div>
 
-        <H3 className="mt-5">{title}</H3>
+        <H2 className="mt-5">{title}</H2>
 
         {!!subtitle && <Copy className="opacity-75">{subtitle}</Copy>}
       </div>

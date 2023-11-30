@@ -4,8 +4,7 @@ import type { VariantProps } from "class-variance-authority"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
-import type { BoxProps } from "~/components/interface/box"
-import { Box } from "~/components/interface/box"
+import { BoxOverlay } from "~/components/interface/box"
 import { Button } from "~/components/interface/button"
 import {
   dialogContentVariants,
@@ -32,19 +31,20 @@ export const AlertOverlay = forwardRef<
 export const AlertContent = forwardRef<
   ElementRef<typeof AlertPrimitive.Content>,
   ComponentPropsWithoutRef<typeof AlertPrimitive.Content> &
-    VariantProps<typeof dialogContentVariants> &
-    BoxProps
+    ComponentPropsWithoutRef<typeof BoxOverlay>
 >(({ className, size, fixed, padded, ...props }, ref) => (
   <AlertPrimitive.Portal>
     <AlertOverlay type="overlay" />
 
-    <Box padded={padded} asChild>
-      <AlertPrimitive.Content
-        ref={ref}
-        className={dialogContentVariants({ size, fixed, className })}
-        {...props}
-      />
-    </Box>
+    <BoxOverlay
+      padded={padded}
+      size={size}
+      fixed={fixed}
+      className={cn(dialogContentVariants(), className)}
+      asChild
+    >
+      <AlertPrimitive.Content ref={ref} {...props} />
+    </BoxOverlay>
   </AlertPrimitive.Portal>
 ))
 

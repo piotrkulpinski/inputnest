@@ -15,7 +15,7 @@ import { cn } from "~/utils/helpers"
 export const DialogRoot = DialogPrimitive.Root
 export const DialogTrigger = DialogPrimitive.Trigger
 
-const dialogOverlayVariants = cva(
+export const dialogOverlayVariants = cva(
   [
     "fixed inset-0 backdrop-blur bg-gray-100/50 duration-300",
     "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
@@ -45,7 +45,7 @@ export const DialogOverlay = forwardRef<
   />
 ))
 
-const dialogContentVariants = cva([
+export const dialogContentVariants = cva([
   "duration-200 ease-in-out",
   "data-[state=open]:animate-in data-[state=closed]:animate-out",
   "data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0",
@@ -73,7 +73,7 @@ export const DialogContent = forwardRef<
   </DialogPrimitive.Portal>
 ))
 
-const dialogSlideoutVariants = cva([
+export const dialogSlideoutVariants = cva([
   "fixed bottom-0 top-12 z-40 h-[calc(100vh-56px)] focus:ring-0",
   "overflow-auto duration-500",
   "data-[state=open]:animate-in data-[state=closed]:animate-out",
