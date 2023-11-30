@@ -1,9 +1,9 @@
-import { TRPCError, initTRPC } from "@trpc/server";
-import superjson from "superjson";
-import { Clerk } from "@clerk/backend";
-import { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
-import { Env } from ".";
-import { db } from "@repo/database";
+import { TRPCError, initTRPC } from "@trpc/server"
+import superjson from "superjson"
+import { Clerk } from "@clerk/backend"
+import { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch"
+import { db } from "@repo/database"
+import { Env } from "."
 
 /**
  * 1. CONTEXT
@@ -27,7 +27,7 @@ type CreateContextOptions = FetchCreateContextFnOptions & {
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = ({ userId }: {userId: string | null}) => {
+const createInnerTRPCContext = ({ userId }: { userId: string | null }) => {
   return { userId, db }
 }
 
@@ -37,15 +37,15 @@ const createInnerTRPCContext = ({ userId }: {userId: string | null}) => {
  * @link https://trpc.io/docs/context
  */
 export const createTRPCContext = async ({ req, env }: CreateContextOptions) => {
-  const clerk = Clerk({ secretKey: env.CLERK_SECRET_KEY });
-  const token = req.headers.get("x-clerk-auth-token");
-  const sessionId = req.headers.get("x-clerk-auth-session-id");
+  const clerk = Clerk({ secretKey: env.CLERK_SECRET_KEY })
+  const token = req.headers.get("x-clerk-auth-token")
+  const sessionId = req.headers.get("x-clerk-auth-session-id")
 
   if (!token || !sessionId) {
     return createInnerTRPCContext({ userId: null })
   }
 
-  const { userId } = await clerk.sessions.verifySession(sessionId, token);
+  const { userId } = await clerk.sessions.verifySession(sessionId, token)
 
   return createInnerTRPCContext({ userId })
 }
@@ -58,7 +58,7 @@ export const createTRPCContext = async ({ req, env }: CreateContextOptions) => {
  */
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
-});
+})
 
 /**
  * 3. ROUTER & PROCEDURE (THE IMPORTANT BIT)

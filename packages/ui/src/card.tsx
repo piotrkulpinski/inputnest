@@ -1,14 +1,11 @@
+import type { AnchorHTMLAttributes } from "react"
+
 export function Card({
   className,
   title,
   children,
   href,
-}: {
-  className?: string;
-  title: string;
-  children: React.ReactNode;
-  href: string;
-}) {
+}: AnchorHTMLAttributes<HTMLAnchorElement>) {
   return (
     <a
       className={className}
@@ -21,5 +18,5 @@ export function Card({
       </h2>
       <p>{children}</p>
     </a>
-  );
+  )
 }

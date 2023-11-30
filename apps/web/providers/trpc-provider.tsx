@@ -6,8 +6,9 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client"
 import { useState } from "react"
 import superjson from "superjson"
-import { api } from "../utils/trpc"
+
 import { env, isDev } from "~/env"
+import { api } from "~/utils/trpc"
 
 const queryClientConfig: QueryClientConfig = {
   defaultOptions: {
@@ -21,13 +22,13 @@ const queryClientConfig: QueryClientConfig = {
 }
 
 type TRPCProviderProps = {
-  children: React.ReactNode;
+  children: React.ReactNode
   headers: Headers
   sessionId: string | null
   token: string | null
 }
 
-export function TRPCProvider({children, headers, sessionId, token}: TRPCProviderProps) {
+export function TRPCProvider({ children, headers, sessionId, token }: TRPCProviderProps) {
   const [queryClient] = useState(() => new QueryClient(queryClientConfig))
 
   const [trpcClient] = useState(() =>
@@ -40,16 +41,16 @@ export function TRPCProvider({children, headers, sessionId, token}: TRPCProvider
         unstable_httpBatchStreamLink({
           url: env.NEXT_PUBLIC_API_URL,
           headers() {
-            const headerMap = new Map(headers);
+            const headerMap = new Map(headers)
 
             // Set the source header to react
-            headerMap.set("x-trpc-source", "react");
+            headerMap.set("x-trpc-source", "react")
 
             // Set the auth headers if they exist
-            token && headerMap.set("x-clerk-auth-token", token);
-            sessionId && headerMap.set("x-clerk-auth-session-id", sessionId);
+            token && headerMap.set("x-clerk-auth-token", token)
+            sessionId && headerMap.set("x-clerk-auth-session-id", sessionId)
 
-            return Object.fromEntries(headerMap);
+            return Object.fromEntries(headerMap)
           },
         }),
       ],

@@ -1,7 +1,8 @@
-'use client'
+"use client"
 
 import { useAuth, useClerk } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
+
 import { config } from "~/config"
 
 export const SignOut = () => {
@@ -18,9 +19,5 @@ export const SignOut = () => {
     }
   }
 
-  return (
-    <button onClick={handleClick}>
-      Sign {isSignedIn ? "Out" : "In"}
-    </button>
-  )
+  return <button onClick={handleClick}>Sign {isSignedIn ? "Out" : "In"}</button>
 }

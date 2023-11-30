@@ -1,6 +1,5 @@
-import { SignOut } from "~/app/SIgnOut";
-import { SayHello } from "./SayHello";
-
+import { SayHello } from "~/app/SayHello"
+import { SignOut } from "~/app/SignOut"
 
 export default function Page() {
   return (
@@ -8,5 +7,5 @@ export default function Page() {
       <SayHello />
       <SignOut />
     </>
-  );
+  )
 }

@@ -2,6 +2,9 @@ name = "userpledge-api"
 main = "src/index.ts"
 compatibility_date = "2023-11-21"
 
+[placement]
+mode = "smart"
+
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
 # Docs: https://developers.cloudflare.com/workers/platform/environment-variables

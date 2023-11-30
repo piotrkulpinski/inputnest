@@ -1,17 +1,19 @@
-import type { Metadata } from "next";
-import { auth } from '@clerk/nextjs';
-import { Inter } from "next/font/google";
-import { headers } from "next/headers";
-import { TRPCProvider } from "../providers/trpc-provider";
-import { ClerkProvider } from "@clerk/nextjs";
-import { config } from "~/config";
-import { PropsWithChildren } from "react";
+import { auth, ClerkProvider } from "@clerk/nextjs"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import { headers } from "next/headers"
+import type { PropsWithChildren } from "react"
 
-import "~/public/globals.css";
-import { env } from "~/env";
+import { config } from "~/config"
+import { env } from "~/env"
 
-const inter = Inter({ subsets: ["latin"],
-variable: '--font-sans', });
+import { TRPCProvider } from "../providers/trpc-provider"
+import "~/public/globals.css"
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+})
 
 const title = [config.title, config.tagline].filter(Boolean).join(" – ")
 const description = config.description ?? ""
@@ -46,12 +48,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans`}>
-
-      <ClerkProvider
-          signInUrl={config.routes.signIn}
-          signUpUrl={config.routes.signUp}
-          afterSignInUrl={config.routes.dashboard}
-          afterSignUpUrl={config.routes.onboarding}
+        <ClerkProvider
           appearance={{
             layout: { socialButtonsVariant: "blockButton", shimmer: true },
             variables: { colorPrimary: "black" },
@@ -68,9 +65,11 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             },
           }}
         >
-          <TRPCProvider headers={headers()} sessionId={sessionId} token={token}>{children}</TRPCProvider>
+          <TRPCProvider headers={headers()} sessionId={sessionId} token={token}>
+            {children}
+          </TRPCProvider>
         </ClerkProvider>
-        </body>
+      </body>
     </html>
-  );
+  )
 }

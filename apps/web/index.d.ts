@@ -1,13 +1,4 @@
 import type { ReactNode } from "react"
-import type { z } from "zod"
-
-import type { companySchema } from "~/api/schema/company"
-
-declare global {
-  namespace PrismaJson {
-    type CompanySettingsJson = z.infer<typeof companySchema>["settings"]
-  }
-}
 
 export type WithOptionalProp<Type, Key extends keyof Type> = Pick<Partial<Type>, Key> &
   Omit<Type, Key>
