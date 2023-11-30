@@ -12,7 +12,7 @@ export const config = {
     "Putting together a directory website was time consuming. UserPledge lets you focus on the content and makes the entire process effortless.",
 
   // Command
-  commandShortcuts: [{ key: "k", metaKey: true }],
+  commandShortcuts: [{ key: "k", metaKey: true }] as const,
 
   // Modules
   ...routesConfig,

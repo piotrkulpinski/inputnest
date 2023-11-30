@@ -15,8 +15,8 @@ export default {
         xs: "480px",
       },
       colors: {
-        black: colors.zinc["900"],
-        outline: colors.zinc["200"],
+        black: colors.gray["900"],
+        outline: colors.gray["200"],
       },
       fontFamily: {
         // mono: ["var(--font-geist-mono)", "monospace"],

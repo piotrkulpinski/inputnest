@@ -8,7 +8,7 @@ import { useState } from "react"
 import superjson from "superjson"
 
 import { env, isDev } from "~/env"
-import { api } from "~/utils/trpc"
+import { api } from "~/services/trpc"
 
 const queryClientConfig: QueryClientConfig = {
   defaultOptions: {
