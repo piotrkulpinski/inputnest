@@ -6,7 +6,7 @@ import { forwardRef, useRef } from "react"
 import { cn } from "~/utils/helpers"
 import { createSimpleContext } from "~/utils/providers"
 
-const formAffixVariants = cva("absolute top-1/2 -translate-y-1/2 px-3 text-sm/5 text-zinc-500", {
+const formAffixVariants = cva("absolute top-1/2 -translate-y-1/2 px-3 text-sm/5 text-gray-500", {
   variants: {
     side: {
       left: "left-px",

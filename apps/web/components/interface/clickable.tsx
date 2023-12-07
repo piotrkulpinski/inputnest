@@ -18,7 +18,9 @@ const clickableVariants = cva(
   ],
   {
     variants: {
-      isActive: { true: "text-black" },
+      isActive: {
+        true: "text-black",
+      },
     },
   },
 )
@@ -29,6 +31,7 @@ type ClickableProps = Omit<HTMLAttributes<HTMLElement>, "prefix"> &
     prefix?: ReactNode
     suffix?: ReactNode
     isLoading?: boolean
+    isDisabled?: boolean
   }
 
 export const Clickable = forwardRef<HTMLButtonElement, ClickableProps>((props, ref) => {
@@ -46,7 +49,7 @@ export const Clickable = forwardRef<HTMLButtonElement, ClickableProps>((props, r
       <Slottable child={children} asChild={asChild}>
         {(child) => (
           <>
-            <Slot className="shrink-0">{prefix}</Slot>
+            <Slot className={cn("shrink-0", isActive && "text-blue-700")}>{prefix}</Slot>
             <span className="flex-1 truncate">{child}</span>
             <Slot className="shrink-0 text-gray-500">{isLoading ? <Loader /> : suffix}</Slot>
           </>

@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss"
-import colors from "tailwindcss/colors"
 import plugin from "tailwindcss/plugin"
 
 export default {
@@ -14,9 +13,8 @@ export default {
       screens: {
         xs: "480px",
       },
-      colors: {
-        black: colors.gray["900"],
-        outline: colors.gray["200"],
+      borderColor: {
+        DEFAULT: "#E2E4E8",
       },
       fontFamily: {
         // mono: ["var(--font-geist-mono)", "monospace"],

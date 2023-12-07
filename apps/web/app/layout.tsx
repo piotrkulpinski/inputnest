@@ -1,6 +1,6 @@
 import { auth, ClerkProvider } from "@clerk/nextjs"
 import type { Metadata } from "next"
-import localFont from "next/font/local"
+import { Inter } from "next/font/google"
 import { headers } from "next/headers"
 import type { PropsWithChildren } from "react"
 
@@ -10,29 +10,8 @@ import { TRPCProvider } from "~/providers/trpc-provider"
 
 import "~/public/globals.css"
 
-const sansFont = localFont({
-  src: [
-    {
-      path: "../public/fonts/passengersans-regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/passengersans-medium.woff2",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/passengersans-semibold.woff2",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/passengersans-bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-  ],
+const sansFont = Inter({
+  subsets: ["latin"],
   variable: "--font-sans",
 })
 
@@ -67,7 +46,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${sansFont.variable} bg-gray-50 font-sans`}>
+      <body className={`${sansFont.variable} font-sans`}>
         <ClerkProvider
           appearance={{
             layout: { socialButtonsVariant: "blockButton", shimmer: true },

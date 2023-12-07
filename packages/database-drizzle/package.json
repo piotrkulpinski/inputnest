@@ -1,0 +1,26 @@
+{
+  "name": "@repo/database-drizzle",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "db:studio": "drizzle-kit studio",
+    "db:push": "drizzle-kit push:pg",
+    "db:migrate": "drizzle-kit generate:pg",
+    "db:migrate:deploy": "tsx ./src/migrate.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.29.1",
+    "pg": "^8.11.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/pg": "^8.10.9",
+    "drizzle-kit": "^0.20.6",
+    "tsx": "^4.6.1"
+  }
+}

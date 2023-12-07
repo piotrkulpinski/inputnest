@@ -35,7 +35,7 @@ const EditorToolbar = ({ textareaRef }: { textareaRef: RefObject<HTMLTextAreaEle
   })
 
   return (
-    <ButtonGroup className="absolute inset-x-px bottom-px h-12 rounded-b-md border-t border-outline bg-white p-2.5">
+    <ButtonGroup className="absolute inset-x-px bottom-px h-12 rounded-b-md border-t bg-white p-2.5">
       <TooltipButton
         tooltip="Bold"
         type="button"

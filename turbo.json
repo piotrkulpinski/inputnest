@@ -4,6 +4,7 @@
     "**/.env.*local"
   ],
   "globalEnv": [
+    "DATABASE_URL",
     "NEXT_PUBLIC_APP_URL",
     "NEXT_PUBLIC_API_URL",
     "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
@@ -22,7 +23,6 @@
   "pipeline": {
     "build": {
       "dependsOn": [
-        "^db:generate",
         "^db:migrate:deploy",
         "^build"
       ],
@@ -33,21 +33,18 @@
     },
     "lint": {
       "dependsOn": [
-        "^db:generate",
         "^lint"
       ]
     },
     "dev": {
-      "dependsOn": [
-        "^db:generate"
-      ],
+      "dependsOn": [],
       "cache": false,
       "persistent": true
     },
     "deploy": {
       "dependsOn": []
     },
-    "db:generate": {
+    "db:studio": {
       "cache": false
     },
     "db:migrate": {
@@ -57,9 +54,6 @@
       "cache": false
     },
     "db:push": {
-      "cache": false
-    },
-    "db:reset": {
       "cache": false
     }
   }

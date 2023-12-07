@@ -2,8 +2,10 @@ import { TRPCError, initTRPC } from "@trpc/server"
 import superjson from "superjson"
 import { Clerk } from "@clerk/backend"
 import { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch"
-import { db } from "@repo/database"
-import { Env } from "."
+import { Env } from ".."
+import { Pool } from "pg"
+import * as schema from "../drizzle/schema"
+import { drizzle } from "drizzle-orm/node-postgres"
 
 /**
  * 1. CONTEXT
@@ -16,19 +18,7 @@ import { Env } from "."
  */
 type CreateContextOptions = FetchCreateContextFnOptions & {
   env: Env
-}
-
-/**
- * This helper generates the "internals" for a tRPC context. If you need to use
- * it, you can export it from here
- *
- * Examples of things you may need it for:
- * - testing, so we dont have to mock Next.js' req/res
- * - trpc's `createSSGHelpers` where we don't have req/res
- * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
- */
-const createInnerTRPCContext = ({ userId }: { userId: string | null }) => {
-  return { userId, db }
+  pool: Pool
 }
 
 /**
@@ -36,18 +26,19 @@ const createInnerTRPCContext = ({ userId }: { userId: string | null }) => {
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createTRPCContext = async ({ req, env }: CreateContextOptions) => {
+export const createTRPCContext = async ({ req, env, pool }: CreateContextOptions) => {
+  const db = drizzle(pool, { schema })
   const clerk = Clerk({ secretKey: env.CLERK_SECRET_KEY })
   const token = req.headers.get("x-clerk-auth-token")
   const sessionId = req.headers.get("x-clerk-auth-session-id")
 
   if (!token || !sessionId) {
-    return createInnerTRPCContext({ userId: null })
+    return { userId: null, db }
   }
 
   const { userId } = await clerk.sessions.verifySession(sessionId, token)
 
-  return createInnerTRPCContext({ userId })
+  return { userId, db }
 }
 
 /**
@@ -58,6 +49,36 @@ export const createTRPCContext = async ({ req, env }: CreateContextOptions) => {
  */
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
+
+  // errorFormatter: ({ shape, error }) => {
+  //   let dataError: typeToFlattenedError<any, string> = {
+  //     formErrors: [],
+  //     fieldErrors: {},
+  //   }
+
+  //   // Zod error
+  //   if (error.cause instanceof ZodError) {
+  //     dataError = Object.assign(dataError, error.cause.flatten())
+  //   }
+
+  //   // Prisma error
+  //   if (error.cause instanceof Prisma.PrismaClientKnownRequestError && error.cause.meta?.target) {
+  //     const name = (error.cause.meta.target as string[]).at(-1)
+
+  //     // Unique constraint
+  //     if (name && error.cause.code === "P2002") {
+  //       dataError.fieldErrors[name] = [`That ${name} has been taken. Please choose another`]
+  //     }
+  //   }
+
+  //   return {
+  //     ...shape,
+  //     data: {
+  //       ...shape.data,
+  //       ...dataError,
+  //     },
+  //   }
+  // },
 })
 
 /**

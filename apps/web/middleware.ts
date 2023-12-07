@@ -8,7 +8,7 @@ export const config = {
 }
 
 export default authMiddleware({
-  publicRoutes: ["/"],
+  publicRoutes: ["/", "/tenant/(.*)"],
 
   afterAuth: (auth, { url, nextUrl, headers }) => {
     // Handle users who aren't authenticated
@@ -28,13 +28,21 @@ export default authMiddleware({
     // Get the pathname of the request (e.g. /, /about, /blog/first-post)
     const path = `${pathname}${params.length > 0 ? `?${params}` : ""}`
 
-    // Subdomain available, rewrite to `/[domain]/[slug] dynamic route
-    if (subdomain) {
-      console.log(`>>> Rewriting: ${pathname} to /${subdomain}${path}`)
-      return NextResponse.rewrite(new URL(`/${subdomain}${path}`, url))
+    if (!subdomain) {
+      // Ignore requests to the root domain
+      return NextResponse.next()
     }
 
-    // Ignore any other requests
-    return NextResponse.next()
+    // Subdomain is "app", rewrite to `/app/[slug]` dynamic route
+    if ("app" === subdomain) {
+      const newPath = `/app${path}`
+      console.log(`>>> Rewriting: ${pathname} to ${newPath}`)
+      return NextResponse.rewrite(new URL(newPath, url))
+    }
+
+    // Subdomain available, rewrite to `/[domain]/[slug] dynamic route
+    const newPath = `/tenant/${subdomain}${path}`
+    console.log(`>>> Rewriting: ${pathname} to ${newPath}`)
+    return NextResponse.rewrite(new URL(newPath, url))
   },
 })

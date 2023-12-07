@@ -18,7 +18,6 @@ export type MenuItem = {
   suffix?: ReactNode
   items?: MenuItem[]
   end?: boolean
-  transition?: boolean
 }
 
 export type PlanInterval = "day" | "week" | "month" | "year"

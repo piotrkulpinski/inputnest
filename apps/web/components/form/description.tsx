@@ -15,7 +15,7 @@ export const FormDescription = forwardRef<
     <Markdown
       ref={ref}
       id={descriptionId}
-      className={cn("text-xs text-zinc-500", className)}
+      className={cn("text-xs text-gray-500", className)}
       {...props}
     />
   )

@@ -15,7 +15,7 @@ export const FormLabel = forwardRef<
     <LabelPrimitive.Root
       ref={ref}
       className={cn(
-        "text-sm font-medium text-zinc-700",
+        "text-sm font-medium text-gray-700",
         required && "after:ml-0.5 after:text-red-600 after:content-['*']",
         className,
       )}

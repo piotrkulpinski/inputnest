@@ -4,12 +4,6 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "db:generate": "prisma generate  --schema=./prisma/schema.prisma",
-    "db:migrate": "prisma migrate dev --name ",
-    "db:migrate:deploy": "prisma migrate deploy",
-    "db:push": "prisma db push --skip-generate",
-    "db:reset": "prisma migrate reset",
-    "format": "prisma format",
     "test": "vitest run",
     "test:watch": "vitest"
   },

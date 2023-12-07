@@ -10,10 +10,10 @@ import { cn } from "~/utils/helpers"
 
 export const formInputVariants = cva(
   [
-    "peer flex gap-2 py-2 px-3 items-center justify-between min-w-0 bg-white border border-outline rounded-md shadow-sm text-sm/5 text-start resize-none transition placeholder:text-zinc-400",
+    "peer flex gap-2 py-2 px-3 items-center justify-between min-w-0 bg-white border border-outline rounded-md shadow-sm text-sm/5 text-start resize-none transition placeholder:text-gray-400",
 
     // Disabled state
-    "disabled:text-zinc-400 disabled:bg-zinc-50 disabled:opacity-70",
+    "disabled:text-gray-400 disabled:bg-gray-50 disabled:opacity-70",
     "group-disabled:pointer-events-none group-disabled:opacity-70",
     "[&:has([disabled])]:pointer-events-none [&:has([disabled])]:opacity-70",
 
@@ -29,7 +29,7 @@ export const formInputVariants = cva(
         true: "font-mono text-[0.875em] whitespace-pre break-normal overflow-x-auto",
       },
       hoverable: {
-        true: "cursor-pointer hover:bg-zinc-50 hover:border-zinc-300",
+        true: "cursor-pointer hover:bg-gray-50 hover:border-gray-300",
       },
       fullWidth: {
         true: "w-full",

@@ -11,7 +11,7 @@ import { Clickable, ClickableClassContext } from "~/components/interface/clickab
 import { cn } from "~/utils/helpers"
 
 const dropdownContentVariants = cva([
-  "flex flex-col z-50 px-4",
+  "flex flex-col z-50 px-4 divide-y",
   "min-w-[--radix-dropdown-menu-trigger-width] max-h-[--radix-popper-available-height]",
   "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
   "data-[side=bottom]:slide-in-from-bottom-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-top-2",
@@ -26,7 +26,7 @@ export const DropdownTrigger = forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Trigger
     ref={ref}
-    className={cn("relative select-none focus:outline-none", className)}
+    className={cn("relative focus:outline-none", className)}
     {...props}
   />
 ))
@@ -37,10 +37,7 @@ export const DropdownGroup = forwardRef<
 >(({ className, children, ...props }, ref) => (
   <DropdownMenuPrimitive.Group
     ref={ref}
-    className={cn(
-      "group -mx-4 flex scroll-p-2 flex-col border-t border-outline px-4 py-2 first:border-0",
-      className,
-    )}
+    className={cn("group -mx-4 flex scroll-p-1 flex-col gap-1 p-1", className)}
     {...props}
   >
     {children}
@@ -70,7 +67,7 @@ export const DropdownItem = forwardRef<
   Omit<ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item>, "prefix"> &
     ComponentPropsWithoutRef<typeof Clickable>
 >(({ className, ...props }, ref) => (
-  <ClickableClassContext.Provider value={cva(cn("-mx-4 px-4 hover:bg-gray-100", className))}>
+  <ClickableClassContext.Provider value={cva(cn("px-3 rounded-md hover:bg-gray-100", className))}>
     <DropdownMenuPrimitive.Item ref={ref} asChild>
       <Clickable asChild {...props} />
     </DropdownMenuPrimitive.Item>

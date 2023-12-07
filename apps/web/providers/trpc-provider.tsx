@@ -61,7 +61,7 @@ export function TRPCProvider({ children, headers, sessionId, token }: TRPCProvid
     <QueryClientProvider client={queryClient}>
       <api.Provider client={trpcClient} queryClient={queryClient}>
         {children}
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       </api.Provider>
     </QueryClientProvider>
   )
