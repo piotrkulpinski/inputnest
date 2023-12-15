@@ -23,7 +23,7 @@
   "pipeline": {
     "build": {
       "dependsOn": [
-        "^db:migrate:deploy",
+        "^db:generate",
         "^build"
       ],
       "outputs": [
@@ -37,23 +37,28 @@
       ]
     },
     "dev": {
-      "dependsOn": [],
+      "dependsOn": [
+        "^db:generate"
+      ],
       "cache": false,
       "persistent": true
     },
     "deploy": {
       "dependsOn": []
     },
+    "db:generate": {
+      "cache": false
+    },
     "db:studio": {
       "cache": false
     },
-    "db:migrate": {
-      "cache": false
-    },
-    "db:migrate:deploy": {
+    "db:pull": {
       "cache": false
     },
     "db:push": {
+      "cache": false
+    },
+    "db:reset": {
       "cache": false
     }
   }

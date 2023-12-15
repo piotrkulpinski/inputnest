@@ -7,19 +7,20 @@
     "lint": "turbo lint",
     "deploy": "turbo deploy",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "db:generate": "turbo db:generate",
     "db:studio": "turbo db:studio",
-    "db:migrate": "turbo db:migrate",
-    "db:migrate:deploy": "turbo db:migrate:deploy",
-    "db:push": "turbo db:push"
+    "db:pull": "turbo db:pull",
+    "db:push": "turbo db:push",
+    "db:reset": "turbo db:reset"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^20.10.1",
+    "@types/node": "^20.10.4",
     "prettier": "^3.1.0",
-    "prettier-plugin-tailwindcss": "^0.5.7",
+    "prettier-plugin-tailwindcss": "^0.5.9",
     "turbo": "latest",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.3"
   },
   "packageManager": "pnpm@8.9.0",
   "engines": {

@@ -1,11 +1,8 @@
-import { TRPCError, initTRPC } from "@trpc/server"
-import superjson from "superjson"
 import { Clerk } from "@clerk/backend"
-import { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch"
-import { Env } from ".."
-import { Pool } from "pg"
-import * as schema from "../drizzle/schema"
-import { drizzle } from "drizzle-orm/node-postgres"
+import { getPrisma } from "@repo/database"
+import { TRPCError, initTRPC } from "@trpc/server"
+import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch"
+import superjson from "superjson"
 
 /**
  * 1. CONTEXT
@@ -17,8 +14,8 @@ import { drizzle } from "drizzle-orm/node-postgres"
  *
  */
 type CreateContextOptions = FetchCreateContextFnOptions & {
-  env: Env
-  pool: Pool
+  secretKey: string
+  databaseUrl: string
 }
 
 /**
@@ -26,9 +23,9 @@ type CreateContextOptions = FetchCreateContextFnOptions & {
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createTRPCContext = async ({ req, env, pool }: CreateContextOptions) => {
-  const db = drizzle(pool, { schema })
-  const clerk = Clerk({ secretKey: env.CLERK_SECRET_KEY })
+export const createTRPCContext = async ({ req, secretKey, databaseUrl }: CreateContextOptions) => {
+  const db = getPrisma(databaseUrl)
+  const clerk = Clerk({ secretKey })
   const token = req.headers.get("x-clerk-auth-token")
   const sessionId = req.headers.get("x-clerk-auth-session-id")
 

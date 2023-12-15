@@ -1,7 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch"]
-  binaryTargets   = ["native", "darwin-arm64"]
+  previewFeatures = ["driverAdapters"]
 }
 
 generator json {
@@ -9,9 +8,8 @@ generator json {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL") // uses connection pooling
-  directUrl = env("DIRECT_URL") // uses a direct connection
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 enum CompanyMemberRole {

@@ -3,7 +3,7 @@ import plugin from "tailwindcss/plugin"
 
 export default {
   content: [
-    "./pages/**/*.{ts,tsx,mdx}",
+    "./utils/**/*.{ts,tsx,mdx}",
     "./components/**/*.{ts,tsx,mdx}",
     "./app/**/*.{ts,tsx,mdx}",
   ],

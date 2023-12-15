@@ -1,19 +1,6 @@
-export const getValidSubdomain = (host?: string | null) => {
-  let subdomain
+export const getValidSubdomain = (host: string) => {
+  const domain = host.replace("www.", "").replace("localhost", "localhost.local")
+  const parts = domain.split(".")
 
-  if (!host && typeof window !== "undefined") {
-    // On client side, get the host from window
-    host = window.location.host
-  }
-
-  if (host && host.includes(".")) {
-    const candidate = host.split(".")[0]
-
-    if (candidate && !candidate.includes("localhost")) {
-      // Valid candidate
-      subdomain = candidate
-    }
-  }
-
-  return subdomain
+  return parts.length > 2 ? parts[0] : null
 }

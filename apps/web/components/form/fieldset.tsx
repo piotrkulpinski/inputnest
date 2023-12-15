@@ -9,7 +9,10 @@ export const FormFieldset = forwardRef<
 >(({ className, ...props }, ref) => {
   return (
     <fieldset
-      className={cn("group relative flex min-w-0 flex-col gap-x-4 gap-y-6 @container", className)}
+      className={cn(
+        "group relative flex w-full min-w-0 flex-col gap-x-4 gap-y-6 @container",
+        className,
+      )}
       ref={ref}
       {...props}
     />

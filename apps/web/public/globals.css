@@ -11,9 +11,9 @@ a,
 button,
 label[for],
 [class*="group-hover"] {
-  /* @apply transition;
+  @apply transition;
   @apply ease-out;
-  @apply duration-150; */
+  @apply duration-150;
   @apply cursor-pointer;
 }
 

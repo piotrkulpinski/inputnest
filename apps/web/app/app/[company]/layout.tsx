@@ -32,13 +32,9 @@ export default function CompanyLayout({ children }: PropsWithChildren) {
         <div className="flex min-h-screen">
           <div className="sticky top-14 z-40 flex h-screen w-64 shrink-0 flex-col gap-y-5 overflow-y-scroll border-r bg-white p-5 max-lg:hidden max-lg:h-full xl:w-72">
             <NavCompany />
-
-            <hr />
-
+            <hr className="-mx-5" />
             <NavMain className="flex-1" />
-
-            <hr />
-
+            <hr className="-mx-5" />
             <NavUser />
           </div>
 

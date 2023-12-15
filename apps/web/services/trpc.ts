@@ -1,4 +1,4 @@
-import type { AppRouter } from "@repo/api/router"
+import type { AppRouter } from "@repo/api"
 import { createTRPCReact } from "@trpc/react-query"
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server"
 import superjson from "superjson"

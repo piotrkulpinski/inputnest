@@ -1,8 +1,6 @@
 import type { ExecutionContext } from "@cloudflare/workers-types"
-import { appRouter } from "./router"
-import { Pool } from "pg"
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch"
-import { createTRPCContext } from "./trpc/trpc"
+import { appRouter, createTRPCContext } from "@repo/api"
 
 export interface Env {
   CLERK_SECRET_KEY: string
@@ -15,20 +13,19 @@ export default {
       return handleCORSPreflight()
     }
 
-    const pool = new Pool({ connectionString: env.DATABASE_URL })
+    const secretKey = env.CLERK_SECRET_KEY
+    const databaseUrl = env.DATABASE_URL
 
     const response = await fetchRequestHandler({
       req: request,
       endpoint: "",
       router: appRouter,
       createContext: () =>
-        createTRPCContext({ env, req: request, pool, resHeaders: new Headers() }),
+        createTRPCContext({ secretKey, databaseUrl, req: request, resHeaders: new Headers() }),
       onError: ({ path, error }) => {
         console.error(`❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`)
       },
     })
-
-    // ctx.waitUntil(pool.end())
 
     return addCORSHeaders(response)
   },

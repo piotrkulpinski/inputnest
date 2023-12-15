@@ -20,7 +20,7 @@ const buttonVariants = cva(
   {
     variants: {
       theme: {
-        primary: "bg-gray-900 border-transparent text-white hover:bg-gray-800/90",
+        primary: "bg-blue-800 border-transparent text-white hover:bg-blue-800/95",
         secondary: "bg-white text-gray-600 border-outline hover:bg-gray-50 hover:border-gray-300",
         clean: "!p-0 -m-px bg-transparent border-transparent shadow-none hover:text-black",
       },

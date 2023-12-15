@@ -1,4 +1,5 @@
-import { createTRPCRouter } from "../trpc/trpc"
+import { createTRPCRouter } from "../trpc"
+
 import { companiesRouter } from "./companies"
 
 // app router
