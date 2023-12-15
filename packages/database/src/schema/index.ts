@@ -1,5 +1,15 @@
 import { z } from "zod"
 
+export * from "./board"
+export * from "./comment"
+export * from "./company"
+export * from "./domain"
+export * from "./post"
+export * from "./status"
+export * from "./tag"
+export * from "./user"
+export * from "./vote"
+
 const reservedSlugs = [
   "backpack-scout",
   "admin",

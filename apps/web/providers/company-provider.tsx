@@ -1,12 +1,14 @@
 import type { PropsWithChildren } from "react"
 
-import type { CompanyWithMembers } from "~/api/types/company"
+import type { RouterOutputs } from "~/services/trpc"
 import { createSimpleContext } from "~/utils/providers"
 
-const CompanyContext = createSimpleContext<CompanyWithMembers>("Company")
+type Company = NonNullable<RouterOutputs["companies"]["findBySlug"]>
+
+const CompanyContext = createSimpleContext<Company>("Company")
 
 type CompanyProviderProps = PropsWithChildren<{
-  company: CompanyWithMembers
+  company: Company
 }>
 
 export const CompanyProvider = ({ children, company }: CompanyProviderProps) => {

@@ -1,4 +1,4 @@
-import type { AppRouter } from "@repo/api/router"
+import type { AppRouter } from "@repo/api"
 import type { TRPCClientErrorLike } from "@trpc/client"
 
 import { createQueryCell } from "~/utils/query-cell"

@@ -1,8 +1,10 @@
 import { Clerk } from "@clerk/backend"
-import { getPrisma } from "@repo/database"
+import { Prisma, getPrisma } from "@repo/database"
 import { TRPCError, initTRPC } from "@trpc/server"
 import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch"
 import superjson from "superjson"
+import type { typeToFlattenedError } from "zod"
+import { ZodError } from "zod"
 
 /**
  * 1. CONTEXT
@@ -47,35 +49,35 @@ export const createTRPCContext = async ({ req, secretKey, databaseUrl }: CreateC
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
 
-  // errorFormatter: ({ shape, error }) => {
-  //   let dataError: typeToFlattenedError<any, string> = {
-  //     formErrors: [],
-  //     fieldErrors: {},
-  //   }
+  errorFormatter: ({ shape, error }) => {
+    let dataError: typeToFlattenedError<any, string> = {
+      formErrors: [],
+      fieldErrors: {},
+    }
 
-  //   // Zod error
-  //   if (error.cause instanceof ZodError) {
-  //     dataError = Object.assign(dataError, error.cause.flatten())
-  //   }
+    // Zod error
+    if (error.cause instanceof ZodError) {
+      dataError = Object.assign(dataError, error.cause.flatten())
+    }
 
-  //   // Prisma error
-  //   if (error.cause instanceof Prisma.PrismaClientKnownRequestError && error.cause.meta?.target) {
-  //     const name = (error.cause.meta.target as string[]).at(-1)
+    // Prisma error
+    if (error.cause instanceof Prisma.PrismaClientKnownRequestError && error.cause.meta?.target) {
+      const name = (error.cause.meta.target as string[]).at(-1)
 
-  //     // Unique constraint
-  //     if (name && error.cause.code === "P2002") {
-  //       dataError.fieldErrors[name] = [`That ${name} has been taken. Please choose another`]
-  //     }
-  //   }
+      // Unique constraint
+      if (name && error.cause.code === "P2002") {
+        dataError.fieldErrors[name] = [`That ${name} has been taken. Please choose another`]
+      }
+    }
 
-  //   return {
-  //     ...shape,
-  //     data: {
-  //       ...shape.data,
-  //       ...dataError,
-  //     },
-  //   }
-  // },
+    return {
+      ...shape,
+      data: {
+        ...shape.data,
+        ...dataError,
+      },
+    }
+  },
 })
 
 /**

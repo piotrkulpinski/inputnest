@@ -1,6 +1,5 @@
 import { IconChevronDown } from "@tabler/icons-react"
 
-import type { MenuItem } from "index"
 import {
   Accordion,
   AccordionContent,
@@ -9,6 +8,7 @@ import {
 } from "~/components/interface/accordion"
 import { Menu } from "~/components/menu/menu"
 import { MenuLink } from "~/components/menu/menu-link"
+import type { MenuItem } from "~/index"
 
 type MenuAccordionProps = {
   item: MenuItem

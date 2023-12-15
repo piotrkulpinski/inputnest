@@ -1,4 +1,4 @@
-import type { AppRouter } from "@repo/api/router"
+import type { AppRouter } from "@repo/api"
 import type { TRPCClientErrorLike } from "@trpc/client"
 import { useRouter } from "next/navigation"
 import type { FieldValues, useForm, FieldPath } from "react-hook-form"
