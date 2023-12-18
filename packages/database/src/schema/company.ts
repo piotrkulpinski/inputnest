@@ -1,6 +1,6 @@
 import * as z from "zod"
 
-import { idSchema, isReservedSlug, slugSchema } from "."
+import { idSchema, isReservedSlug, slugSchema } from "./index"
 // import { config } from "~/config"
 // import { isLightColor } from "~/utils/helpers"
 

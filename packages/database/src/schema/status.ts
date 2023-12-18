@@ -1,6 +1,6 @@
 import * as z from "zod"
 
-import { colorSchema, idSchema } from "."
+import { colorSchema, idSchema } from "./index"
 
 export const statusDefaults = {
   name: "",

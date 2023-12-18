@@ -1,7 +1,7 @@
 import { authMiddleware, redirectToSignIn } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
 
-import { getValidSubdomain } from "~/utils/requests"
+import { getSubdomainFromHost } from "~/utils/requests"
 
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
@@ -20,7 +20,7 @@ export default authMiddleware({
     const host = headers.get("host")!
 
     // Get the subdomain of the request (e.g. demo)
-    const subdomain = getValidSubdomain(host)
+    const subdomain = getSubdomainFromHost(host)
 
     // Get the query string of the request (e.g. ?foo=bar)
     const params = searchParams.toString()
@@ -28,21 +28,26 @@ export default authMiddleware({
     // Get the pathname of the request (e.g. /, /about, /blog/first-post)
     const path = `${pathname}${params.length > 0 ? `?${params}` : ""}`
 
-    if (!subdomain) {
-      // Ignore requests to the root domain
-      return NextResponse.next()
-    }
+    if (subdomain) {
+      let newPath: string
 
-    // Subdomain is "app", rewrite to `/app/[slug]` dynamic route
-    if ("app" === subdomain) {
-      const newPath = `/app${path}`
-      console.log(`>>> Rewriting: ${pathname} to ${newPath}`)
+      switch (subdomain) {
+        case "app":
+          newPath = `/app${path}`
+          break
+        case "auth":
+          newPath = `/auth${path}`
+          break
+        default:
+          newPath = `/tenant/${subdomain}${path}`
+          break
+      }
+
+      console.log(`>>> Rewriting: ${path} to ${newPath}`)
       return NextResponse.rewrite(new URL(newPath, url))
     }
 
-    // Subdomain available, rewrite to `/[domain]/[slug] dynamic route
-    const newPath = `/tenant/${subdomain}${path}`
-    console.log(`>>> Rewriting: ${pathname} to ${newPath}`)
-    return NextResponse.rewrite(new URL(newPath, url))
+    // Ignore requests to the root domain
+    return NextResponse.next()
   },
 })

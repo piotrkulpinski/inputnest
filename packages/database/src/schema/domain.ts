@@ -1,6 +1,6 @@
 import * as z from "zod"
 
-import { domainNameSchema } from "."
+import { domainNameSchema } from "./index"
 
 export const domainSchema = z.object({
   id: z.string().min(1),

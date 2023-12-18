@@ -1,6 +1,6 @@
 import * as z from "zod"
 
-import { idSchema, slugSchema } from "."
+import { idSchema, slugSchema } from "./index"
 
 export const boardDefaults = {
   name: "",

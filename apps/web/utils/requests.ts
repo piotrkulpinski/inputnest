@@ -1,4 +1,4 @@
-export const getValidSubdomain = (host: string) => {
+export const getSubdomainFromHost = (host: string) => {
   const domain = host.replace("www.", "").replace("localhost", "localhost.local")
   const parts = domain.split(".")
 

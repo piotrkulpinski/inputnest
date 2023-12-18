@@ -1,6 +1,6 @@
 import * as z from "zod"
 
-import { idSchema } from "."
+import { idSchema } from "./index"
 
 export const commentDefaults = {
   content: "",

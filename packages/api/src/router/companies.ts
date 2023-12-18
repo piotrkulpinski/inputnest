@@ -22,8 +22,6 @@ export const companiesRouter = createTRPCRouter({
   create: protectedProcedure
     .input(createCompanySchema)
     .mutation(async ({ ctx: { db, userId }, input }) => {
-      console.log(userId)
-
       const company = await db.company.create({
         data: {
           ...input,
