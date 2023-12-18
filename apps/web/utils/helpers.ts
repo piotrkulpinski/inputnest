@@ -86,7 +86,7 @@ export const isLightColor = (hexa: string) => {
  * @returns The tenant host URL with the given slug.
  */
 export const getTenantUrl = (slug?: string) => {
-  return env.NEXT_PUBLIC_APP_URL.replace("*", slug ?? "")
+  return env.NEXT_PUBLIC_TENANT_URL.replace("*", slug ?? "")
 }
 
 /**

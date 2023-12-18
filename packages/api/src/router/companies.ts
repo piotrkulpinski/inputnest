@@ -1,23 +1,23 @@
 import { CompanyMemberRole, companySchema, createCompanySchema } from "@repo/database"
 
-import { createTRPCRouter, protectedProcedure } from "../trpc"
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc"
 
 export const companiesRouter = createTRPCRouter({
-  findAll: protectedProcedure.query(async ({ ctx: { db, userId } }) => {
+  getBySlug: publicProcedure
+    .input(companySchema.pick({ slug: true }))
+    .query(async ({ ctx: { db }, input: { slug } }) => {
+      return await db.company.findFirst({
+        where: { slug },
+      })
+    }),
+
+  getAll: protectedProcedure.query(async ({ ctx: { db, userId } }) => {
     return await db.company.findMany({
       where: { members: { some: { userId } } },
       include: { domain: true, subscription: true },
       orderBy: { createdAt: "asc" },
     })
   }),
-
-  findBySlug: protectedProcedure
-    .input(companySchema.pick({ slug: true }))
-    .query(async ({ ctx: { db, userId }, input: { slug } }) => {
-      return await db.company.findFirst({
-        where: { slug, members: { some: { userId } } },
-      })
-    }),
 
   create: protectedProcedure
     .input(createCompanySchema)

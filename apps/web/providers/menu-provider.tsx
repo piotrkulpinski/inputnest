@@ -30,23 +30,23 @@ export const MenuProvider = ({ children }: PropsWithChildren) => {
     {
       title: "Manage",
       items: [
-        { title: "Dashboard", href: `/${slug}`, prefix: <IconTable /> },
-        { title: "Posts", href: `/${slug}/posts`, prefix: <IconMist /> },
+        { title: "Dashboard", href: `/app/${slug}`, prefix: <IconTable />, end: true },
+        { title: "Posts", href: `/app/${slug}/posts`, prefix: <IconMist /> },
         {
           title: "Roadmap",
-          href: `/#`,
+          href: `/app/#`,
           prefix: <IconCrystalBall />,
           suffix: <Badge size="sm">Soon</Badge>,
         },
         {
           title: "Changelog",
-          href: `/#`,
+          href: `/app/#`,
           prefix: <IconReplace />,
           suffix: <Badge size="sm">Soon</Badge>,
         },
         {
           title: "Users",
-          href: `/#`,
+          href: `/app/#`,
           prefix: <IconUsers />,
           suffix: <Badge size="sm">Soon</Badge>,
         },
@@ -55,7 +55,7 @@ export const MenuProvider = ({ children }: PropsWithChildren) => {
     {
       title: "Other",
       items: [
-        { title: "Settings", href: `/${slug}/settings`, prefix: <IconSettings /> },
+        { title: "Settings", href: `/app/${slug}/settings`, prefix: <IconSettings /> },
         { title: "Import/Export", href: `/#`, prefix: <IconTransfer /> },
       ],
     },

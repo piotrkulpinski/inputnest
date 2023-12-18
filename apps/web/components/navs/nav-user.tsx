@@ -1,5 +1,6 @@
 import { useClerk, useUser } from "@clerk/nextjs"
 import { IconLogout, IconMessage, IconUser } from "@tabler/icons-react"
+import Link from "next/link"
 import type { HTMLAttributes } from "react"
 import { useState } from "react"
 
@@ -11,7 +12,6 @@ import {
   DropdownRoot,
   DropdownTrigger,
 } from "~/components/interface/dropdown"
-import { MenuLink } from "~/components/menu/menu-link"
 import { config } from "~/config"
 import { useCrisp } from "~/hooks/use-crisp"
 import { useMutationHandler } from "~/hooks/use-mutation-handler"
@@ -81,7 +81,9 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
         <DropdownGroup>
           {config.navigations.help.map((item) => (
             <DropdownItem key={item.href}>
-              <MenuLink item={item} />
+              <Link href={item.href} target={item.target}>
+                {item.title}
+              </Link>
             </DropdownItem>
           ))}
         </DropdownGroup>

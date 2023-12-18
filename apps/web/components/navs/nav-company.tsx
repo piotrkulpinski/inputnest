@@ -19,7 +19,7 @@ import { cn } from "~/utils/helpers"
 
 export const NavCompany = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => {
   const { name, slug: companySlug } = useCompany()
-  const { data: companies, isSuccess } = api.companies.findAll.useQuery()
+  const { data: companies, isSuccess } = api.companies.getAll.useQuery()
 
   // Get the plan for the company
   // const plan = getSubscriptionPlan(subscription)

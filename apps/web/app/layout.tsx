@@ -19,7 +19,7 @@ const title = [config.title, config.tagline].filter(Boolean).join(" – ")
 const description = config.description ?? ""
 
 export const metadata: Metadata = {
-  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
+  metadataBase: new URL(env.NEXT_PUBLIC_URL),
   title,
   description,
   alternates: { canonical: "/" },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: config.title,
     title,
     description,
-    url: env.NEXT_PUBLIC_APP_URL,
+    url: env.NEXT_PUBLIC_URL,
     images: [
       {
         url: "/ogimage.png",

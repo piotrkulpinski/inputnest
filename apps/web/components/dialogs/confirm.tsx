@@ -1,3 +1,5 @@
+"use client"
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import { forwardRef, useState } from "react"
 import type { ComponentPropsWithoutRef, FormEvent, HTMLAttributes, ReactNode } from "react"

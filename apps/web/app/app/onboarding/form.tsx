@@ -28,7 +28,7 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
   const { mutate: createCompany, isLoading } = api.companies.create.useMutation({
     onSuccess: async ({ slug }) => {
       // Invalidate the companies cache
-      await apiUtils.companies.findAll.invalidate()
+      await apiUtils.companies.getAll.invalidate()
 
       // Redirect with success message
       handleSuccess({

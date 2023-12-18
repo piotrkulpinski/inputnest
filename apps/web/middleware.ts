@@ -8,7 +8,7 @@ export const config = {
 }
 
 export default authMiddleware({
-  publicRoutes: ["/", "/tenant/(.*)"],
+  publicRoutes: [/^(?!\/app).*/],
 
   afterAuth: (auth, { url, nextUrl, headers }) => {
     // Handle users who aren't authenticated
@@ -32,9 +32,6 @@ export default authMiddleware({
       let newPath: string
 
       switch (subdomain) {
-        case "app":
-          newPath = `/app${path}`
-          break
         case "auth":
           newPath = `/auth${path}`
           break

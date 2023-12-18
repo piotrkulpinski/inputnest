@@ -16,7 +16,7 @@ import { api } from "~/services/trpc"
 export default function CompanyLayout({ children }: PropsWithChildren) {
   const { company: slug } = useParams() as { company: string }
 
-  const { data: company, isLoading, isSuccess } = api.companies.findBySlug.useQuery({ slug })
+  const { data: company, isLoading, isSuccess } = api.companies.getBySlug.useQuery({ slug })
 
   if (isLoading) {
     return "loading..."

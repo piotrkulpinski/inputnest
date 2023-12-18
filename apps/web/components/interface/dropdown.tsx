@@ -67,9 +67,11 @@ export const DropdownItem = forwardRef<
   Omit<ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item>, "prefix"> &
     ComponentPropsWithoutRef<typeof Clickable>
 >(({ className, ...props }, ref) => (
-  <ClickableClassContext.Provider value={cva(cn("px-3 rounded-md hover:bg-gray-100", className))}>
+  <ClickableClassContext.Provider
+    value={cva(cn("px-3 rounded-md data-[highlighted]:bg-gray-100", className))}
+  >
     <DropdownMenuPrimitive.Item ref={ref} asChild>
-      <Clickable asChild {...props} />
+      <Clickable asChild isFocusable={false} {...props} />
     </DropdownMenuPrimitive.Item>
   </ClickableClassContext.Provider>
 ))

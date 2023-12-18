@@ -17,10 +17,6 @@ label[for],
   @apply cursor-pointer;
 }
 
-a[target="_blank"]:not([class*="hover:bg"]) {
-  @apply hover:underline;
-}
-
 svg[stroke="currentColor"] {
   @apply stroke-[1.5];
   @apply h-icon;
