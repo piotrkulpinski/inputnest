@@ -39,8 +39,8 @@ importers:
         specifier: 1.12.1
         version: 1.12.1
       '@curiousleaf/utils':
-        specifier: ^1.0.6
-        version: 1.0.6
+        specifier: ^1.0.7
+        version: 1.0.7(@babel/runtime@7.23.5)
       '@dnd-kit/core':
         specifier: ^6.1.0
         version: 6.1.0(react-dom@18.2.0)(react@18.2.0)
@@ -143,9 +143,6 @@ importers:
       '@uidotdev/usehooks':
         specifier: ^2.4.1
         version: 2.4.1(react-dom@18.2.0)(react@18.2.0)
-      '@uiw/color-convert':
-        specifier: 1.4.3
-        version: 1.4.3(@babel/runtime@7.23.5)
       '@uiw/react-color-sketch':
         specifier: 1.4.3
         version: 1.4.3(@babel/runtime@7.23.5)(react-dom@18.2.0)(react@18.2.0)
@@ -277,6 +274,9 @@ importers:
 
   packages/database:
     dependencies:
+      '@curiousleaf/utils':
+        specifier: ^1.0.7
+        version: 1.0.7(@babel/runtime@7.23.5)
       '@epic-web/remember':
         specifier: ^1.0.2
         version: 1.0.2
@@ -635,8 +635,12 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@curiousleaf/utils@1.0.6:
-    resolution: {integrity: sha512-V1Wq+MmUDUTNjMsLrbH2QLahhQQOqE+r5XLfMz4w+CaRQ/g5KIPI3aeHYXS0k42aIHgenpDITq6adOKAYngBsg==}
+  /@curiousleaf/utils@1.0.7(@babel/runtime@7.23.5):
+    resolution: {integrity: sha512-oMSYRcgXPBCJPGvM2/rc0lJyp1nTcyPVVr0zOkwAmAPPQU5Hii3+YtX/nTViOHiQBUQTP3YwmRNMq9vrAW3giA==}
+    dependencies:
+      '@uiw/color-convert': 1.4.3(@babel/runtime@7.23.5)
+    transitivePeerDependencies:
+      - '@babel/runtime'
     dev: false
 
   /@dnd-kit/accessibility@3.1.0(react@18.2.0):

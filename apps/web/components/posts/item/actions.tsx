@@ -27,7 +27,7 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
       await apiUtils.posts.getAll.invalidate({ companyId })
 
       handleSuccess({
-        redirect: `/${slug}/posts`,
+        redirect: `/app/${slug}/posts`,
         success: "Post deleted successfully",
       })
     },

@@ -1,6 +1,6 @@
+import { isLightColor } from "@curiousleaf/utils"
 import type { PopoverContent } from "@radix-ui/react-popover"
 import { IconX } from "@tabler/icons-react"
-import type { ColorResult } from "@uiw/color-convert"
 import Sketch from "@uiw/react-color-sketch"
 import { cva } from "class-variance-authority"
 import type { ComponentPropsWithoutRef, MouseEventHandler } from "react"
@@ -11,7 +11,6 @@ import { IconCheckerboard } from "~/components/interface/icons/checkerboard"
 import { Popover } from "~/components/interface/popover"
 import { config } from "~/config"
 import { useFormField } from "~/providers/field-provider"
-import { isLightColor } from "~/utils/helpers"
 
 const clearerVariants = cva(
   [
@@ -42,7 +41,7 @@ export const FormColorPicker = ({ className, ...props }: FormColorPickerProps) =
     className,
   })
 
-  const handleColorChange = ({ hex }: ColorResult) => {
+  const handleColorChange = ({ hex }: { hex: string }) => {
     clearErrors(field.name)
     setValue(field.name, hex.toLocaleUpperCase())
   }

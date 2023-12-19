@@ -49,7 +49,7 @@ export const NavCompany = ({ className, ...props }: HTMLAttributes<HTMLDivElemen
                   )
                 }
               >
-                <Link href={`/${slug}`}>{name}</Link>
+                <Link href={`/app/${slug}`}>{name}</Link>
               </DropdownItem>
             ))}
         </DropdownGroup>

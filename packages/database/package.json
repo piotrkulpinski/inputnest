@@ -13,6 +13,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@curiousleaf/utils": "^1.0.7",
     "@epic-web/remember": "^1.0.2",
     "@planetscale/database": "^1.11.0",
     "@prisma/adapter-planetscale": "^5.7.0",

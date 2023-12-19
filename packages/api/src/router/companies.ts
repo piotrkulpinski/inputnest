@@ -1,4 +1,10 @@
-import { CompanyMemberRole, companySchema, createCompanySchema } from "@repo/database"
+import {
+  CompanyMemberRole,
+  companySchema,
+  createCompanySchema,
+  idSchema,
+  updateCompanySchema,
+} from "@repo/database"
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc"
 
@@ -42,31 +48,31 @@ export const companiesRouter = createTRPCRouter({
       return company
     }),
 
-  // update: protectedProcedure
-  //   .input(updateCompanySchema)
-  //   .mutation(async ({ ctx: { db, userId }, input }) => {
-  //     const { id, ...data } = input
+  update: protectedProcedure
+    .input(updateCompanySchema)
+    .mutation(async ({ ctx: { db, userId }, input }) => {
+      const { id, ...data } = input
 
-  //     const company = await db.company.update({
-  //       where: { id, members: { some: { userId } } },
-  //       data,
-  //     })
+      const company = await db.company.update({
+        where: { id, members: { some: { userId } } },
+        data,
+      })
 
-  //     return company
-  //   }),
+      return company
+    }),
 
-  // delete: protectedProcedure.input(idSchema).mutation(async ({ ctx: { db, userId }, input }) => {
-  //   const { id } = input
+  delete: protectedProcedure.input(idSchema).mutation(async ({ ctx: { db, userId }, input }) => {
+    const { id } = input
 
-  //   const company = await db.company.delete({
-  //     where: { id, members: { some: { userId } } },
-  //   })
+    const company = await db.company.delete({
+      where: { id, members: { some: { userId } } },
+    })
 
-  //   await inngest.send({
-  //     name: "company.deleted",
-  //     data: company,
-  //   })
+    // await inngest.send({
+    //   name: "company.deleted",
+    //   data: company,
+    // })
 
-  //   return company
-  // }),
+    return company
+  }),
 })

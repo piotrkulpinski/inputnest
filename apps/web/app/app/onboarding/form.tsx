@@ -32,7 +32,7 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
 
       // Redirect with success message
       handleSuccess({
-        redirect: `/${slug}`,
+        redirect: `/app/${slug}`,
         success: "Company created successfully",
       })
     },

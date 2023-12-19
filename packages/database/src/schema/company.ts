@@ -1,8 +1,7 @@
+import { isLightColor } from "@curiousleaf/utils"
 import * as z from "zod"
 
-import { idSchema, isReservedSlug, slugSchema } from "./index"
-// import { config } from "~/config"
-// import { isLightColor } from "~/utils/helpers"
+import { colorSchema, idSchema, isReservedSlug, slugSchema } from "./index"
 
 export enum Theme {
   light = "light",
@@ -17,8 +16,8 @@ export const companyDefaults = {
     company: {
       theme: Theme.user,
       color: "#0051FF",
-      // tagline: `My new ${config.title} company! 👋`,
-      // description: `This is a company built with ${config.title}!`,
+      tagline: `My new UserPledge company! 👋`,
+      description: `This is a company built with UserPledge!`,
     },
   },
 }
@@ -33,11 +32,11 @@ export const companySchema = z.object({
       logo: z.string().optional(),
       favicon: z.string().optional(),
       theme: z.nativeEnum(Theme),
-      // color: colorSchema.refine((color) => !isLightColor(color), {
-      //   message: "choose a color that has a better contrast ratio with white",
-      // }),
-      // tagline: z.string().max(100),
-      // description: z.string().max(250),
+      color: colorSchema.refine((color) => !isLightColor(color), {
+        message: "choose a color that has a better contrast ratio with white",
+      }),
+      tagline: z.string().max(100),
+      description: z.string().max(250),
     }),
   }),
 })

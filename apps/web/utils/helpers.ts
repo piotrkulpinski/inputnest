@@ -1,5 +1,4 @@
 import { removeHttp } from "@curiousleaf/utils"
-import { hexToRgba } from "@uiw/color-convert"
 import type { ClassValue } from "clsx"
 import { clsx } from "clsx"
 import type { ReactNode } from "react"
@@ -8,14 +7,6 @@ import { extendTailwindMerge } from "tailwind-merge"
 
 import { config } from "~/config"
 import { env } from "~/env"
-
-/**
- * Delays the execution of the function by the specified amount of time.
- * @param delay - The amount of time to delay the execution of the function, in milliseconds.
- */
-export const sleep = async (delay: number) => {
-  new Promise((resolve) => setTimeout(resolve, delay))
-}
 
 /**
  * Combines multiple class names into a single string.
@@ -65,19 +56,6 @@ export const getShortcutLabel = () => {
   const { key, metaKey } = shortcut
   const label = `${metaKey ? "⌘" : ""}${key.toUpperCase()}`
   return label
-}
-
-/**
- * Check if a given color in hexadecimal format is a light color.
- *
- * @param hexa - The hexadecimal color code to check.
- * @returns A boolean indicating if the color is light.
- */
-export const isLightColor = (hexa: string) => {
-  const { r, g, b, a } = hexToRgba(hexa)
-  const brightness = r * 0.299 + g * 0.587 + b * 0.114 + (1 - a) * 255
-
-  return brightness > 186
 }
 
 /**

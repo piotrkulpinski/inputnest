@@ -67,23 +67,27 @@ export const MenuProvider = ({ children }: PropsWithChildren) => {
       {
         title: "Settings",
         items: [
-          { title: "General", href: `/${slug}/settings/general`, prefix: <IconSettings /> },
-          { title: "Custom Code", href: `/${slug}/settings/code`, prefix: <IconCodeAsterix /> },
-          { title: "Billing", href: `/${slug}/settings/billing`, prefix: <IconCreditCard /> },
+          { title: "General", href: `/app/${slug}/settings/general`, prefix: <IconSettings /> },
+          { title: "Custom Code", href: `/app/${slug}/settings/code`, prefix: <IconCodeAsterix /> },
+          { title: "Billing", href: `/app/${slug}/settings/billing`, prefix: <IconCreditCard /> },
         ],
       },
       {
         title: "Posts",
         items: [
-          { title: "Boards", href: `/${slug}/settings/boards`, prefix: <IconCards /> },
-          { title: "Statuses", href: `/${slug}/settings/statuses`, prefix: <IconAccessPoint /> },
-          { title: "Tags", href: `/${slug}/settings/tags`, prefix: <IconTag /> },
+          { title: "Boards", href: `/app/${slug}/settings/boards`, prefix: <IconCards /> },
+          {
+            title: "Statuses",
+            href: `/app/${slug}/settings/statuses`,
+            prefix: <IconAccessPoint />,
+          },
+          { title: "Tags", href: `/app/${slug}/settings/tags`, prefix: <IconTag /> },
         ],
       },
       {
         title: "Back",
         items: [
-          { title: "Back to company", href: `/${slug}`, prefix: <IconArrowLeft />, end: true },
+          { title: "Back to company", href: `/app/${slug}`, prefix: <IconArrowLeft />, end: true },
         ],
       },
     ]
