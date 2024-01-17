@@ -1,8 +1,8 @@
+import { Heading } from "@curiousleaf/design"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
 import type { ComponentPropsWithoutRef, ReactNode } from "react"
 
-import { Heading } from "~/components/interface/heading"
 import { List } from "~/components/interface/list"
 import { Markdown } from "~/components/interface/markdown"
 

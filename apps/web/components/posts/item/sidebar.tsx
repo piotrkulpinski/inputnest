@@ -1,5 +1,6 @@
 "use client"
 
+import { Prose } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { PostSchema } from "@repo/database"
 import { postSchema } from "@repo/database"
@@ -13,7 +14,6 @@ import { FormField } from "~/components/form/field"
 import { FormFieldset } from "~/components/form/fieldset"
 import { Button } from "~/components/interface/button"
 import { CardPanel } from "~/components/interface/card"
-import { Copy } from "~/components/interface/copy"
 import { Field } from "~/components/interface/field"
 import { Status } from "~/components/interface/status"
 import { VotesList } from "~/components/votes/list"
@@ -94,7 +94,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
 
           <Field label={`Voters (${votes.data?.length ?? "0"})`}>
             {votes.isLoading && <VotesSkeleton />}
-            {votes.isSuccess && !votes.data?.length && <Copy>No votes yet.</Copy>}
+            {votes.isSuccess && !votes.data?.length && <Prose>No votes yet.</Prose>}
             {votes.isSuccess && !!votes.data?.length && <VotesList votes={votes.data} />}
           </Field>
         </FormFieldset>
@@ -105,7 +105,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
             theme="clean"
             size="sm"
             prefix={<IconArrowLeft />}
-            className="sticky bottom-4 text-zinc-500"
+            className="text-zinc-500 sticky bottom-4"
             asChild
           >
             <Link href="..">Back to all posts</Link>

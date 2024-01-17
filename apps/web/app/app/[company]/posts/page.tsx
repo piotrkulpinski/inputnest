@@ -1,10 +1,9 @@
 "use client"
 
+import { Button, Paragraph } from "@curiousleaf/design"
 import { IconPlus } from "@tabler/icons-react"
 
 import { PostItem } from "~/app/app/[company]/posts/item"
-import { Button } from "~/components/interface/button"
-import { Copy } from "~/components/interface/copy"
 import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Header } from "~/components/interface/header"
 import { Section } from "~/components/interface/section"
@@ -24,9 +23,7 @@ export default function CompanyPostsPage() {
       <Header title={<HeadingCounter data={postsQuery.data}>Posts</HeadingCounter>}>
         <DialogRoot>
           <DialogTrigger asChild>
-            <Button size="md" prefix={<IconPlus />}>
-              Create Post
-            </Button>
+            <Button prefix={<IconPlus />}>Create Post</Button>
           </DialogTrigger>
 
           <DialogContent size="md" asChild>
@@ -39,8 +36,8 @@ export default function CompanyPostsPage() {
         <QueryCell
           query={postsQuery}
           loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
-          error={() => <Copy>There was an error loading the posts.</Copy>}
-          empty={() => <Copy>No posts added for this company yet.</Copy>}
+          error={() => <Paragraph>There was an error loading the posts.</Paragraph>}
+          empty={() => <Paragraph>No posts added for this company yet.</Paragraph>}
           success={({ data }) => (
             <>
               {data.map((post) => (

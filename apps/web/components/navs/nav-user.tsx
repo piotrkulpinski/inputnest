@@ -1,10 +1,10 @@
 import { useClerk, useUser } from "@clerk/nextjs"
+import { Blurb, cx } from "@curiousleaf/design"
 import { IconLogout, IconMessage, IconUser } from "@tabler/icons-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 import { useState } from "react"
 
-import { Blurb } from "~/components/interface/blurb"
 import {
   DropdownContent,
   DropdownGroup,
@@ -15,7 +15,6 @@ import {
 import { config } from "~/config"
 import { useCrisp } from "~/hooks/use-crisp"
 import { useMutationHandler } from "~/hooks/use-mutation-handler"
-import { cn } from "~/utils/helpers"
 
 export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) => {
   const { handleSuccess } = useMutationHandler()
@@ -58,10 +57,10 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
 
   return (
     <DropdownRoot>
-      <DropdownTrigger className={cn("-m-2 min-w-0 rounded-lg p-2 hover:bg-gray-50", className)}>
+      <DropdownTrigger className={cx("-m-2 min-w-0 rounded-lg p-2 hover:bg-gray-100", className)}>
         <Blurb
-          src={user.imageUrl}
-          title={user.fullName ?? ""}
+          avatar={{ src: user.imageUrl, initials: user.fullName || "" }}
+          title={user.fullName || ""}
           description={user.primaryEmailAddress?.emailAddress}
           {...props}
         />

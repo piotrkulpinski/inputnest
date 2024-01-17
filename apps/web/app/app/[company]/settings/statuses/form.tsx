@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import type { StatusSchema } from "@repo/database"
+import { statusSchema, statusDefaults } from "@repo/database"
+import type { HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 
-import type { StatusSchema } from "~/api/schema/status"
-import { statusDefaults, statusSchema } from "~/api/schema/status"
 import { FormColorPicker } from "~/components/form/controls/color-picker"
 import { FormInput } from "~/components/form/controls/input"
 import { FormField } from "~/components/form/field"
@@ -15,7 +16,11 @@ import { useCompany } from "~/providers/company-provider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
-export const StatusForm = ({ status }: { status: RouterOutputs["statuses"]["get"] }) => {
+type StatusFormProps = HTMLAttributes<HTMLFormElement> & {
+  status?: RouterOutputs["statuses"]["getAll"][number]
+}
+
+export const StatusForm = ({ status, ...props }: StatusFormProps) => {
   const apiUtils = api.useUtils()
   const { handleSuccess } = useMutationHandler()
   const { id: companyId } = useCompany()
@@ -53,7 +58,7 @@ export const StatusForm = ({ status }: { status: RouterOutputs["statuses"]["get"
 
   return (
     <FormProvider {...form}>
-      <form className="contents" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="contents" onSubmit={form.handleSubmit(onSubmit)} {...props}>
         <BoxHeader title={`${isEditing ? "Update" : "Create New"} Status`}>
           <DialogClose />
         </BoxHeader>

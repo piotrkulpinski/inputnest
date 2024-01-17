@@ -1,5 +1,6 @@
 "use client"
 
+import { Button } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { CompanySchema } from "@repo/database"
 import { companyDefaults, companySchema } from "@repo/database"
@@ -10,7 +11,6 @@ import { FormAffix } from "~/components/form/affix"
 import { FormInput } from "~/components/form/controls/input"
 import { FormField } from "~/components/form/field"
 import { FormFieldset } from "~/components/form/fieldset"
-import { Button } from "~/components/interface/button"
 import { useFormSlug } from "~/hooks/use-form-slug"
 import { useMutationHandler } from "~/hooks/use-mutation-handler"
 import { api } from "~/services/trpc"
@@ -66,7 +66,7 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
             </FormAffix>
           </FormField>
 
-          <Button isLoading={isLoading} className="mt-auto w-full">
+          <Button isLoading={isLoading} theme="gray" className="mt-auto w-full">
             Create Company
           </Button>
         </FormFieldset>

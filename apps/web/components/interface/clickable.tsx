@@ -1,10 +1,10 @@
+import { Loader } from "@curiousleaf/design"
 import { Slot } from "@radix-ui/react-slot"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
 import { createContext, forwardRef, useContext } from "react"
 import type { HTMLAttributes, ReactNode } from "react"
 
-import { Loader } from "~/components/interface/loader"
 import { Slottable } from "~/components/utils/slottable"
 import { focusVisibleClasses } from "~/utils/classes"
 import { cn } from "~/utils/helpers"

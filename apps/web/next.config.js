@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  transpilePackages: ["@repo/database", "@repo/ui"],
+  transpilePackages: ["@repo/database"],
+  experimental: {
+    optimizePackageImports: ["@tabler/icons-react", "@curiousleaf/design"],
+  },
 
   /** Custom redirects */
   redirects: async () => [

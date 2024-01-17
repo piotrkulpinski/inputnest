@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 ::selection {
-  @apply bg-blue-700;
+  @apply bg-blue;
   @apply text-white;
 }
 
@@ -19,8 +19,7 @@ label[for],
 
 svg[stroke="currentColor"] {
   @apply stroke-[1.5];
-  @apply h-icon;
-  @apply w-icon;
+  @apply size-[1.428em];
 }
 
 div[class^="cl-internal"]:last-child {

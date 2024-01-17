@@ -1,5 +1,6 @@
 "use client"
 
+import { Button } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
 import { FormAffix } from "~/components/form/affix"
@@ -7,7 +8,6 @@ import { FormInput } from "~/components/form/controls/input"
 import { FormField } from "~/components/form/field"
 import { FormFieldset } from "~/components/form/fieldset"
 import { Box, BoxHeader, BoxFooter } from "~/components/interface/box"
-import { Button } from "~/components/interface/button"
 import { useSettings } from "~/providers/settings-provider"
 import { getTenantHost } from "~/utils/helpers"
 
@@ -44,7 +44,9 @@ export const CompanySettingsGeneralForm = (props: HTMLAttributes<HTMLElement>) =
         </FormFieldset>
 
         <BoxFooter>
-          <Button isLoading={isLoading}>Save Changes</Button>
+          <Button isLoading={isLoading} theme="gray">
+            Save Changes
+          </Button>
         </BoxFooter>
       </form>
     </Box>

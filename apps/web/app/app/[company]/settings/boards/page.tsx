@@ -1,5 +1,6 @@
 "use client"
 
+import { Paragraph } from "@curiousleaf/design"
 import { IconPlus } from "@tabler/icons-react"
 import { useState, useEffect } from "react"
 
@@ -7,7 +8,6 @@ import { BoardForm } from "~/app/app/[company]/settings/boards/form"
 import { BoardItem } from "~/app/app/[company]/settings/boards/item"
 import { Box, BoxHeader } from "~/components/interface/box"
 import { Button } from "~/components/interface/button"
-import { Copy } from "~/components/interface/copy"
 import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Skeleton } from "~/components/interface/skeleton"
 import { HeadingCounter } from "~/components/utils/heading-counter"
@@ -43,41 +43,39 @@ export default function CompanySettingsBoardsPage() {
   }, [boardsQuery.data])
 
   return (
-    <>
-      <Box>
-        <BoxHeader
-          title={<HeadingCounter data={boardsQuery.data}>Boards</HeadingCounter>}
-          description="Manage the boards where you and your users can submit feedback."
-        >
-          <DialogRoot>
-            <DialogTrigger asChild>
-              <Button size="md" prefix={<IconPlus />}>
-                Create Board
-              </Button>
-            </DialogTrigger>
+    <Box>
+      <BoxHeader
+        title={<HeadingCounter data={boardsQuery.data}>Boards</HeadingCounter>}
+        description="Manage the boards where you and your users can submit feedback."
+      >
+        <DialogRoot>
+          <DialogTrigger asChild>
+            <Button size="md" prefix={<IconPlus />}>
+              Create Board
+            </Button>
+          </DialogTrigger>
 
-            <DialogContent>
-              <BoardForm />
-            </DialogContent>
-          </DialogRoot>
-        </BoxHeader>
+          <DialogContent>
+            <BoardForm />
+          </DialogContent>
+        </DialogRoot>
+      </BoxHeader>
 
-        <div className="flex flex-col gap-4 md:gap-6">
-          <QueryCell
-            query={boardsQuery}
-            loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
-            error={() => <Copy>There was an error loading the boards.</Copy>}
-            empty={() => <Copy>No boards added for this company yet.</Copy>}
-            success={() => (
-              <SortableProvider items={boards.map(({ id }) => id)} onDragEnd={move}>
-                {boards.map((board) => (
-                  <BoardItem key={board.id} board={board} />
-                ))}
-              </SortableProvider>
-            )}
-          />
-        </div>
-      </Box>
-    </>
+      <div className="flex flex-col gap-4 md:gap-6">
+        <QueryCell
+          query={boardsQuery}
+          loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
+          error={() => <Paragraph>There was an error loading the boards.</Paragraph>}
+          empty={() => <Paragraph>No boards added for this company yet.</Paragraph>}
+          success={() => (
+            <SortableProvider items={boards.map(({ id }) => id)} onDragEnd={move}>
+              {boards.map((board) => (
+                <BoardItem key={board.id} board={board} />
+              ))}
+            </SortableProvider>
+          )}
+        />
+      </div>
+    </Box>
   )
 }

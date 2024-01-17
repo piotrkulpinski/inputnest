@@ -1,5 +1,6 @@
 "use client"
 
+import { Button } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
 import { FormColorPicker } from "~/components/form/controls/color-picker"
@@ -10,7 +11,6 @@ import { FormUploader } from "~/components/form/controls/uploader"
 import { FormField } from "~/components/form/field"
 import { FormFieldset } from "~/components/form/fieldset"
 import { Box, BoxFooter, BoxHeader } from "~/components/interface/box"
-import { Button } from "~/components/interface/button"
 import { config } from "~/config"
 import { useSettings } from "~/providers/settings-provider"
 import { getImage } from "~/utils/images"
@@ -102,7 +102,9 @@ export const CompanySettingsAppearanceForm = (props: HTMLAttributes<HTMLElement>
         </FormFieldset>
 
         <BoxFooter>
-          <Button isLoading={isLoading}>Save Changes</Button>
+          <Button loading={isLoading} theme="gray">
+            Save Changes
+          </Button>
         </BoxFooter>
       </form>
     </Box>

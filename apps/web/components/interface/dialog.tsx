@@ -1,5 +1,6 @@
 "use client"
 
+import { Loader } from "@curiousleaf/design"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { IconX } from "@tabler/icons-react"
 import type { VariantProps } from "class-variance-authority"
@@ -9,7 +10,6 @@ import { forwardRef } from "react"
 
 import { BoxOverlay } from "~/components/interface/box"
 import { Button } from "~/components/interface/button"
-import { Loader } from "~/components/interface/loader"
 import { cn } from "~/utils/helpers"
 
 export const DialogRoot = DialogPrimitive.Root

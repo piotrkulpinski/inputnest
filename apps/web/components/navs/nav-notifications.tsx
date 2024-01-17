@@ -1,4 +1,5 @@
 import { useUser } from "@clerk/nextjs"
+import { Paragraph, Prose } from "@curiousleaf/design"
 import { isRequestInFlight, NetworkStatus } from "@knocklabs/client"
 import { IconBell, IconBellCheck } from "@tabler/icons-react"
 import Link from "next/link"
@@ -6,7 +7,6 @@ import type { HTMLAttributes } from "react"
 
 import { Badge } from "~/components/interface/badge"
 import { Button } from "~/components/interface/button"
-import { Copy } from "~/components/interface/copy"
 import { Dot } from "~/components/interface/dot"
 import {
   DropdownContent,
@@ -69,7 +69,7 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
                 >
                   <Link href={item.blocks[1]?.rendered ?? ""}>
                     <div className="whitespace-normal">
-                      <Copy
+                      <Prose
                         dangerouslySetInnerHTML={{
                           __html: item.blocks[0]?.rendered ?? "",
                         }}
@@ -85,7 +85,7 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
               ))
             ) : (
               <DropdownLabel>
-                <Copy>We&apos;ll let you know when we got something for you.</Copy>
+                <Paragraph>We&apos;ll let you know when we got something for you.</Paragraph>
               </DropdownLabel>
             )}
           </DropdownGroup>
