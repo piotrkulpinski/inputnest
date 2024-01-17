@@ -3,6 +3,7 @@ import type { AppRouter } from "@repo/api"
 import type { BoardSchema } from "@repo/database"
 import { boardSchema, boardDefaults } from "@repo/database"
 import type { TRPCClientErrorLike } from "@trpc/client"
+import type { HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 
 import { FormInput } from "~/components/form/controls/input"
@@ -17,7 +18,11 @@ import { useCompany } from "~/providers/company-provider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
-export const BoardForm = ({ board }: { board?: RouterOutputs["boards"]["get"] }) => {
+type BoardFormProps = HTMLAttributes<HTMLFormElement> & {
+  board?: RouterOutputs["boards"]["getAll"][number]
+}
+
+export const BoardForm = ({ board, ...props }: BoardFormProps) => {
   const apiUtils = api.useUtils()
   const { handleSuccess, handleError } = useMutationHandler()
   const { id: companyId } = useCompany()
@@ -66,7 +71,7 @@ export const BoardForm = ({ board }: { board?: RouterOutputs["boards"]["get"] })
 
   return (
     <FormProvider {...form}>
-      <form className="contents" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="contents" onSubmit={form.handleSubmit(onSubmit)} {...props}>
         <BoxHeader title={`${isEditing ? "Update" : "Create New"} Board`}>
           <DialogClose />
         </BoxHeader>

@@ -1,3 +1,4 @@
+import { Badge } from "@curiousleaf/design"
 import {
   IconAccessPoint,
   IconArrowLeft,
@@ -6,6 +7,7 @@ import {
   IconCreditCard,
   IconCrystalBall,
   IconMist,
+  IconPointFilled,
   IconReplace,
   IconSettings,
   IconTable,
@@ -16,7 +18,6 @@ import {
 import { usePathname } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
-import { Badge } from "~/components/interface/badge"
 import type { MenuItem } from "~/index"
 import { useCompany } from "~/providers/company-provider"
 import { createSimpleContext } from "~/utils/providers"
@@ -36,19 +37,31 @@ export const MenuProvider = ({ children }: PropsWithChildren) => {
           title: "Roadmap",
           href: `/app/#`,
           prefix: <IconCrystalBall />,
-          suffix: <Badge size="sm">Soon</Badge>,
+          suffix: (
+            <Badge prefix={<IconPointFilled />} theme="gray" variant="soft">
+              Soon
+            </Badge>
+          ),
         },
         {
           title: "Changelog",
           href: `/app/#`,
           prefix: <IconReplace />,
-          suffix: <Badge size="sm">Soon</Badge>,
+          suffix: (
+            <Badge prefix={<IconPointFilled />} theme="gray" variant="soft">
+              Soon
+            </Badge>
+          ),
         },
         {
           title: "Users",
           href: `/app/#`,
           prefix: <IconUsers />,
-          suffix: <Badge size="sm">Soon</Badge>,
+          suffix: (
+            <Badge prefix={<IconPointFilled />} theme="gray" variant="soft">
+              Soon
+            </Badge>
+          ),
         },
       ],
     },

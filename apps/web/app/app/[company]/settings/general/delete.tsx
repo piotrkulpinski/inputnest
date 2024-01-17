@@ -1,10 +1,10 @@
 "use client"
 
+import { Button } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
 import { DialogConfirm } from "~/components/dialogs/confirm"
 import { Box, BoxFooter, BoxHeader } from "~/components/interface/box"
-import { Button } from "~/components/interface/button"
 import { useMutationHandler } from "~/hooks/use-mutation-handler"
 import { useCompany } from "~/providers/company-provider"
 import { api } from "~/services/trpc"
@@ -41,7 +41,7 @@ export const CompanySettingsDeleteForm = (props: HTMLAttributes<HTMLElement>) =>
           onConfirm={() => deleteCompany({ id })}
           confirmText={slug}
         >
-          <Button isLoading={isLoading} isDanger>
+          <Button isLoading={isLoading} theme="red">
             Delete
           </Button>
         </DialogConfirm>

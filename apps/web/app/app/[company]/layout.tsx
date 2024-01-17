@@ -1,5 +1,16 @@
 "use client"
 
+import { Badge, MenuItem, Shortcut, Sidebar, ThemeProvider } from "@curiousleaf/design"
+import {
+  IconTable,
+  IconCreditCard,
+  IconCoins,
+  IconHistory,
+  IconReceiptDollar,
+  IconWorldDollar,
+  IconSettings,
+  IconHeadset,
+} from "@tabler/icons-react"
 import { notFound, useParams } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
@@ -7,7 +18,6 @@ import { Checkout } from "~/components/globals/checkout"
 import { Toaster } from "~/components/globals/toaster"
 import { Container } from "~/components/interface/container"
 import { NavCompany } from "~/components/navs/nav-company"
-import { NavMain } from "~/components/navs/nav-main"
 import { NavUser } from "~/components/navs/nav-user"
 import { CompanyProvider } from "~/providers/company-provider"
 import { MenuProvider } from "~/providers/menu-provider"
@@ -25,27 +35,90 @@ export default function CompanyLayout({ children }: PropsWithChildren) {
   if (!isSuccess || !company) {
     notFound()
   }
+  const menus = {
+    Main: [
+      {
+        children: "Dashboard",
+        prefix: <IconTable />,
+        active: true,
+      },
+      {
+        children: "My Cards",
+        prefix: <IconCreditCard />,
+      },
+      {
+        children: "Transfer",
+        prefix: <IconCoins />,
+      },
+      {
+        children: "Transactions",
+        prefix: <IconHistory />,
+      },
+      {
+        children: "Payments",
+        prefix: <IconReceiptDollar />,
+      },
+      {
+        children: "Exchange",
+        prefix: <IconWorldDollar />,
+        suffix: (
+          <Badge theme="gray" variant="soft">
+            Soon
+          </Badge>
+        ),
+        disabled: true,
+      },
+    ],
+
+    Other: [
+      {
+        children: "Settings",
+        prefix: <IconSettings />,
+        suffix: <Shortcut>⌘K</Shortcut>,
+      },
+      {
+        children: "Support",
+        prefix: <IconHeadset />,
+        loading: true,
+      },
+    ],
+  }
 
   return (
-    <CompanyProvider company={company}>
-      <MenuProvider>
-        <div className="flex min-h-screen">
-          <div className="sticky top-0 z-40 flex h-screen w-64 shrink-0 flex-col gap-y-5 overflow-y-scroll border-r bg-white p-5 max-lg:hidden max-lg:h-full xl:w-72">
-            <NavCompany />
-            <hr className="-mx-5" />
-            <NavMain className="flex-1" />
-            <hr className="-mx-5" />
-            <NavUser />
+    <ThemeProvider theme="blue">
+      <CompanyProvider company={company}>
+        <MenuProvider>
+          <div className="flex min-h-screen">
+            <Sidebar>
+              <NavCompany />
+              <Sidebar.Separator />
+
+              <Sidebar.Content>
+                {Object.entries(menus).map(([label, items], i) => (
+                  <Sidebar.Menu key={i}>
+                    <Sidebar.Heading>{label}</Sidebar.Heading>
+
+                    {items.map((item, j) => (
+                      <MenuItem key={j} {...item} />
+                    ))}
+                  </Sidebar.Menu>
+                ))}
+              </Sidebar.Content>
+
+              <Sidebar.Separator />
+
+              <NavUser />
+            </Sidebar>
+
+            <main className="flex-1">
+              <Container>{children}</Container>
+            </main>
           </div>
 
-          <main className="flex-1 pb-10 pt-6 md:pb-12 md:pt-8">
-            <Container>{children}</Container>
-          </main>
-        </div>
-
-        <Toaster />
-        <Checkout />
-      </MenuProvider>
-    </CompanyProvider>
+          <Toaster />
+          <Checkout />
+        </MenuProvider>
+      </CompanyProvider>
+    </ThemeProvider>
   )
 }

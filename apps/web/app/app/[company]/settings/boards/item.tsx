@@ -1,3 +1,4 @@
+import { Loader } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
@@ -7,7 +8,6 @@ import { Button } from "~/components/interface/button"
 import { Card, CardActions, CardDraggable, CardPanel } from "~/components/interface/card"
 import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { H5 } from "~/components/interface/heading"
-import { Loader } from "~/components/interface/loader"
 import { useCompany } from "~/providers/company-provider"
 import { useSortable } from "~/providers/sortable-provider"
 import type { RouterOutputs } from "~/services/trpc"

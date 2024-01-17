@@ -4,6 +4,7 @@
   "baseUrl": ".",
   "compilerOptions": {
     "esModuleInterop": true,
+    "declaration": true,
     "incremental": false,
     "isolatedModules": true,
     "lib": [

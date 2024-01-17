@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import type { TagSchema } from "@repo/database"
+import { tagSchema, tagDefaults } from "@repo/database"
+import type { HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 
-import type { TagSchema } from "~/api/schema/tag"
-import { tagDefaults, tagSchema } from "~/api/schema/tag"
 import { FormColorPicker } from "~/components/form/controls/color-picker"
 import { FormInput } from "~/components/form/controls/input"
 import { FormField } from "~/components/form/field"
@@ -15,7 +16,11 @@ import { useCompany } from "~/providers/company-provider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
-export const TagForm = ({ tag }: { tag: RouterOutputs["tags"]["get"] }) => {
+type TagFormProps = HTMLAttributes<HTMLFormElement> & {
+  tag?: RouterOutputs["tags"]["getAll"][number]
+}
+
+export const TagForm = ({ tag, ...props }: TagFormProps) => {
   const apiUtils = api.useUtils()
   const { handleSuccess } = useMutationHandler()
   const { id: companyId } = useCompany()
@@ -53,7 +58,7 @@ export const TagForm = ({ tag }: { tag: RouterOutputs["tags"]["get"] }) => {
 
   return (
     <FormProvider {...form}>
-      <form className="contents" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="contents" onSubmit={form.handleSubmit(onSubmit)} {...props}>
         <BoxHeader title={`${isEditing ? "Update" : "Create New"} Tag`}>
           <DialogClose />
         </BoxHeader>

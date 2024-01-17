@@ -8,11 +8,13 @@ import { getImage } from "~/utils/images"
 const avatarVariants = cva("relative flex items-center justify-center shrink-0", {
   variants: {
     size: {
-      xs: "w-5 h-5 text-xxxs",
-      sm: "w-6 h-6 text-xxs",
-      md: "w-7 h-7 text-xs",
-      lg: "w-8 h-8 text-sm",
-      xl: "w-9 h-9 text-sm",
+      xs: "size-5 text-xxxs",
+      sm: "size-6 text-xxs",
+      md: "size-8 text-xs",
+      lg: "size-10 text-sm",
+      xl: "size-12 text-sm",
+      '2xl': "size-16 text-base",
+      '3xl': "size-20 text-base",
     },
     hasImage: {
       false: "bg-gray-200 text-gray-600",

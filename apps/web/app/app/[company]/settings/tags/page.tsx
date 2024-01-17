@@ -1,16 +1,19 @@
-import { Link, Outlet } from "@remix-run/react"
+"use client"
+
+import { Paragraph } from "@curiousleaf/design"
 import { IconPlus } from "@tabler/icons-react"
 import { useState, useEffect } from "react"
 
+import { TagForm } from "~/app/app/[company]/settings/tags/form"
+import { TagItem } from "~/app/app/[company]/settings/tags/item"
 import { Box, BoxHeader } from "~/components/interface/box"
 import { Button } from "~/components/interface/button"
-import { Copy } from "~/components/interface/copy"
+import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Skeleton } from "~/components/interface/skeleton"
 import { HeadingCounter } from "~/components/utils/heading-counter"
 import { QueryCell } from "~/components/utils/query-cell"
 import { useCompany } from "~/providers/company-provider"
 import { SortableProvider } from "~/providers/sortable-provider"
-import { TagItem } from "~/routes/$company.settings.tags/item"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
@@ -40,36 +43,40 @@ const CompanySettingsTags = () => {
   }, [tagsQuery.data])
 
   return (
-    <>
-      <Box>
-        <BoxHeader
-          title={<HeadingCounter data={tagsQuery.data}>Tags</HeadingCounter>}
-          description="Customize existing ones or add extra tags you can add for posts."
-        >
-          <Button size="md" prefix={<IconPlus />} asChild>
-            <Link to="new">Create Tag</Link>
-          </Button>
-        </BoxHeader>
+    <Box>
+      <BoxHeader
+        title={<HeadingCounter data={tagsQuery.data}>Tags</HeadingCounter>}
+        description="Customize existing ones or add extra tags you can add for posts."
+      >
+        <DialogRoot>
+          <DialogTrigger asChild>
+            <Button size="md" prefix={<IconPlus />}>
+              Create Tag
+            </Button>
+          </DialogTrigger>
 
-        <div className="flex flex-col gap-4 md:gap-6">
-          <QueryCell
-            query={tagsQuery}
-            loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
-            error={() => <Copy>There was an error loading the tags.</Copy>}
-            empty={() => <Copy>No tags added for this company yet.</Copy>}
-            success={() => (
-              <SortableProvider items={tags.map(({ id }) => id)} onDragEnd={move}>
-                {tags.map((tag) => (
-                  <TagItem key={tag.id} tag={tag} />
-                ))}
-              </SortableProvider>
-            )}
-          />
-        </div>
-      </Box>
+          <DialogContent>
+            <TagForm />
+          </DialogContent>
+        </DialogRoot>
+      </BoxHeader>
 
-      <Outlet />
-    </>
+      <div className="flex flex-col gap-4 md:gap-6">
+        <QueryCell
+          query={tagsQuery}
+          loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
+          error={() => <Paragraph>There was an error loading the tags.</Paragraph>}
+          empty={() => <Paragraph>No tags added for this company yet.</Paragraph>}
+          success={() => (
+            <SortableProvider items={tags.map(({ id }) => id)} onDragEnd={move}>
+              {tags.map((tag) => (
+                <TagItem key={tag.id} tag={tag} />
+              ))}
+            </SortableProvider>
+          )}
+        />
+      </div>
+    </Box>
   )
 }
 

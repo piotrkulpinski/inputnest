@@ -1,10 +1,9 @@
+import { Avatar, Blurb } from "@curiousleaf/design"
 import { getInitials } from "@curiousleaf/utils"
 import { IconCheck, IconPlus, IconSelector } from "@tabler/icons-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 
-import { Avatar } from "~/components/interface/avatar"
-import { Blurb } from "~/components/interface/blurb"
 import {
   DropdownContent,
   DropdownGroup,
@@ -26,8 +25,13 @@ export const NavCompany = ({ className, ...props }: HTMLAttributes<HTMLDivElemen
 
   return (
     <DropdownRoot>
-      <DropdownTrigger className={cn("-m-2 min-w-0 rounded-lg p-2 hover:bg-gray-50", className)}>
-        <Blurb src={null} title={name} description="superstash.co" {...props}>
+      <DropdownTrigger className={cn("-m-2 min-w-0 rounded-lg p-2 hover:bg-gray-100", className)}>
+        <Blurb
+          avatar={{ initials: name, shape: "rounded" }}
+          title={name}
+          description="superstash.co"
+          {...props}
+        >
           <IconSelector className="shrink-0 text-sm text-gray-600" />
         </Blurb>
       </DropdownTrigger>
@@ -39,7 +43,12 @@ export const NavCompany = ({ className, ...props }: HTMLAttributes<HTMLDivElemen
               <DropdownItem
                 key={id}
                 prefix={
-                  <Avatar src={null} fallback={getInitials(name, 2)} size="xs" shape="square" />
+                  <Avatar
+                    src={undefined}
+                    initials={getInitials(name, 2)}
+                    size="sm"
+                    shape="rounded"
+                  />
                 }
                 suffix={
                   slug === companySlug ? (

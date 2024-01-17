@@ -1,19 +1,20 @@
-import type { Tag } from "@prisma/client"
-import { Link } from "@remix-run/react"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
+import { TagForm } from "~/app/app/[company]/settings/tags/form"
 import { DialogConfirm } from "~/components/dialogs/confirm"
 import { Button } from "~/components/interface/button"
 import { Card, CardActions, CardDraggable, CardPanel } from "~/components/interface/card"
+import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { H5 } from "~/components/interface/heading"
 import { Status } from "~/components/interface/status"
 import { useCompany } from "~/providers/company-provider"
 import { useSortable } from "~/providers/sortable-provider"
+import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
 type TagItemProps = ComponentPropsWithoutRef<typeof Card> & {
-  tag: Tag
+  tag: RouterOutputs["tags"]["getAll"][number]
 }
 
 export const TagItem = ({ tag, ...props }: TagItemProps) => {
@@ -38,9 +39,15 @@ export const TagItem = ({ tag, ...props }: TagItemProps) => {
         </H5>
 
         <CardActions>
-          <Button theme="secondary" asChild>
-            <Link to={tag.id}>Edit</Link>
-          </Button>
+          <DialogRoot>
+            <DialogTrigger asChild>
+              <Button theme="secondary">Edit</Button>
+            </DialogTrigger>
+
+            <DialogContent>
+              <TagForm tag={tag} />
+            </DialogContent>
+          </DialogRoot>
 
           <DialogConfirm
             title="Delete your tag?"

@@ -1,21 +1,22 @@
-import type { Status as PrismaStatus } from "@prisma/client"
-import { Link } from "@remix-run/react"
+import { Loader } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
+import { StatusForm } from "~/app/app/[company]/settings/statuses/form"
 import { DialogConfirm } from "~/components/dialogs/confirm"
 import { Button } from "~/components/interface/button"
 import { Card, CardActions, CardDraggable, CardPanel } from "~/components/interface/card"
+import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { H5 } from "~/components/interface/heading"
-import { Loader } from "~/components/interface/loader"
 import { Status } from "~/components/interface/status"
 import { useCompany } from "~/providers/company-provider"
 import { useSortable } from "~/providers/sortable-provider"
+import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 import { cn } from "~/utils/helpers"
 
 type StatusItemProps = ComponentPropsWithoutRef<typeof Card> & {
-  status: PrismaStatus
+  status: RouterOutputs["statuses"]["getAll"][number]
 }
 
 export const StatusItem = ({ status, ...props }: StatusItemProps) => {
@@ -60,9 +61,15 @@ export const StatusItem = ({ status, ...props }: StatusItemProps) => {
             )}
           </div>
 
-          <Button theme="secondary" asChild>
-            <Link to={status.id}>Edit</Link>
-          </Button>
+          <DialogRoot>
+            <DialogTrigger asChild>
+              <Button theme="secondary">Edit</Button>
+            </DialogTrigger>
+
+            <DialogContent>
+              <StatusForm status={status} />
+            </DialogContent>
+          </DialogRoot>
 
           <DialogConfirm
             title="Delete your status?"
