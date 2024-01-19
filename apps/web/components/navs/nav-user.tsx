@@ -1,6 +1,6 @@
 import { useClerk, useUser } from "@clerk/nextjs"
 import { Blurb, cx } from "@curiousleaf/design"
-import { IconLogout, IconMessage, IconUser } from "@tabler/icons-react"
+import { LogOutIcon, MessageCircleIcon, UserIcon } from "lucide-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 import { useState } from "react"
@@ -68,11 +68,15 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
 
       <DropdownContent align="start" {...props}>
         <DropdownGroup>
-          <DropdownItem suffix={<IconUser />} onClick={() => redirectToUserProfile()}>
+          <DropdownItem suffix={<UserIcon />} onClick={() => redirectToUserProfile()}>
             <button type="button">Profile</button>
           </DropdownItem>
 
-          <DropdownItem suffix={<IconMessage />} isLoading={isChatLoading} onClick={toggleChat}>
+          <DropdownItem
+            suffix={<MessageCircleIcon />}
+            isLoading={isChatLoading}
+            onClick={toggleChat}
+          >
             <button type="button">Live Chat</button>
           </DropdownItem>
         </DropdownGroup>
@@ -88,7 +92,7 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
         </DropdownGroup>
 
         <DropdownGroup>
-          <DropdownItem suffix={<IconLogout />} isLoading={isLogoutLoading} onClick={handleLogout}>
+          <DropdownItem suffix={<LogOutIcon />} isLoading={isLogoutLoading} onClick={handleLogout}>
             <button type="button">Logout</button>
           </DropdownItem>
         </DropdownGroup>

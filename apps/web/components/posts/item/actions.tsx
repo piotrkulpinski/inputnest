@@ -1,7 +1,7 @@
 "use client"
 
-import { IconCheck, IconCirclesRelation, IconPencil, IconTrash } from "@tabler/icons-react"
 import { useCopyToClipboard } from "@uidotdev/usehooks"
+import { CheckIcon, CopyIcon, PencilIcon, TrashIcon } from "lucide-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 
@@ -40,13 +40,13 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
         type="button"
         theme="secondary"
         size="sm"
-        prefix={copiedText ? <IconCheck /> : <IconCirclesRelation />}
+        prefix={copiedText ? <CheckIcon /> : <CopyIcon />}
         onClick={() => copyToClipboard(`${getTenantUrl(slug)}/posts/${post.id}`)}
       />
 
       <Tooltip content="Edit Post">
         <div>
-          <Button type="button" theme="secondary" size="sm" prefix={<IconPencil />} asChild>
+          <Button type="button" theme="secondary" size="sm" prefix={<PencilIcon />} asChild>
             <Link href="edit" />
           </Button>
         </div>
@@ -62,7 +62,7 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
           type="button"
           theme="secondary"
           size="sm"
-          prefix={<IconTrash />}
+          prefix={<TrashIcon />}
           isLoading={deletePost.isLoading}
           isDanger
         />

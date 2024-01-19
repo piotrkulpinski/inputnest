@@ -1,10 +1,10 @@
 "use client"
 
+import { H6 } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
 import { CardPanel } from "~/components/interface/card"
 import { Dot } from "~/components/interface/dot"
-import { H6 } from "~/components/interface/heading"
 import { List } from "~/components/interface/list"
 import { Markdown } from "~/components/interface/markdown"
 import { Time } from "~/components/interface/time"

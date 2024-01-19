@@ -1,4 +1,4 @@
-import { IconChevronRight } from "@tabler/icons-react"
+import { ChevronRightIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import type { ComponentProps } from "react"
@@ -29,7 +29,7 @@ export const MenuLink = forwardRef<HTMLButtonElement, MenuLinkProps>((props, ref
     className,
     isActive,
     prefix,
-    suffix: suffix ?? (isActive ? <IconChevronRight className="!stroke-2 !text-xxs" /> : undefined),
+    suffix: suffix ?? (isActive ? <ChevronRightIcon className="!text-xxs !stroke-2" /> : undefined),
     asChild: true,
   }
 

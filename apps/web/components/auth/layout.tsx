@@ -1,9 +1,8 @@
-import { Paragraph } from "@curiousleaf/design"
+import { H5, Paragraph } from "@curiousleaf/design"
 import Link from "next/link"
 import type { HTMLAttributes, ReactNode } from "react"
 
 import { BoxFooter, BoxOverlay } from "~/components/interface/box"
-import { H2 } from "~/components/interface/heading"
 import { Logo } from "~/components/interface/logo"
 import { config } from "~/config"
 
@@ -22,9 +21,13 @@ export const AuthLayout = ({ children, title, subtitle, ...props }: AuthLayoutPr
           </Logo>
         </div>
 
-        <H2 className="mt-5">{title}</H2>
+        <H5 className="mt-5">{title}</H5>
 
-        {!!subtitle && <Paragraph className="opacity-75">{subtitle}</Paragraph>}
+        {!!subtitle && (
+          <Paragraph size="sm" className="opacity-60">
+            {subtitle}
+          </Paragraph>
+        )}
       </div>
 
       <BoxFooter>{children}</BoxFooter>

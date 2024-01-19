@@ -1,14 +1,14 @@
 "use client"
 
 import {
-  IconDots,
-  IconLock,
-  IconLockOpen,
-  IconPencil,
-  IconPin,
-  IconPinnedOff,
-  IconTrash,
-} from "@tabler/icons-react"
+  LockIcon,
+  MoreHorizontalIcon,
+  PencilIcon,
+  PinIcon,
+  PinOffIcon,
+  TrashIcon,
+  UnlockIcon,
+} from "lucide-react"
 import { useState, type HTMLAttributes } from "react"
 import { toast } from "sonner"
 
@@ -60,13 +60,13 @@ export const CommentItemActions = ({ comment, ...props }: CommentItemProps) => {
   return (
     <DropdownRoot>
       <DropdownTrigger asChild>
-        <Button theme="clean" size="xs" prefix={<IconDots />} {...props} />
+        <Button theme="clean" size="xs" prefix={<MoreHorizontalIcon />} {...props} />
       </DropdownTrigger>
 
       <DropdownContent align="start" className="min-w-[11rem]">
         <DropdownGroup>
           <DropdownItem
-            prefix={isPrivate ? <IconLockOpen /> : <IconLock />}
+            prefix={isPrivate ? <UnlockIcon /> : <LockIcon />}
             onClick={() => updateComment.mutate({ ...comment, isPrivate: !isPrivate })}
             isLoading={updateComment.isLoading}
           >
@@ -74,19 +74,19 @@ export const CommentItemActions = ({ comment, ...props }: CommentItemProps) => {
           </DropdownItem>
 
           <DropdownItem
-            prefix={isPinned ? <IconPinnedOff /> : <IconPin />}
+            prefix={isPinned ? <PinOffIcon /> : <PinIcon />}
             onClick={() => updateComment.mutate({ ...comment, isPinned: !isPinned })}
             isLoading={updateComment.isLoading}
           >
             <button>{isPinned ? "Unpin" : "Pin"} Comment</button>
           </DropdownItem>
 
-          <DropdownItem prefix={<IconPencil />} onClick={() => onEdit(comment)}>
+          <DropdownItem prefix={<PencilIcon />} onClick={() => onEdit(comment)}>
             <button>Edit Comment</button>
           </DropdownItem>
 
           <DropdownItem
-            prefix={<IconTrash />}
+            prefix={<TrashIcon />}
             onClick={handleDelete}
             isLoading={deleteComment.isLoading}
             className="text-red-700"

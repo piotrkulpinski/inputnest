@@ -1,4 +1,4 @@
-import { IconChevronDown } from "@tabler/icons-react"
+import { ChevronDownIcon } from "lucide-react"
 
 import {
   Accordion,
@@ -22,7 +22,7 @@ export const MenuAccordion = ({ item, level = 0 }: MenuAccordionProps) => {
         <AccordionTrigger className="group flex w-full items-center gap-2.5">
           <MenuLink item={item} level={level} className="w-full" />
 
-          <IconChevronDown className="-m-1 p-1 opacity-60 transition-transform group-hover:opacity-100 group-data-[state=open]:-rotate-180" />
+          <ChevronDownIcon className="-m-1 p-1 opacity-60 transition-transform group-hover:opacity-100 group-data-[state=open]:-rotate-180" />
         </AccordionTrigger>
 
         <AccordionContent>

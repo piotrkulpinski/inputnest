@@ -1,7 +1,7 @@
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
-import { IconCheck } from "@tabler/icons-react"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
+import { CheckIcon } from "lucide-react"
 import { forwardRef } from "react"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 
@@ -33,7 +33,7 @@ export const Checkbox = forwardRef<
     {...props}
   >
     <CheckboxPrimitive.Indicator asChild>
-      <IconCheck className="!h-3.5 !w-3.5 !stroke-2" />
+      <CheckIcon className="!h-3.5 !w-3.5 !stroke-2" />
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>
 ))

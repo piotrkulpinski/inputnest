@@ -1,5 +1,5 @@
 import { getErrorMessage } from "@curiousleaf/utils"
-import { IconTrash } from "@tabler/icons-react"
+import { TrashIcon } from "lucide-react"
 import type { ChangeEvent, HTMLAttributes, MouseEventHandler } from "react"
 import { useRef, useState } from "react"
 import { useFormContext } from "react-hook-form"
@@ -81,7 +81,7 @@ export const FormUploader = ({
         </Button>
 
         {!!value && (
-          <Button type="button" theme="secondary" prefix={<IconTrash />} onClick={onDelete} />
+          <Button type="button" theme="secondary" prefix={<TrashIcon />} onClick={onDelete} />
         )}
       </ButtonGroup>
     </div>

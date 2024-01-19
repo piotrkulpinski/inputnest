@@ -1,9 +1,9 @@
 "use client"
 
+import { H3 } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
 import { CardPanel } from "~/components/interface/card"
-import { H3 } from "~/components/interface/heading"
 import { PostItemActions } from "~/components/posts/item/actions"
 import { VotesVote } from "~/components/votes/vote"
 import { usePost } from "~/providers/post-provider"

@@ -41,7 +41,7 @@ export const CompanySettingsDeleteForm = (props: HTMLAttributes<HTMLElement>) =>
           onConfirm={() => deleteCompany({ id })}
           confirmText={slug}
         >
-          <Button isLoading={isLoading} theme="red">
+          <Button loading={isLoading} theme="red">
             Delete
           </Button>
         </DialogConfirm>

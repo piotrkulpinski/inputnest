@@ -1,13 +1,13 @@
 "use client"
 
 import { Button, Header } from "@curiousleaf/design"
-import { IconSearch, IconBellRinging, IconCalendar, IconPlus, IconTable } from "@tabler/icons-react"
+import { SearchIcon, BellRingIcon, CalendarIcon, PlusIcon, LayoutDashboardIcon } from "lucide-react"
 
 export default function CompanyDashboard() {
   return (
     <Header
       avatar={{
-        children: <IconTable />,
+        children: <LayoutDashboardIcon />,
         variant: "outline",
         theme: "gray",
       }}
@@ -17,12 +17,12 @@ export default function CompanyDashboard() {
       className="border-b py-4"
     >
       <div className="flex items-center gap-3">
-        <Button theme="gray" variant="ghost" prefix={<IconSearch />} />
-        <Button theme="gray" variant="ghost" prefix={<IconBellRinging />} />
-        <Button theme="gray" variant="outline" prefix={<IconCalendar />}>
+        <Button theme="gray" variant="ghost" prefix={<SearchIcon />} />
+        <Button theme="gray" variant="ghost" prefix={<BellRingIcon />} />
+        <Button theme="gray" variant="outline" prefix={<CalendarIcon />}>
           Schedule
         </Button>
-        <Button prefix={<IconPlus />}>Create Request</Button>
+        <Button prefix={<PlusIcon />}>Create Request</Button>
       </div>
     </Header>
   )

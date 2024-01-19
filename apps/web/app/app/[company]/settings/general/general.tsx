@@ -44,7 +44,7 @@ export const CompanySettingsGeneralForm = (props: HTMLAttributes<HTMLElement>) =
         </FormFieldset>
 
         <BoxFooter>
-          <Button isLoading={isLoading} theme="gray">
+          <Button loading={isLoading} theme="gray">
             Save Changes
           </Button>
         </BoxFooter>

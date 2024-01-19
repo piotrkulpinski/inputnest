@@ -1,6 +1,6 @@
 import { Avatar, Blurb } from "@curiousleaf/design"
 import { getInitials } from "@curiousleaf/utils"
-import { IconCheck, IconPlus, IconSelector } from "@tabler/icons-react"
+import { CheckIcon, ChevronsUpDownIcon, PlusIcon } from "lucide-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 
@@ -32,7 +32,7 @@ export const NavCompany = ({ className, ...props }: HTMLAttributes<HTMLDivElemen
           description="superstash.co"
           {...props}
         >
-          <IconSelector className="shrink-0 text-sm text-gray-600" />
+          <ChevronsUpDownIcon className="shrink-0 text-sm text-gray-600" />
         </Blurb>
       </DropdownTrigger>
 
@@ -52,7 +52,7 @@ export const NavCompany = ({ className, ...props }: HTMLAttributes<HTMLDivElemen
                 }
                 suffix={
                   slug === companySlug ? (
-                    <IconCheck className="!stroke-2" />
+                    <CheckIcon className="!stroke-2" />
                   ) : (
                     <div className="h-4 w-4" />
                   )
@@ -64,7 +64,7 @@ export const NavCompany = ({ className, ...props }: HTMLAttributes<HTMLDivElemen
         </DropdownGroup>
 
         <DropdownGroup>
-          <DropdownItem prefix={<IconPlus />}>
+          <DropdownItem prefix={<PlusIcon />}>
             <Link href={config.routes.onboarding}>New Company</Link>
           </DropdownItem>
         </DropdownGroup>

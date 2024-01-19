@@ -66,7 +66,7 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
             </FormAffix>
           </FormField>
 
-          <Button isLoading={isLoading} theme="gray" className="mt-auto w-full">
+          <Button loading={isLoading} theme="gray" className="mt-auto w-full">
             Create Company
           </Button>
         </FormFieldset>

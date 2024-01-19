@@ -2,15 +2,15 @@
 
 import { Badge, MenuItem, Shortcut, Sidebar, ThemeProvider } from "@curiousleaf/design"
 import {
-  IconTable,
-  IconCreditCard,
-  IconCoins,
-  IconHistory,
-  IconReceiptDollar,
-  IconWorldDollar,
-  IconSettings,
-  IconHeadset,
-} from "@tabler/icons-react"
+  CoinsIcon,
+  CreditCardIcon,
+  HeadphonesIcon,
+  HistoryIcon,
+  LayoutDashboardIcon,
+  Rotate3DIcon,
+  Settings,
+  WalletCardsIcon,
+} from "lucide-react"
 import { notFound, useParams } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
@@ -39,28 +39,28 @@ export default function CompanyLayout({ children }: PropsWithChildren) {
     Main: [
       {
         children: "Dashboard",
-        prefix: <IconTable />,
+        prefix: <LayoutDashboardIcon />,
         active: true,
       },
       {
         children: "My Cards",
-        prefix: <IconCreditCard />,
+        prefix: <CreditCardIcon />,
       },
       {
         children: "Transfer",
-        prefix: <IconCoins />,
+        prefix: <CoinsIcon />,
       },
       {
         children: "Transactions",
-        prefix: <IconHistory />,
+        prefix: <HistoryIcon />,
       },
       {
         children: "Payments",
-        prefix: <IconReceiptDollar />,
+        prefix: <WalletCardsIcon />,
       },
       {
         children: "Exchange",
-        prefix: <IconWorldDollar />,
+        prefix: <Rotate3DIcon />,
         suffix: (
           <Badge theme="gray" variant="soft">
             Soon
@@ -73,12 +73,12 @@ export default function CompanyLayout({ children }: PropsWithChildren) {
     Other: [
       {
         children: "Settings",
-        prefix: <IconSettings />,
+        prefix: <Settings />,
         suffix: <Shortcut>⌘K</Shortcut>,
       },
       {
         children: "Support",
-        prefix: <IconHeadset />,
+        prefix: <HeadphonesIcon />,
         loading: true,
       },
     ],
@@ -91,7 +91,7 @@ export default function CompanyLayout({ children }: PropsWithChildren) {
           <div className="flex min-h-screen">
             <Sidebar>
               <NavCompany />
-              <Sidebar.Separator />
+              <Sidebar.Separator fullWidth />
 
               <Sidebar.Content>
                 {Object.entries(menus).map(([label, items], i) => (
@@ -105,7 +105,7 @@ export default function CompanyLayout({ children }: PropsWithChildren) {
                 ))}
               </Sidebar.Content>
 
-              <Sidebar.Separator />
+              <Sidebar.Separator fullWidth />
 
               <NavUser />
             </Sidebar>

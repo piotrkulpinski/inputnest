@@ -1,11 +1,11 @@
-import { IconChevronUp, IconMessageCircle } from "@tabler/icons-react"
+import { H5 } from "@curiousleaf/design"
+import { ChevronUpIcon, MessageCircleIcon } from "lucide-react"
 import Link from "next/link"
 import type { ComponentPropsWithoutRef } from "react"
 
 import { Badge } from "~/components/interface/badge"
 import { Card, CardPanel } from "~/components/interface/card"
 import { Dot } from "~/components/interface/dot"
-import { H5 } from "~/components/interface/heading"
 import { List } from "~/components/interface/list"
 import type { RouterOutputs } from "~/services/trpc"
 
@@ -19,7 +19,7 @@ export const PostItem = ({ post, ...props }: PostItemProps) => {
       <Link href={post.id}>
         <CardPanel theme="white" flex="row">
           <List className="min-w-0 flex-1 flex-nowrap">
-            <Badge theme="white" prefix={<IconChevronUp />}>
+            <Badge theme="white" prefix={<ChevronUpIcon />}>
               {post._count.votes}
             </Badge>
 
@@ -32,7 +32,7 @@ export const PostItem = ({ post, ...props }: PostItemProps) => {
             </Badge>
 
             <Badge>{post.board.name}</Badge>
-            <Badge prefix={<IconMessageCircle />}>{post._count.comments}</Badge>
+            <Badge prefix={<MessageCircleIcon />}>{post._count.comments}</Badge>
           </List>
         </CardPanel>
       </Link>

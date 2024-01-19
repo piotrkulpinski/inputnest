@@ -1,7 +1,7 @@
 "use client"
 
 import { Button, Paragraph } from "@curiousleaf/design"
-import { IconPlus } from "@tabler/icons-react"
+import { PlusIcon } from "lucide-react"
 
 import { PostItem } from "~/app/app/[company]/posts/item"
 import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
@@ -23,7 +23,7 @@ export default function CompanyPostsPage() {
       <Header title={<HeadingCounter data={postsQuery.data}>Posts</HeadingCounter>}>
         <DialogRoot>
           <DialogTrigger asChild>
-            <Button prefix={<IconPlus />}>Create Post</Button>
+            <Button prefix={<PlusIcon />}>Create Post</Button>
           </DialogTrigger>
 
           <DialogContent size="md" asChild>

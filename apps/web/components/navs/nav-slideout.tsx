@@ -1,6 +1,6 @@
 "use client"
 
-import { IconMenu2, IconX } from "@tabler/icons-react"
+import { MenuIcon, XIcon } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -24,9 +24,9 @@ export const NavSlideout = () => {
 
   return (
     <DialogRoot open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger className="border-color group -m-1 p-1 text-xxs lg:hidden">
-        <IconMenu2 className="group-data-[state=open]:hidden" />
-        <IconX className="group-data-[state=closed]:hidden" />
+      <DialogTrigger className="border-color text-xxs group -m-1 p-1 lg:hidden">
+        <MenuIcon className="group-data-[state=open]:hidden" />
+        <XIcon className="group-data-[state=closed]:hidden" />
       </DialogTrigger>
 
       <DialogSlideout className="xl:hidden">

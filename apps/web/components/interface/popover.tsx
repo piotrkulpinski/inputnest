@@ -1,7 +1,7 @@
 "use client"
 
 import * as PopoverPrimitive from "@radix-ui/react-popover"
-import { IconX } from "@tabler/icons-react"
+import { XIcon } from "lucide-react"
 import type { ComponentPropsWithoutRef, ElementRef, ReactNode } from "react"
 import { forwardRef } from "react"
 
@@ -20,7 +20,7 @@ const PopoverContent = forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "relative z-50 min-w-[8rem] rounded-md border border-outline bg-white p-3 text-xxs text-gray-700 shadow-md",
+        "border-outline text-xxs relative z-50 min-w-[8rem] rounded-md border bg-white p-3 text-gray-700 shadow-md",
         "focus:outline-none",
         className,
       )}
@@ -58,7 +58,7 @@ const PopoverClose = forwardRef<
     ])}
     {...props}
   >
-    <IconX />
+    <XIcon />
     <span className="sr-only">Close</span>
   </PopoverPrimitive.Close>
 ))

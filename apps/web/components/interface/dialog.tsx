@@ -2,9 +2,9 @@
 
 import { Loader } from "@curiousleaf/design"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { IconX } from "@tabler/icons-react"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
+import { XIcon } from "lucide-react"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
@@ -102,7 +102,7 @@ export const DialogClose = forwardRef<
   ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Close ref={ref} className={cn("-my-1", className)} tabIndex={-1} {...props}>
-    <IconX />
+    <XIcon />
   </DialogPrimitive.Close>
 ))
 

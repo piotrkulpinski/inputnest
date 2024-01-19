@@ -1,4 +1,4 @@
-import { Loader } from "@curiousleaf/design"
+import { Loader, H5 } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
@@ -7,7 +7,6 @@ import { DialogConfirm } from "~/components/dialogs/confirm"
 import { Button } from "~/components/interface/button"
 import { Card, CardActions, CardDraggable, CardPanel } from "~/components/interface/card"
 import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
-import { H5 } from "~/components/interface/heading"
 import { Status } from "~/components/interface/status"
 import { useCompany } from "~/providers/company-provider"
 import { useSortable } from "~/providers/sortable-provider"
@@ -48,7 +47,7 @@ export const StatusItem = ({ status, ...props }: StatusItemProps) => {
         </H5>
 
         <CardActions>
-          <div className="order-last mr-2 text-xxs font-medium md:order-first">
+          <div className="text-xxs order-last mr-2 font-medium md:order-first">
             {status.isDefault && "Default"}
 
             {!status.isDefault && (

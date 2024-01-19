@@ -1,7 +1,7 @@
 "use client"
 
 import { Paragraph } from "@curiousleaf/design"
-import { IconPlus } from "@tabler/icons-react"
+import { PlusIcon } from "lucide-react"
 import { useState, useEffect } from "react"
 
 import { BoardForm } from "~/app/app/[company]/settings/boards/form"
@@ -50,7 +50,7 @@ export default function CompanySettingsBoardsPage() {
       >
         <DialogRoot>
           <DialogTrigger asChild>
-            <Button size="md" prefix={<IconPlus />}>
+            <Button size="md" prefix={<PlusIcon />}>
               Create Board
             </Button>
           </DialogTrigger>
