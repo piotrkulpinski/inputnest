@@ -4,7 +4,7 @@ import { Prose } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { PostSchema } from "@repo/database"
 import { postSchema } from "@repo/database"
-import { IconArrowLeft } from "@tabler/icons-react"
+import { ArrowLeftIcon } from "lucide-react"
 import Link from "next/link"
 import { useEffect, type HTMLAttributes } from "react"
 import { FormProvider, useForm } from "react-hook-form"
@@ -104,7 +104,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
             type="button"
             theme="clean"
             size="sm"
-            prefix={<IconArrowLeft />}
+            prefix={<ArrowLeftIcon />}
             className="text-zinc-500 sticky bottom-4"
             asChild
           >

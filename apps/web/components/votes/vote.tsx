@@ -1,4 +1,4 @@
-import { IconTriangle } from "@tabler/icons-react"
+import { TriangleIcon } from "lucide-react"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
@@ -36,7 +36,7 @@ export const VotesVote = forwardRef<ElementRef<typeof Button>, VotesVoteProps>(
         type="button"
         theme="secondary"
         size="sm"
-        prefix={<IconTriangle className="text-[0.75em]" />}
+        prefix={<TriangleIcon className="text-[0.75em]" />}
         className={cn("tabular-nums", className)}
         onClick={() => postId && toggleUpvote({ postId })}
         isLoading={isLoadingVote || isLoading}

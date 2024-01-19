@@ -1,6 +1,6 @@
-import { IconGripVertical } from "@tabler/icons-react"
 import { cva } from "class-variance-authority"
 import type { VariantProps } from "class-variance-authority"
+import { GripVerticalIcon } from "lucide-react"
 import type { ComponentPropsWithoutRef, ElementRef, HTMLProps } from "react"
 import { forwardRef } from "react"
 
@@ -15,7 +15,7 @@ export const Card = forwardRef<ElementRef<typeof Box>, ComponentPropsWithoutRef<
         ref={ref}
         padded={false}
         className={cn(
-          "group/card relative w-full divide-y divide-outline overflow-clip hover:[&[href]]:z-10 hover:[&[href]]:border-gray-300",
+          "group/card divide-outline relative w-full divide-y overflow-clip hover:[&[href]]:z-10 hover:[&[href]]:border-gray-300",
           className,
         )}
         {...props}
@@ -50,13 +50,13 @@ export const CardActions = ({ className, ...props }: HTMLProps<HTMLDivElement>) 
   return <List className={cn("ml-auto w-full empty:contents md:w-auto", className)} {...props} />
 }
 
-type CardDraggableProps = HTMLProps<SVGSVGElement> & {
+type CardDraggableProps = ComponentPropsWithoutRef<typeof GripVerticalIcon> & {
   isDragging?: boolean
 }
 
 export const CardDraggable = ({ className, isDragging, ...props }: CardDraggableProps) => {
   return (
-    <IconGripVertical
+    <GripVerticalIcon
       className={cn(
         "text-sm text-gray-300 transition hover:text-gray-500 focus:outline-none",
         isDragging ? "cursor-grabbing text-gray-500" : "cursor-grab",

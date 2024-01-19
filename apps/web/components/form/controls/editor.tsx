@@ -1,4 +1,4 @@
-import { IconBold, IconCode, IconItalic, IconLink, IconStrikethrough } from "@tabler/icons-react"
+import { ItalicIcon, StrikethroughIcon, CodeIcon, LinkIcon, BoldIcon } from "lucide-react"
 import { useRef } from "react"
 import type { RefObject, ComponentPropsWithoutRef } from "react"
 import { useFormContext } from "react-hook-form"
@@ -42,7 +42,7 @@ const EditorToolbar = ({ textareaRef }: { textareaRef: RefObject<HTMLTextAreaEle
         theme="secondary"
         size="xs"
         tabIndex={-1}
-        prefix={<IconBold />}
+        prefix={<BoldIcon />}
         onClick={() => toggleMarker?.({ prefix: "**", suffix: "**", defaultText: "bold" })}
       />
 
@@ -52,7 +52,7 @@ const EditorToolbar = ({ textareaRef }: { textareaRef: RefObject<HTMLTextAreaEle
         theme="secondary"
         size="xs"
         tabIndex={-1}
-        prefix={<IconItalic />}
+        prefix={<ItalicIcon />}
         onClick={() => toggleMarker?.({ prefix: "_", suffix: "_", defaultText: "italic" })}
       />
 
@@ -62,7 +62,7 @@ const EditorToolbar = ({ textareaRef }: { textareaRef: RefObject<HTMLTextAreaEle
         theme="secondary"
         size="xs"
         tabIndex={-1}
-        prefix={<IconStrikethrough />}
+        prefix={<StrikethroughIcon />}
         onClick={() => toggleMarker?.({ prefix: "~~", suffix: "~~", defaultText: "strikethrough" })}
       />
 
@@ -72,7 +72,7 @@ const EditorToolbar = ({ textareaRef }: { textareaRef: RefObject<HTMLTextAreaEle
         theme="secondary"
         size="xs"
         tabIndex={-1}
-        prefix={<IconCode />}
+        prefix={<CodeIcon />}
         onClick={() => toggleMarker?.({ prefix: "`", suffix: "`", defaultText: "code" })}
       />
 
@@ -82,7 +82,7 @@ const EditorToolbar = ({ textareaRef }: { textareaRef: RefObject<HTMLTextAreaEle
         theme="secondary"
         size="xs"
         tabIndex={-1}
-        prefix={<IconLink />}
+        prefix={<LinkIcon />}
         onClick={() => toggleMarker?.({ prefix: "[", suffix: "](url)", defaultText: "text" })}
       />
     </ButtonGroup>

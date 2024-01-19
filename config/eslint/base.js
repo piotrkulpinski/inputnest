@@ -86,12 +86,10 @@ module.exports = {
         "import/resolver": {
           typescript: {
             project,
+            alwaysTryTypes: true,
           },
           node: {
             extensions: [".ts", ".tsx"],
-          },
-          typescript: {
-            alwaysTryTypes: true,
           },
         },
       },

@@ -1,7 +1,7 @@
 import { useUser } from "@clerk/nextjs"
 import { Paragraph, Prose } from "@curiousleaf/design"
 import { isRequestInFlight, NetworkStatus } from "@knocklabs/client"
-import { IconBell, IconBellCheck } from "@tabler/icons-react"
+import { BellIcon, CheckCheckIcon } from "lucide-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 
@@ -30,7 +30,7 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
       <DropdownTrigger
         className={cn("rounded-full border p-1 text-xs hover:border-gray-300", className)}
       >
-        <IconBell />
+        <BellIcon />
 
         {!!metadata.unseen_count && (
           <Badge size="sm" className="absolute -right-2 -top-2 border border-white">
@@ -47,7 +47,7 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
             <Button
               theme="secondary"
               size="xs"
-              suffix={<IconBellCheck />}
+              suffix={<CheckCheckIcon />}
               onClick={() => feedClient.markAllAsRead()}
               disabled={!metadata.unread_count}
               className="-my-1"
@@ -130,7 +130,7 @@ export const NavNotifications = (props: HTMLAttributes<HTMLElement>) => {
 export const NavNotificationsSkeleton = () => {
   return (
     <span className="rounded-full border p-1 text-xs">
-      <IconBell />
+      <BellIcon />
     </span>
   )
 }

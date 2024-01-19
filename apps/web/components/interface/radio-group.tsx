@@ -1,7 +1,7 @@
 "use client"
 
+import { Dot } from "@curiousleaf/design"
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
-import { IconCircleFilled } from "@tabler/icons-react"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
 import { forwardRef } from "react"
@@ -43,7 +43,7 @@ export const RadioGroupItem = forwardRef<
       {...props}
     >
       <RadioGroupPrimitive.Indicator asChild>
-        <IconCircleFilled className="!h-3 !w-3" />
+        <Dot className="!h-3 !w-3" />
       </RadioGroupPrimitive.Indicator>
 
       {children}

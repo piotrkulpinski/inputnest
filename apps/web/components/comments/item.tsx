@@ -1,6 +1,7 @@
 "use client"
 
-import { IconArrowBackUp, IconLock, IconPin, IconX } from "@tabler/icons-react"
+import { H6 } from "@curiousleaf/design"
+import { LockIcon, PinIcon, XIcon, ReplyIcon } from "lucide-react"
 import Link from "next/link"
 import { type HTMLAttributes } from "react"
 
@@ -10,7 +11,6 @@ import { CommentTree } from "~/components/comments/tree"
 import { Badge } from "~/components/interface/badge"
 import { Button } from "~/components/interface/button"
 import { Dot } from "~/components/interface/dot"
-import { H6 } from "~/components/interface/heading"
 import { List } from "~/components/interface/list"
 import { Markdown } from "~/components/interface/markdown"
 import { Time } from "~/components/interface/time"
@@ -42,7 +42,7 @@ export const CommentItem = ({ className, comment, ...props }: CommentItemProps) 
       {...props}
     >
       <div className="flex items-start gap-4">
-        <UserAvatar user={comment.author} size="lg" className="ring-4 ring-zinc-50 md:ring-8" />
+        <UserAvatar user={comment.author} size="lg" className="ring-zinc-50 ring-4 md:ring-8" />
 
         <div className="flex w-full flex-col gap-4">
           <List>
@@ -53,7 +53,7 @@ export const CommentItem = ({ className, comment, ...props }: CommentItemProps) 
             {comment.isPrivate && (
               <Badge
                 theme="blueSoft"
-                suffix={<IconLock />}
+                suffix={<LockIcon />}
                 className="-my-0.5 @md:first-of-type:ml-auto"
               >
                 Private
@@ -63,7 +63,7 @@ export const CommentItem = ({ className, comment, ...props }: CommentItemProps) 
             {comment.isPinned && (
               <Badge
                 theme="purpleSoft"
-                suffix={<IconPin />}
+                suffix={<PinIcon />}
                 className="-my-0.5 @md:first-of-type:ml-auto"
               >
                 Pinned
@@ -77,13 +77,13 @@ export const CommentItem = ({ className, comment, ...props }: CommentItemProps) 
             <Markdown className="-mt-2" content={comment.content} />
           )}
 
-          <List className="text-xs text-zinc-500">
+          <List className="text-zinc-500 text-xs">
             {[editing?.id, replying?.id].includes(comment.id) ? (
-              <Button theme="clean" size="xs" prefix={<IconX />} onClick={handleCancel}>
+              <Button theme="clean" size="xs" prefix={<XIcon />} onClick={handleCancel}>
                 Cancel
               </Button>
             ) : (
-              <Button theme="clean" size="xs" prefix={<IconArrowBackUp />} onClick={handleReply}>
+              <Button theme="clean" size="xs" prefix={<ReplyIcon />} onClick={handleReply}>
                 Reply
               </Button>
             )}

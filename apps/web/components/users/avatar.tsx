@@ -1,6 +1,6 @@
 import { getInitials } from "@curiousleaf/utils"
-import type { Profile } from "@prisma/client"
-import { IconStarFilled } from "@tabler/icons-react"
+import type { Profile } from "@repo/database"
+import { StarIcon } from "lucide-react"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
@@ -20,7 +20,7 @@ export const UserAvatar = forwardRef<ElementRef<typeof Avatar>, UserAvatarProps>
   return (
     <Avatar ref={ref} src={user.imageUrl} fallback={getInitials(user.name)} {...rest}>
       {isMember && (
-        <IconStarFilled className="absolute -bottom-1 -right-1 rounded-full bg-blue-500 p-0.5 text-[0.675em] text-white ring-2 ring-current grayscale-[35%]" />
+        <StarIcon className="bg-blue-500 absolute -bottom-1 -right-1 rounded-full p-0.5 text-[0.675em] text-white ring-2 ring-current grayscale-[35%]" />
       )}
     </Avatar>
   )

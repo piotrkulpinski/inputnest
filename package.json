@@ -9,6 +9,7 @@
     "lint": "turbo lint",
     "deploy": "turbo deploy",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "typecheck": "tsc --noEmit --skipLibCheck",
     "db:generate": "turbo db:generate",
     "db:studio": "turbo db:studio",
     "db:pull": "turbo db:pull",

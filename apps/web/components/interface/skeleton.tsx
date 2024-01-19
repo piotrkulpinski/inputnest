@@ -1,8 +1,8 @@
+import { H5 } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
 import { Button } from "~/components/interface/button"
 import { Card, CardActions, CardPanel } from "~/components/interface/card"
-import { H5 } from "~/components/interface/heading"
 import { Shimmer } from "~/components/interface/shimmer"
 
 export const Skeleton = ({ ...props }: HTMLAttributes<HTMLElement>) => {

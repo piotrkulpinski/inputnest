@@ -19,7 +19,8 @@
     "NEXT_PUBLIC_KNOCK_FEED_CHANNEL_ID",
     "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
     "SKIP_ENV_VALIDATION",
-    "NODE_ENV"
+    "NODE_ENV",
+    "ANALYZE"
   ],
   "pipeline": {
     "build": {

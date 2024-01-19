@@ -1,8 +1,8 @@
 "use client"
 
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
-import { IconInfoCircle } from "@tabler/icons-react"
 import { cva } from "class-variance-authority"
+import { InfoIcon } from "lucide-react"
 import { forwardRef } from "react"
 import type { ComponentPropsWithoutRef, ElementRef, ReactNode } from "react"
 
@@ -89,7 +89,7 @@ export const Tooltip = forwardRef<HTMLButtonElement, TooltipProps>((props, ref) 
 export const TooltipIcon = forwardRef<HTMLButtonElement, TooltipProps>((props, ref) => {
   return (
     <Tooltip ref={ref} {...props}>
-      <IconInfoCircle />
+      <InfoIcon />
     </Tooltip>
   )
 })

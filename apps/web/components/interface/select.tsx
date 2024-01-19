@@ -1,9 +1,9 @@
 "use client"
 
 import * as SelectPrimitive from "@radix-ui/react-select"
-import { IconCheck, IconChevronDown, IconChevronUp, IconSelector } from "@tabler/icons-react"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon, ChevronsUpDownIcon } from "lucide-react"
 import { forwardRef } from "react"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 
@@ -26,7 +26,7 @@ export const SelectTrigger = forwardRef<
     <div className="flex-1 truncate text-start">{children}</div>
 
     <SelectPrimitive.Icon asChild>
-      <IconSelector className="-mr-1 opacity-70" />
+      <ChevronsUpDownIcon className="-mr-1 opacity-70" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ))
@@ -80,7 +80,7 @@ export const SelectContent = forwardRef<
       {...props}
     >
       <SelectPrimitive.ScrollUpButton className={selectScrollVariants({ position: "top" })}>
-        <IconChevronUp className="opacity-70" />
+        <ChevronUpIcon className="opacity-70" />
       </SelectPrimitive.ScrollUpButton>
 
       <SelectPrimitive.Viewport className={selectViewportVariants({ position })}>
@@ -88,7 +88,7 @@ export const SelectContent = forwardRef<
       </SelectPrimitive.Viewport>
 
       <SelectPrimitive.ScrollDownButton className={selectScrollVariants({ position: "bottom" })}>
-        <IconChevronDown className="opacity-70" />
+        <ChevronDownIcon className="opacity-70" />
       </SelectPrimitive.ScrollDownButton>
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
@@ -121,7 +121,7 @@ export const SelectItem = forwardRef<
     </SelectPrimitive.ItemText>
 
     <SelectPrimitive.ItemIndicator asChild>
-      <IconCheck className="!h-4 !w-4 opacity-70" />
+      <CheckIcon className="!h-4 !w-4 opacity-70" />
     </SelectPrimitive.ItemIndicator>
   </SelectPrimitive.Item>
 ))

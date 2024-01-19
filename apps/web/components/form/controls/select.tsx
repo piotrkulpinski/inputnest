@@ -12,6 +12,7 @@ import {
 } from "../../interface/select"
 
 type FormSelectProps = ComponentPropsWithoutRef<typeof SelectRoot> &
+  ComponentPropsWithoutRef<typeof SelectValue> &
   ComponentPropsWithoutRef<typeof SelectTrigger> & {
     options?: (ComponentPropsWithoutRef<typeof SelectItem> & {
       label?: ReactNode

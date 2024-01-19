@@ -1,6 +1,6 @@
 import * as AlertPrimitive from "@radix-ui/react-alert-dialog"
-import { IconX } from "@tabler/icons-react"
 import type { VariantProps } from "class-variance-authority"
+import { XIcon } from "lucide-react"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
@@ -69,7 +69,7 @@ export const AlertClose = forwardRef<
   ComponentPropsWithoutRef<typeof AlertPrimitive.Cancel>
 >(({ className, ...props }, ref) => (
   <AlertPrimitive.Cancel ref={ref} className={cn("-my-1", className)} tabIndex={-1} {...props}>
-    <IconX />
+    <XIcon />
   </AlertPrimitive.Cancel>
 ))
 

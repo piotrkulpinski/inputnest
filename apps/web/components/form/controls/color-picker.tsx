@@ -1,8 +1,8 @@
 import { isLightColor } from "@curiousleaf/utils"
 import type { PopoverContent } from "@radix-ui/react-popover"
-import { IconX } from "@tabler/icons-react"
 import Sketch from "@uiw/react-color-sketch"
 import { cva } from "class-variance-authority"
+import { XIcon } from "lucide-react"
 import type { ComponentPropsWithoutRef, MouseEventHandler } from "react"
 import { useFormContext } from "react-hook-form"
 
@@ -89,7 +89,7 @@ export const FormColorPicker = ({ className, ...props }: FormColorPickerProps) =
           className={clearerVariants({ light: !!color && isLightColor(color) })}
           onClick={handleClear}
         >
-          <IconX className="pointer-events-none !h-3.5 !w-3.5" />
+          <XIcon className="pointer-events-none !h-3.5 !w-3.5" />
         </button>
       )}
     </div>

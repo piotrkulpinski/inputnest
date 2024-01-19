@@ -4,97 +4,55 @@
     "clear": true,
     "echo": false,
     "focus": true,
-    "panel": "dedicated",
+    "panel": "new",
     "reveal": "silent",
     "showReuseMessage": true
   },
   "tasks": [
     // Workspaces
-    {
-      "label": "Workspaces",
-      "group": "build",
-      "dependsOn": [
-        "terminal: workspace",
-        "terminal: design"
-      ],
-      "runOptions": {
-        "runOn": "folderOpen"
-      }
-    },
-    {
-      "type": "process",
-      "label": "terminal: workspace",
-      "command": "",
-      "isBackground": true,
-      "problemMatcher": [],
-      "options": {},
-      "presentation": {
-        "group": "terminal",
-        "focus": true
-      }
-    },
-    {
-      "type": "process",
-      "label": "terminal: design",
-      "command": "",
-      "isBackground": true,
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}/packages/design/"
-      },
-      "presentation": {
-        "group": "terminal",
-        "focus": true
-      }
-    },
-    // Background Jobs
-    {
-      "label": "Background Jobs",
-      "group": "build",
-      "dependsOn": [
-        "bg: dev server",
-        "bg: storybook",
-        "bg: rollup"
-      ],
-      "runOptions": {
-        "runOn": "folderOpen"
-      }
-    },
-    {
-      "type": "shell",
-      "label": "bg: dev server",
-      "command": "pnpm dev",
-      "isBackground": false,
-      "problemMatcher": [],
-      "options": {},
-      "presentation": {
-        "group": "bg",
-        "focus": false
-      }
-    },
-    {
-      "type": "shell",
-      "label": "bg: storybook",
-      "command": "pnpm design storybook",
-      "isBackground": false,
-      "problemMatcher": [],
-      "options": {},
-      "presentation": {
-        "group": "bg",
-        "focus": false
-      }
-    },
-    {
-      "type": "shell",
-      "label": "bg: rollup",
-      "command": "pnpm design watch",
-      "isBackground": false,
-      "problemMatcher": [],
-      "options": {},
-      "presentation": {
-        "group": "bg",
-        "focus": false
-      }
-    },
+    // {
+    //   "type": "process",
+    //   "label": "design",
+    //   "command": "",
+    //   "isBackground": true,
+    //   "options": {
+    //     "cwd": "${workspaceFolder}/packages/design/"
+    //   },
+    //   "dependsOrder": "sequence",
+    //   "runOptions": {
+    //     "runOn": "folderOpen"
+    //   }
+    // },
+    // // Background Jobs
+    // {
+    //   "type": "shell",
+    //   "label": "dev",
+    //   "command": "pnpm dev",
+    //   "isBackground": true,
+    //   "dependsOrder": "sequence",
+    //   "runOptions": {
+    //     "runOn": "folderOpen"
+    //   }
+    // },
+    // {
+    //   "type": "shell",
+    //   "label": "storybook",
+    //   "command": "pnpm design storybook",
+    //   "isBackground": true,
+    //   "dependsOrder": "sequence",
+    //   "runOptions": {
+    //     "runOn": "folderOpen"
+    //   }
+    // },
+    // {
+    //   "type": "shell",
+    //   "label": "rollup",
+    //   "command": "pnpm design watch",
+    //   "isBackground": true,
+    //   "dependsOrder": "sequence",
+    //   "runOptions": {
+    //     "runOn": "folderOpen"
+    //   }
+    // },
   ]
 }

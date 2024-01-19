@@ -4,8 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import type { AppRouter } from "@repo/api"
 import type { CommentSchema } from "@repo/database"
 import { commentDefaults, commentSchema } from "@repo/database"
-import { IconEye, IconLock } from "@tabler/icons-react"
 import type { TRPCClientErrorLike } from "@trpc/client"
+import { LockIcon, EyeIcon } from "lucide-react"
 import { useParams } from "next/navigation"
 import { useState } from "react"
 import type { HTMLAttributes, KeyboardEventHandler } from "react"
@@ -137,8 +137,8 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
                     hasError={!!form.formState.errors.isPrivate}
                     checked={field.value}
                     onCheckedChange={field.onChange}
-                    onIcon={<IconLock />}
-                    offIcon={<IconEye />}
+                    onIcon={<LockIcon />}
+                    offIcon={<EyeIcon />}
                     ref={field.ref}
                   />
                 )}

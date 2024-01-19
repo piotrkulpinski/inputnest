@@ -1,20 +1,5 @@
 import { Badge } from "@curiousleaf/design"
-import {
-  IconAccessPoint,
-  IconArrowLeft,
-  IconCards,
-  IconCodeAsterix,
-  IconCreditCard,
-  IconCrystalBall,
-  IconMist,
-  IconPointFilled,
-  IconReplace,
-  IconSettings,
-  IconTable,
-  IconTag,
-  IconTransfer,
-  IconUsers,
-} from "@tabler/icons-react"
+import { TableIcon } from "lucide-react"
 import { usePathname } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
@@ -31,14 +16,14 @@ export const MenuProvider = ({ children }: PropsWithChildren) => {
     {
       title: "Manage",
       items: [
-        { title: "Dashboard", href: `/app/${slug}`, prefix: <IconTable />, end: true },
-        { title: "Posts", href: `/app/${slug}/posts`, prefix: <IconMist /> },
+        { title: "Dashboard", href: `/app/${slug}`, prefix: <TableIcon />, end: true },
+        { title: "Posts", href: `/app/${slug}/posts`, prefix: <TableIcon /> },
         {
           title: "Roadmap",
           href: `/app/#`,
-          prefix: <IconCrystalBall />,
+          prefix: <TableIcon />,
           suffix: (
-            <Badge prefix={<IconPointFilled />} theme="gray" variant="soft">
+            <Badge prefix={<TableIcon />} theme="gray" variant="soft">
               Soon
             </Badge>
           ),
@@ -46,9 +31,9 @@ export const MenuProvider = ({ children }: PropsWithChildren) => {
         {
           title: "Changelog",
           href: `/app/#`,
-          prefix: <IconReplace />,
+          prefix: <TableIcon />,
           suffix: (
-            <Badge prefix={<IconPointFilled />} theme="gray" variant="soft">
+            <Badge prefix={<TableIcon />} theme="gray" variant="soft">
               Soon
             </Badge>
           ),
@@ -56,9 +41,9 @@ export const MenuProvider = ({ children }: PropsWithChildren) => {
         {
           title: "Users",
           href: `/app/#`,
-          prefix: <IconUsers />,
+          prefix: <TableIcon />,
           suffix: (
-            <Badge prefix={<IconPointFilled />} theme="gray" variant="soft">
+            <Badge prefix={<TableIcon />} theme="gray" variant="soft">
               Soon
             </Badge>
           ),
@@ -68,8 +53,8 @@ export const MenuProvider = ({ children }: PropsWithChildren) => {
     {
       title: "Other",
       items: [
-        { title: "Settings", href: `/app/${slug}/settings`, prefix: <IconSettings /> },
-        { title: "Import/Export", href: `/#`, prefix: <IconTransfer /> },
+        { title: "Settings", href: `/app/${slug}/settings`, prefix: <TableIcon /> },
+        { title: "Import/Export", href: `/#`, prefix: <TableIcon /> },
       ],
     },
   ]
@@ -80,27 +65,27 @@ export const MenuProvider = ({ children }: PropsWithChildren) => {
       {
         title: "Settings",
         items: [
-          { title: "General", href: `/app/${slug}/settings/general`, prefix: <IconSettings /> },
-          { title: "Custom Code", href: `/app/${slug}/settings/code`, prefix: <IconCodeAsterix /> },
-          { title: "Billing", href: `/app/${slug}/settings/billing`, prefix: <IconCreditCard /> },
+          { title: "General", href: `/app/${slug}/settings/general`, prefix: <TableIcon /> },
+          { title: "Custom Code", href: `/app/${slug}/settings/code`, prefix: <TableIcon /> },
+          { title: "Billing", href: `/app/${slug}/settings/billing`, prefix: <TableIcon /> },
         ],
       },
       {
         title: "Posts",
         items: [
-          { title: "Boards", href: `/app/${slug}/settings/boards`, prefix: <IconCards /> },
+          { title: "Boards", href: `/app/${slug}/settings/boards`, prefix: <TableIcon /> },
           {
             title: "Statuses",
             href: `/app/${slug}/settings/statuses`,
-            prefix: <IconAccessPoint />,
+            prefix: <TableIcon />,
           },
-          { title: "Tags", href: `/app/${slug}/settings/tags`, prefix: <IconTag /> },
+          { title: "Tags", href: `/app/${slug}/settings/tags`, prefix: <TableIcon /> },
         ],
       },
       {
         title: "Back",
         items: [
-          { title: "Back to company", href: `/app/${slug}`, prefix: <IconArrowLeft />, end: true },
+          { title: "Back to company", href: `/app/${slug}`, prefix: <TableIcon />, end: true },
         ],
       },
     ]
