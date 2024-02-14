@@ -1,13 +1,10 @@
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-})
-
 /** @type {import('next').NextConfig} */
-module.exports = withBundleAnalyzer({
-  transpilePackages: ["@repo/database"],
-  experimental: {
-    optimizePackageImports: ["@curiousleaf/design"],
-  },
+export default {
+  transpilePackages: ["@repo/database", "@curiousleaf/design", "@curiousleaf/utils"],
+
+  // experimental: {
+  //   optimizePackageImports: ["@curiousleaf/design"],
+  // },
 
   /** Custom redirects */
   redirects: async () => [
@@ -17,4 +14,4 @@ module.exports = withBundleAnalyzer({
       permanent: true,
     },
   ],
-})
+}

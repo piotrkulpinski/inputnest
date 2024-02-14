@@ -1,7 +1,6 @@
 import { colorsConfig } from "~/config/colors"
 import { contentConfig } from "~/config/content"
 import { filesConfig } from "~/config/files"
-import { navigationsConfig } from "~/config/navs"
 import { plansConfig } from "~/config/plans"
 import { routesConfig } from "~/config/routes"
 
@@ -16,7 +15,6 @@ export const config = {
 
   // Modules
   ...routesConfig,
-  ...navigationsConfig,
   ...plansConfig,
   ...contentConfig,
   ...colorsConfig,
