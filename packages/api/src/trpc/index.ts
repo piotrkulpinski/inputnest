@@ -1,5 +1,5 @@
 import { Clerk } from "@clerk/backend"
-import { Prisma, getPrisma } from "@repo/database"
+import { Prisma, getPrismaClient } from "@repo/database"
 import { TRPCError, initTRPC } from "@trpc/server"
 import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch"
 import superjson from "superjson"
@@ -26,7 +26,7 @@ type CreateContextOptions = FetchCreateContextFnOptions & {
  * @link https://trpc.io/docs/context
  */
 export const createTRPCContext = async ({ req, secretKey, databaseUrl }: CreateContextOptions) => {
-  const db = getPrisma(databaseUrl)
+  const db = getPrismaClient(databaseUrl)
   const clerk = Clerk({ secretKey })
   const token = req.headers.get("x-clerk-auth-token")
   const sessionId = req.headers.get("x-clerk-auth-session-id")

@@ -2,8 +2,8 @@
   "name": "userpledge",
   "private": true,
   "scripts": {
-    "web": "pnpm --F @repo/web",
-    "design": "pnpm --F @curiousleaf/design",
+    "web": "bun --cwd apps/web",
+    "design": "bun --cwd shared/design",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
@@ -14,7 +14,8 @@
     "db:studio": "turbo db:studio",
     "db:pull": "turbo db:pull",
     "db:push": "turbo db:push",
-    "db:reset": "turbo db:reset"
+    "db:reset": "turbo db:reset",
+    "postinstall": "turbo db:generate"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
@@ -25,8 +26,11 @@
     "turbo": "^1.11.3",
     "typescript": "^5.3.3"
   },
-  "packageManager": "pnpm@8.9.0",
-  "engines": {
-    "node": ">=18"
-  }
+  "workspaces": [
+    "apps/*",
+    "config/*",
+    "packages/*",
+    "shared/*",
+    "workers/*"
+  ]
 }

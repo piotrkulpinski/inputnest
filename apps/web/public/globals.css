@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 ::selection {
-  @apply bg-blue;
+  @apply bg-primary;
   @apply text-white;
 }
 
@@ -17,11 +17,16 @@ label[for],
   @apply cursor-pointer;
 }
 
-svg[stroke="currentColor"] {
+/* SVG Icons */
+svg[stroke="currentColor"]:not([class*="stroke"]) {
   @apply stroke-[1.5];
-  @apply size-[1.428em];
 }
 
+svg[stroke="currentColor"]:not([class*="size"]) {
+  @apply size-icon;
+}
+
+/* Clerk */
 div[class^="cl-internal"]:last-child {
   display: none;
 }

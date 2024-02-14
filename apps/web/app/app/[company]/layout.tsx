@@ -1,26 +1,14 @@
 "use client"
 
-import { Badge, MenuItem, Shortcut, Sidebar, ThemeProvider } from "@curiousleaf/design"
-import {
-  CoinsIcon,
-  CreditCardIcon,
-  HeadphonesIcon,
-  HistoryIcon,
-  LayoutDashboardIcon,
-  Rotate3DIcon,
-  Settings,
-  WalletCardsIcon,
-} from "lucide-react"
+import { Container } from "@curiousleaf/design"
 import { notFound, useParams } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
 import { Checkout } from "~/components/globals/checkout"
 import { Toaster } from "~/components/globals/toaster"
-import { Container } from "~/components/interface/container"
-import { NavCompany } from "~/components/navs/nav-company"
-import { NavUser } from "~/components/navs/nav-user"
+import { NavBar } from "~/components/navs/NavBar"
+import { NavSide } from "~/components/navs/NavSide"
 import { CompanyProvider } from "~/providers/company-provider"
-import { MenuProvider } from "~/providers/menu-provider"
 import { api } from "~/services/trpc"
 
 export default function CompanyLayout({ children }: PropsWithChildren) {
@@ -35,90 +23,20 @@ export default function CompanyLayout({ children }: PropsWithChildren) {
   if (!isSuccess || !company) {
     notFound()
   }
-  const menus = {
-    Main: [
-      {
-        children: "Dashboard",
-        prefix: <LayoutDashboardIcon />,
-        active: true,
-      },
-      {
-        children: "My Cards",
-        prefix: <CreditCardIcon />,
-      },
-      {
-        children: "Transfer",
-        prefix: <CoinsIcon />,
-      },
-      {
-        children: "Transactions",
-        prefix: <HistoryIcon />,
-      },
-      {
-        children: "Payments",
-        prefix: <WalletCardsIcon />,
-      },
-      {
-        children: "Exchange",
-        prefix: <Rotate3DIcon />,
-        suffix: (
-          <Badge theme="gray" variant="soft">
-            Soon
-          </Badge>
-        ),
-        disabled: true,
-      },
-    ],
-
-    Other: [
-      {
-        children: "Settings",
-        prefix: <Settings />,
-        suffix: <Shortcut>⌘K</Shortcut>,
-      },
-      {
-        children: "Support",
-        prefix: <HeadphonesIcon />,
-        loading: true,
-      },
-    ],
-  }
 
   return (
-    <ThemeProvider theme="blue">
-      <CompanyProvider company={company}>
-        <MenuProvider>
-          <div className="flex min-h-screen">
-            <Sidebar>
-              <NavCompany />
-              <Sidebar.Separator fullWidth />
+    <CompanyProvider company={company}>
+      <div className="flex min-h-[calc(100vh-1rem)] p-2 flex-col bg-gray-50 lg:flex-row">
+        <NavBar className="lg:hidden" />
+        <NavSide className="h-[calc(100vh-1rem)] rounded shadow-md max-lg:hidden" />
 
-              <Sidebar.Content>
-                {Object.entries(menus).map(([label, items], i) => (
-                  <Sidebar.Menu key={i}>
-                    <Sidebar.Heading>{label}</Sidebar.Heading>
+        <main className="flex-1">
+          <Container>{children}</Container>
+        </main>
+      </div>
 
-                    {items.map((item, j) => (
-                      <MenuItem key={j} {...item} />
-                    ))}
-                  </Sidebar.Menu>
-                ))}
-              </Sidebar.Content>
-
-              <Sidebar.Separator fullWidth />
-
-              <NavUser />
-            </Sidebar>
-
-            <main className="flex-1">
-              <Container>{children}</Container>
-            </main>
-          </div>
-
-          <Toaster />
-          <Checkout />
-        </MenuProvider>
-      </CompanyProvider>
-    </ThemeProvider>
+      <Toaster />
+      <Checkout />
+    </CompanyProvider>
   )
 }

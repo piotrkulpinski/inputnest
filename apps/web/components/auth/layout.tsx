@@ -1,4 +1,4 @@
-import { H5, Paragraph } from "@curiousleaf/design"
+import { H4, Paragraph } from "@curiousleaf/design"
 import Link from "next/link"
 import type { HTMLAttributes, ReactNode } from "react"
 
@@ -21,7 +21,7 @@ export const AuthLayout = ({ children, title, subtitle, ...props }: AuthLayoutPr
           </Logo>
         </div>
 
-        <H5 className="mt-5">{title}</H5>
+        <H4 className="mt-5">{title}</H4>
 
         {!!subtitle && (
           <Paragraph size="sm" className="opacity-60">
