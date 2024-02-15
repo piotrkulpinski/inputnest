@@ -7,7 +7,7 @@ type PageProps = {
   searchParams: Record<string, string | string[] | undefined>
 }
 
-const SignInPage = ({ searchParams }: PageProps) => {
+export default function SignInPage({ searchParams }: PageProps) {
   const redirectTo = searchParams.redirectTo as string | undefined
 
   return (
@@ -23,5 +23,3 @@ const SignInPage = ({ searchParams }: PageProps) => {
     </AuthLayout>
   )
 }
-
-export default SignInPage

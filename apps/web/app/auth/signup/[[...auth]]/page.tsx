@@ -3,7 +3,7 @@ import { Loader } from "@curiousleaf/design"
 
 import { AuthLayout } from "~/components/auth/layout"
 
-const SignUpPage = () => {
+export default function SignUpPage() {
   return (
     <AuthLayout
       title="Create an account"
@@ -17,5 +17,3 @@ const SignUpPage = () => {
     </AuthLayout>
   )
 }
-
-export default SignUpPage

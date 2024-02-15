@@ -3,7 +3,7 @@
 import { Button, Header } from "@curiousleaf/design"
 import { SearchIcon, BellRingIcon, CalendarIcon, PlusIcon, LayoutDashboardIcon } from "lucide-react"
 
-export default function CompanyDashboard() {
+export default function CompanyRoute() {
   return (
     <Header
       title="Dashboard"

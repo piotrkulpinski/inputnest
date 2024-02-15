@@ -1,7 +1,5 @@
-import { Clerk } from "@clerk/backend"
-import { Prisma, getPrismaClient } from "@repo/database"
+import { Prisma, db } from "@repo/database"
 import { TRPCError, initTRPC } from "@trpc/server"
-import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch"
 import superjson from "superjson"
 import type { typeToFlattenedError } from "zod"
 import { ZodError } from "zod"
@@ -15,9 +13,8 @@ import { ZodError } from "zod"
  * processing a request
  *
  */
-type CreateContextOptions = FetchCreateContextFnOptions & {
-  secretKey: string
-  databaseUrl: string
+type CreateContextOptions = {
+  userId: string | null
 }
 
 /**
@@ -25,18 +22,7 @@ type CreateContextOptions = FetchCreateContextFnOptions & {
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createTRPCContext = async ({ req, secretKey, databaseUrl }: CreateContextOptions) => {
-  const db = getPrismaClient(databaseUrl)
-  const clerk = Clerk({ secretKey })
-  const token = req.headers.get("x-clerk-auth-token")
-  const sessionId = req.headers.get("x-clerk-auth-session-id")
-
-  if (!token || !sessionId) {
-    return { userId: null, db }
-  }
-
-  const { userId } = await clerk.sessions.verifySession(sessionId, token)
-
+export const createTRPCContext = async ({ userId }: CreateContextOptions) => {
   return { userId, db }
 }
 

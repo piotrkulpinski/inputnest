@@ -1,4 +1,4 @@
-import { auth, ClerkProvider } from "@clerk/nextjs"
+import { ClerkProvider } from "@clerk/nextjs"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { headers } from "next/headers"
@@ -41,9 +41,6 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({ children }: PropsWithChildren) {
-  const { sessionId, getToken } = auth()
-  const token = await getToken()
-
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${sansFont.variable} font-sans`}>
@@ -68,7 +65,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             },
           }}
         >
-          <TRPCProvider headers={headers()} sessionId={sessionId} token={token}>
+          <TRPCProvider headers={headers()}>
             {children}
           </TRPCProvider>
         </ClerkProvider>
