@@ -15,7 +15,7 @@ type PostItemProps = ComponentPropsWithoutRef<typeof Card> & {
 export const PostItem = ({ post, ...props }: PostItemProps) => {
   return (
     <Card asChild {...props}>
-      <Link href={post.id}>
+      <Link href={`posts/${post.id}`}>
         <CardPanel theme="white" flex="row">
           <Series className="min-w-0 flex-1 flex-nowrap">
             <Badge theme="white" prefix={<ChevronUpIcon />}>

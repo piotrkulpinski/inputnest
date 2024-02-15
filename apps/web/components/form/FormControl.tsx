@@ -2,13 +2,13 @@ import { Slot } from "@radix-ui/react-slot"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
-import { useFormField } from "~/providers/field-provider"
+import { useFieldContext } from "~/providers/FieldProvider"
 
 export const FormControl = forwardRef<
   ElementRef<typeof Slot>,
   ComponentPropsWithoutRef<typeof Slot>
 >(({ ...props }, ref) => {
-  const { controlId, descriptionId, messageId, fieldState } = useFormField()
+  const { controlId, descriptionId, messageId, fieldState } = useFieldContext()
   const hasError = !!fieldState.error
   const description = !hasError ? descriptionId : `${descriptionId} ${messageId}`
 

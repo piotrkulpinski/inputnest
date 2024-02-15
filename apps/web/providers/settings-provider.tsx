@@ -6,7 +6,7 @@ import { updateCompanySchema } from "@repo/database"
 import type { FormEventHandler, PropsWithChildren } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
-import { useMutationHandler } from "~/hooks/use-mutation-handler"
+import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
 import { api } from "~/services/trpc"
 import { createSimpleContext } from "~/utils/providers"
@@ -42,10 +42,10 @@ export const SettingsProvider = ({ children }: PropsWithChildren) => {
       })
     },
 
-    onError: (error) => handleError({ error, form }),
+    onError: error => handleError({ error, form }),
   })
 
-  const onSubmit = form.handleSubmit((data) => {
+  const onSubmit = form.handleSubmit(data => {
     updateSettings(data)
   })
 

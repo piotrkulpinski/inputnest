@@ -5,7 +5,7 @@ import type { HTMLAttributes } from "react"
 
 import { DialogConfirm } from "~/components/dialogs/confirm"
 import { Box, BoxFooter, BoxHeader } from "~/components/interface/box"
-import { useMutationHandler } from "~/hooks/use-mutation-handler"
+import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
 import { api } from "~/services/trpc"
 
@@ -28,20 +28,20 @@ export const CompanySettingsDeleteForm = (props: HTMLAttributes<HTMLElement>) =>
   })
 
   return (
-    <Box className="border-red-200" {...props}>
+    <Box className="border-red-light" {...props}>
       <BoxHeader
         title="Delete Company"
         description="The company will be permanently deleted, including its content and domains. This action is irreversible and can not be undone."
       />
 
-      <BoxFooter className="border-red-200 bg-red-50">
+      <BoxFooter className="border-red-light bg-red-lighter">
         <DialogConfirm
           title="Delete your company?"
           label="Delete Company"
           onConfirm={() => deleteCompany({ id })}
           confirmText={slug}
         >
-          <Button loading={isLoading} theme="red">
+          <Button loading={isLoading} theme="negative" className="min-w-[8rem]">
             Delete
           </Button>
         </DialogConfirm>

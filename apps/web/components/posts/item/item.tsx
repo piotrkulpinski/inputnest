@@ -60,7 +60,7 @@ const PostItemSkeleton = ({ ...props }: HTMLAttributes<HTMLElement>) => {
       </CardPanel>
 
       <div className="flex flex-col md:flex-row">
-        <div className="divide-outline flex grow flex-col divide-y">
+        <div className="flex grow flex-col divide-y">
           <CardPanel>
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-1">
@@ -83,7 +83,7 @@ const PostItemSkeleton = ({ ...props }: HTMLAttributes<HTMLElement>) => {
           <PostItemComments />
         </div>
 
-        <CardPanel className="border-outline max-md:border-t md:w-72 md:shrink-0 md:border-l" />
+        <CardPanel className="border max-md:border-t md:w-72 md:shrink-0 md:border-l" />
       </div>
 
       <Shimmer className="!border-t-0" />

@@ -14,6 +14,14 @@ export const companiesRouter = createTRPCRouter({
     .query(async ({ ctx: { db }, input: { slug } }) => {
       return await db.company.findFirst({
         where: { slug },
+        include: {
+          domain: true,
+          subscription: true,
+          members: {
+            where: { role: { in: ["Owner", "Manager"] } },
+            include: { user: true },
+          },
+        },
       })
     }),
 

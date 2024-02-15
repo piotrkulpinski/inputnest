@@ -14,8 +14,8 @@ import type { HTMLAttributes } from "react"
 import { useState } from "react"
 
 import { config } from "~/config"
-import { useCrisp } from "~/hooks/use-crisp"
-import { useMutationHandler } from "~/hooks/use-mutation-handler"
+import { useCrisp } from "~/hooks/useCrisp"
+import { useMutationHandler } from "~/hooks/useMutationHandler"
 
 import { NavDropdown } from "./NavDropdown"
 import type { NavItemProps } from "./NavItem"

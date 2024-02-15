@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@curiousleaf/design"
+import { toSlugCase } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { CompanySchema } from "@repo/database"
 import { companyDefaults, companySchema } from "@repo/database"
@@ -9,10 +10,10 @@ import { FormProvider, useForm } from "react-hook-form"
 
 import { FormAffix } from "~/components/form/affix"
 import { FormInput } from "~/components/form/controls/input"
-import { FormField } from "~/components/form/field"
+import { FormField } from "~/components/form/FormField"
 import { FormFieldset } from "~/components/form/fieldset"
-import { useFormSlug } from "~/hooks/use-form-slug"
-import { useMutationHandler } from "~/hooks/use-mutation-handler"
+import { useComputedField } from "~/hooks/useComputedField"
+import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { api } from "~/services/trpc"
 import { getTenantHost } from "~/utils/helpers"
 
@@ -37,19 +38,20 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
       })
     },
 
-    onError: (error) => handleError({ error, form }),
+    onError: error => handleError({ error, form }),
   })
 
   // Set the slug based on the name
-  useFormSlug({
+  useComputedField({
     form,
-    invokerField: "name",
-    targetField: "slug",
+    sourceField: "name",
+    computedField: "slug",
+    callback: toSlugCase,
   })
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit((v) => createCompany(v))} className="contents" {...props}>
+      <form onSubmit={form.handleSubmit(v => createCompany(v))} className="contents" {...props}>
         <FormFieldset className="h-full">
           <FormField name="name" label="Name" required>
             <FormInput placeholder="Acme Corporation" data-1p-ignore />

@@ -14,7 +14,7 @@ export const Card = forwardRef<ElementRef<typeof Box>, ComponentPropsWithoutRef<
         ref={ref}
         padded={false}
         className={cx(
-          "group/card divide-outline relative w-full divide-y overflow-clip hover:[&[href]]:z-10 hover:[&[href]]:border-gray-300",
+          "group/card relative w-full divide-y overflow-clip hover:[&[href]]:z-10 hover:[&[href]]:border-gray-300",
           className,
         )}
         {...props}

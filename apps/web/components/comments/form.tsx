@@ -14,9 +14,9 @@ import { Controller, FormProvider, useForm } from "react-hook-form"
 import { toast } from "sonner"
 
 import { FormEditor } from "~/components/form/controls/editor"
-import { FormField } from "~/components/form/field"
+import { FormField } from "~/components/form/FormField"
 import { Switch } from "~/components/interface/switch"
-import { useMutationHandler } from "~/hooks/use-mutation-handler"
+import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useComments } from "~/providers/comments-provider"
 import { api } from "~/services/trpc"
 
@@ -102,7 +102,7 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
 
   return (
     <FormProvider {...form}>
-      <form className="@container relative" onSubmit={onSubmit} {...props}>
+      <form className="relative @container" onSubmit={onSubmit} {...props}>
         <fieldset className="contents" disabled={isMutating || isLoading}>
           <FormField control={form.control} name="content" hideError required>
             <FormEditor
@@ -113,7 +113,7 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
             />
           </FormField>
 
-          <Series className="@lg:absolute @lg:bottom-2 @lg:right-2 @lg:mt-0 mt-3">
+          <Series className="mt-3 @lg:absolute @lg:bottom-2 @lg:right-2 @lg:mt-0">
             <Button size="md" theme="secondary" loading={isMutating} className="@lg:order-last">
               {isMetaKeyDown && "Press Enter to Submit"}
               {!isMetaKeyDown && `${editing ? "Update" : "Post"} ${replying ? "Reply" : "Comment"}`}

@@ -1,12 +1,10 @@
 "use client"
 
-import { Button, Paragraph } from "@curiousleaf/design"
+import { Button, Header, Paragraph, Section } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 
 import { PostItem } from "~/app/app/[company]/posts/item"
 import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
-import { Header } from "~/components/interface/header"
-import { Section } from "~/components/interface/section"
 import { Skeleton } from "~/components/interface/skeleton"
 import { PostCreateForm } from "~/components/posts/forms/create"
 import { HeadingCounter } from "~/components/utils/heading-counter"
@@ -23,7 +21,9 @@ export default function Route() {
       <Header title={<HeadingCounter data={postsQuery.data}>Posts</HeadingCounter>}>
         <DialogRoot>
           <DialogTrigger asChild>
-            <Button prefix={<PlusIcon />}>Create Post</Button>
+            <Button theme="secondary" prefix={<PlusIcon />}>
+              Create Post
+            </Button>
           </DialogTrigger>
 
           <DialogContent size="md" asChild>
@@ -40,7 +40,7 @@ export default function Route() {
           empty={() => <Paragraph>No posts added for this company yet.</Paragraph>}
           success={({ data }) => (
             <>
-              {data.map((post) => (
+              {data.map(post => (
                 <PostItem key={post.id} post={post} />
               ))}
             </>
