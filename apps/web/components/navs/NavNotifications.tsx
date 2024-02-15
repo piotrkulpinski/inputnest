@@ -1,12 +1,11 @@
 import { useUser } from "@clerk/nextjs"
-import { Dropdown, Paragraph, Prose, cx } from "@curiousleaf/design"
+import { Button, Dropdown, Paragraph, Prose, cx } from "@curiousleaf/design"
 import { isRequestInFlight, NetworkStatus } from "@knocklabs/client"
 import { BellIcon, CheckCheckIcon } from "lucide-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 
 import { Badge } from "~/components/interface/badge"
-import { Button } from "~/components/interface/button"
 import { Dot } from "~/components/interface/dot"
 import { Time } from "~/components/interface/time"
 import { NotificationsProvider, useNotifications } from "~/providers/notifications-provider"
@@ -37,8 +36,9 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
 
           {!!items.length && (
             <Button
+              size="sm"
               theme="secondary"
-              size="xs"
+              variant="outline"
               suffix={<CheckCheckIcon />}
               onClick={() => feedClient.markAllAsRead()}
               disabled={!metadata.unread_count}
@@ -52,7 +52,7 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
         <Dropdown.Group className="max-h-[25rem] overflow-y-auto !py-0">
           <Dropdown.Group>
             {items.length ? (
-              items.map((item) => (
+              items.map(item => (
                 <Dropdown.Item
                   key={item.id}
                   prefix={<Dot theme={item.read_at ? "silver" : "blue"} className="mt-2" />}
@@ -85,10 +85,11 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
           {!!pageInfo.after && (
             <Dropdown.Group>
               <Button
+                size="sm"
                 theme="secondary"
-                size="xs"
+                variant="outline"
                 onClick={() => feedClient.fetchNextPage()}
-                isLoading={networkStatus === NetworkStatus.fetchMore}
+                loading={networkStatus === NetworkStatus.fetchMore}
                 disabled={requestInFlight}
               >
                 Load more

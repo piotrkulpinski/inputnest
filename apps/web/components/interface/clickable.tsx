@@ -1,4 +1,4 @@
-import { Loader, cx } from "@curiousleaf/design"
+import { IconLoader, cx } from "@curiousleaf/design"
 import { Slot } from "@radix-ui/react-slot"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
@@ -63,11 +63,11 @@ export const Clickable = forwardRef<HTMLButtonElement, ClickableProps>((props, r
       {...rest}
     >
       <Slottable child={children} asChild={asChild}>
-        {(child) => (
+        {child => (
           <>
             <Slot className={cx("shrink-0", isActive && "text-blue-700")}>{prefix}</Slot>
             <span className="flex-1 truncate">{child}</span>
-            <Slot className="shrink-0 text-gray-500">{isLoading ? <Loader /> : suffix}</Slot>
+            <Slot className="shrink-0 text-gray-500">{isLoading ? <IconLoader /> : suffix}</Slot>
           </>
         )}
       </Slottable>

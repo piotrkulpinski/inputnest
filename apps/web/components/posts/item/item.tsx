@@ -1,12 +1,12 @@
 "use client"
 
+import { Series } from "@curiousleaf/design"
 import { notFound } from "next/navigation"
 import type { HTMLAttributes } from "react"
 
 import { Avatar } from "~/components/interface/avatar"
 import { Card, CardPanel } from "~/components/interface/card"
 import { Dot } from "~/components/interface/dot"
-import { List } from "~/components/interface/list"
 import { Shimmer } from "~/components/interface/shimmer"
 import { PostItemComments } from "~/components/posts/item/comments"
 import { PostItemContent } from "~/components/posts/item/content"
@@ -71,12 +71,12 @@ const PostItemSkeleton = ({ ...props }: HTMLAttributes<HTMLElement>) => {
                 <div className="h-5 w-1/2 rounded bg-current opacity-5" />
               </div>
 
-              <List className="mt-2">
+              <Series className="mt-2">
                 <Avatar />
                 <div className="h-5 w-24 rounded bg-current opacity-5" />
                 <Dot theme="gray" className="opacity-5" />
                 <div className="h-5 w-20 rounded bg-current opacity-5" />
-              </List>
+              </Series>
             </div>
           </CardPanel>
 

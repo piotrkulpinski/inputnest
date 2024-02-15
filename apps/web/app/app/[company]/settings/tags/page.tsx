@@ -1,13 +1,11 @@
 "use client"
 
-import { Paragraph } from "@curiousleaf/design"
+import { Button, Card, Header, Paragraph } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 import { useState, useEffect } from "react"
 
 import { TagForm } from "~/app/app/[company]/settings/tags/form"
 import { TagItem } from "~/app/app/[company]/settings/tags/item"
-import { Box, BoxHeader } from "~/components/interface/box"
-import { Button } from "~/components/interface/button"
 import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Skeleton } from "~/components/interface/skeleton"
 import { HeadingCounter } from "~/components/utils/heading-counter"
@@ -43,25 +41,27 @@ export default function Route() {
   }, [tagsQuery.data])
 
   return (
-    <Box>
-      <BoxHeader
-        title={<HeadingCounter data={tagsQuery.data}>Tags</HeadingCounter>}
-        description="Customize existing ones or add extra tags you can add for posts."
-      >
-        <DialogRoot>
-          <DialogTrigger asChild>
-            <Button size="md" prefix={<PlusIcon />}>
-              Create Tag
-            </Button>
-          </DialogTrigger>
+    <Card>
+      <Card.Panel asChild>
+        <Header
+          title={<HeadingCounter data={tagsQuery.data}>Tags</HeadingCounter>}
+          description="Customize existing ones or add extra tags you can add for posts."
+        >
+          <DialogRoot>
+            <DialogTrigger asChild>
+              <Button theme="secondary" prefix={<PlusIcon />}>
+                Create Tag
+              </Button>
+            </DialogTrigger>
 
-          <DialogContent>
-            <TagForm />
-          </DialogContent>
-        </DialogRoot>
-      </BoxHeader>
+            <DialogContent>
+              <TagForm />
+            </DialogContent>
+          </DialogRoot>
+        </Header>
+      </Card.Panel>
 
-      <div className="flex flex-col gap-4 md:gap-6">
+      <Card.Section>
         <QueryCell
           query={tagsQuery}
           loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
@@ -69,13 +69,13 @@ export default function Route() {
           empty={() => <Paragraph>No tags added for this company yet.</Paragraph>}
           success={() => (
             <SortableProvider items={tags.map(({ id }) => id)} onDragEnd={move}>
-              {tags.map((tag) => (
+              {tags.map(tag => (
                 <TagItem key={tag.id} tag={tag} />
               ))}
             </SortableProvider>
           )}
         />
-      </div>
-    </Box>
+      </Card.Section>
+    </Card>
   )
 }

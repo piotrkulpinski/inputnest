@@ -1,8 +1,8 @@
+import { Button } from "@curiousleaf/design"
 import { PopoverClose } from "@radix-ui/react-popover"
 import { AsteriskIcon } from "lucide-react"
 import { useFormContext } from "react-hook-form"
 
-import { Button } from "~/components/interface/button"
 import { Popover } from "~/components/interface/popover"
 import { useFormField } from "~/providers/field-provider"
 
@@ -26,7 +26,7 @@ const FormVariablesList = ({ variables }: FormVariablesProps) => {
         <PopoverClose
           key={index}
           onClick={() => onVariableClick(variable)}
-          className="text-2xs text-blue-700/75 hover:enabled:text-black whitespace-nowrap font-mono"
+          className="text-2xs whitespace-nowrap font-mono text-blue-700/75 hover:enabled:text-black"
         >
           {`{{${variable}}}`}
         </PopoverClose>
@@ -47,7 +47,7 @@ export const FormVariables = ({ variables }: FormVariablesProps) => {
       side="bottom"
       align="end"
     >
-      <Button size="xs" theme="secondary" suffix={<AsteriskIcon />} />
+      <Button size="sm" theme="secondary" variant="outline" suffix={<AsteriskIcon />} />
     </Popover>
   )
 }

@@ -1,9 +1,8 @@
-import { cx } from "@curiousleaf/design"
+import { Button, cx } from "@curiousleaf/design"
 import { TriangleIcon } from "lucide-react"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
-import { Button } from "~/components/interface/button"
 import { api } from "~/services/trpc"
 
 type VotesVoteProps = ComponentPropsWithoutRef<typeof Button> & {
@@ -33,14 +32,13 @@ export const VotesVote = forwardRef<ElementRef<typeof Button>, VotesVoteProps>(
     return (
       <Button
         ref={ref}
-        type="button"
-        theme="secondary"
         size="sm"
+        theme="secondary"
+        variant="outline"
         prefix={<TriangleIcon className="text-[0.75em]" />}
-        className={cx("tabular-nums", className)}
+        className={cx("tabular-nums", !!vote && "border-primary-light bg-gray-100", className)}
         onClick={() => postId && toggleUpvote({ postId })}
-        isLoading={isLoadingVote || isLoading}
-        isActive={!!vote}
+        loading={isLoadingVote || isLoading}
         {...props}
       />
     )

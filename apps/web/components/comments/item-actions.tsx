@@ -1,5 +1,6 @@
 "use client"
 
+import { Button, Dropdown } from "@curiousleaf/design"
 import {
   LockIcon,
   MoreHorizontalIcon,
@@ -12,14 +13,6 @@ import {
 import { useState, type HTMLAttributes } from "react"
 import { toast } from "sonner"
 
-import { Button } from "~/components/interface/button"
-import {
-  DropdownContent,
-  DropdownGroup,
-  DropdownItem,
-  DropdownRoot,
-  DropdownTrigger,
-} from "~/components/interface/dropdown"
 import { useComments } from "~/providers/comments-provider"
 import { api } from "~/services/trpc"
 import type { CommentWithChildren } from "~/utils/comments"
@@ -58,43 +51,49 @@ export const CommentItemActions = ({ comment, ...props }: CommentItemProps) => {
   }
 
   return (
-    <DropdownRoot>
-      <DropdownTrigger asChild>
-        <Button theme="clean" size="xs" prefix={<MoreHorizontalIcon />} {...props} />
-      </DropdownTrigger>
+    <Dropdown>
+      <Dropdown.Trigger asChild>
+        <Button
+          size="sm"
+          theme="secondary"
+          variant="ghost"
+          prefix={<MoreHorizontalIcon />}
+          {...props}
+        />
+      </Dropdown.Trigger>
 
-      <DropdownContent align="start" className="min-w-[11rem]">
-        <DropdownGroup>
-          <DropdownItem
+      <Dropdown.Content align="start" className="min-w-[11rem]">
+        <Dropdown.Group>
+          <Dropdown.Item
             prefix={isPrivate ? <UnlockIcon /> : <LockIcon />}
             onClick={() => updateComment.mutate({ ...comment, isPrivate: !isPrivate })}
             isLoading={updateComment.isLoading}
           >
             <button>Make {isPrivate ? "Public" : "Private"}</button>
-          </DropdownItem>
+          </Dropdown.Item>
 
-          <DropdownItem
+          <Dropdown.Item
             prefix={isPinned ? <PinOffIcon /> : <PinIcon />}
             onClick={() => updateComment.mutate({ ...comment, isPinned: !isPinned })}
             isLoading={updateComment.isLoading}
           >
             <button>{isPinned ? "Unpin" : "Pin"} Comment</button>
-          </DropdownItem>
+          </Dropdown.Item>
 
-          <DropdownItem prefix={<PencilIcon />} onClick={() => onEdit(comment)}>
+          <Dropdown.Item prefix={<PencilIcon />} onClick={() => onEdit(comment)}>
             <button>Edit Comment</button>
-          </DropdownItem>
+          </Dropdown.Item>
 
-          <DropdownItem
+          <Dropdown.Item
             prefix={<TrashIcon />}
             onClick={handleDelete}
             isLoading={deleteComment.isLoading}
             className="text-red-700"
           >
             <button>{isConfirming ? "Are you sure?" : "Delete Comment"}</button>
-          </DropdownItem>
-        </DropdownGroup>
-      </DropdownContent>
-    </DropdownRoot>
+          </Dropdown.Item>
+        </Dropdown.Group>
+      </Dropdown.Content>
+    </Dropdown>
   )
 }

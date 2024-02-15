@@ -1,7 +1,6 @@
-import { H5 } from "@curiousleaf/design"
+import { Button, H5 } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
-import { Button } from "~/components/interface/button"
 import { Card, CardActions, CardPanel } from "~/components/interface/card"
 import { Shimmer } from "~/components/interface/shimmer"
 
@@ -12,11 +11,11 @@ export const Skeleton = ({ ...props }: HTMLAttributes<HTMLElement>) => {
         <H5 className="w-40 rounded bg-current opacity-10">&nbsp;</H5>
 
         <CardActions>
-          <Button theme="secondary" isLoading>
+          <Button theme="secondary" variant="outline" loading>
             Edit
           </Button>
 
-          <Button theme="secondary" isLoading>
+          <Button theme="secondary" variant="outline" loading>
             Delete
           </Button>
         </CardActions>

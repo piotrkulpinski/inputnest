@@ -1,6 +1,6 @@
 "use client"
 
-import { Loader, cx } from "@curiousleaf/design"
+import { Button, IconLoader, cx } from "@curiousleaf/design"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
@@ -9,7 +9,6 @@ import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
 import { BoxOverlay } from "~/components/interface/box"
-import { Button } from "~/components/interface/button"
 export const DialogRoot = DialogPrimitive.Root
 export const DialogTrigger = DialogPrimitive.Trigger
 
@@ -34,7 +33,7 @@ export const dialogOverlayVariants = cva(
 export const DialogOverlay = forwardRef<
   ElementRef<typeof DialogPrimitive.Overlay>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> &
-  VariantProps<typeof dialogOverlayVariants>
+    VariantProps<typeof dialogOverlayVariants>
 >(({ className, type, ...props }, ref) => (
   <DialogPrimitive.Overlay
     ref={ref}
@@ -54,7 +53,7 @@ export const dialogContentVariants = cva([
 export const DialogContent = forwardRef<
   ElementRef<typeof DialogPrimitive.Content>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Content> &
-  ComponentPropsWithoutRef<typeof BoxOverlay>
+    ComponentPropsWithoutRef<typeof BoxOverlay>
 >(({ className, padded, size, fixed, ...props }, ref) => (
   <DialogPrimitive.Portal>
     <DialogOverlay type="overlay" />
@@ -82,7 +81,7 @@ export const dialogSlideoutVariants = cva([
 export const DialogSlideout = forwardRef<
   ElementRef<typeof DialogPrimitive.Content>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Content> &
-  VariantProps<typeof dialogSlideoutVariants>
+    VariantProps<typeof dialogSlideoutVariants>
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Portal>
     <DialogOverlay type="slideout" />
@@ -109,7 +108,7 @@ export const DialogCancel = forwardRef<
   ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
 >(({ children, ...props }, ref) => (
   <DialogPrimitive.Close ref={ref} asChild {...props}>
-    <Button type="button" theme="secondary">
+    <Button theme="secondary" variant="outline">
       {children ?? "Cancel"}
     </Button>
   </DialogPrimitive.Close>
@@ -127,7 +126,7 @@ export const DialogLoading = forwardRef<
       className="fixed left-1/2 top-1/4 z-50 -translate-x-1/2 focus:outline-none"
       {...props}
     >
-      <Loader className="text-2xl" />
+      <IconLoader className="text-2xl" />
     </DialogPrimitive.Content>
   </DialogPrimitive.Portal>
 ))

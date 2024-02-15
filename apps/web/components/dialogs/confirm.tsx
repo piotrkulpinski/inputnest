@@ -1,5 +1,6 @@
 "use client"
 
+import { Button } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { forwardRef, useState } from "react"
 import type { ComponentPropsWithoutRef, FormEvent, HTMLAttributes, ReactNode } from "react"
@@ -10,7 +11,6 @@ import { FormInput } from "~/components/form/controls/input"
 import { FormField } from "~/components/form/field"
 import { FormFieldset } from "~/components/form/fieldset"
 import { BoxFooter, BoxHeader } from "~/components/interface/box"
-import { Button } from "~/components/interface/button"
 import {
   DialogCancel,
   DialogClose,
@@ -20,7 +20,7 @@ import {
 } from "~/components/interface/dialog"
 
 type DialogConfirmProps = HTMLAttributes<HTMLButtonElement> &
-  Pick<ComponentPropsWithoutRef<typeof Button>, "isDanger"> & {
+  ComponentPropsWithoutRef<typeof Button> & {
     label?: ReactNode
     title?: ReactNode
     description?: string
@@ -36,7 +36,7 @@ export const DialogConfirm = forwardRef<HTMLButtonElement, DialogConfirmProps>((
     title = "Are you sure?",
     description = "This action cannot be undone. This will permanently remove your data from our servers.",
     cancelLabel,
-    isDanger = true,
+    theme = "negative",
     onConfirm,
     confirmText,
   } = props
@@ -84,7 +84,7 @@ export const DialogConfirm = forwardRef<HTMLButtonElement, DialogConfirmProps>((
             )}
 
             <BoxFooter>
-              <Button disabled={!form.formState.isValid} isDanger={isDanger}>
+              <Button theme={theme} disabled={!form.formState.isValid}>
                 {label}
               </Button>
 

@@ -1,4 +1,4 @@
-import { Loader, H5, Button, cx } from "@curiousleaf/design"
+import { H5, Button, cx, IconLoader } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
@@ -50,7 +50,7 @@ export const BoardItem = ({ board, ...props }: BoardItemProps) => {
                 className={cx(!defaultBoard.isLoading && "md:hidden md:group-hover/card:flex")}
                 onClick={() => defaultBoard.mutate({ id: board.id })}
               >
-                {defaultBoard.isLoading ? <Loader /> : "Make Default"}
+                {defaultBoard.isLoading ? <IconLoader /> : "Make Default"}
               </button>
             )}
           </div>

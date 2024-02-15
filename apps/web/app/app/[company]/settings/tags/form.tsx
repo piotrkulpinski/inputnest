@@ -1,3 +1,4 @@
+import { Button } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { TagSchema } from "@repo/database"
 import { tagSchema, tagDefaults } from "@repo/database"
@@ -9,7 +10,6 @@ import { FormInput } from "~/components/form/controls/input"
 import { FormField } from "~/components/form/field"
 import { FormFieldset } from "~/components/form/fieldset"
 import { BoxHeader, BoxFooter } from "~/components/interface/box"
-import { Button } from "~/components/interface/button"
 import { DialogCancel, DialogClose } from "~/components/interface/dialog"
 import { useMutationHandler } from "~/hooks/use-mutation-handler"
 import { useCompany } from "~/providers/company-provider"
@@ -74,7 +74,9 @@ export const TagForm = ({ tag, ...props }: TagFormProps) => {
         </FormFieldset>
 
         <BoxFooter>
-          <Button isLoading={isLoading}>{isEditing ? "Update" : "Create"} Tag</Button>
+          <Button type="submit" theme="secondary" loading={isLoading}>
+            {isEditing ? "Update" : "Create"} Tag
+          </Button>
           <DialogCancel />
         </BoxFooter>
       </form>

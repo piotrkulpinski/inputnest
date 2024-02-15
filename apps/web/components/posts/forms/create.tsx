@@ -1,3 +1,4 @@
+import { Button } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { PostSchema } from "@repo/database"
 import { postSchema, postDefaults } from "@repo/database"
@@ -10,7 +11,6 @@ import { FormSelect } from "~/components/form/controls/select"
 import { FormField } from "~/components/form/field"
 import { FormFieldset } from "~/components/form/fieldset"
 import { BoxHeader, BoxFooter } from "~/components/interface/box"
-import { Button } from "~/components/interface/button"
 import { DialogCancel, DialogClose } from "~/components/interface/dialog"
 import { Status } from "~/components/interface/status"
 import { useMutationHandler } from "~/hooks/use-mutation-handler"
@@ -23,7 +23,7 @@ export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFor
     const { handleSuccess, handleError } = useMutationHandler()
     const { id: companyId } = useCompany()
 
-    const [boards, statuses] = api.useQueries((t) => [
+    const [boards, statuses] = api.useQueries(t => [
       t.boards.getAll({ companyId }),
       t.statuses.getAll({ companyId }),
     ])
@@ -49,7 +49,7 @@ export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFor
         })
       },
 
-      onError: (error) => handleError({ error, form }),
+      onError: error => handleError({ error, form }),
     })
 
     // Handle the form submission
@@ -95,7 +95,9 @@ export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFor
           </FormFieldset>
 
           <BoxFooter>
-            <Button isLoading={isLoading}>Create Post</Button>
+            <Button type="submit" theme="secondary" loading={isLoading}>
+              Create Post
+            </Button>
             <DialogCancel />
           </BoxFooter>
         </form>
