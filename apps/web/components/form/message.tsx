@@ -1,8 +1,8 @@
+import { cx } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 import { forwardRef } from "react"
 
 import { useFormField } from "~/providers/field-provider"
-import { cn } from "~/utils/helpers"
 
 export const FormMessage = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
   ({ className, children, ...props }, ref) => {
@@ -17,7 +17,7 @@ export const FormMessage = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLP
       <p
         ref={ref}
         id={messageId}
-        className={cn("w-full text-xs text-red-700/80 first-letter:uppercase", className)}
+        className={cx("w-full text-xs text-red-700/80 first-letter:uppercase", className)}
         {...props}
       >
         {body}.

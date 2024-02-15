@@ -1,5 +1,6 @@
 "use client"
 
+import { cx } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AppRouter } from "@repo/api"
 import type { CommentSchema } from "@repo/database"
@@ -20,7 +21,6 @@ import { Switch } from "~/components/interface/switch"
 import { useMutationHandler } from "~/hooks/use-mutation-handler"
 import { useComments } from "~/providers/comments-provider"
 import { api } from "~/services/trpc"
-import { cn } from "~/utils/helpers"
 
 type CommentFormProps = HTMLAttributes<HTMLFormElement> & {
   isLoading?: boolean
@@ -122,7 +122,7 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
             </Button>
 
             <label
-              className={cn(
+              className={cx(
                 "flex select-none items-center gap-2 font-medium",
                 isPrivate ? "text-blue-600" : "text-zinc-500",
               )}

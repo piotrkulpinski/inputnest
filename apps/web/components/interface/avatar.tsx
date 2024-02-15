@@ -9,7 +9,7 @@ const avatarVariants = cva("relative flex items-center justify-center shrink-0",
   variants: {
     size: {
       xs: "size-5 text-xxxs",
-      sm: "size-6 text-xxs",
+      sm: "size-6 text-2xs",
       md: "size-8 text-xs",
       lg: "size-10 text-sm",
       xl: "size-12 text-sm",

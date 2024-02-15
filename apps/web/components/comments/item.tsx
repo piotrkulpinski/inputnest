@@ -1,6 +1,6 @@
 "use client"
 
-import { H6 } from "@curiousleaf/design"
+import { H6, cx } from "@curiousleaf/design"
 import { LockIcon, PinIcon, XIcon, ReplyIcon } from "lucide-react"
 import Link from "next/link"
 import { type HTMLAttributes } from "react"
@@ -17,7 +17,6 @@ import { Time } from "~/components/interface/time"
 import { UserAvatar } from "~/components/users/avatar"
 import { useComments } from "~/providers/comments-provider"
 import type { CommentWithChildren } from "~/utils/comments"
-import { cn } from "~/utils/helpers"
 
 type CommentItemProps = HTMLAttributes<HTMLElement> & {
   comment: CommentWithChildren
@@ -38,7 +37,7 @@ export const CommentItem = ({ className, comment, ...props }: CommentItemProps) 
   return (
     <article
       id={`comment-${comment.id}`}
-      className={cn("relative flex flex-col gap-y-4 @container", className)}
+      className={cx("relative flex flex-col gap-y-4 @container", className)}
       {...props}
     >
       <div className="flex items-start gap-4">
@@ -88,7 +87,7 @@ export const CommentItem = ({ className, comment, ...props }: CommentItemProps) 
               </Button>
             )}
 
-            <Dot theme="gray" className="text-xxs opacity-25 first:hidden last:hidden" />
+            <Dot theme="gray" className="text-2xs opacity-25 first:hidden last:hidden" />
 
             <Link href={`#comment-${comment.id}`} className="hover:text-black">
               <Time date={comment.createdAt} />

@@ -6,23 +6,18 @@ import { SearchIcon, BellRingIcon, CalendarIcon, PlusIcon, LayoutDashboardIcon }
 export default function CompanyDashboard() {
   return (
     <Header
-      avatar={{
-        children: <LayoutDashboardIcon />,
-        variant: "outline",
-        theme: "gray",
-      }}
       title="Dashboard"
       description="Organize and access your payment cards."
-      size="lg"
+      size="h3"
       className="border-b py-4"
     >
       <div className="flex items-center gap-3">
-        <Button theme="gray" variant="ghost" prefix={<SearchIcon />} />
-        <Button theme="gray" variant="ghost" prefix={<BellRingIcon />} />
-        <Button theme="gray" variant="outline" prefix={<CalendarIcon />}>
+        <Button theme="secondary" variant="ghost" prefix={<SearchIcon />} />
+        <Button theme="secondary" variant="ghost" prefix={<BellRingIcon />} />
+        <Button theme="secondary" variant="outline" prefix={<CalendarIcon />}>
           Schedule
         </Button>
-        <Button prefix={<PlusIcon />}>Create Request</Button>
+        <Button theme="secondary" prefix={<PlusIcon />}>Create Request</Button>
       </div>
     </Header>
   )

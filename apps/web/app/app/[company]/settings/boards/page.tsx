@@ -1,13 +1,11 @@
 "use client"
 
-import { Paragraph } from "@curiousleaf/design"
+import { Button, Card, Header, Paragraph } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 import { useState, useEffect } from "react"
 
 import { BoardForm } from "~/app/app/[company]/settings/boards/form"
 import { BoardItem } from "~/app/app/[company]/settings/boards/item"
-import { Box, BoxHeader } from "~/components/interface/box"
-import { Button } from "~/components/interface/button"
 import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Skeleton } from "~/components/interface/skeleton"
 import { HeadingCounter } from "~/components/utils/heading-counter"
@@ -43,25 +41,27 @@ export default function CompanySettingsBoardsPage() {
   }, [boardsQuery.data])
 
   return (
-    <Box>
-      <BoxHeader
-        title={<HeadingCounter data={boardsQuery.data}>Boards</HeadingCounter>}
-        description="Manage the boards where you and your users can submit feedback."
-      >
-        <DialogRoot>
-          <DialogTrigger asChild>
-            <Button size="md" prefix={<PlusIcon />}>
-              Create Board
-            </Button>
-          </DialogTrigger>
+    <Card>
+      <Card.Panel asChild>
+        <Header
+          title={<HeadingCounter data={boardsQuery.data}>Boards</HeadingCounter>}
+          description="Manage the boards where you and your users can submit feedback."
+        >
+          <DialogRoot>
+            <DialogTrigger asChild>
+              <Button theme="secondary" prefix={<PlusIcon />}>
+                Create Board
+              </Button>
+            </DialogTrigger>
 
-          <DialogContent>
-            <BoardForm />
-          </DialogContent>
-        </DialogRoot>
-      </BoxHeader>
+            <DialogContent>
+              <BoardForm />
+            </DialogContent>
+          </DialogRoot>
+        </Header>
+      </Card.Panel>
 
-      <div className="flex flex-col gap-4 md:gap-6">
+      <Card.Section>
         <QueryCell
           query={boardsQuery}
           loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
@@ -75,7 +75,7 @@ export default function CompanySettingsBoardsPage() {
             </SortableProvider>
           )}
         />
-      </div>
-    </Box>
+      </Card.Section>
+    </Card>
   )
 }

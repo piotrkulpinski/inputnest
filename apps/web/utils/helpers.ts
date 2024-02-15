@@ -9,23 +9,6 @@ import { config } from "~/config"
 import { env } from "~/env"
 
 /**
- * Combines multiple class names into a single string.
- * @param classes - The class names to combine.
- * @returns A string containing all the class names separated by a space.
- */
-export const cn = (...classes: ClassValue[]): string => {
-  const customTwMerge = extendTailwindMerge({
-    extend: {
-      classGroups: {
-        "font-size": ["text-xxs", "text-xxxs"],
-      },
-    },
-  })
-
-  return customTwMerge(clsx(...classes))
-}
-
-/**
  * Checks if the given ReactNode is empty.
  *
  * @param children - The ReactNode to check.
@@ -44,18 +27,6 @@ export const isChildrenEmpty = (children: ReactNode) => {
  */
 export const formatBadgeCount = (count: number) => {
   return count > 9 ? "9+" : count
-}
-
-/**
- * Returns a label for the first search key shortcut found.
- * @returns The label for the shortcut.
- */
-export const getShortcutLabel = () => {
-  const shortcut = config.commandShortcuts[0]
-
-  const { key, metaKey } = shortcut
-  const label = `${metaKey ? "⌘" : ""}${key.toUpperCase()}`
-  return label
 }
 
 /**

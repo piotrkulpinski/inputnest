@@ -1,4 +1,4 @@
-import { Loader } from "@curiousleaf/design"
+import { Loader, cx } from "@curiousleaf/design"
 import { Slot } from "@radix-ui/react-slot"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
@@ -7,7 +7,7 @@ import type { ButtonHTMLAttributes, ReactNode } from "react"
 
 import { Slottable } from "~/components/utils/slottable"
 import { focusVisibleClasses } from "~/utils/classes"
-import { cn, isChildrenEmpty } from "~/utils/helpers"
+import { isChildrenEmpty } from "~/utils/helpers"
 
 const buttonVariants = cva(
   [
@@ -25,7 +25,7 @@ const buttonVariants = cva(
         clean: "!p-0 -m-px bg-transparent border-transparent shadow-none hover:text-black",
       },
       size: {
-        xs: "px-2 py-1 gap-[0.5ch] text-xxs",
+        xs: "px-2 py-1 gap-[0.5ch] text-2xs",
         sm: "px-3 py-1.5 gap-[0.75ch] text-xs",
         md: "px-4 py-2 gap-[1ch] text-sm",
       },
@@ -93,14 +93,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   return (
     <Comp
       disabled={disabled ?? isLoading}
-      className={cn(buttonVariants({ theme, size, isDanger, isActive, className }))}
+      className={cx(buttonVariants({ theme, size, isDanger, isActive, className }))}
       ref={ref}
       {...rest}
     >
       <Slottable child={children} asChild={asChild}>
         {(child) => (
           <>
-            <div className={cn("contents", isLoading && "text-transparent")}>
+            <div className={cx("contents", isLoading && "text-transparent")}>
               <Slot className="shrink-0" aria-hidden="true">
                 {prefix}
               </Slot>

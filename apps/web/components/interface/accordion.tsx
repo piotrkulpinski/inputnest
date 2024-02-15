@@ -1,8 +1,7 @@
+import { cx } from "@curiousleaf/design"
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
-
-import { cn } from "~/utils/helpers"
 
 export const Accordion = AccordionPrimitive.Root
 export const AccordionItem = AccordionPrimitive.Item
@@ -14,7 +13,7 @@ export const AccordionContent = forwardRef<
 >(({ className, ...props }, ref) => (
   <AccordionPrimitive.Content
     ref={ref}
-    className={cn(
+    className={cx(
       "overflow-hidden transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
       className,
     )}

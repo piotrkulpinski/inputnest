@@ -1,3 +1,4 @@
+import { cx } from "@curiousleaf/design"
 import * as AlertPrimitive from "@radix-ui/react-alert-dialog"
 import type { VariantProps } from "class-variance-authority"
 import { XIcon } from "lucide-react"
@@ -11,15 +12,13 @@ import {
   dialogOverlayVariants,
   dialogSlideoutVariants,
 } from "~/components/interface/dialog"
-import { cn } from "~/utils/helpers"
-
 export const AlertRoot = AlertPrimitive.Root
 export const AlertTrigger = AlertPrimitive.Trigger
 
 export const AlertOverlay = forwardRef<
   ElementRef<typeof AlertPrimitive.Overlay>,
   ComponentPropsWithoutRef<typeof AlertPrimitive.Overlay> &
-    VariantProps<typeof dialogOverlayVariants>
+  VariantProps<typeof dialogOverlayVariants>
 >(({ className, type, ...props }, ref) => (
   <AlertPrimitive.Overlay
     ref={ref}
@@ -31,7 +30,7 @@ export const AlertOverlay = forwardRef<
 export const AlertContent = forwardRef<
   ElementRef<typeof AlertPrimitive.Content>,
   ComponentPropsWithoutRef<typeof AlertPrimitive.Content> &
-    ComponentPropsWithoutRef<typeof BoxOverlay>
+  ComponentPropsWithoutRef<typeof BoxOverlay>
 >(({ className, size, fixed, padded, ...props }, ref) => (
   <AlertPrimitive.Portal>
     <AlertOverlay type="overlay" />
@@ -40,7 +39,7 @@ export const AlertContent = forwardRef<
       padded={padded}
       size={size}
       fixed={fixed}
-      className={cn(dialogContentVariants(), className)}
+      className={cx(dialogContentVariants(), className)}
       asChild
     >
       <AlertPrimitive.Content ref={ref} {...props} />
@@ -51,7 +50,7 @@ export const AlertContent = forwardRef<
 export const AlertSlideout = forwardRef<
   ElementRef<typeof AlertPrimitive.Content>,
   ComponentPropsWithoutRef<typeof AlertPrimitive.Content> &
-    VariantProps<typeof dialogSlideoutVariants>
+  VariantProps<typeof dialogSlideoutVariants>
 >(({ className, ...props }, ref) => (
   <AlertPrimitive.Portal>
     <AlertOverlay type="slideout" />
@@ -68,7 +67,7 @@ export const AlertClose = forwardRef<
   ElementRef<typeof AlertPrimitive.Cancel>,
   ComponentPropsWithoutRef<typeof AlertPrimitive.Cancel>
 >(({ className, ...props }, ref) => (
-  <AlertPrimitive.Cancel ref={ref} className={cn("-my-1", className)} tabIndex={-1} {...props}>
+  <AlertPrimitive.Cancel ref={ref} className={cx("-my-1", className)} tabIndex={-1} {...props}>
     <XIcon />
   </AlertPrimitive.Cancel>
 ))

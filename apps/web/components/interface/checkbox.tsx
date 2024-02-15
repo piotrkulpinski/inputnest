@@ -9,7 +9,7 @@ import { focusVisibleClasses } from "~/utils/classes"
 
 const checkboxVariants = cva(
   [
-    "peer flex items-center justify-center h-4 w-4 shrink-0 appearance-none rounded bg-white border border-outline text-black text-xxs transition-none",
+    "peer flex items-center justify-center h-4 w-4 shrink-0 appearance-none rounded bg-white border border-outline text-black text-2xs transition-none",
     "disabled:bg-gray-100 disabled:text-gray-400 disabled:pointer-events-none",
     "data-[state=checked]:border-black data-[state=checked]:bg-black data-[state=checked]:text-white",
     focusVisibleClasses,

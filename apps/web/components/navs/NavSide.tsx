@@ -1,5 +1,5 @@
 
-import { Accordion, Sidebar } from "@curiousleaf/design"
+import { Accordion, Button, Shortcut, Sidebar } from "@curiousleaf/design"
 import { forwardRef, type ComponentPropsWithoutRef, type ElementRef } from "react"
 
 import { useMenu } from "~/hooks/useMenu"
@@ -17,7 +17,7 @@ export const NavSide = forwardRef<
     <Sidebar ref={ref} {...props}>
       <NavCompany />
 
-      <Sidebar.Separator />
+
 
       <Accordion type="single" defaultValue={openMenu?.title} asChild>
         <Sidebar.Content>
@@ -32,6 +32,9 @@ export const NavSide = forwardRef<
           ))}
         </Sidebar.Content>
       </Accordion>
+
+      <Button size="md" theme="secondary" variant="outline" suffix={<Shortcut className="text-gray-600">⌘K</Shortcut>} className="justify-between">
+        Search&hellip;</Button>
 
       <NavUser />
     </Sidebar>
