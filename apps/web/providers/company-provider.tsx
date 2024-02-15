@@ -3,7 +3,7 @@ import type { PropsWithChildren } from "react"
 import type { RouterOutputs } from "~/services/trpc"
 import { createSimpleContext } from "~/utils/providers"
 
-type Company = NonNullable<RouterOutputs["companies"]["findBySlug"]>
+type Company = NonNullable<RouterOutputs["companies"]["getBySlug"]>
 
 const CompanyContext = createSimpleContext<Company>("Company")
 

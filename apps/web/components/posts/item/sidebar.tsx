@@ -10,14 +10,14 @@ import { useEffect, type HTMLAttributes } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
 import { FormSelect } from "~/components/form/controls/select"
-import { FormField } from "~/components/form/field"
+import { FormField } from "~/components/form/FormField"
 import { FormFieldset } from "~/components/form/fieldset"
 import { CardPanel } from "~/components/interface/card"
 import { Field } from "~/components/interface/field"
 import { Status } from "~/components/interface/status"
 import { VotesList } from "~/components/votes/list"
 import { VotesSkeleton } from "~/components/votes/skeleton"
-import { useMutationHandler } from "~/hooks/use-mutation-handler"
+import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
 import { usePost } from "~/providers/post-provider"
 import { api } from "~/services/trpc"
@@ -68,7 +68,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
       <CardPanel
         theme="white"
         flex="column"
-        className={cx("border-outline max-md:border-t md:w-72 md:shrink-0 md:border-l", className)}
+        className={cx("border max-md:border-t md:w-72 md:shrink-0 md:border-l", className)}
         {...props}
       >
         <FormFieldset className="sticky top-16" disabled={isLoading}>
@@ -104,7 +104,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
             theme="secondary"
             variant="ghost"
             prefix={<ArrowLeftIcon />}
-            className="sticky bottom-4 text-zinc-500"
+            className="text-zinc-500 sticky bottom-4"
             asChild
           >
             <Link href="..">Back to all posts</Link>

@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@curiousleaf/design"
+import { Button, Tooltip } from "@curiousleaf/design"
 import { useCopyToClipboard } from "@uidotdev/usehooks"
 import { CheckIcon, CopyIcon, PencilIcon, TrashIcon } from "lucide-react"
 import Link from "next/link"
@@ -8,8 +8,7 @@ import type { HTMLAttributes } from "react"
 
 import { DialogConfirm } from "~/components/dialogs/confirm"
 import { CardActions } from "~/components/interface/card"
-import { Tooltip, TooltipButton } from "~/components/interface/tooltip"
-import { useMutationHandler } from "~/hooks/use-mutation-handler"
+import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
 import { usePost } from "~/providers/post-provider"
 import { api } from "~/services/trpc"
@@ -35,16 +34,17 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
 
   return (
     <CardActions {...props}>
-      <TooltipButton
-        tooltip="Copy Link"
-        type="button"
-        theme="secondary"
-        size="sm"
-        prefix={copiedText ? <CheckIcon /> : <CopyIcon />}
-        onClick={() => copyToClipboard(`${getTenantUrl(slug)}/posts/${post.id}`)}
-      />
+      <Tooltip tooltip="Copy Link">
+        <Button
+          size="md"
+          theme="secondary"
+          variant="outline"
+          prefix={copiedText ? <CheckIcon /> : <CopyIcon />}
+          onClick={() => copyToClipboard(`${getTenantUrl(slug)}/posts/${post.id}`)}
+        />
+      </Tooltip>
 
-      <Tooltip content="Edit Post">
+      <Tooltip tooltip="Edit Post">
         <div>
           <Button size="sm" theme="secondary" variant="outline" prefix={<PencilIcon />} asChild>
             <Link href="edit" />
@@ -57,14 +57,15 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
         label="Delete Post"
         onConfirm={() => deletePost.mutate({ id: post.id })}
       >
-        <TooltipButton
-          tooltip="Delete Post"
-          size="sm"
-          theme="negative"
-          variant="outline"
-          prefix={<TrashIcon />}
-          loading={deletePost.isLoading}
-        />
+        <Tooltip tooltip="Delete Post">
+          <Button
+            size="md"
+            theme="negative"
+            variant="outline"
+            prefix={<TrashIcon />}
+            loading={deletePost.isLoading}
+          />
+        </Tooltip>
       </DialogConfirm>
     </CardActions>
   )

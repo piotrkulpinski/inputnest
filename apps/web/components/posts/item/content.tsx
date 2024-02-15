@@ -1,11 +1,10 @@
 "use client"
 
-import { H6, Series } from "@curiousleaf/design"
+import { H6, Markdown, Series } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
 import { CardPanel } from "~/components/interface/card"
 import { Dot } from "~/components/interface/dot"
-import { Markdown } from "~/components/interface/markdown"
 import { Time } from "~/components/interface/time"
 import { UserAvatar } from "~/components/users/avatar"
 import { usePost } from "~/providers/post-provider"

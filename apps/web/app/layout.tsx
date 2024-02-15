@@ -54,20 +54,18 @@ export default async function RootLayout({ children }: PropsWithChildren) {
               card: "w-full m-0 p-0 gap-4 bg-transparent shadow-none",
               header: "hidden",
               logoBox: "hidden",
-              dividerLine: "bg-outline",
+              dividerLine: "bg-gray-200",
               formButtonPrimary: "bg-black text-white font-medium text-sm py-3 px-6 normal-case",
               formFieldLabel: "mb-1",
-              formFieldInput: "border-outline",
+              formFieldInput: "border",
               footerActionText: "text-xs opacity-60",
               footerActionLink: "text-xs underline focus:shadow-none",
-              socialButtonsBlockButton: "bg-white border-outline tracking-wide hover:bg-gray-50",
+              socialButtonsBlockButton: "bg-white border tracking-wide hover:bg-gray-50",
               socialButtonsBlockButton__google: "order-first",
             },
           }}
         >
-          <TRPCProvider headers={headers()}>
-            {children}
-          </TRPCProvider>
+          <TRPCProvider headers={headers()}>{children}</TRPCProvider>
         </ClerkProvider>
       </body>
     </html>

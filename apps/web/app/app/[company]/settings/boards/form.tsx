@@ -1,4 +1,5 @@
 import { Button } from "@curiousleaf/design"
+import { toSlugCase } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AppRouter } from "@repo/api"
 import type { BoardSchema } from "@repo/database"
@@ -8,12 +9,12 @@ import type { HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 
 import { FormInput } from "~/components/form/controls/input"
-import { FormField } from "~/components/form/field"
+import { FormField } from "~/components/form/FormField"
 import { FormFieldset } from "~/components/form/fieldset"
 import { BoxHeader, BoxFooter } from "~/components/interface/box"
 import { DialogCancel, DialogClose } from "~/components/interface/dialog"
-import { useFormSlug } from "~/hooks/use-form-slug"
-import { useMutationHandler } from "~/hooks/use-mutation-handler"
+import { useComputedField } from "~/hooks/useComputedField"
+import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
@@ -62,11 +63,12 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
   }
 
   // Set the slug based on the name
-  useFormSlug({
+  useComputedField({
     form,
-    invokerField: "name",
-    targetField: "slug",
+    sourceField: "name",
+    computedField: "slug",
     enabled: !isEditing,
+    callback: toSlugCase,
   })
 
   return (

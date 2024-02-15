@@ -1,25 +1,20 @@
-import { cx } from "@curiousleaf/design"
+import { Header, cx } from "@curiousleaf/design"
 import { Slot } from "@radix-ui/react-slot"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
 import type { ComponentProps, ComponentPropsWithoutRef, HTMLAttributes } from "react"
 import { forwardRef } from "react"
 
-import { Header } from "~/components/interface/header"
-
-const boxVariants = cva(
-  "bg-white border border-outline rounded-md text-sm overflow-clip !shadow-sm",
-  {
-    variants: {
-      padded: {
-        true: "flex flex-col gap-8 p-6 md:p-8",
-      },
-    },
-    defaultVariants: {
-      padded: true,
+const boxVariants = cva("bg-white border rounded-md text-sm overflow-clip !shadow-sm", {
+  variants: {
+    padded: {
+      true: "flex flex-col gap-8 p-6 md:p-8",
     },
   },
-)
+  defaultVariants: {
+    padded: true,
+  },
+})
 
 type BoxProps = HTMLAttributes<HTMLElement> &
   VariantProps<typeof boxVariants> & {

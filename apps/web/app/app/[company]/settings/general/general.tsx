@@ -1,54 +1,48 @@
 "use client"
 
-import { Button } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
-import { FormAffix } from "~/components/form/affix"
-import { FormInput } from "~/components/form/controls/input"
-import { FormField } from "~/components/form/field"
-import { FormFieldset } from "~/components/form/fieldset"
 import { Box, BoxHeader, BoxFooter } from "~/components/interface/box"
 import { useSettings } from "~/providers/settings-provider"
 import { getTenantHost } from "~/utils/helpers"
+import { Form } from "~/components/form/Form"
 
 export const CompanySettingsGeneralForm = (props: HTMLAttributes<HTMLElement>) => {
   const { form, onSubmit, isLoading } = useSettings()
 
   return (
     <Box asChild {...props}>
-      <form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit}>
         <BoxHeader title="General" description="View and update your company details." />
 
-        <FormFieldset>
-          <FormField
+        <Form.Fieldset>
+          <Form.Field
             control={form.control}
             name="name"
             label="Name"
             hint="Used as a logo fallback, and to identify your company on the dashboard."
             required
           >
-            <FormInput />
-          </FormField>
+            <Form.Input data-1p-ignore />
+          </Form.Field>
 
-          <FormField
+          <Form.Field
             control={form.control}
             name="slug"
             label="Subdomain"
             hint="Your company is visible at this address."
             required
           >
-            <FormAffix suffix={getTenantHost()} className="max-w-sm">
-              <FormInput />
-            </FormAffix>
-          </FormField>
-        </FormFieldset>
+            <Form.Affix suffix={getTenantHost()} className="max-w-sm">
+              <Form.Input />
+            </Form.Affix>
+          </Form.Field>
+        </Form.Fieldset>
 
         <BoxFooter>
-          <Button loading={isLoading} theme="gray">
-            Save Changes
-          </Button>
+          <Form.Button loading={isLoading}>Save Changes</Form.Button>
         </BoxFooter>
-      </form>
+      </Form>
     </Box>
   )
 }

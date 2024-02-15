@@ -1,3 +1,5 @@
+"use client"
+
 import { Slottable, cx } from "@curiousleaf/design"
 import { Slot } from "@radix-ui/react-slot"
 import type { HTMLAttributes } from "react"

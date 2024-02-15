@@ -1,10 +1,8 @@
-import { Button } from "@curiousleaf/design"
-import { PopoverClose } from "@radix-ui/react-popover"
+import { Button, Popover } from "@curiousleaf/design"
 import { AsteriskIcon } from "lucide-react"
 import { useFormContext } from "react-hook-form"
 
-import { Popover } from "~/components/interface/popover"
-import { useFormField } from "~/providers/field-provider"
+import { useFieldContext } from "~/providers/FieldProvider"
 
 export type FormVariablesProps = {
   variables: string[]
@@ -12,7 +10,7 @@ export type FormVariablesProps = {
 
 const FormVariablesList = ({ variables }: FormVariablesProps) => {
   const { setValue } = useFormContext()
-  const { field } = useFormField()
+  const { field } = useFieldContext()
 
   const onVariableClick = (variable: string) => {
     setValue(field.name, `${field.value}{{${variable}}}`)
@@ -23,13 +21,13 @@ const FormVariablesList = ({ variables }: FormVariablesProps) => {
       <strong className="mb-1 font-medium">Dynamic variables:</strong>
 
       {variables.map((variable, index) => (
-        <PopoverClose
+        <Popover.Close
           key={index}
           onClick={() => onVariableClick(variable)}
-          className="text-2xs whitespace-nowrap font-mono text-blue-700/75 hover:enabled:text-black"
+          className="text-blue-700/75 whitespace-nowrap font-mono text-2xs hover:enabled:text-black"
         >
           {`{{${variable}}}`}
-        </PopoverClose>
+        </Popover.Close>
       ))}
     </div>
   )
@@ -42,7 +40,7 @@ export const FormVariables = ({ variables }: FormVariablesProps) => {
 
   return (
     <Popover
-      content={<FormVariablesList variables={variables} />}
+      popover={<FormVariablesList variables={variables} />}
       sideOffset={-2}
       side="bottom"
       align="end"

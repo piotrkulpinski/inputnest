@@ -4,7 +4,7 @@ import { formatDateTime } from "@curiousleaf/utils"
 import { forwardRef } from "react"
 import type { HTMLAttributes } from "react"
 
-import { useRelativeTime } from "~/hooks/use-relative-time"
+import { useRelativeTime } from "~/hooks/useRelativeTime"
 
 type TimeProps = HTMLAttributes<HTMLTimeElement> & {
   date: Date

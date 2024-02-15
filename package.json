@@ -1,6 +1,7 @@
 {
   "name": "userpledge",
   "private": true,
+  "type": "module",
   "scripts": {
     "web": "bun --cwd apps/web",
     "design": "bun --cwd shared/design",

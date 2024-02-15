@@ -4,9 +4,8 @@ import { useMemo } from "react"
 import { NavItemProps } from "~/components/navs/NavItem"
 import { useCompany } from "~/providers/company-provider"
 
-import { GemIcon, SettingsIcon, TableIcon } from "lucide-react"
+import { SettingsIcon, TableIcon } from "lucide-react"
 import { Badge } from "@curiousleaf/design"
-import { isTruthy } from "@curiousleaf/utils"
 
 export type Menu = {
   title?: string
@@ -69,7 +68,7 @@ export const useMenu = () => {
             { title: "Boards", href: `/app/${slug}/settings/boards` },
             { title: "Statuses", href: `/app/${slug}/settings/statuses` },
             { title: "Tags", href: `/app/${slug}/settings/tags` },
-          ]
+          ],
         },
         { title: "Import/Export", href: `/#`, prefix: <TableIcon /> },
       ],

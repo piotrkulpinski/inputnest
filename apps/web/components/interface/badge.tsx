@@ -14,7 +14,7 @@ const badgeVariants = cva(
   {
     variants: {
       theme: {
-        white: "bg-white !border-outline !text-gray-600",
+        white: "bg-white border-gray-200 !text-gray-600",
         blue: "bg-blue-500 !text-white",
         blueSoft: "bg-blue-100/60 !text-blue-600",
         purple: "bg-purple-500 !text-white",
@@ -57,7 +57,7 @@ export const Badge = forwardRef<HTMLElement, BadgeProps>((props, ref) => {
   return (
     <Comp className={badgeVariants({ theme, size, className })} ref={ref} {...rest}>
       <Slottable child={children} asChild={asChild}>
-        {(child) => (
+        {child => (
           <>
             <Slot className="-mx-0.5 shrink-0 text-[0.75em]" aria-hidden="true">
               {prefix}
