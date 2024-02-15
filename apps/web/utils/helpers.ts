@@ -1,11 +1,7 @@
 import { removeHttp } from "@curiousleaf/utils"
-import type { ClassValue } from "clsx"
-import { clsx } from "clsx"
 import type { ReactNode } from "react"
 import { Children } from "react"
-import { extendTailwindMerge } from "tailwind-merge"
 
-import { config } from "~/config"
 import { env } from "~/env"
 
 /**

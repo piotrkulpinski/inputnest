@@ -30,7 +30,6 @@
     "apps/*",
     "config/*",
     "packages/*",
-    "shared/*",
-    "workers/*"
+    "shared/*"
   ]
 }

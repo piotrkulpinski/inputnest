@@ -14,7 +14,7 @@ import { QueryCell } from "~/components/utils/query-cell"
 import { useCompany } from "~/providers/company-provider"
 import { api } from "~/services/trpc"
 
-export default function CompanyPostsPage() {
+export default function Route() {
   const { id: companyId } = useCompany()
   const postsQuery = api.posts.getAll.useQuery({ companyId })
 

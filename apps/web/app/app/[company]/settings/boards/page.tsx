@@ -15,7 +15,7 @@ import { SortableProvider } from "~/providers/sortable-provider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
-export default function CompanySettingsBoardsPage() {
+export default function Route() {
   const apiUtils = api.useUtils()
   const { id: companyId } = useCompany()
   const [boards, setBoards] = useState<RouterOutputs["boards"]["getAll"]>([])

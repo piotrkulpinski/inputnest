@@ -17,7 +17,7 @@ import { SortableProvider } from "~/providers/sortable-provider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
-const CompanySettingsTags = () => {
+export default function Route() {
   const apiUtils = api.useUtils()
   const { id: companyId } = useCompany()
   const [tags, setTags] = useState<RouterOutputs["tags"]["getAll"]>([])
@@ -79,5 +79,3 @@ const CompanySettingsTags = () => {
     </Box>
   )
 }
-
-export default CompanySettingsTags

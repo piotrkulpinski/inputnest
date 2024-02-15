@@ -1,9 +1,9 @@
-import { Prisma, PrismaClient } from "@prisma/client/edge"
-import { withAccelerate } from "@prisma/extension-accelerate"
+import { Prisma, PrismaClient } from "@prisma/client"
+import { remember } from "@epic-web/remember"
 
-export const getPrismaClient = (datasourceUrl: string) => {
-  return new PrismaClient({ datasourceUrl }).$extends(withAccelerate())
-}
+export const db = remember('prisma', () => {
+  return new PrismaClient()
+})
 
 export const isPrismaError = (error: unknown): error is Prisma.PrismaClientKnownRequestError => {
   return error instanceof Prisma.PrismaClientKnownRequestError

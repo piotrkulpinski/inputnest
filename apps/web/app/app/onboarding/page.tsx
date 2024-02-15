@@ -1,7 +1,7 @@
 import { OnboardingForm } from "~/app/app/onboarding/form"
 import { AuthLayout } from "~/components/auth/layout"
 
-export default function OnboardingPage() {
+export default function OnboardingRoute() {
   return (
     <AuthLayout
       title="Create company"
