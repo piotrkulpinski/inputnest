@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Prose, cx } from "@curiousleaf/design"
+import { Button, Card, Field, Prose, cx } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { PostSchema } from "@repo/database"
 import { postSchema } from "@repo/database"
@@ -8,12 +8,8 @@ import { ArrowLeftIcon } from "lucide-react"
 import Link from "next/link"
 import { useEffect, type HTMLAttributes } from "react"
 import { FormProvider, useForm } from "react-hook-form"
+import { Form } from "~/components/form/Form"
 
-import { FormSelect } from "~/components/form/controls/select"
-import { FormField } from "~/components/form/FormField"
-import { FormFieldset } from "~/components/form/fieldset"
-import { CardPanel } from "~/components/interface/card"
-import { Field } from "~/components/interface/field"
 import { Status } from "~/components/interface/status"
 import { VotesList } from "~/components/votes/list"
 import { VotesSkeleton } from "~/components/votes/skeleton"
@@ -65,52 +61,51 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
 
   return (
     <FormProvider {...form}>
-      <CardPanel
+      <Card.Panel
         theme="white"
         flex="column"
         className={cx("border max-md:border-t md:w-72 md:shrink-0 md:border-l", className)}
         {...props}
       >
-        <FormFieldset className="sticky top-16" disabled={isLoading}>
-          <FormField control={form.control} name="boardId" label="Board">
-            <FormSelect
+        <Form.Fieldset className="sticky top-16" disabled={isLoading}>
+          <Form.Field control={form.control} name="boardId" label="Board">
+            <Form.Select
               options={boards.data?.map(({ name, id }) => ({
                 label: name,
                 value: id,
               }))}
             />
-          </FormField>
+          </Form.Field>
 
-          <FormField control={form.control} name="statusId" label="Status">
-            <FormSelect
+          <Form.Field control={form.control} name="statusId" label="Status">
+            <Form.Select
               options={statuses.data?.map(({ name, id, color }) => ({
                 label: <Status color={color}>{name}</Status>,
                 value: id,
               }))}
             />
-          </FormField>
+          </Form.Field>
 
           <Field label={`Voters (${votes.data?.length ?? "0"})`}>
             {votes.isLoading && <VotesSkeleton />}
             {votes.isSuccess && !votes.data?.length && <Prose>No votes yet.</Prose>}
             {votes.isSuccess && !!votes.data?.length && <VotesList votes={votes.data} />}
           </Field>
-        </FormFieldset>
+        </Form.Fieldset>
 
         <div className="flex grow flex-col items-start justify-end">
           <Button
-            type="button"
             size="sm"
             theme="secondary"
             variant="ghost"
             prefix={<ArrowLeftIcon />}
-            className="text-zinc-500 sticky bottom-4"
+            className="sticky bottom-4 text-gray-500"
             asChild
           >
             <Link href="..">Back to all posts</Link>
           </Button>
         </div>
-      </CardPanel>
+      </Card.Panel>
     </FormProvider>
   )
 }

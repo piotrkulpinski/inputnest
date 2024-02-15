@@ -1,4 +1,3 @@
-import { Button } from "@curiousleaf/design"
 import { toSlugCase } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AppRouter } from "@repo/api"
@@ -7,10 +6,8 @@ import { boardSchema, boardDefaults } from "@repo/database"
 import type { TRPCClientErrorLike } from "@trpc/client"
 import type { HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
+import { Form } from "~/components/form/Form"
 
-import { FormInput } from "~/components/form/controls/input"
-import { FormField } from "~/components/form/FormField"
-import { FormFieldset } from "~/components/form/fieldset"
 import { BoxHeader, BoxFooter } from "~/components/interface/box"
 import { DialogCancel, DialogClose } from "~/components/interface/dialog"
 import { useComputedField } from "~/hooks/useComputedField"
@@ -73,28 +70,26 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
 
   return (
     <FormProvider {...form}>
-      <form className="contents" onSubmit={form.handleSubmit(onSubmit)} {...props}>
+      <Form className="contents" onSubmit={form.handleSubmit(onSubmit)} {...props}>
         <BoxHeader title={`${isEditing ? "Update" : "Create New"} Board`}>
           <DialogClose />
         </BoxHeader>
 
-        <FormFieldset>
-          <FormField control={form.control} name="name" label="Name" required>
-            <FormInput data-1p-ignore />
-          </FormField>
+        <Form.Fieldset>
+          <Form.Field control={form.control} name="name" label="Name" required>
+            <Form.Input data-1p-ignore />
+          </Form.Field>
 
-          <FormField control={form.control} name="slug" label="Slug" required>
-            <FormInput />
-          </FormField>
-        </FormFieldset>
+          <Form.Field control={form.control} name="slug" label="Slug" required>
+            <Form.Input />
+          </Form.Field>
+        </Form.Fieldset>
 
         <BoxFooter>
-          <Button type="submit" theme="secondary" loading={isLoading}>
-            {isEditing ? "Update" : "Create"} Board
-          </Button>
+          <Form.Button loading={isLoading}>{isEditing ? "Update" : "Create"} Board</Form.Button>
           <DialogCancel />
         </BoxFooter>
-      </form>
+      </Form>
     </FormProvider>
   )
 }

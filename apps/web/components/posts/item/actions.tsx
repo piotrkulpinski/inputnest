@@ -2,7 +2,7 @@
 
 import { Button, Tooltip } from "@curiousleaf/design"
 import { useCopyToClipboard } from "@uidotdev/usehooks"
-import { CheckIcon, CopyIcon, PencilIcon, TrashIcon } from "lucide-react"
+import { CheckIcon, CopyIcon, SquarePenIcon, Trash2Icon } from "lucide-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 
@@ -44,28 +44,24 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
         />
       </Tooltip>
 
-      <Tooltip tooltip="Edit Post">
-        <div>
-          <Button size="sm" theme="secondary" variant="outline" prefix={<PencilIcon />} asChild>
-            <Link href="edit" />
-          </Button>
-        </div>
-      </Tooltip>
+      <Button size="md" theme="secondary" variant="outline" prefix={<SquarePenIcon />} asChild>
+        <Link href="./edit">Edit</Link>
+      </Button>
 
       <DialogConfirm
         title="Delete your post?"
         label="Delete Post"
         onConfirm={() => deletePost.mutate({ id: post.id })}
       >
-        <Tooltip tooltip="Delete Post">
-          <Button
-            size="md"
-            theme="negative"
-            variant="outline"
-            prefix={<TrashIcon />}
-            loading={deletePost.isLoading}
-          />
-        </Tooltip>
+        <Button
+          size="md"
+          theme="negative"
+          variant="outline"
+          prefix={<Trash2Icon />}
+          loading={deletePost.isLoading}
+        >
+          Delete
+        </Button>
       </DialogConfirm>
     </CardActions>
   )

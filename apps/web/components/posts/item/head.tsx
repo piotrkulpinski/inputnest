@@ -1,6 +1,6 @@
 "use client"
 
-import { H3 } from "@curiousleaf/design"
+import { H4 } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
 import { CardPanel } from "~/components/interface/card"
@@ -14,7 +14,7 @@ export const PostItemHead = ({ ...props }: HTMLAttributes<HTMLElement>) => {
   return (
     <CardPanel theme="white" flex="row" {...props}>
       <VotesVote postId={post.id}>{post._count.votes ?? 0}</VotesVote>
-      <H3>{post.title}</H3>
+      <H4>{post.title}</H4>
 
       <PostItemActions />
     </CardPanel>

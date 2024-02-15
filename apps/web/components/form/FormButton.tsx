@@ -10,7 +10,6 @@ export const FormButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref
   return (
     <Button
       ref={ref}
-      type="submit"
       loading={isSubmitting}
       disabled={isSubmitting || (isSubmitted && !isValid)}
       {...props}
@@ -20,6 +19,7 @@ export const FormButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref
 
 FormButton.defaultProps = {
   className: "min-w-[8rem]",
+  type: "submit",
   theme: "secondary",
   children: "Save Changes",
 }

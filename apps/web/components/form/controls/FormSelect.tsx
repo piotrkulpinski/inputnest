@@ -9,7 +9,7 @@ export const FormSelect = forwardRef<SelectElement, SelectProps>((props, _) => {
 
   return (
     <FormControl>
-      <Select error={!!fieldState.error} {...field} {...props} />
+      <Select error={!!fieldState.error} onValueChange={field.onChange} {...field} {...props} />
     </FormControl>
   )
 })

@@ -32,7 +32,7 @@ export const VotesVote = forwardRef<ElementRef<typeof Button>, VotesVoteProps>(
     return (
       <Button
         ref={ref}
-        size="sm"
+        size="md"
         theme="secondary"
         variant="outline"
         prefix={<TriangleIcon className="text-[0.75em]" />}
