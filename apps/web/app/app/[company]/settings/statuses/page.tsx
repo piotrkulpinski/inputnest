@@ -1,13 +1,11 @@
 "use client"
 
-import { Paragraph } from "@curiousleaf/design"
+import { Button, Card, Header, Paragraph } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 import { useState, useEffect } from "react"
 
 import { StatusForm } from "~/app/app/[company]/settings/statuses/form"
 import { StatusItem } from "~/app/app/[company]/settings/statuses/item"
-import { Box, BoxHeader } from "~/components/interface/box"
-import { Button } from "~/components/interface/button"
 import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Skeleton } from "~/components/interface/skeleton"
 import { HeadingCounter } from "~/components/utils/heading-counter"
@@ -42,25 +40,27 @@ export default function Route() {
   }, [statusesQuery.data])
 
   return (
-    <Box>
-      <BoxHeader
-        title={<HeadingCounter data={statusesQuery.data}>Statuses</HeadingCounter>}
-        description="Customize existing ones or add extra statuses you can add for posts."
-      >
-        <DialogRoot>
-          <DialogTrigger asChild>
-            <Button size="md" prefix={<PlusIcon />}>
-              Create Status
-            </Button>
-          </DialogTrigger>
+    <Card>
+      <Card.Panel asChild>
+        <Header
+          title={<HeadingCounter data={statusesQuery.data}>Statuses</HeadingCounter>}
+          description="Customize existing ones or add extra statuses you can add for posts."
+        >
+          <DialogRoot>
+            <DialogTrigger asChild>
+              <Button theme="secondary" prefix={<PlusIcon />}>
+                Create Status
+              </Button>
+            </DialogTrigger>
 
-          <DialogContent>
-            <StatusForm />
-          </DialogContent>
-        </DialogRoot>
-      </BoxHeader>
+            <DialogContent>
+              <StatusForm />
+            </DialogContent>
+          </DialogRoot>
+        </Header>
+      </Card.Panel>
 
-      <div className="flex flex-col gap-4 md:gap-6">
+      <Card.Section>
         <QueryCell
           query={statusesQuery}
           loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
@@ -68,13 +68,13 @@ export default function Route() {
           empty={() => <Paragraph>No statuses added for this company yet.</Paragraph>}
           success={() => (
             <SortableProvider items={statuses.map(({ id }) => id)} onDragEnd={move}>
-              {statuses.map((status) => (
+              {statuses.map(status => (
                 <StatusItem key={status.id} status={status} />
               ))}
             </SortableProvider>
           )}
         />
-      </div>
-    </Box>
+      </Card.Section>
+    </Card>
   )
 }

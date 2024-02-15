@@ -1,10 +1,9 @@
-import { H5 } from "@curiousleaf/design"
+import { Button, H5 } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
 import { TagForm } from "~/app/app/[company]/settings/tags/form"
 import { DialogConfirm } from "~/components/dialogs/confirm"
-import { Button } from "~/components/interface/button"
 import { Card, CardActions, CardDraggable, CardPanel } from "~/components/interface/card"
 import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Status } from "~/components/interface/status"
@@ -41,7 +40,9 @@ export const TagItem = ({ tag, ...props }: TagItemProps) => {
         <CardActions>
           <DialogRoot>
             <DialogTrigger asChild>
-              <Button theme="secondary">Edit</Button>
+              <Button theme="secondary" variant="outline">
+                Edit
+              </Button>
             </DialogTrigger>
 
             <DialogContent>
@@ -54,7 +55,7 @@ export const TagItem = ({ tag, ...props }: TagItemProps) => {
             label="Delete Tag"
             onConfirm={() => deleteTag.mutate({ id: tag.id })}
           >
-            <Button theme="secondary" isLoading={deleteTag.isLoading} isDanger>
+            <Button theme="negative" variant="outline" loading={deleteTag.isLoading}>
               Delete
             </Button>
           </DialogConfirm>

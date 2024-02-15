@@ -1,6 +1,6 @@
 "use client"
 
-import { Prose, cx } from "@curiousleaf/design"
+import { Button, Prose, cx } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { PostSchema } from "@repo/database"
 import { postSchema } from "@repo/database"
@@ -12,7 +12,6 @@ import { FormProvider, useForm } from "react-hook-form"
 import { FormSelect } from "~/components/form/controls/select"
 import { FormField } from "~/components/form/field"
 import { FormFieldset } from "~/components/form/fieldset"
-import { Button } from "~/components/interface/button"
 import { CardPanel } from "~/components/interface/card"
 import { Field } from "~/components/interface/field"
 import { Status } from "~/components/interface/status"
@@ -29,7 +28,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
   const { post } = usePost()
   const { id: companyId } = useCompany()
 
-  const [boards, statuses, votes] = api.useQueries((t) => [
+  const [boards, statuses, votes] = api.useQueries(t => [
     t.boards.getAll({ companyId }),
     t.statuses.getAll({ companyId }),
     t.votes.getAll({ postId: post.id }),
@@ -49,7 +48,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
       await apiUtils.posts.get.invalidate({ id: post.id })
     },
 
-    onError: (error) => handleError({ error, form }),
+    onError: error => handleError({ error, form }),
   })
 
   const onSubmit = form.handleSubmit((data: PostSchema) => {
@@ -101,10 +100,11 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
         <div className="flex grow flex-col items-start justify-end">
           <Button
             type="button"
-            theme="clean"
             size="sm"
+            theme="secondary"
+            variant="ghost"
             prefix={<ArrowLeftIcon />}
-            className="text-zinc-500 sticky bottom-4"
+            className="sticky bottom-4 text-zinc-500"
             asChild
           >
             <Link href="..">Back to all posts</Link>

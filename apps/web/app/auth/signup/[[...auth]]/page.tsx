@@ -1,5 +1,5 @@
 import { ClerkLoading, SignUp } from "@clerk/nextjs"
-import { Loader } from "@curiousleaf/design"
+import { IconLoader } from "@curiousleaf/design"
 
 import { AuthLayout } from "~/components/auth/layout"
 
@@ -10,7 +10,7 @@ export default function SignUpPage() {
       subtitle="An UserPledge account is all you need to start collecting customer feedback."
     >
       <ClerkLoading>
-        <Loader className="mx-auto" />
+        <IconLoader className="mx-auto" />
       </ClerkLoading>
 
       <SignUp />

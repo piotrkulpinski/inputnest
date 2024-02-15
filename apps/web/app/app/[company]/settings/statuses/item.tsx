@@ -1,10 +1,9 @@
-import { Loader, H5, cx } from "@curiousleaf/design"
+import { H5, cx, IconLoader, Button } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
 import { StatusForm } from "~/app/app/[company]/settings/statuses/form"
 import { DialogConfirm } from "~/components/dialogs/confirm"
-import { Button } from "~/components/interface/button"
 import { Card, CardActions, CardDraggable, CardPanel } from "~/components/interface/card"
 import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Status } from "~/components/interface/status"
@@ -54,14 +53,16 @@ export const StatusItem = ({ status, ...props }: StatusItemProps) => {
                 className={cx(!defaultStatus.isLoading && "md:hidden md:group-hover/card:flex")}
                 onClick={() => defaultStatus.mutate({ id: status.id })}
               >
-                {defaultStatus.isLoading ? <Loader /> : "Make Default"}
+                {defaultStatus.isLoading ? <IconLoader /> : "Make Default"}
               </button>
             )}
           </div>
 
           <DialogRoot>
             <DialogTrigger asChild>
-              <Button theme="secondary">Edit</Button>
+              <Button theme="secondary" variant="outline">
+                Edit
+              </Button>
             </DialogTrigger>
 
             <DialogContent>
@@ -74,7 +75,7 @@ export const StatusItem = ({ status, ...props }: StatusItemProps) => {
             label="Delete Status"
             onConfirm={() => deleteStatus.mutate({ id: status.id })}
           >
-            <Button theme="secondary" isLoading={deleteStatus.isLoading} isDanger>
+            <Button theme="negative" variant="outline" loading={deleteStatus.isLoading}>
               Delete
             </Button>
           </DialogConfirm>

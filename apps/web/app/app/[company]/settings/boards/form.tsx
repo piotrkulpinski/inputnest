@@ -1,3 +1,4 @@
+import { Button } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AppRouter } from "@repo/api"
 import type { BoardSchema } from "@repo/database"
@@ -10,7 +11,6 @@ import { FormInput } from "~/components/form/controls/input"
 import { FormField } from "~/components/form/field"
 import { FormFieldset } from "~/components/form/fieldset"
 import { BoxHeader, BoxFooter } from "~/components/interface/box"
-import { Button } from "~/components/interface/button"
 import { DialogCancel, DialogClose } from "~/components/interface/dialog"
 import { useFormSlug } from "~/hooks/use-form-slug"
 import { useMutationHandler } from "~/hooks/use-mutation-handler"
@@ -87,7 +87,9 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
         </FormFieldset>
 
         <BoxFooter>
-          <Button isLoading={isLoading}>{isEditing ? "Update" : "Create"} Board</Button>
+          <Button type="submit" theme="secondary" loading={isLoading}>
+            {isEditing ? "Update" : "Create"} Board
+          </Button>
           <DialogCancel />
         </BoxFooter>
       </form>

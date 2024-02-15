@@ -30,7 +30,7 @@ export default function CompanyLayout({ children }: PropsWithChildren) {
         <NavBar className="lg:hidden" />
         <NavSide className="max-lg:hidden" floating />
 
-        <main className="grow my-2">
+        <main className="my-2 grow py-5 md:py-6 lg:py-8">
           <Container>{children}</Container>
         </main>
       </div>

@@ -1,4 +1,4 @@
-import { cx } from "@curiousleaf/design"
+import { Button, ButtonGroup, cx } from "@curiousleaf/design"
 import { getErrorMessage } from "@curiousleaf/utils"
 import { TrashIcon } from "lucide-react"
 import type { ChangeEvent, HTMLAttributes, MouseEventHandler } from "react"
@@ -6,8 +6,6 @@ import { useRef, useState } from "react"
 import { useFormContext } from "react-hook-form"
 
 import { FormControl } from "~/components/form/control"
-import { Button } from "~/components/interface/button"
-import { ButtonGroup } from "~/components/interface/button-group"
 import { useFormField } from "~/providers/field-provider"
 import { uploadImage } from "~/utils/images"
 
@@ -76,7 +74,7 @@ export const FormUploader = ({
       {children}
 
       <ButtonGroup className="shrink-0">
-        <Button type="button" theme="secondary" onClick={onClick} isLoading={isLoading}>
+        <Button type="button" theme="secondary" onClick={onClick} loading={isLoading}>
           {value ? "Change" : "Upload"}
         </Button>
 

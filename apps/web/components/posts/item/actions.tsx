@@ -1,12 +1,12 @@
 "use client"
 
+import { Button } from "@curiousleaf/design"
 import { useCopyToClipboard } from "@uidotdev/usehooks"
 import { CheckIcon, CopyIcon, PencilIcon, TrashIcon } from "lucide-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 
 import { DialogConfirm } from "~/components/dialogs/confirm"
-import { Button } from "~/components/interface/button"
 import { CardActions } from "~/components/interface/card"
 import { Tooltip, TooltipButton } from "~/components/interface/tooltip"
 import { useMutationHandler } from "~/hooks/use-mutation-handler"
@@ -46,7 +46,7 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
 
       <Tooltip content="Edit Post">
         <div>
-          <Button type="button" theme="secondary" size="sm" prefix={<PencilIcon />} asChild>
+          <Button size="sm" theme="secondary" variant="outline" prefix={<PencilIcon />} asChild>
             <Link href="edit" />
           </Button>
         </div>
@@ -59,12 +59,11 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
       >
         <TooltipButton
           tooltip="Delete Post"
-          type="button"
-          theme="secondary"
           size="sm"
+          theme="negative"
+          variant="outline"
           prefix={<TrashIcon />}
-          isLoading={deletePost.isLoading}
-          isDanger
+          loading={deletePost.isLoading}
         />
       </DialogConfirm>
     </CardActions>

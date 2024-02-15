@@ -1,3 +1,4 @@
+import { Button } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { PostSchema } from "@repo/database"
 import { postSchema } from "@repo/database"
@@ -9,7 +10,6 @@ import { FormInput } from "~/components/form/controls/input"
 import { FormField } from "~/components/form/field"
 import { FormFieldset } from "~/components/form/fieldset"
 import { BoxHeader, BoxFooter } from "~/components/interface/box"
-import { Button } from "~/components/interface/button"
 import { DialogCancel, DialogClose } from "~/components/interface/dialog"
 import { useMutationHandler } from "~/hooks/use-mutation-handler"
 import type { RouterOutputs } from "~/services/trpc"
@@ -42,7 +42,7 @@ export const PostUpdateForm = forwardRef<HTMLFormElement, PostUpdateFormProps>(
         })
       },
 
-      onError: (error) => handleError({ error, form }),
+      onError: error => handleError({ error, form }),
     })
 
     // Handle the form submission
@@ -68,7 +68,9 @@ export const PostUpdateForm = forwardRef<HTMLFormElement, PostUpdateFormProps>(
           </FormFieldset>
 
           <BoxFooter>
-            <Button isLoading={isLoading}>Update Post</Button>
+            <Button type="submit" theme="secondary" loading={isLoading}>
+              Update Post
+            </Button>
             <DialogCancel />
           </BoxFooter>
         </form>

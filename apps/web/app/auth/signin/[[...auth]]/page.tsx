@@ -1,5 +1,5 @@
 import { ClerkLoading, SignIn } from "@clerk/nextjs"
-import { Loader } from "@curiousleaf/design"
+import { IconLoader } from "@curiousleaf/design"
 
 import { AuthLayout } from "~/components/auth/layout"
 
@@ -16,7 +16,7 @@ export default function SignInPage({ searchParams }: PageProps) {
       subtitle="An UserPledge account is all you need to start collecting customer feedback."
     >
       <ClerkLoading>
-        <Loader className="mx-auto" />
+        <IconLoader className="mx-auto" />
       </ClerkLoading>
 
       <SignIn redirectUrl={redirectTo} />

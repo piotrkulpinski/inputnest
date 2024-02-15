@@ -1,13 +1,11 @@
 "use client"
 
-import { cx } from "@curiousleaf/design"
+import { Button, cx } from "@curiousleaf/design"
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 import { cva } from "class-variance-authority"
 import { InfoIcon } from "lucide-react"
 import { forwardRef } from "react"
 import type { ComponentPropsWithoutRef, ElementRef, ReactNode } from "react"
-
-import { Button } from "~/components/interface/button"
 
 const tooltipContentVariants = cva(
   "text-2xs z-50 max-w-[12rem] overflow-hidden rounded-md border bg-white px-3 py-1 font-normal text-gray-700 shadow-sm",
@@ -72,7 +70,7 @@ export const Tooltip = forwardRef<HTMLButtonElement, TooltipProps>((props, ref) 
   return (
     <TooltipProvider disableHoverableContent>
       <TooltipRoot delayDuration={delay}>
-        <TooltipTrigger className={className} asChild onClick={(e) => e.preventDefault()} ref={ref}>
+        <TooltipTrigger className={className} asChild onClick={e => e.preventDefault()} ref={ref}>
           {children}
         </TooltipTrigger>
 

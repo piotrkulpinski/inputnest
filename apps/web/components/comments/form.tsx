@@ -1,6 +1,6 @@
 "use client"
 
-import { cx } from "@curiousleaf/design"
+import { Button, Series, cx } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AppRouter } from "@repo/api"
 import type { CommentSchema } from "@repo/database"
@@ -15,8 +15,6 @@ import { toast } from "sonner"
 
 import { FormEditor } from "~/components/form/controls/editor"
 import { FormField } from "~/components/form/field"
-import { Button } from "~/components/interface/button"
-import { List } from "~/components/interface/list"
 import { Switch } from "~/components/interface/switch"
 import { useMutationHandler } from "~/hooks/use-mutation-handler"
 import { useComments } from "~/providers/comments-provider"
@@ -86,7 +84,7 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
   })
 
   // Handle the meta key down state
-  const onKeyDown: KeyboardEventHandler = (e) => {
+  const onKeyDown: KeyboardEventHandler = e => {
     if (e.metaKey) {
       setIsMetaKeyDown(true)
     }
@@ -104,7 +102,7 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
 
   return (
     <FormProvider {...form}>
-      <form className="relative @container" onSubmit={onSubmit} {...props}>
+      <form className="@container relative" onSubmit={onSubmit} {...props}>
         <fieldset className="contents" disabled={isMutating || isLoading}>
           <FormField control={form.control} name="content" hideError required>
             <FormEditor
@@ -115,8 +113,8 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
             />
           </FormField>
 
-          <List className="mt-3 @lg:absolute @lg:bottom-2 @lg:right-2 @lg:mt-0">
-            <Button size="sm" isLoading={isMutating} className="@lg:order-last">
+          <Series className="@lg:absolute @lg:bottom-2 @lg:right-2 @lg:mt-0 mt-3">
+            <Button size="md" theme="secondary" loading={isMutating} className="@lg:order-last">
               {isMetaKeyDown && "Press Enter to Submit"}
               {!isMetaKeyDown && `${editing ? "Update" : "Post"} ${replying ? "Reply" : "Comment"}`}
             </Button>
@@ -144,7 +142,7 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
                 )}
               />
             </label>
-          </List>
+          </Series>
         </fieldset>
       </form>
     </FormProvider>

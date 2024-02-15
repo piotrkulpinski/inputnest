@@ -1,9 +1,8 @@
-import { Heading } from "@curiousleaf/design"
+import { Heading, Series } from "@curiousleaf/design"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
 import type { ComponentPropsWithoutRef, ReactNode } from "react"
 
-import { List } from "~/components/interface/list"
 import { Markdown } from "~/components/interface/markdown"
 
 const headerVariants = cva("flex flex-wrap items-center gap-y-2 gap-x-6 lg:gap-x-12", {
@@ -37,7 +36,7 @@ export const Header = ({
   return (
     <div className={headerVariants({ alignment, className })} {...props}>
       {!!title && <Heading size={size}>{title}</Heading>}
-      {!!children && <List className="-my-2">{children}</List>}
+      {!!children && <Series className="-my-2">{children}</Series>}
       {!!description && <Markdown className="w-full text-gray-500" content={description} />}
     </div>
   )

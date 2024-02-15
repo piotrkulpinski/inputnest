@@ -25,33 +25,33 @@ export const useMenu = () => {
         { title: "Posts", href: `/app/${slug}/posts`, prefix: <TableIcon /> },
         {
           title: "Roadmap",
-          href: `/app/#`,
           prefix: <TableIcon />,
           suffix: (
             <Badge theme="gray" variant="outline">
               Soon
             </Badge>
           ),
+          disabled: true,
         },
         {
           title: "Changelog",
-          href: `/app/#`,
           prefix: <TableIcon />,
           suffix: (
             <Badge theme="gray" variant="outline">
               Soon
             </Badge>
           ),
+          disabled: true,
         },
         {
           title: "Users",
-          href: `/app/#`,
           prefix: <TableIcon />,
           suffix: (
             <Badge theme="gray" variant="outline">
               Soon
             </Badge>
           ),
+          disabled: true,
         },
       ],
     },

@@ -1,11 +1,10 @@
 "use client"
 
-import { H6 } from "@curiousleaf/design"
+import { H6, Series } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
 import { CardPanel } from "~/components/interface/card"
 import { Dot } from "~/components/interface/dot"
-import { List } from "~/components/interface/list"
 import { Markdown } from "~/components/interface/markdown"
 import { Time } from "~/components/interface/time"
 import { UserAvatar } from "~/components/users/avatar"
@@ -18,8 +17,8 @@ export const PostItemContent = ({ ...props }: HTMLAttributes<HTMLElement>) => {
     <CardPanel theme="white" flex="column" className="md:min-h-[7.5rem]" {...props}>
       {post.content && <Markdown size="md" content={post.content} />}
 
-      <List className="mt-2">
-        <List>
+      <Series className="mt-2">
+        <Series>
           {post.author && (
             <>
               <UserAvatar user={post.author} />
@@ -29,8 +28,8 @@ export const PostItemContent = ({ ...props }: HTMLAttributes<HTMLElement>) => {
 
           <Dot theme="gray" className="opacity-25 first:hidden last:hidden" />
           <Time date={post.createdAt} className="opacity-50" />
-        </List>
-      </List>
+        </Series>
+      </Series>
     </CardPanel>
   )
 }

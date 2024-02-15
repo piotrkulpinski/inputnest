@@ -1,11 +1,10 @@
-import { cx } from "@curiousleaf/design"
+import { ButtonGroup, cx } from "@curiousleaf/design"
 import { ItalicIcon, StrikethroughIcon, CodeIcon, LinkIcon, BoldIcon } from "lucide-react"
 import { useRef } from "react"
 import type { RefObject, ComponentPropsWithoutRef } from "react"
 import { useFormContext } from "react-hook-form"
 
 import { FormTextarea } from "~/components/form/controls/textarea"
-import { ButtonGroup } from "~/components/interface/button-group"
 import { TooltipButton } from "~/components/interface/tooltip"
 import { useMarkdownTextarea } from "~/hooks/use-markdown-textarea"
 import { useFormField } from "~/providers/field-provider"

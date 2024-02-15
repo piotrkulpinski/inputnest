@@ -1,4 +1,4 @@
-import { cx } from "@curiousleaf/design"
+import { Button, cx } from "@curiousleaf/design"
 import * as AlertPrimitive from "@radix-ui/react-alert-dialog"
 import type { VariantProps } from "class-variance-authority"
 import { XIcon } from "lucide-react"
@@ -6,7 +6,6 @@ import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
 import { BoxOverlay } from "~/components/interface/box"
-import { Button } from "~/components/interface/button"
 import {
   dialogContentVariants,
   dialogOverlayVariants,
@@ -18,7 +17,7 @@ export const AlertTrigger = AlertPrimitive.Trigger
 export const AlertOverlay = forwardRef<
   ElementRef<typeof AlertPrimitive.Overlay>,
   ComponentPropsWithoutRef<typeof AlertPrimitive.Overlay> &
-  VariantProps<typeof dialogOverlayVariants>
+    VariantProps<typeof dialogOverlayVariants>
 >(({ className, type, ...props }, ref) => (
   <AlertPrimitive.Overlay
     ref={ref}
@@ -30,7 +29,7 @@ export const AlertOverlay = forwardRef<
 export const AlertContent = forwardRef<
   ElementRef<typeof AlertPrimitive.Content>,
   ComponentPropsWithoutRef<typeof AlertPrimitive.Content> &
-  ComponentPropsWithoutRef<typeof BoxOverlay>
+    ComponentPropsWithoutRef<typeof BoxOverlay>
 >(({ className, size, fixed, padded, ...props }, ref) => (
   <AlertPrimitive.Portal>
     <AlertOverlay type="overlay" />
@@ -50,7 +49,7 @@ export const AlertContent = forwardRef<
 export const AlertSlideout = forwardRef<
   ElementRef<typeof AlertPrimitive.Content>,
   ComponentPropsWithoutRef<typeof AlertPrimitive.Content> &
-  VariantProps<typeof dialogSlideoutVariants>
+    VariantProps<typeof dialogSlideoutVariants>
 >(({ className, ...props }, ref) => (
   <AlertPrimitive.Portal>
     <AlertOverlay type="slideout" />
@@ -77,7 +76,7 @@ export const AlertCancel = forwardRef<
   ComponentPropsWithoutRef<typeof AlertPrimitive.Cancel>
 >(({ children, ...props }, ref) => (
   <AlertPrimitive.Cancel ref={ref} tabIndex={-1} asChild {...props}>
-    <Button type="button" theme="secondary">
+    <Button type="button" theme="secondary" variant="outline">
       {children || "Cancel"}
     </Button>
   </AlertPrimitive.Cancel>

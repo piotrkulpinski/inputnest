@@ -1,4 +1,4 @@
-import { cx } from "@curiousleaf/design"
+import { Series, SeriesProps, cx } from "@curiousleaf/design"
 import { cva } from "class-variance-authority"
 import type { VariantProps } from "class-variance-authority"
 import { GripVerticalIcon } from "lucide-react"
@@ -6,7 +6,6 @@ import type { ComponentPropsWithoutRef, ElementRef, HTMLProps } from "react"
 import { forwardRef } from "react"
 
 import { Box } from "~/components/interface/box"
-import { List } from "~/components/interface/list"
 
 export const Card = forwardRef<ElementRef<typeof Box>, ComponentPropsWithoutRef<typeof Box>>(
   ({ className, ...props }, ref) => {
@@ -46,8 +45,8 @@ export const CardPanel = ({ className, theme, flex, ...props }: CardPanelProps) 
   return <div className={cardPanelVariants({ theme, flex, className })} {...props} />
 }
 
-export const CardActions = ({ className, ...props }: HTMLProps<HTMLDivElement>) => {
-  return <List className={cx("ml-auto w-full empty:contents md:w-auto", className)} {...props} />
+export const CardActions = ({ className, ...props }: SeriesProps) => {
+  return <Series className={cx("ml-auto w-full empty:contents md:w-auto", className)} {...props} />
 }
 
 type CardDraggableProps = ComponentPropsWithoutRef<typeof GripVerticalIcon> & {
