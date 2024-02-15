@@ -26,11 +26,11 @@ export default function CompanyLayout({ children }: PropsWithChildren) {
 
   return (
     <CompanyProvider company={company}>
-      <div className="flex min-h-[calc(100vh-1rem)] p-2 flex-col bg-gray-50 lg:flex-row">
+      <div className="flex min-h-screen flex-col bg-gray-50 lg:flex-row">
         <NavBar className="lg:hidden" />
-        <NavSide className="h-[calc(100vh-1rem)] rounded shadow-md max-lg:hidden" />
+        <NavSide className="max-lg:hidden" floating />
 
-        <main className="flex-1">
+        <main className="grow my-2">
           <Container>{children}</Container>
         </main>
       </div>

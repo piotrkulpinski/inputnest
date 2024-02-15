@@ -1,4 +1,4 @@
-import { Loader } from "@curiousleaf/design"
+import { Loader, cx } from "@curiousleaf/design"
 import { Slot } from "@radix-ui/react-slot"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
@@ -7,7 +7,6 @@ import type { HTMLAttributes, ReactNode } from "react"
 
 import { Slottable } from "~/components/utils/slottable"
 import { focusVisibleClasses } from "~/utils/classes"
-import { cn } from "~/utils/helpers"
 
 export const ClickableClassContext = createContext<typeof clickableVariants | undefined>(undefined)
 
@@ -56,7 +55,7 @@ export const Clickable = forwardRef<HTMLButtonElement, ClickableProps>((props, r
 
   return (
     <Comp
-      className={cn(
+      className={cx(
         clickableVariants({ isActive, isFocusable, className }),
         clickableClass?.({ isActive, isFocusable }),
       )}
@@ -66,7 +65,7 @@ export const Clickable = forwardRef<HTMLButtonElement, ClickableProps>((props, r
       <Slottable child={children} asChild={asChild}>
         {(child) => (
           <>
-            <Slot className={cn("shrink-0", isActive && "text-blue-700")}>{prefix}</Slot>
+            <Slot className={cx("shrink-0", isActive && "text-blue-700")}>{prefix}</Slot>
             <span className="flex-1 truncate">{child}</span>
             <Slot className="shrink-0 text-gray-500">{isLoading ? <Loader /> : suffix}</Slot>
           </>

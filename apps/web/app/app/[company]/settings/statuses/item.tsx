@@ -1,4 +1,4 @@
-import { Loader, H5 } from "@curiousleaf/design"
+import { Loader, H5, cx } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
@@ -12,7 +12,6 @@ import { useCompany } from "~/providers/company-provider"
 import { useSortable } from "~/providers/sortable-provider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
-import { cn } from "~/utils/helpers"
 
 type StatusItemProps = ComponentPropsWithoutRef<typeof Card> & {
   status: RouterOutputs["statuses"]["getAll"][number]
@@ -47,12 +46,12 @@ export const StatusItem = ({ status, ...props }: StatusItemProps) => {
         </H5>
 
         <CardActions>
-          <div className="text-xxs order-last mr-2 font-medium md:order-first">
+          <div className="text-2xs order-last mr-2 font-medium md:order-first">
             {status.isDefault && "Default"}
 
             {!status.isDefault && (
               <button
-                className={cn(!defaultStatus.isLoading && "md:hidden md:group-hover/card:flex")}
+                className={cx(!defaultStatus.isLoading && "md:hidden md:group-hover/card:flex")}
                 onClick={() => defaultStatus.mutate({ id: status.id })}
               >
                 {defaultStatus.isLoading ? <Loader /> : "Make Default"}

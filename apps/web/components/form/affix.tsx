@@ -1,9 +1,9 @@
+import { cx } from "@curiousleaf/design"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
 import type { InputHTMLAttributes, ReactNode } from "react"
 import { forwardRef, useRef } from "react"
 
-import { cn } from "~/utils/helpers"
 import { createSimpleContext } from "~/utils/providers"
 
 const formAffixVariants = cva(
@@ -54,7 +54,7 @@ export const FormAffix = forwardRef<HTMLDivElement, FormAffixProps>(
           suffixWidth: suffixRef.current?.offsetWidth,
         }}
       >
-        <div className={cn("relative flex w-full items-center", className)} ref={ref} {...props}>
+        <div className={cx("relative flex w-full items-center", className)} ref={ref} {...props}>
           {!!prefix && (
             <div className={formAffixVariants({ side: "left", events })} ref={prefixRef}>
               {prefix}

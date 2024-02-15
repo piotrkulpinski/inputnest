@@ -1,6 +1,6 @@
 "use client"
 
-import { Prose } from "@curiousleaf/design"
+import { Prose, cx } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { PostSchema } from "@repo/database"
 import { postSchema } from "@repo/database"
@@ -22,7 +22,6 @@ import { useMutationHandler } from "~/hooks/use-mutation-handler"
 import { useCompany } from "~/providers/company-provider"
 import { usePost } from "~/providers/post-provider"
 import { api } from "~/services/trpc"
-import { cn } from "~/utils/helpers"
 
 export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElement>) => {
   const apiUtils = api.useUtils()
@@ -70,7 +69,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
       <CardPanel
         theme="white"
         flex="column"
-        className={cn("border-outline max-md:border-t md:w-72 md:shrink-0 md:border-l", className)}
+        className={cx("border-outline max-md:border-t md:w-72 md:shrink-0 md:border-l", className)}
         {...props}
       >
         <FormFieldset className="sticky top-16" disabled={isLoading}>

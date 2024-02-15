@@ -1,3 +1,4 @@
+import { cx } from "@curiousleaf/design"
 import { ItalicIcon, StrikethroughIcon, CodeIcon, LinkIcon, BoldIcon } from "lucide-react"
 import { useRef } from "react"
 import type { RefObject, ComponentPropsWithoutRef } from "react"
@@ -8,7 +9,6 @@ import { ButtonGroup } from "~/components/interface/button-group"
 import { TooltipButton } from "~/components/interface/tooltip"
 import { useMarkdownTextarea } from "~/hooks/use-markdown-textarea"
 import { useFormField } from "~/providers/field-provider"
-import { cn } from "~/utils/helpers"
 
 export const FormEditor = ({
   className,
@@ -18,7 +18,7 @@ export const FormEditor = ({
 
   return (
     <div className="relative">
-      <FormTextarea className={cn("pb-14", className)} ref={textareaRef} {...props} />
+      <FormTextarea className={cx("pb-14", className)} ref={textareaRef} {...props} />
       <EditorToolbar textareaRef={textareaRef} />
     </div>
   )

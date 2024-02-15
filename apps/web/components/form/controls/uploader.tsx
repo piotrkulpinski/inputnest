@@ -1,3 +1,4 @@
+import { cx } from "@curiousleaf/design"
 import { getErrorMessage } from "@curiousleaf/utils"
 import { TrashIcon } from "lucide-react"
 import type { ChangeEvent, HTMLAttributes, MouseEventHandler } from "react"
@@ -8,7 +9,6 @@ import { FormControl } from "~/components/form/control"
 import { Button } from "~/components/interface/button"
 import { ButtonGroup } from "~/components/interface/button-group"
 import { useFormField } from "~/providers/field-provider"
-import { cn } from "~/utils/helpers"
 import { uploadImage } from "~/utils/images"
 
 export type FormUploaderProps = HTMLAttributes<HTMLDivElement> & {
@@ -60,7 +60,7 @@ export const FormUploader = ({
   }
 
   return (
-    <div className={cn("flex w-full items-center gap-x-4 gap-y-3", className)} {...props}>
+    <div className={cx("flex w-full items-center gap-x-4 gap-y-3", className)} {...props}>
       <FormControl>
         <input type="hidden" {...field} />
       </FormControl>

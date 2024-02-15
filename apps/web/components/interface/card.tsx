@@ -1,3 +1,4 @@
+import { cx } from "@curiousleaf/design"
 import { cva } from "class-variance-authority"
 import type { VariantProps } from "class-variance-authority"
 import { GripVerticalIcon } from "lucide-react"
@@ -6,7 +7,6 @@ import { forwardRef } from "react"
 
 import { Box } from "~/components/interface/box"
 import { List } from "~/components/interface/list"
-import { cn } from "~/utils/helpers"
 
 export const Card = forwardRef<ElementRef<typeof Box>, ComponentPropsWithoutRef<typeof Box>>(
   ({ className, ...props }, ref) => {
@@ -14,7 +14,7 @@ export const Card = forwardRef<ElementRef<typeof Box>, ComponentPropsWithoutRef<
       <Box
         ref={ref}
         padded={false}
-        className={cn(
+        className={cx(
           "group/card divide-outline relative w-full divide-y overflow-clip hover:[&[href]]:z-10 hover:[&[href]]:border-gray-300",
           className,
         )}
@@ -47,7 +47,7 @@ export const CardPanel = ({ className, theme, flex, ...props }: CardPanelProps) 
 }
 
 export const CardActions = ({ className, ...props }: HTMLProps<HTMLDivElement>) => {
-  return <List className={cn("ml-auto w-full empty:contents md:w-auto", className)} {...props} />
+  return <List className={cx("ml-auto w-full empty:contents md:w-auto", className)} {...props} />
 }
 
 type CardDraggableProps = ComponentPropsWithoutRef<typeof GripVerticalIcon> & {
@@ -57,7 +57,7 @@ type CardDraggableProps = ComponentPropsWithoutRef<typeof GripVerticalIcon> & {
 export const CardDraggable = ({ className, isDragging, ...props }: CardDraggableProps) => {
   return (
     <GripVerticalIcon
-      className={cn(
+      className={cx(
         "text-sm text-gray-300 transition hover:text-gray-500 focus:outline-none",
         isDragging ? "cursor-grabbing text-gray-500" : "cursor-grab",
         className,

@@ -1,5 +1,5 @@
 import { useUser } from "@clerk/nextjs"
-import { Paragraph, Prose } from "@curiousleaf/design"
+import { Dropdown, Paragraph, Prose, cx } from "@curiousleaf/design"
 import { isRequestInFlight, NetworkStatus } from "@knocklabs/client"
 import { BellIcon, CheckCheckIcon } from "lucide-react"
 import Link from "next/link"
@@ -8,17 +8,9 @@ import type { HTMLAttributes } from "react"
 import { Badge } from "~/components/interface/badge"
 import { Button } from "~/components/interface/button"
 import { Dot } from "~/components/interface/dot"
-import {
-  DropdownContent,
-  DropdownGroup,
-  DropdownItem,
-  DropdownLabel,
-  DropdownRoot,
-  DropdownTrigger,
-} from "~/components/interface/dropdown"
 import { Time } from "~/components/interface/time"
 import { NotificationsProvider, useNotifications } from "~/providers/notifications-provider"
-import { cn, formatBadgeCount } from "~/utils/helpers"
+import { formatBadgeCount } from "~/utils/helpers"
 
 const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLElement>) => {
   const { feedClient, useFeedStore } = useNotifications()
@@ -26,9 +18,9 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
   const requestInFlight = isRequestInFlight(networkStatus)
 
   return (
-    <DropdownRoot onOpenChange={() => metadata.unseen_count && feedClient.markAllAsSeen()}>
-      <DropdownTrigger
-        className={cn("rounded-full border p-1 text-xs hover:border-gray-300", className)}
+    <Dropdown onOpenChange={() => metadata.unseen_count && feedClient.markAllAsSeen()}>
+      <Dropdown.Trigger
+        className={cx("rounded-full border p-1 text-xs hover:border-gray-300", className)}
       >
         <BellIcon />
 
@@ -37,10 +29,10 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
             {formatBadgeCount(metadata.unseen_count)}
           </Badge>
         )}
-      </DropdownTrigger>
+      </Dropdown.Trigger>
 
-      <DropdownContent align="end" className="w-[18rem]" {...props}>
-        <DropdownLabel className="flex items-center justify-between">
+      <Dropdown.Content align="end" className="w-[18rem]" {...props}>
+        <Dropdown.Label className="flex items-center justify-between">
           <strong className="truncate font-semibold">Notifications</strong>
 
           {!!items.length && (
@@ -55,13 +47,13 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
               Mark all as read
             </Button>
           )}
-        </DropdownLabel>
+        </Dropdown.Label>
 
-        <DropdownGroup className="max-h-[25rem] overflow-y-auto !py-0">
-          <DropdownGroup>
+        <Dropdown.Group className="max-h-[25rem] overflow-y-auto !py-0">
+          <Dropdown.Group>
             {items.length ? (
               items.map((item) => (
-                <DropdownItem
+                <Dropdown.Item
                   key={item.id}
                   prefix={<Dot theme={item.read_at ? "silver" : "blue"} className="mt-2" />}
                   onClick={() => feedClient.markAsRead(item)}
@@ -81,17 +73,17 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
                       />
                     </div>
                   </Link>
-                </DropdownItem>
+                </Dropdown.Item>
               ))
             ) : (
-              <DropdownLabel>
+              <Dropdown.Label>
                 <Paragraph>We&apos;ll let you know when we got something for you.</Paragraph>
-              </DropdownLabel>
+              </Dropdown.Label>
             )}
-          </DropdownGroup>
+          </Dropdown.Group>
 
           {!!pageInfo.after && (
-            <DropdownGroup>
+            <Dropdown.Group>
               <Button
                 theme="secondary"
                 size="xs"
@@ -101,11 +93,11 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
               >
                 Load more
               </Button>
-            </DropdownGroup>
+            </Dropdown.Group>
           )}
-        </DropdownGroup>
-      </DropdownContent>
-    </DropdownRoot>
+        </Dropdown.Group>
+      </Dropdown.Content>
+    </Dropdown>
   )
 }
 

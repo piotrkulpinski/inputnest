@@ -1,12 +1,12 @@
 "use client"
 
+import { cx } from "@curiousleaf/design"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
 import { XIcon } from "lucide-react"
 import type { ComponentPropsWithoutRef, ElementRef, ReactNode } from "react"
 import { forwardRef } from "react"
 
 import { focusVisibleClasses } from "~/utils/classes"
-import { cn } from "~/utils/helpers"
 
 const PopoverRoot = PopoverPrimitive.Root
 const PopoverTrigger = PopoverPrimitive.Trigger
@@ -19,8 +19,8 @@ const PopoverContent = forwardRef<
     <PopoverPrimitive.Content
       ref={ref}
       sideOffset={sideOffset}
-      className={cn(
-        "border-outline text-xxs relative z-50 min-w-[8rem] rounded-md border bg-white p-3 text-gray-700 shadow-md",
+      className={cx(
+        "border-outline text-2xs relative z-50 min-w-[8rem] rounded-md border bg-white p-3 text-gray-700 shadow-md",
         "focus:outline-none",
         className,
       )}
@@ -39,7 +39,7 @@ const PopoverArrow = forwardRef<
 >(({ className, ...props }, ref) => (
   <PopoverPrimitive.Arrow
     ref={ref}
-    className={cn("fill-current text-white drop-shadow-sm", className)}
+    className={cx("fill-current text-white drop-shadow-sm", className)}
     {...props}
   />
 ))
@@ -50,7 +50,7 @@ const PopoverClose = forwardRef<
 >(({ className = "", ...props }, ref) => (
   <PopoverPrimitive.Close
     ref={ref}
-    className={cn([
+    className={cx([
       "ring-offset-background absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100",
       "data-[state=open]:bg-accent data-[state=open]:text-muted-foreground disabled:pointer-events-none",
       focusVisibleClasses,

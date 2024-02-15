@@ -1,6 +1,6 @@
 "use client"
 
-import { Loader } from "@curiousleaf/design"
+import { Loader, cx } from "@curiousleaf/design"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
@@ -10,8 +10,6 @@ import { forwardRef } from "react"
 
 import { BoxOverlay } from "~/components/interface/box"
 import { Button } from "~/components/interface/button"
-import { cn } from "~/utils/helpers"
-
 export const DialogRoot = DialogPrimitive.Root
 export const DialogTrigger = DialogPrimitive.Trigger
 
@@ -36,7 +34,7 @@ export const dialogOverlayVariants = cva(
 export const DialogOverlay = forwardRef<
   ElementRef<typeof DialogPrimitive.Overlay>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> &
-    VariantProps<typeof dialogOverlayVariants>
+  VariantProps<typeof dialogOverlayVariants>
 >(({ className, type, ...props }, ref) => (
   <DialogPrimitive.Overlay
     ref={ref}
@@ -56,7 +54,7 @@ export const dialogContentVariants = cva([
 export const DialogContent = forwardRef<
   ElementRef<typeof DialogPrimitive.Content>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Content> &
-    ComponentPropsWithoutRef<typeof BoxOverlay>
+  ComponentPropsWithoutRef<typeof BoxOverlay>
 >(({ className, padded, size, fixed, ...props }, ref) => (
   <DialogPrimitive.Portal>
     <DialogOverlay type="overlay" />
@@ -65,7 +63,7 @@ export const DialogContent = forwardRef<
       padded={padded}
       size={size}
       fixed={fixed}
-      className={cn(dialogContentVariants(), className)}
+      className={cx(dialogContentVariants(), className)}
       asChild
     >
       <DialogPrimitive.Content ref={ref} {...props} />
@@ -84,7 +82,7 @@ export const dialogSlideoutVariants = cva([
 export const DialogSlideout = forwardRef<
   ElementRef<typeof DialogPrimitive.Content>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Content> &
-    VariantProps<typeof dialogSlideoutVariants>
+  VariantProps<typeof dialogSlideoutVariants>
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Portal>
     <DialogOverlay type="slideout" />
@@ -101,7 +99,7 @@ export const DialogClose = forwardRef<
   ElementRef<typeof DialogPrimitive.Close>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
 >(({ className, ...props }, ref) => (
-  <DialogPrimitive.Close ref={ref} className={cn("-my-1", className)} tabIndex={-1} {...props}>
+  <DialogPrimitive.Close ref={ref} className={cx("-my-1", className)} tabIndex={-1} {...props}>
     <XIcon />
   </DialogPrimitive.Close>
 ))

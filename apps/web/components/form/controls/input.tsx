@@ -1,3 +1,4 @@
+import { cx } from "@curiousleaf/design"
 import type { VariantProps } from "class-variance-authority"
 import { cva } from "class-variance-authority"
 import type { InputHTMLAttributes } from "react"
@@ -6,7 +7,6 @@ import { useAffix } from "~/components/form/affix"
 import { FormControl } from "~/components/form/control"
 import { useFormField } from "~/providers/field-provider"
 import { focusClasses } from "~/utils/classes"
-import { cn } from "~/utils/helpers"
 
 export const formInputVariants = cva(
   [
@@ -50,7 +50,7 @@ export const FormInput = ({ className, mono, ...rest }: FormInputProps) => {
   return (
     <FormControl>
       <input
-        className={cn(formInputVariants({ hasError: !!fieldState.error, mono, className }))}
+        className={cx(formInputVariants({ hasError: !!fieldState.error, mono, className }))}
         style={{ paddingLeft: prefixWidth, paddingRight: suffixWidth }}
         {...field}
         {...rest}

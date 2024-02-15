@@ -1,5 +1,6 @@
 "use client"
 
+import { cx } from "@curiousleaf/design"
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 import { cva } from "class-variance-authority"
 import { InfoIcon } from "lucide-react"
@@ -7,10 +8,9 @@ import { forwardRef } from "react"
 import type { ComponentPropsWithoutRef, ElementRef, ReactNode } from "react"
 
 import { Button } from "~/components/interface/button"
-import { cn } from "~/utils/helpers"
 
 const tooltipContentVariants = cva(
-  "text-xxs z-50 max-w-[12rem] overflow-hidden rounded-md border bg-white px-3 py-1 font-normal text-gray-700 shadow-sm",
+  "text-2xs z-50 max-w-[12rem] overflow-hidden rounded-md border bg-white px-3 py-1 font-normal text-gray-700 shadow-sm",
   {
     variants: {
       align: {
@@ -52,7 +52,7 @@ const TooltipArrow = forwardRef<
 >(({ className, ...props }, ref) => (
   <TooltipPrimitive.Arrow
     ref={ref}
-    className={cn("drop-shadow-px relative z-10 -mt-px block fill-current text-white", className)}
+    className={cx("drop-shadow-px relative z-10 -mt-px block fill-current text-white", className)}
     {...props}
   />
 ))
