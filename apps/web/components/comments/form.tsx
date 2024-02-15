@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Series, cx } from "@curiousleaf/design"
+import { Series, cx } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AppRouter } from "@repo/api"
 import type { CommentSchema } from "@repo/database"
@@ -13,8 +13,7 @@ import type { HTMLAttributes, KeyboardEventHandler } from "react"
 import { Controller, FormProvider, useForm } from "react-hook-form"
 import { toast } from "sonner"
 
-import { FormEditor } from "~/components/form/controls/editor"
-import { FormField } from "~/components/form/FormField"
+import { Form } from "~/components/form/Form"
 import { Switch } from "~/components/interface/switch"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useComments } from "~/providers/comments-provider"
@@ -102,22 +101,22 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
 
   return (
     <FormProvider {...form}>
-      <form className="relative @container" onSubmit={onSubmit} {...props}>
+      <Form className="relative @container" onSubmit={onSubmit} {...props}>
         <fieldset className="contents" disabled={isMutating || isLoading}>
-          <FormField control={form.control} name="content" hideError required>
-            <FormEditor
+          <Form.Field control={form.control} name="content" hideError required>
+            <Form.Editor
               minRows={3}
               placeholder={placeholder}
               onKeyDown={onKeyDown}
               onKeyUp={onKeyUp}
             />
-          </FormField>
+          </Form.Field>
 
           <Series className="mt-3 @lg:absolute @lg:bottom-2 @lg:right-2 @lg:mt-0">
-            <Button size="md" theme="secondary" loading={isMutating} className="@lg:order-last">
+            <Form.Button size="md" loading={isMutating} className="@lg:order-last">
               {isMetaKeyDown && "Press Enter to Submit"}
               {!isMetaKeyDown && `${editing ? "Update" : "Post"} ${replying ? "Reply" : "Comment"}`}
-            </Button>
+            </Form.Button>
 
             <label
               className={cx(
@@ -144,7 +143,7 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
             </label>
           </Series>
         </fieldset>
-      </form>
+      </Form>
     </FormProvider>
   )
 }

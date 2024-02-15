@@ -1,15 +1,10 @@
-import { Button } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { PostSchema } from "@repo/database"
 import { postSchema, postDefaults } from "@repo/database"
 import { forwardRef, type HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
+import { Form } from "~/components/form/Form"
 
-import { FormEditor } from "~/components/form/controls/editor"
-import { FormInput } from "~/components/form/controls/input"
-import { FormSelect } from "~/components/form/controls/select"
-import { FormField } from "~/components/form/FormField"
-import { FormFieldset } from "~/components/form/fieldset"
 import { BoxHeader, BoxFooter } from "~/components/interface/box"
 import { DialogCancel, DialogClose } from "~/components/interface/dialog"
 import { Status } from "~/components/interface/status"
@@ -59,48 +54,46 @@ export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFor
 
     return (
       <FormProvider {...form}>
-        <form ref={ref} className="contents" onSubmit={form.handleSubmit(onSubmit)} {...props}>
+        <Form ref={ref} className="contents" onSubmit={form.handleSubmit(onSubmit)} {...props}>
           <BoxHeader title="Create New Post">
             <DialogClose />
           </BoxHeader>
 
-          <FormFieldset disabled={isLoading}>
-            <FormField control={form.control} name="title" label="Title" required>
-              <FormInput placeholder="Short, descriptive title" />
-            </FormField>
+          <Form.Fieldset disabled={isLoading}>
+            <Form.Field control={form.control} name="title" label="Title" required>
+              <Form.Input placeholder="Short, descriptive title" />
+            </Form.Field>
 
-            <FormFieldset className="flex-row">
-              <FormField control={form.control} name="boardId" label="Board" required>
-                <FormSelect
+            <Form.Fieldset className="flex-row">
+              <Form.Field control={form.control} name="boardId" label="Board" required>
+                <Form.Select
                   options={boards.data?.map(({ name, id }) => ({
                     label: name,
                     value: id,
                   }))}
                 />
-              </FormField>
+              </Form.Field>
 
-              <FormField control={form.control} name="statusId" label="Status" required>
-                <FormSelect
+              <Form.Field control={form.control} name="statusId" label="Status" required>
+                <Form.Select
                   options={statuses.data?.map(({ name, id, color }) => ({
                     label: <Status color={color}>{name}</Status>,
                     value: id,
                   }))}
                 />
-              </FormField>
-            </FormFieldset>
+              </Form.Field>
+            </Form.Fieldset>
 
-            <FormField control={form.control} name="content" label="Content">
-              <FormEditor minRows={5} placeholder="Provide more details here" />
-            </FormField>
-          </FormFieldset>
+            <Form.Field control={form.control} name="content" label="Content">
+              <Form.Editor minRows={5} placeholder="Provide more details here" />
+            </Form.Field>
+          </Form.Fieldset>
 
           <BoxFooter>
-            <Button type="submit" theme="secondary" loading={isLoading}>
-              Create Post
-            </Button>
+            <Form.Button loading={isLoading}>Create Post</Form.Button>
             <DialogCancel />
           </BoxFooter>
-        </form>
+        </Form>
       </FormProvider>
     )
   },
