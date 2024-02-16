@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form"
 import { useFieldContext } from "~/providers/FieldProvider"
 import { uploadImage } from "~/utils/images"
 
-export type FormUploaderProps = Omit<UploaderProps, "label" | "onUpload" | "onDelete"> & {
+export type FormUploaderProps = Omit<UploaderProps, "label" | "onChange" | "onClear"> & {
   folder: string
   accept?: string[]
   fileSizeLimit: number
@@ -20,7 +20,7 @@ export const FormUploader = forwardRef<UploaderElement, FormUploaderProps>((prop
   const { field } = useFieldContext()
   const value = watch(field.name)
 
-  const onUpload = async (file: File) => {
+  const onChange = async (file: File) => {
     clearErrors(field.name)
     setLoading(true)
 
@@ -33,7 +33,7 @@ export const FormUploader = forwardRef<UploaderElement, FormUploaderProps>((prop
       .finally(() => setLoading(false))
   }
 
-  const onDelete = () => {
+  const onClear = () => {
     field.onChange("")
   }
 
@@ -41,8 +41,8 @@ export const FormUploader = forwardRef<UploaderElement, FormUploaderProps>((prop
     <Uploader
       ref={ref}
       loading={loading}
-      onUpload={onUpload}
-      onDelete={value && onDelete}
+      onChange={onChange}
+      onClear={value && onClear}
       {...rest}
     />
   )

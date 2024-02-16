@@ -31,15 +31,15 @@ export const idSchema = z.object({ id: z.string().min(1) })
 export const idsSchema = z.object({ ids: z.string().array() })
 
 export const domainNameSchema = z.string().trim().min(3).max(253).regex(domainNameRegex, {
-  message: "this must be a valid domain name",
+  message: "This must be a valid domain name",
 })
 
 export const slugSchema = z.string().trim().regex(slugRegex, {
-  message: "slug must contain only lowercase letters and dashes [-]",
+  message: "Slug must contain only lowercase letters and dashes [-]",
 })
 
 export const colorSchema = z.string().trim().regex(colorRegex, {
-  message: "value must be a valid color",
+  message: "Value must be a valid color",
 })
 
 export const isReservedSlug = (slug: string) => {
