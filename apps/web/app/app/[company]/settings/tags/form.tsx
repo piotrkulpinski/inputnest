@@ -4,13 +4,12 @@ import { tagSchema, tagDefaults } from "@repo/database"
 import type { HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 
-import { BoxHeader, BoxFooter } from "~/components/interface/box"
-import { DialogCancel, DialogClose } from "~/components/interface/dialog"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 import { Form } from "~/components/form/Form"
+import { Dialog, Header } from "@curiousleaf/design"
 
 type TagFormProps = HTMLAttributes<HTMLFormElement> & {
   tag?: RouterOutputs["tags"]["getAll"][number]
@@ -54,26 +53,32 @@ export const TagForm = ({ tag, ...props }: TagFormProps) => {
 
   return (
     <FormProvider {...form}>
-      <Form onSubmit={form.handleSubmit(onSubmit)} className="contents" {...props}>
-        <BoxHeader title={`${isEditing ? "Update" : "Create New"} Tag`}>
-          <DialogClose />
-        </BoxHeader>
+      <Dialog.Content size="sm" asChild>
+        <Form onSubmit={form.handleSubmit(onSubmit)} {...props}>
+          <Dialog.Panel sticky asChild>
+            <Header size="h4" title={`${isEditing ? "Update" : "Create New"} Tag`}>
+              <Dialog.Close />
+            </Header>
+          </Dialog.Panel>
 
-        <Form.Fieldset>
-          <Form.Field control={form.control} name="name" label="Name" required>
-            <Form.Input data-1p-ignore />
-          </Form.Field>
+          <Dialog.Panel scrollable>
+            <Form.Fieldset>
+              <Form.Field control={form.control} name="name" label="Name" required>
+                <Form.Input data-1p-ignore />
+              </Form.Field>
 
-          <Form.Field control={form.control} name="color" label="Color" required>
-            <Form.ColorPicker />
-          </Form.Field>
-        </Form.Fieldset>
+              <Form.Field control={form.control} name="color" label="Color" required>
+                <Form.ColorPicker />
+              </Form.Field>
+            </Form.Fieldset>
+          </Dialog.Panel>
 
-        <BoxFooter>
-          <Form.Button loading={isLoading}>{isEditing ? "Update" : "Create"} Tag</Form.Button>
-          <DialogCancel />
-        </BoxFooter>
-      </Form>
+          <Dialog.Footer>
+            <Form.Button loading={isLoading}>{isEditing ? "Update" : "Create"} Tag</Form.Button>
+            <Dialog.Cancel />
+          </Dialog.Footer>
+        </Form>
+      </Dialog.Content>
     </FormProvider>
   )
 }

@@ -1,12 +1,11 @@
 "use client"
 
-import { Button, Card, Header, Paragraph } from "@curiousleaf/design"
+import { Button, Card, Dialog, Header, Paragraph } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 import { useState, useEffect } from "react"
 
 import { BoardForm } from "~/app/app/[company]/settings/boards/form"
 import { BoardItem } from "~/app/app/[company]/settings/boards/item"
-import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Skeleton } from "~/components/interface/skeleton"
 import { HeadingCounter } from "~/components/utils/heading-counter"
 import { QueryCell } from "~/components/utils/query-cell"
@@ -47,17 +46,15 @@ export default function Route() {
           title={<HeadingCounter data={boardsQuery.data}>Boards</HeadingCounter>}
           description="Manage the boards where you and your users can submit feedback."
         >
-          <DialogRoot>
-            <DialogTrigger asChild>
+          <Dialog>
+            <Dialog.Trigger asChild>
               <Button theme="secondary" prefix={<PlusIcon />}>
                 Create Board
               </Button>
-            </DialogTrigger>
+            </Dialog.Trigger>
 
-            <DialogContent>
-              <BoardForm />
-            </DialogContent>
-          </DialogRoot>
+            <BoardForm />
+          </Dialog>
         </Header>
       </Card.Panel>
 
@@ -69,7 +66,7 @@ export default function Route() {
           empty={() => <Paragraph>No boards added for this company yet.</Paragraph>}
           success={() => (
             <SortableProvider items={boards.map(({ id }) => id)} onDragEnd={move}>
-              {boards.map((board) => (
+              {boards.map(board => (
                 <BoardItem key={board.id} board={board} />
               ))}
             </SortableProvider>

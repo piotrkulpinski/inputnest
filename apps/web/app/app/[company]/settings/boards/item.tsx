@@ -1,11 +1,10 @@
-import { H5, Button, cx, IconLoader } from "@curiousleaf/design"
+import { H5, Button, cx, IconLoader, Dialog } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
 import { BoardForm } from "~/app/app/[company]/settings/boards/form"
 import { DialogConfirm } from "~/components/dialogs/confirm"
 import { Card, CardActions, CardDraggable, CardPanel } from "~/components/interface/card"
-import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { useCompany } from "~/providers/company-provider"
 import { useSortable } from "~/providers/sortable-provider"
 import type { RouterOutputs } from "~/services/trpc"
@@ -42,7 +41,7 @@ export const BoardItem = ({ board, ...props }: BoardItemProps) => {
         <H5>{board.name}</H5>
 
         <CardActions>
-          <div className="text-2xs order-last mr-2 font-medium md:order-first">
+          <div className="order-last mr-2 text-2xs font-medium md:order-first">
             {board.isDefault && "Default"}
 
             {!board.isDefault && (
@@ -55,15 +54,15 @@ export const BoardItem = ({ board, ...props }: BoardItemProps) => {
             )}
           </div>
 
-          <DialogRoot>
-            <DialogTrigger asChild>
-              <Button theme="secondary" variant="outline">Edit</Button>
-            </DialogTrigger>
+          <Dialog>
+            <Dialog.Trigger asChild>
+              <Button theme="secondary" variant="outline">
+                Edit
+              </Button>
+            </Dialog.Trigger>
 
-            <DialogContent>
-              <BoardForm board={board} />
-            </DialogContent>
-          </DialogRoot>
+            <BoardForm board={board} />
+          </Dialog>
 
           <DialogConfirm
             title="Delete your board?"

@@ -82,7 +82,7 @@ export const CommentItemActions = ({ comment, ...props }: CommentItemProps) => {
   ]
 
   return (
-    <NavDropdown navs={navs}>
+    <NavDropdown navs={navs} align="start">
       <Button
         size="sm"
         theme="secondary"

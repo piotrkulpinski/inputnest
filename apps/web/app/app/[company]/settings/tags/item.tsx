@@ -1,11 +1,10 @@
-import { Button, H5 } from "@curiousleaf/design"
+import { Button, Dialog, H5 } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
 import { TagForm } from "~/app/app/[company]/settings/tags/form"
 import { DialogConfirm } from "~/components/dialogs/confirm"
 import { Card, CardActions, CardDraggable, CardPanel } from "~/components/interface/card"
-import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Status } from "~/components/interface/status"
 import { useCompany } from "~/providers/company-provider"
 import { useSortable } from "~/providers/sortable-provider"
@@ -38,17 +37,15 @@ export const TagItem = ({ tag, ...props }: TagItemProps) => {
         </H5>
 
         <CardActions>
-          <DialogRoot>
-            <DialogTrigger asChild>
+          <Dialog>
+            <Dialog.Trigger asChild>
               <Button theme="secondary" variant="outline">
                 Edit
               </Button>
-            </DialogTrigger>
+            </Dialog.Trigger>
 
-            <DialogContent>
-              <TagForm tag={tag} />
-            </DialogContent>
-          </DialogRoot>
+            <TagForm tag={tag} />
+          </Dialog>
 
           <DialogConfirm
             title="Delete your tag?"

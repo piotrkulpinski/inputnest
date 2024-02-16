@@ -18,7 +18,7 @@ export const FormButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref
 })
 
 FormButton.defaultProps = {
-  className: "min-w-[8rem]",
+  className: "min-w-[8rem] md:min-w-[10rem]",
   type: "submit",
   theme: "secondary",
   children: "Save Changes",

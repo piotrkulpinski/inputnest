@@ -1,7 +1,8 @@
+import { publishEscape } from "@curiousleaf/utils"
 import type { AppRouter } from "@repo/api"
 import type { TRPCClientErrorLike } from "@trpc/client"
 import { useRouter } from "next/navigation"
-import type { FieldValues, useForm, FieldPath } from "react-hook-form"
+import type { FieldValues, FieldPath, UseFormReturn } from "react-hook-form"
 import { toast } from "sonner"
 
 export const useMutationHandler = () => {
@@ -9,11 +10,12 @@ export const useMutationHandler = () => {
 
   type HandleSuccess = {
     redirect?: string
+    closePanels?: boolean
     success?: string
     error?: string
   }
 
-  const handleSuccess = ({ redirect, success, error }: HandleSuccess) => {
+  const handleSuccess = ({ redirect, closePanels, success, error }: HandleSuccess) => {
     // If we have a success message, show it
     success && toast.success(success)
 
@@ -22,11 +24,14 @@ export const useMutationHandler = () => {
 
     // If we have a redirect, navigate to it
     redirect && router.push(redirect)
+
+    // If closing panels, trigger escape
+    closePanels && publishEscape()
   }
 
   type HandleError<T extends FieldValues> = {
     error: TRPCClientErrorLike<AppRouter>
-    form: ReturnType<typeof useForm<T>>
+    form: UseFormReturn<T>
   }
 
   const handleError = <T extends FieldValues>({

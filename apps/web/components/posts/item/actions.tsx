@@ -1,13 +1,13 @@
 "use client"
 
-import { Button, Tooltip } from "@curiousleaf/design"
+import { Button, Dialog, Tooltip } from "@curiousleaf/design"
 import { useCopyToClipboard } from "@uidotdev/usehooks"
-import { CheckIcon, CopyIcon, PencilIcon, Trash2Icon } from "lucide-react"
-import Link from "next/link"
+import { CheckIcon, CopyIcon } from "lucide-react"
 import type { HTMLAttributes } from "react"
 
 import { DialogConfirm } from "~/components/dialogs/confirm"
 import { CardActions } from "~/components/interface/card"
+import { PostUpdateForm } from "~/components/posts/forms/update"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
 import { usePost } from "~/providers/post-provider"
@@ -44,22 +44,22 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
         />
       </Tooltip>
 
-      <Button size="md" theme="secondary" variant="outline" prefix={<PencilIcon />} asChild>
-        <Link href="./edit">Edit</Link>
-      </Button>
+      <Dialog>
+        <Dialog.Trigger asChild>
+          <Button size="md" theme="secondary" variant="outline">
+            Edit
+          </Button>
+        </Dialog.Trigger>
+
+        <PostUpdateForm post={post} />
+      </Dialog>
 
       <DialogConfirm
         title="Delete your post?"
         label="Delete Post"
         onConfirm={() => deletePost.mutate({ id: post.id })}
       >
-        <Button
-          size="md"
-          theme="negative"
-          variant="outline"
-          prefix={<Trash2Icon />}
-          loading={deletePost.isLoading}
-        >
+        <Button size="md" theme="negative" variant="outline" loading={deletePost.isLoading}>
           Delete
         </Button>
       </DialogConfirm>

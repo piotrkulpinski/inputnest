@@ -9,7 +9,7 @@ type VotesListProps = AvatarGroupProps & {
 
 export const VotesList = ({ votes, ...props }: VotesListProps) => {
   return (
-    <AvatarGroup size="xs" {...props}>
+    <AvatarGroup size="sm" {...props}>
       {votes.map(({ id, author }) => (
         <Tooltip key={id} tooltip={author.name}>
           <UserAvatar user={author} className="ring-[0.125em] ring-white" />

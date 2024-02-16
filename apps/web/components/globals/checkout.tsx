@@ -1,8 +1,8 @@
+import { Dialog } from "@curiousleaf/design"
 import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"
 import type { HTMLAttributes } from "react"
 
-import { AlertClose, AlertContent, AlertRoot } from "~/components/interface/alert"
 import { env } from "~/env"
 import { useCheckoutStore } from "~/store/checkout"
 
@@ -12,14 +12,14 @@ export const Checkout = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
   const { clientSecret, setClientSecret } = useCheckoutStore()
 
   return (
-    <AlertRoot open={!!clientSecret} onOpenChange={(open) => !open && setClientSecret(null)}>
-      <AlertContent className="!w-[66rem] !bg-gray-50" fixed={false} {...props}>
-        <AlertClose className="absolute right-3 top-3" />
+    <Dialog open={!!clientSecret} onOpenChange={open => !open && setClientSecret(null)}>
+      <Dialog.Content className="!w-[66rem] !bg-gray-50" fixed={false} {...props}>
+        <Dialog.Close className="absolute right-3 top-3" />
 
         <EmbeddedCheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
           <EmbeddedCheckout />
         </EmbeddedCheckoutProvider>
-      </AlertContent>
-    </AlertRoot>
+      </Dialog.Content>
+    </Dialog>
   )
 }
