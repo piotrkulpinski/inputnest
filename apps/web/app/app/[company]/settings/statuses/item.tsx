@@ -1,11 +1,10 @@
-import { H5, cx, IconLoader, Button } from "@curiousleaf/design"
+import { H5, cx, IconLoader, Button, Dialog } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
 import { StatusForm } from "~/app/app/[company]/settings/statuses/form"
 import { DialogConfirm } from "~/components/dialogs/confirm"
 import { Card, CardActions, CardDraggable, CardPanel } from "~/components/interface/card"
-import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Status } from "~/components/interface/status"
 import { useCompany } from "~/providers/company-provider"
 import { useSortable } from "~/providers/sortable-provider"
@@ -45,7 +44,7 @@ export const StatusItem = ({ status, ...props }: StatusItemProps) => {
         </H5>
 
         <CardActions>
-          <div className="text-2xs order-last mr-2 font-medium md:order-first">
+          <div className="order-last mr-2 text-2xs font-medium md:order-first">
             {status.isDefault && "Default"}
 
             {!status.isDefault && (
@@ -58,17 +57,15 @@ export const StatusItem = ({ status, ...props }: StatusItemProps) => {
             )}
           </div>
 
-          <DialogRoot>
-            <DialogTrigger asChild>
+          <Dialog>
+            <Dialog.Trigger asChild>
               <Button theme="secondary" variant="outline">
                 Edit
               </Button>
-            </DialogTrigger>
+            </Dialog.Trigger>
 
-            <DialogContent>
-              <StatusForm status={status} />
-            </DialogContent>
-          </DialogRoot>
+            <StatusForm status={status} />
+          </Dialog>
 
           <DialogConfirm
             title="Delete your status?"

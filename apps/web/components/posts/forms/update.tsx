@@ -1,3 +1,4 @@
+import { Dialog, Header } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { PostSchema } from "@repo/database"
 import { postSchema } from "@repo/database"
@@ -5,8 +6,6 @@ import { forwardRef, type HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { Form } from "~/components/form/Form"
 
-import { BoxHeader, BoxFooter } from "~/components/interface/box"
-import { DialogCancel, DialogClose } from "~/components/interface/dialog"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
@@ -33,7 +32,7 @@ export const PostUpdateForm = forwardRef<HTMLFormElement, PostUpdateFormProps>(
 
         // Redirect with success message
         handleSuccess({
-          redirect: "..",
+          closePanels: true,
           success: "Post updated successfully",
         })
       },
@@ -48,26 +47,32 @@ export const PostUpdateForm = forwardRef<HTMLFormElement, PostUpdateFormProps>(
 
     return (
       <FormProvider {...form}>
-        <Form ref={ref} onSubmit={form.handleSubmit(onSubmit)} className="contents" {...props}>
-          <BoxHeader title="Update Post">
-            <DialogClose />
-          </BoxHeader>
+        <Dialog.Content size="lg" asChild>
+          <Form ref={ref} onSubmit={form.handleSubmit(onSubmit)} {...props}>
+            <Dialog.Panel sticky asChild>
+              <Header size="h4" title="Update Post">
+                <Dialog.Close />
+              </Header>
+            </Dialog.Panel>
 
-          <Form.Fieldset disabled={isLoading}>
-            <Form.Field control={form.control} name="title" label="Title" required>
-              <Form.Input placeholder="Short, descriptive title" />
-            </Form.Field>
+            <Dialog.Panel scrollable>
+              <Form.Fieldset layout="stacked" disabled={isLoading}>
+                <Form.Field control={form.control} name="title" label="Title" required>
+                  <Form.Input placeholder="Short, descriptive title" />
+                </Form.Field>
 
-            <Form.Field control={form.control} name="content" label="Content">
-              <Form.Editor minRows={5} placeholder="Provide more details here" />
-            </Form.Field>
-          </Form.Fieldset>
+                <Form.Field control={form.control} name="content" label="Content">
+                  <Form.Editor minRows={5} placeholder="Provide more details here" />
+                </Form.Field>
+              </Form.Fieldset>
+            </Dialog.Panel>
 
-          <BoxFooter>
-            <Form.Button loading={isLoading}>Update Post</Form.Button>
-            <DialogCancel />
-          </BoxFooter>
-        </Form>
+            <Dialog.Footer>
+              <Form.Button loading={isLoading}>Update Post</Form.Button>
+              <Dialog.Cancel />
+            </Dialog.Footer>
+          </Form>
+        </Dialog.Content>
       </FormProvider>
     )
   },

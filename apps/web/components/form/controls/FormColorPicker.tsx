@@ -30,7 +30,7 @@ export type FormColorPickerProps = Omit<ComponentPropsWithoutRef<typeof PopoverC
 
 export const FormColorPicker = ({ className, ...props }: FormColorPickerProps) => {
   const { watch } = useFormContext()
-  const { field, required } = useFieldContext()
+  const { field } = useFieldContext()
   const color = watch(field.name)
 
   // const buttonClass = formInputVariants({
@@ -81,7 +81,7 @@ export const FormColorPicker = ({ className, ...props }: FormColorPickerProps) =
         </button>
       </Popover>
 
-      {!required && !!color && (
+      {!!color && (
         <button
           type="button"
           className={clearerVariants({ light: !!color && isLightColor(color) })}

@@ -1,3 +1,4 @@
+import { Dialog, Header } from "@curiousleaf/design"
 import { toSlugCase } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AppRouter } from "@repo/api"
@@ -8,8 +9,6 @@ import type { HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { Form } from "~/components/form/Form"
 
-import { BoxHeader, BoxFooter } from "~/components/interface/box"
-import { DialogCancel, DialogClose } from "~/components/interface/dialog"
 import { useComputedField } from "~/hooks/useComputedField"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
@@ -70,26 +69,32 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
 
   return (
     <FormProvider {...form}>
-      <Form onSubmit={form.handleSubmit(onSubmit)} className="contents" {...props}>
-        <BoxHeader title={`${isEditing ? "Update" : "Create New"} Board`}>
-          <DialogClose />
-        </BoxHeader>
+      <Dialog.Content size="sm" asChild>
+        <Form onSubmit={form.handleSubmit(onSubmit)} {...props}>
+          <Dialog.Panel sticky asChild>
+            <Header size="h4" title={`${isEditing ? "Update" : "Create New"} Board`}>
+              <Dialog.Close />
+            </Header>
+          </Dialog.Panel>
 
-        <Form.Fieldset>
-          <Form.Field control={form.control} name="name" label="Name" required>
-            <Form.Input data-1p-ignore />
-          </Form.Field>
+          <Dialog.Panel scrollable>
+            <Form.Fieldset>
+              <Form.Field control={form.control} name="name" label="Name" required>
+                <Form.Input data-1p-ignore />
+              </Form.Field>
 
-          <Form.Field control={form.control} name="slug" label="Slug" required>
-            <Form.Input />
-          </Form.Field>
-        </Form.Fieldset>
+              <Form.Field control={form.control} name="slug" label="Slug" required>
+                <Form.Input />
+              </Form.Field>
+            </Form.Fieldset>
+          </Dialog.Panel>
 
-        <BoxFooter>
-          <Form.Button loading={isLoading}>{isEditing ? "Update" : "Create"} Board</Form.Button>
-          <DialogCancel />
-        </BoxFooter>
-      </Form>
+          <Dialog.Footer>
+            <Form.Button loading={isLoading}>{isEditing ? "Update" : "Create"} Board</Form.Button>
+            <Dialog.Cancel />
+          </Dialog.Footer>
+        </Form>
+      </Dialog.Content>
     </FormProvider>
   )
 }

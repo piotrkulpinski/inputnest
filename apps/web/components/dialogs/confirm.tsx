@@ -1,20 +1,12 @@
 "use client"
 
-import { Button } from "@curiousleaf/design"
+import { Button, Dialog, Header } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { forwardRef, useState } from "react"
 import type { ComponentPropsWithoutRef, HTMLAttributes, ReactNode } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { BoxFooter, BoxHeader } from "~/components/interface/box"
-import {
-  DialogCancel,
-  DialogClose,
-  DialogContent,
-  DialogRoot,
-  DialogTrigger,
-} from "~/components/interface/dialog"
 import { Form } from "~/components/form/Form"
 
 type DialogConfirmProps = HTMLAttributes<HTMLButtonElement> &
@@ -55,41 +47,43 @@ export const DialogConfirm = forwardRef<HTMLButtonElement, DialogConfirmProps>((
   }
 
   return (
-    <DialogRoot open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger ref={ref} asChild>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger ref={ref} asChild>
         {children}
-      </DialogTrigger>
+      </Dialog.Trigger>
 
       <FormProvider {...form}>
-        <DialogContent asChild>
+        <Dialog.Content asChild>
           <Form onSubmit={form.handleSubmit(onSubmit)}>
-            <BoxHeader title={title} description={description}>
-              <DialogClose />
-            </BoxHeader>
+            <Dialog.Panel>
+              <Header size="h4" title={title} description={description}>
+                <Dialog.Close />
+              </Header>
 
-            {!!confirmText && (
-              <Form.Fieldset>
-                <Form.Field
-                  control={form.control}
-                  name="confirm"
-                  label={`Type ${confirmText} to confirm`}
-                  required
-                >
-                  <Form.Input placeholder={confirmText} />
-                </Form.Field>
-              </Form.Fieldset>
-            )}
+              {!!confirmText && (
+                <Form.Fieldset>
+                  <Form.Field
+                    control={form.control}
+                    name="confirm"
+                    label={`Type ${confirmText} to confirm`}
+                    required
+                  >
+                    <Form.Input placeholder={confirmText} />
+                  </Form.Field>
+                </Form.Fieldset>
+              )}
+            </Dialog.Panel>
 
-            <BoxFooter>
+            <Dialog.Footer>
               <Form.Button theme={theme} disabled={!form.formState.isValid}>
                 {label}
               </Form.Button>
 
-              <DialogCancel>{cancelLabel}</DialogCancel>
-            </BoxFooter>
+              <Dialog.Cancel>{cancelLabel}</Dialog.Cancel>
+            </Dialog.Footer>
           </Form>
-        </DialogContent>
+        </Dialog.Content>
       </FormProvider>
-    </DialogRoot>
+    </Dialog>
   )
 })

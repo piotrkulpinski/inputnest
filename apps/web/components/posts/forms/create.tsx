@@ -1,3 +1,4 @@
+import { Dialog, Header } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { PostSchema } from "@repo/database"
 import { postSchema, postDefaults } from "@repo/database"
@@ -5,8 +6,6 @@ import { forwardRef, type HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { Form } from "~/components/form/Form"
 
-import { BoxHeader, BoxFooter } from "~/components/interface/box"
-import { DialogCancel, DialogClose } from "~/components/interface/dialog"
 import { Status } from "~/components/interface/status"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
@@ -54,46 +53,52 @@ export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFor
 
     return (
       <FormProvider {...form}>
-        <Form ref={ref} className="contents" onSubmit={form.handleSubmit(onSubmit)} {...props}>
-          <BoxHeader title="Create New Post">
-            <DialogClose />
-          </BoxHeader>
+        <Dialog.Content size="lg" asChild>
+          <Form ref={ref} onSubmit={form.handleSubmit(onSubmit)} {...props}>
+            <Dialog.Panel sticky asChild>
+              <Header size="h4" title="Create New Post">
+                <Dialog.Close />
+              </Header>
+            </Dialog.Panel>
 
-          <Form.Fieldset disabled={isLoading}>
-            <Form.Field control={form.control} name="title" label="Title" required>
-              <Form.Input placeholder="Short, descriptive title" />
-            </Form.Field>
+            <Dialog.Panel scrollable>
+              <Form.Fieldset disabled={isLoading}>
+                <Form.Field control={form.control} name="title" label="Title" required>
+                  <Form.Input placeholder="Short, descriptive title" />
+                </Form.Field>
 
-            <Form.Fieldset className="flex-row">
-              <Form.Field control={form.control} name="boardId" label="Board" required>
-                <Form.Select
-                  options={boards.data?.map(({ name, id }) => ({
-                    label: name,
-                    value: id,
-                  }))}
-                />
-              </Form.Field>
+                <Form.Fieldset className="flex-row">
+                  <Form.Field control={form.control} name="boardId" label="Board" required>
+                    <Form.Select
+                      options={boards.data?.map(({ name, id }) => ({
+                        label: name,
+                        value: id,
+                      }))}
+                    />
+                  </Form.Field>
 
-              <Form.Field control={form.control} name="statusId" label="Status" required>
-                <Form.Select
-                  options={statuses.data?.map(({ name, id, color }) => ({
-                    label: <Status color={color}>{name}</Status>,
-                    value: id,
-                  }))}
-                />
-              </Form.Field>
-            </Form.Fieldset>
+                  <Form.Field control={form.control} name="statusId" label="Status" required>
+                    <Form.Select
+                      options={statuses.data?.map(({ name, id, color }) => ({
+                        label: <Status color={color}>{name}</Status>,
+                        value: id,
+                      }))}
+                    />
+                  </Form.Field>
+                </Form.Fieldset>
 
-            <Form.Field control={form.control} name="content" label="Content">
-              <Form.Editor minRows={5} placeholder="Provide more details here" />
-            </Form.Field>
-          </Form.Fieldset>
+                <Form.Field control={form.control} name="content" label="Content">
+                  <Form.Editor minRows={5} placeholder="Provide more details here" />
+                </Form.Field>
+              </Form.Fieldset>
+            </Dialog.Panel>
 
-          <BoxFooter>
-            <Form.Button loading={isLoading}>Create Post</Form.Button>
-            <DialogCancel />
-          </BoxFooter>
-        </Form>
+            <Dialog.Footer>
+              <Form.Button loading={isLoading}>Create Post</Form.Button>
+              <Dialog.Cancel />
+            </Dialog.Footer>
+          </Form>
+        </Dialog.Content>
       </FormProvider>
     )
   },

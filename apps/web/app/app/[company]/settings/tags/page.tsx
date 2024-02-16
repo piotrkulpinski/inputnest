@@ -1,12 +1,11 @@
 "use client"
 
-import { Button, Card, Header, Paragraph } from "@curiousleaf/design"
+import { Button, Card, Dialog, Header, Paragraph } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 import { useState, useEffect } from "react"
 
 import { TagForm } from "~/app/app/[company]/settings/tags/form"
 import { TagItem } from "~/app/app/[company]/settings/tags/item"
-import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Skeleton } from "~/components/interface/skeleton"
 import { HeadingCounter } from "~/components/utils/heading-counter"
 import { QueryCell } from "~/components/utils/query-cell"
@@ -47,17 +46,15 @@ export default function Route() {
           title={<HeadingCounter data={tagsQuery.data}>Tags</HeadingCounter>}
           description="Customize existing ones or add extra tags you can add for posts."
         >
-          <DialogRoot>
-            <DialogTrigger asChild>
+          <Dialog>
+            <Dialog.Trigger asChild>
               <Button theme="secondary" prefix={<PlusIcon />}>
                 Create Tag
               </Button>
-            </DialogTrigger>
+            </Dialog.Trigger>
 
-            <DialogContent>
-              <TagForm />
-            </DialogContent>
-          </DialogRoot>
+            <TagForm />
+          </Dialog>
         </Header>
       </Card.Panel>
 

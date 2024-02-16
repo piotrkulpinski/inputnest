@@ -83,7 +83,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
 
           <Field label={`Voters (${votes.data?.length ?? "0"})`}>
             {votes.isLoading && <VotesSkeleton />}
-            {votes.isSuccess && !votes.data?.length && <Prose>No votes yet.</Prose>}
+            {votes.isSuccess && !votes.data?.length && <Prose size="xs">No votes yet.</Prose>}
             {votes.isSuccess && !!votes.data?.length && <VotesList votes={votes.data} />}
           </Field>
         </Form.Fieldset>

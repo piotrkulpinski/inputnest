@@ -1,12 +1,11 @@
 "use client"
 
-import { Button, Card, Header, Paragraph } from "@curiousleaf/design"
+import { Button, Card, Dialog, Header, Paragraph } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 import { useState, useEffect } from "react"
 
 import { StatusForm } from "~/app/app/[company]/settings/statuses/form"
 import { StatusItem } from "~/app/app/[company]/settings/statuses/item"
-import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Skeleton } from "~/components/interface/skeleton"
 import { HeadingCounter } from "~/components/utils/heading-counter"
 import { QueryCell } from "~/components/utils/query-cell"
@@ -46,17 +45,15 @@ export default function Route() {
           title={<HeadingCounter data={statusesQuery.data}>Statuses</HeadingCounter>}
           description="Customize existing ones or add extra statuses you can add for posts."
         >
-          <DialogRoot>
-            <DialogTrigger asChild>
+          <Dialog>
+            <Dialog.Trigger asChild>
               <Button theme="secondary" prefix={<PlusIcon />}>
                 Create Status
               </Button>
-            </DialogTrigger>
+            </Dialog.Trigger>
 
-            <DialogContent>
-              <StatusForm />
-            </DialogContent>
-          </DialogRoot>
+            <StatusForm />
+          </Dialog>
         </Header>
       </Card.Panel>
 

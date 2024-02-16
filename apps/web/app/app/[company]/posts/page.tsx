@@ -1,10 +1,9 @@
 "use client"
 
-import { Button, Header, Paragraph, Section } from "@curiousleaf/design"
+import { Button, Dialog, Header, Paragraph, Section } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 
 import { PostItem } from "~/app/app/[company]/posts/item"
-import { DialogContent, DialogRoot, DialogTrigger } from "~/components/interface/dialog"
 import { Skeleton } from "~/components/interface/skeleton"
 import { PostCreateForm } from "~/components/posts/forms/create"
 import { HeadingCounter } from "~/components/utils/heading-counter"
@@ -19,17 +18,15 @@ export default function Route() {
   return (
     <Section>
       <Header title={<HeadingCounter data={postsQuery.data}>Posts</HeadingCounter>}>
-        <DialogRoot>
-          <DialogTrigger asChild>
+        <Dialog>
+          <Dialog.Trigger asChild>
             <Button theme="secondary" prefix={<PlusIcon />}>
               Create Post
             </Button>
-          </DialogTrigger>
+          </Dialog.Trigger>
 
-          <DialogContent size="md" asChild>
-            <PostCreateForm />
-          </DialogContent>
-        </DialogRoot>
+          <PostCreateForm />
+        </Dialog>
       </Header>
 
       <div className="flex flex-col -space-y-px">
