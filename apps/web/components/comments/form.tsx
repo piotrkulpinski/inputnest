@@ -101,7 +101,7 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
 
   return (
     <FormProvider {...form}>
-      <Form className="relative @container" onSubmit={onSubmit} {...props}>
+      <Form onSubmit={onSubmit} className="relative @container" {...props}>
         <fieldset className="contents" disabled={isMutating || isLoading}>
           <Form.Field control={form.control} name="content" hideError required>
             <Form.Editor

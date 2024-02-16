@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from "@curiousleaf/design"
 import { toSlugCase } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { CompanySchema } from "@repo/database"
@@ -8,14 +7,11 @@ import { companyDefaults, companySchema } from "@repo/database"
 import type { HTMLAttributes } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
-import { FormAffix } from "~/components/form/affix"
-import { FormInput } from "~/components/form/controls/input"
-import { FormField } from "~/components/form/FormField"
-import { FormFieldset } from "~/components/form/fieldset"
 import { useComputedField } from "~/hooks/useComputedField"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { api } from "~/services/trpc"
 import { getTenantHost } from "~/utils/helpers"
+import { Form } from "~/components/form/Form"
 
 export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) => {
   const apiUtils = api.useUtils()
@@ -51,28 +47,28 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(v => createCompany(v))} className="contents" {...props}>
-        <FormFieldset className="h-full">
-          <FormField name="name" label="Name" required>
-            <FormInput placeholder="Acme Corporation" data-1p-ignore />
-          </FormField>
+      <Form onSubmit={form.handleSubmit(v => createCompany(v))} className="contents" {...props}>
+        <Form.Fieldset className="h-full">
+          <Form.Field name="name" label="Name" required>
+            <Form.Input placeholder="Acme Corporation" data-1p-ignore />
+          </Form.Field>
 
-          <FormField
+          <Form.Field
             name="slug"
             label="Subdomain"
             hint="Your company is visible at this address."
             required
           >
-            <FormAffix suffix={getTenantHost()}>
-              <FormInput placeholder="acme" />
-            </FormAffix>
-          </FormField>
+            <Form.Affix suffix={getTenantHost()}>
+              <Form.Input placeholder="acme" />
+            </Form.Affix>
+          </Form.Field>
 
-          <Button type="submit" size="lg" loading={isLoading} className="mt-auto w-full">
+          <Form.Button loading={isLoading} className="mt-auto w-full">
             Create Company
-          </Button>
-        </FormFieldset>
-      </form>
+          </Form.Button>
+        </Form.Fieldset>
+      </Form>
     </FormProvider>
   )
 }

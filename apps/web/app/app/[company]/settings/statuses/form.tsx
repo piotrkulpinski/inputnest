@@ -1,14 +1,10 @@
-import { Button } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { StatusSchema } from "@repo/database"
 import { statusSchema, statusDefaults } from "@repo/database"
 import type { HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
+import { Form } from "~/components/form/Form"
 
-import { FormColorPicker } from "~/components/form/controls/color-picker"
-import { FormInput } from "~/components/form/controls/input"
-import { FormField } from "~/components/form/FormField"
-import { FormFieldset } from "~/components/form/fieldset"
 import { BoxHeader, BoxFooter } from "~/components/interface/box"
 import { DialogCancel, DialogClose } from "~/components/interface/dialog"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
@@ -58,28 +54,26 @@ export const StatusForm = ({ status, ...props }: StatusFormProps) => {
 
   return (
     <FormProvider {...form}>
-      <form className="contents" onSubmit={form.handleSubmit(onSubmit)} {...props}>
+      <Form onSubmit={form.handleSubmit(onSubmit)} className="contents" {...props}>
         <BoxHeader title={`${isEditing ? "Update" : "Create New"} Status`}>
           <DialogClose />
         </BoxHeader>
 
-        <FormFieldset>
-          <FormField control={form.control} name="name" label="Name" required>
-            <FormInput data-1p-ignore />
-          </FormField>
+        <Form.Fieldset>
+          <Form.Field control={form.control} name="name" label="Name" required>
+            <Form.Input data-1p-ignore />
+          </Form.Field>
 
-          <FormField control={form.control} name="color" label="Color" required>
-            <FormColorPicker />
-          </FormField>
-        </FormFieldset>
+          <Form.Field control={form.control} name="color" label="Color" required>
+            <Form.ColorPicker />
+          </Form.Field>
+        </Form.Fieldset>
 
         <BoxFooter>
-          <Button type="submit" theme="secondary" loading={isLoading}>
-            {isEditing ? "Update" : "Create"} Status
-          </Button>
+          <Form.Button loading={isLoading}>{isEditing ? "Update" : "Create"} Status</Form.Button>
           <DialogCancel />
         </BoxFooter>
-      </form>
+      </Form>
     </FormProvider>
   )
 }
