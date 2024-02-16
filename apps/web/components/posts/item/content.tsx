@@ -1,10 +1,9 @@
 "use client"
 
-import { H6, Markdown, Series } from "@curiousleaf/design"
+import { Dot, H6, Markdown, Series } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
 import { CardPanel } from "~/components/interface/card"
-import { Dot } from "~/components/interface/dot"
 import { Time } from "~/components/interface/time"
 import { UserAvatar } from "~/components/users/avatar"
 import { usePost } from "~/providers/post-provider"
@@ -25,7 +24,7 @@ export const PostItemContent = ({ ...props }: HTMLAttributes<HTMLElement>) => {
             </>
           )}
 
-          <Dot theme="gray" className="opacity-25 first:hidden last:hidden" />
+          <Dot className="text-gray-300 first:hidden last:hidden" />
           <Time date={post.createdAt} className="opacity-50" />
         </Series>
       </Series>

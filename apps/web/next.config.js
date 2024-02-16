@@ -2,10 +2,6 @@
 export default {
   transpilePackages: ["@repo/database", "@curiousleaf/design", "@curiousleaf/utils"],
 
-  // experimental: {
-  //   optimizePackageImports: ["@curiousleaf/design"],
-  // },
-
   /** Custom redirects */
   redirects: async () => [
     {

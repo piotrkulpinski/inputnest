@@ -11,7 +11,7 @@ export const Toaster = (props: ComponentPropsWithoutRef<typeof Sonner>) => {
       toastOptions={{
         className: clsx([
           "!rounded !border-0 !bg-white !py-2.5 !shadow !ring-1 !ring-gray-200",
-          "data-[type=error]:!text-red-700/90 data-[type=success]:!text-green-700/90",
+          "data-[type=error]:!text-red-dark/90 data-[type=success]:!text-green-dark/90",
         ]),
       }}
       {...props}

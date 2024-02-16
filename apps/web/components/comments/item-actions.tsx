@@ -1,17 +1,19 @@
 "use client"
 
-import { Button, Dropdown } from "@curiousleaf/design"
+import { Button } from "@curiousleaf/design"
 import {
   LockIcon,
   MoreHorizontalIcon,
   PencilIcon,
   PinIcon,
   PinOffIcon,
-  TrashIcon,
+  Trash2Icon,
   UnlockIcon,
 } from "lucide-react"
 import { useState, type HTMLAttributes } from "react"
 import { toast } from "sonner"
+import { NavDropdown } from "~/components/navs/NavDropdown"
+import { NavItemProps } from "~/components/navs/NavItem"
 
 import { useComments } from "~/providers/comments-provider"
 import { api } from "~/services/trpc"
@@ -50,50 +52,44 @@ export const CommentItemActions = ({ comment, ...props }: CommentItemProps) => {
     }
   }
 
+  const navs: NavItemProps[][] = [
+    [
+      {
+        title: `Make ${isPrivate ? "Public" : "Private"}`,
+        prefix: isPrivate ? <UnlockIcon /> : <LockIcon />,
+        loading: updateComment.isLoading,
+        onClick: () => updateComment.mutate({ ...comment, isPrivate: !isPrivate }),
+      },
+      {
+        title: `${isPinned ? "Unpin" : "Pin"} Comment`,
+        prefix: isPinned ? <PinOffIcon /> : <PinIcon />,
+        loading: updateComment.isLoading,
+        onClick: () => updateComment.mutate({ ...comment, isPinned: !isPinned }),
+      },
+      {
+        title: "Edit Comment",
+        prefix: <PencilIcon />,
+        onClick: () => onEdit(comment),
+      },
+      {
+        title: `${isConfirming ? "Are you sure?" : "Delete Comment"}`,
+        prefix: <Trash2Icon />,
+        loading: deleteComment.isLoading,
+        theme: "negative",
+        onClick: handleDelete,
+      },
+    ],
+  ]
+
   return (
-    <Dropdown>
-      <Dropdown.Trigger asChild>
-        <Button
-          size="sm"
-          theme="secondary"
-          variant="ghost"
-          prefix={<MoreHorizontalIcon />}
-          {...props}
-        />
-      </Dropdown.Trigger>
-
-      <Dropdown.Content align="start" className="min-w-[11rem]">
-        <Dropdown.Group>
-          <Dropdown.Item
-            prefix={isPrivate ? <UnlockIcon /> : <LockIcon />}
-            onClick={() => updateComment.mutate({ ...comment, isPrivate: !isPrivate })}
-            isLoading={updateComment.isLoading}
-          >
-            <button>Make {isPrivate ? "Public" : "Private"}</button>
-          </Dropdown.Item>
-
-          <Dropdown.Item
-            prefix={isPinned ? <PinOffIcon /> : <PinIcon />}
-            onClick={() => updateComment.mutate({ ...comment, isPinned: !isPinned })}
-            isLoading={updateComment.isLoading}
-          >
-            <button>{isPinned ? "Unpin" : "Pin"} Comment</button>
-          </Dropdown.Item>
-
-          <Dropdown.Item prefix={<PencilIcon />} onClick={() => onEdit(comment)}>
-            <button>Edit Comment</button>
-          </Dropdown.Item>
-
-          <Dropdown.Item
-            prefix={<TrashIcon />}
-            onClick={handleDelete}
-            isLoading={deleteComment.isLoading}
-            className="text-red-700"
-          >
-            <button>{isConfirming ? "Are you sure?" : "Delete Comment"}</button>
-          </Dropdown.Item>
-        </Dropdown.Group>
-      </Dropdown.Content>
-    </Dropdown>
+    <NavDropdown navs={navs}>
+      <Button
+        size="sm"
+        theme="secondary"
+        variant="ghost"
+        prefix={<MoreHorizontalIcon />}
+        {...props}
+      />
+    </NavDropdown>
   )
 }

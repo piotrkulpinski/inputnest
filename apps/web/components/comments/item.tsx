@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, H6, Markdown, Series, cx } from "@curiousleaf/design"
+import { Action, Dot, H6, Markdown, Series, cx } from "@curiousleaf/design"
 import { LockIcon, PinIcon, XIcon, ReplyIcon } from "lucide-react"
 import Link from "next/link"
 import { type HTMLAttributes } from "react"
@@ -9,7 +9,6 @@ import { CommentForm } from "~/components/comments/form"
 import { CommentItemActions } from "~/components/comments/item-actions"
 import { CommentTree } from "~/components/comments/tree"
 import { Badge } from "~/components/interface/badge"
-import { Dot } from "~/components/interface/dot"
 import { Time } from "~/components/interface/time"
 import { UserAvatar } from "~/components/users/avatar"
 import { useComments } from "~/providers/comments-provider"
@@ -34,23 +33,23 @@ export const CommentItem = ({ className, comment, ...props }: CommentItemProps) 
   return (
     <article
       id={`comment-${comment.id}`}
-      className={cx("@container relative flex flex-col gap-y-4", className)}
+      className={cx("relative flex flex-col gap-y-4 @container", className)}
       {...props}
     >
       <div className="flex items-start gap-4">
-        <UserAvatar user={comment.author} size="lg" className="ring-4 ring-zinc-50 md:ring-8" />
+        <UserAvatar user={comment.author} size="lg" className="ring-4 ring-gray-50 md:ring-8" />
 
         <div className="flex w-full flex-col gap-4">
           <Series>
             <H6>{comment.author.name}</H6>
 
-            <CommentItemActions comment={comment} className="text-zinc-500" />
+            <CommentItemActions comment={comment} className="text-gray-500" />
 
             {comment.isPrivate && (
               <Badge
                 theme="blueSoft"
                 suffix={<LockIcon />}
-                className="@md:first-of-type:ml-auto -my-0.5"
+                className="-my-0.5 @md:first-of-type:ml-auto"
               >
                 Private
               </Badge>
@@ -60,7 +59,7 @@ export const CommentItem = ({ className, comment, ...props }: CommentItemProps) 
               <Badge
                 theme="purpleSoft"
                 suffix={<PinIcon />}
-                className="@md:first-of-type:ml-auto -my-0.5"
+                className="-my-0.5 @md:first-of-type:ml-auto"
               >
                 Pinned
               </Badge>
@@ -70,37 +69,27 @@ export const CommentItem = ({ className, comment, ...props }: CommentItemProps) 
           {editing?.id === comment.id ? (
             <CommentForm />
           ) : (
-            <Markdown className="-mt-2" content={comment.content} />
+            <Markdown size="sm" className="-mt-2" content={comment.content} />
           )}
 
-          <Series className="text-xs text-zinc-500">
+          <Series>
             {[editing?.id, replying?.id].includes(comment.id) ? (
-              <Button
-                theme="secondary"
-                variant="ghost"
-                size="sm"
-                prefix={<XIcon />}
-                onClick={handleCancel}
-              >
+              <Action prefix={<XIcon />} onClick={handleCancel}>
                 Cancel
-              </Button>
+              </Action>
             ) : (
-              <Button
-                theme="secondary"
-                variant="ghost"
-                size="sm"
-                prefix={<ReplyIcon />}
-                onClick={handleReply}
-              >
+              <Action prefix={<ReplyIcon />} onClick={handleReply}>
                 Reply
-              </Button>
+              </Action>
             )}
 
-            <Dot theme="gray" className="text-2xs opacity-25 first:hidden last:hidden" />
+            <Dot className="text-2xs text-gray-300" />
 
-            <Link href={`#comment-${comment.id}`} className="hover:text-black">
-              <Time date={comment.createdAt} />
-            </Link>
+            <Action asChild>
+              <Link href={`#comment-${comment.id}`}>
+                <Time date={comment.createdAt} />
+              </Link>
+            </Action>
           </Series>
 
           {replying?.id === comment.id && <CommentForm />}

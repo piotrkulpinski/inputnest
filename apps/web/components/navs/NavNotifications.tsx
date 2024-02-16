@@ -1,12 +1,11 @@
 import { useUser } from "@clerk/nextjs"
-import { Button, Dropdown, Paragraph, Prose, cx } from "@curiousleaf/design"
+import { Button, Dot, Dropdown, Paragraph, Prose, cx } from "@curiousleaf/design"
 import { isRequestInFlight, NetworkStatus } from "@knocklabs/client"
 import { BellIcon, CheckCheckIcon } from "lucide-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 
 import { Badge } from "~/components/interface/badge"
-import { Dot } from "~/components/interface/dot"
 import { Time } from "~/components/interface/time"
 import { NotificationsProvider, useNotifications } from "~/providers/notifications-provider"
 import { formatBadgeCount } from "~/utils/helpers"
@@ -55,7 +54,9 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
               items.map(item => (
                 <Dropdown.Item
                   key={item.id}
-                  prefix={<Dot theme={item.read_at ? "silver" : "blue"} className="mt-2" />}
+                  prefix={
+                    <Dot className={cx("mt-2", item.read_at ? "text-gray-300" : "text-primary")} />
+                  }
                   onClick={() => feedClient.markAsRead(item)}
                   className="!items-start"
                 >
