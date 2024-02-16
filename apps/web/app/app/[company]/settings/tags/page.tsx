@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Card, Dialog, Header, Paragraph } from "@curiousleaf/design"
+import { Button, Card, Dialog, Fieldset, Header, Paragraph } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 import { useState, useEffect } from "react"
 
@@ -9,6 +9,7 @@ import { TagItem } from "~/app/app/[company]/settings/tags/item"
 import { Skeleton } from "~/components/interface/skeleton"
 import { HeadingCounter } from "~/components/utils/heading-counter"
 import { QueryCell } from "~/components/utils/query-cell"
+import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
 import { SortableProvider } from "~/providers/sortable-provider"
 import type { RouterOutputs } from "~/services/trpc"
@@ -17,12 +18,16 @@ import { api } from "~/services/trpc"
 export default function Route() {
   const apiUtils = api.useUtils()
   const { id: companyId } = useCompany()
+  const { handleSuccess } = useMutationHandler()
   const [tags, setTags] = useState<RouterOutputs["tags"]["getAll"]>([])
 
   const tagsQuery = api.tags.getAll.useQuery({ companyId })
 
   const { mutate: reorderTags } = api.tags.reorder.useMutation({
     onSuccess: async () => {
+      handleSuccess({ success: `Tags reordered successfully` })
+
+      // Invalidate the tags cache
       await apiUtils.tags.getAll.invalidate({ companyId })
     },
   })
@@ -58,25 +63,27 @@ export default function Route() {
         </Header>
       </Card.Panel>
 
-      <Card.Section>
-        <QueryCell
-          query={tagsQuery}
-          loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
-          error={() => (
-            <Paragraph className="text-red">There was an error loading the tags.</Paragraph>
-          )}
-          empty={() => (
-            <Paragraph className="text-gray-600">No tags added for this company yet.</Paragraph>
-          )}
-          success={() => (
-            <SortableProvider items={tags.map(({ id }) => id)} onDragEnd={move}>
-              {tags.map(tag => (
-                <TagItem key={tag.id} tag={tag} />
-              ))}
-            </SortableProvider>
-          )}
-        />
-      </Card.Section>
+      <Card.Panel>
+        <Fieldset>
+          <QueryCell
+            query={tagsQuery}
+            loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
+            error={() => (
+              <Paragraph className="text-red">There was an error loading the tags.</Paragraph>
+            )}
+            empty={() => (
+              <Paragraph className="text-gray-600">No tags added for this company yet.</Paragraph>
+            )}
+            success={() => (
+              <SortableProvider items={tags.map(({ id }) => id)} onDragEnd={move}>
+                {tags.map(tag => (
+                  <TagItem key={tag.id} tag={tag} />
+                ))}
+              </SortableProvider>
+            )}
+          />
+        </Fieldset>
+      </Card.Panel>
     </Card>
   )
 }

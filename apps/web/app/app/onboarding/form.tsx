@@ -47,7 +47,7 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
   return (
     <FormProvider {...form}>
       <Form onSubmit={form.handleSubmit(v => createCompany(v))} {...props}>
-        <Form.Fieldset className="h-full">
+        <Form.Fieldset className="size-full">
           <Form.Field name="name" label="Name" required>
             <Form.Input placeholder="Acme Corporation" data-1p-ignore />
           </Form.Field>

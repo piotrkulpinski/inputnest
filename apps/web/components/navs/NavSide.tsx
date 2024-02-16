@@ -1,3 +1,4 @@
+"use client"
 
 import { Accordion, Button, Shortcut, Sidebar } from "@curiousleaf/design"
 import { forwardRef, type ComponentPropsWithoutRef, type ElementRef } from "react"
@@ -17,8 +18,6 @@ export const NavSide = forwardRef<
     <Sidebar ref={ref} {...props}>
       <NavCompany />
 
-
-
       <Accordion type="single" defaultValue={openMenu?.title} asChild>
         <Sidebar.Content>
           {menu.map(({ title, items }, i) => (
@@ -33,8 +32,15 @@ export const NavSide = forwardRef<
         </Sidebar.Content>
       </Accordion>
 
-      <Button size="md" theme="secondary" variant="outline" suffix={<Shortcut className="text-gray-600">⌘K</Shortcut>} className="justify-between">
-        Search&hellip;</Button>
+      <Button
+        size="md"
+        theme="secondary"
+        variant="outline"
+        suffix={<Shortcut className="text-gray-600">⌘K</Shortcut>}
+        className="justify-between"
+      >
+        Search&hellip;
+      </Button>
 
       <NavUser />
     </Sidebar>

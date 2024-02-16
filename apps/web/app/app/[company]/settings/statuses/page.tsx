@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Card, Dialog, Header, Paragraph } from "@curiousleaf/design"
+import { Button, Card, Dialog, Fieldset, Header, Paragraph } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 import { useState, useEffect } from "react"
 
@@ -9,6 +9,7 @@ import { StatusItem } from "~/app/app/[company]/settings/statuses/item"
 import { Skeleton } from "~/components/interface/skeleton"
 import { HeadingCounter } from "~/components/utils/heading-counter"
 import { QueryCell } from "~/components/utils/query-cell"
+import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
 import { SortableProvider } from "~/providers/sortable-provider"
 import { api, type RouterOutputs } from "~/services/trpc"
@@ -16,12 +17,16 @@ import { api, type RouterOutputs } from "~/services/trpc"
 export default function Route() {
   const apiUtils = api.useUtils()
   const { id: companyId } = useCompany()
+  const { handleSuccess } = useMutationHandler()
   const [statuses, setStatuses] = useState<RouterOutputs["statuses"]["getAll"]>([])
 
   const statusesQuery = api.statuses.getAll.useQuery({ companyId })
 
   const { mutate: reorderStatuses } = api.statuses.reorder.useMutation({
     onSuccess: async () => {
+      handleSuccess({ success: `Statuses reordered successfully` })
+
+      // Invalidate the statuses cache
       await apiUtils.statuses.getAll.invalidate({ companyId })
     },
   })
@@ -57,25 +62,29 @@ export default function Route() {
         </Header>
       </Card.Panel>
 
-      <Card.Section>
-        <QueryCell
-          query={statusesQuery}
-          loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
-          error={() => (
-            <Paragraph className="text-red">There was an error loading the statuses.</Paragraph>
-          )}
-          empty={() => (
-            <Paragraph className="text-gray-600">No statuses added for this company yet.</Paragraph>
-          )}
-          success={() => (
-            <SortableProvider items={statuses.map(({ id }) => id)} onDragEnd={move}>
-              {statuses.map(status => (
-                <StatusItem key={status.id} status={status} />
-              ))}
-            </SortableProvider>
-          )}
-        />
-      </Card.Section>
+      <Card.Panel>
+        <Fieldset>
+          <QueryCell
+            query={statusesQuery}
+            loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
+            error={() => (
+              <Paragraph className="text-red">There was an error loading the statuses.</Paragraph>
+            )}
+            empty={() => (
+              <Paragraph className="text-gray-600">
+                No statuses added for this company yet.
+              </Paragraph>
+            )}
+            success={() => (
+              <SortableProvider items={statuses.map(({ id }) => id)} onDragEnd={move}>
+                {statuses.map(status => (
+                  <StatusItem key={status.id} status={status} />
+                ))}
+              </SortableProvider>
+            )}
+          />
+        </Fieldset>
+      </Card.Panel>
     </Card>
   )
 }

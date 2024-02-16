@@ -35,6 +35,9 @@ export const StatusForm = ({ status, ...props }: StatusFormProps) => {
     // Invalidate the statuses cache
     await apiUtils.statuses.getAll.invalidate({ companyId })
     await apiUtils.statuses.get.invalidate({ id: status?.id, companyId })
+
+    // Reset the form
+    form.reset()
   }
 
   const createStatus = api.statuses.create.useMutation({ onSuccess })

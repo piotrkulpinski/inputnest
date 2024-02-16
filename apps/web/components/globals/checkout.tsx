@@ -1,3 +1,5 @@
+"use client"
+
 import { Dialog } from "@curiousleaf/design"
 import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"

@@ -35,6 +35,9 @@ export const TagForm = ({ tag, ...props }: TagFormProps) => {
     // Invalidate the tags cache
     await apiUtils.tags.getAll.invalidate({ companyId })
     await apiUtils.tags.get.invalidate({ id: tag?.id, companyId })
+
+    // Reset the form
+    form.reset()
   }
 
   const createTag = api.tags.create.useMutation({ onSuccess })

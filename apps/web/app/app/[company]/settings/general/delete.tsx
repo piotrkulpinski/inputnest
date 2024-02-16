@@ -1,10 +1,9 @@
 "use client"
 
-import { Button } from "@curiousleaf/design"
+import { Button, Card, Header } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
 import { DialogConfirm } from "~/components/dialogs/confirm"
-import { Box, BoxFooter, BoxHeader } from "~/components/interface/box"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
 import { api } from "~/services/trpc"
@@ -27,13 +26,15 @@ export const CompanySettingsDeleteForm = (props: HTMLAttributes<HTMLElement>) =>
   })
 
   return (
-    <Box className="border-red-light" {...props}>
-      <BoxHeader
-        title="Delete Company"
-        description="The company will be permanently deleted, including its content and domains. This action is irreversible and can not be undone."
-      />
+    <Card className="border-red-light" {...props}>
+      <Card.Panel asChild>
+        <Header
+          title="Delete Company"
+          description="The company will be permanently deleted, including its content and domains. This action is irreversible and can not be undone."
+        />
+      </Card.Panel>
 
-      <BoxFooter className="border-red-light bg-red-lighter">
+      <Card.Footer className="border-red-light bg-red-lighter">
         <DialogConfirm
           title="Delete your company?"
           label="Delete Company"
@@ -44,7 +45,7 @@ export const CompanySettingsDeleteForm = (props: HTMLAttributes<HTMLElement>) =>
             Delete
           </Button>
         </DialogConfirm>
-      </BoxFooter>
-    </Box>
+      </Card.Footer>
+    </Card>
   )
 }

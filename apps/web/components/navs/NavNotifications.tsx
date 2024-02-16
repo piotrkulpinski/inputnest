@@ -1,3 +1,5 @@
+"use client"
+
 import { useUser } from "@clerk/nextjs"
 import { Badge, Button, Dot, Dropdown, Paragraph, Prose, cx } from "@curiousleaf/design"
 import { isRequestInFlight, NetworkStatus } from "@knocklabs/client"

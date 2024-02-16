@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Card, Dialog, Header, Paragraph } from "@curiousleaf/design"
+import { Button, Card, Dialog, Fieldset, Header, Paragraph } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 import { useState, useEffect } from "react"
 
@@ -9,6 +9,7 @@ import { BoardItem } from "~/app/app/[company]/settings/boards/item"
 import { Skeleton } from "~/components/interface/skeleton"
 import { HeadingCounter } from "~/components/utils/heading-counter"
 import { QueryCell } from "~/components/utils/query-cell"
+import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
 import { SortableProvider } from "~/providers/sortable-provider"
 import type { RouterOutputs } from "~/services/trpc"
@@ -17,12 +18,16 @@ import { api } from "~/services/trpc"
 export default function Route() {
   const apiUtils = api.useUtils()
   const { id: companyId } = useCompany()
+  const { handleSuccess } = useMutationHandler()
   const [boards, setBoards] = useState<RouterOutputs["boards"]["getAll"]>([])
 
   const boardsQuery = api.boards.getAll.useQuery({ companyId })
 
   const { mutate: reorderBoards } = api.boards.reorder.useMutation({
     onSuccess: async () => {
+      handleSuccess({ success: `Boards reordered successfully` })
+
+      // Invalidate the boards cache
       await apiUtils.boards.getAll.invalidate({ companyId })
     },
   })
@@ -58,25 +63,27 @@ export default function Route() {
         </Header>
       </Card.Panel>
 
-      <Card.Section>
-        <QueryCell
-          query={boardsQuery}
-          loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
-          error={() => (
-            <Paragraph className="text-red">There was an error loading the boards.</Paragraph>
-          )}
-          empty={() => (
-            <Paragraph className="text-gray-600">No boards added for this company yet.</Paragraph>
-          )}
-          success={() => (
-            <SortableProvider items={boards.map(({ id }) => id)} onDragEnd={move}>
-              {boards.map(board => (
-                <BoardItem key={board.id} board={board} />
-              ))}
-            </SortableProvider>
-          )}
-        />
-      </Card.Section>
+      <Card.Panel>
+        <Fieldset>
+          <QueryCell
+            query={boardsQuery}
+            loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
+            error={() => (
+              <Paragraph className="text-red">There was an error loading the boards.</Paragraph>
+            )}
+            empty={() => (
+              <Paragraph className="text-gray-600">No boards added for this company yet.</Paragraph>
+            )}
+            success={() => (
+              <SortableProvider items={boards.map(({ id }) => id)} onDragEnd={move}>
+                {boards.map(board => (
+                  <BoardItem key={board.id} board={board} />
+                ))}
+              </SortableProvider>
+            )}
+          />
+        </Fieldset>
+      </Card.Panel>
     </Card>
   )
 }

@@ -1,3 +1,5 @@
+"use client"
+
 import { useClerk, useUser } from "@clerk/nextjs"
 import type { AvatarProps } from "@curiousleaf/design"
 import { Avatar } from "@curiousleaf/design"

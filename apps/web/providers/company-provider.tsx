@@ -1,3 +1,5 @@
+"use client"
+
 import type { PropsWithChildren } from "react"
 
 import type { RouterOutputs } from "~/services/trpc"

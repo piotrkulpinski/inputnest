@@ -39,6 +39,9 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
     // Invalidate the boards cache
     await apiUtils.boards.getAll.invalidate({ companyId })
     await apiUtils.boards.get.invalidate({ id: board?.id, companyId })
+
+    // Reset the form
+    form.reset()
   }
 
   const onError = (error: TRPCClientErrorLike<AppRouter>) => {
