@@ -19,14 +19,14 @@ const switchVariants = cva(
   {
     variants: {
       hasError: {
-        true: "ring-1 ring-offset-1 ring-red-700/80",
+        true: "ring-1 ring-offset-1 ring-red-dark/80",
       },
     },
   },
 )
 
 const switchThumbVariants = cva(
-  "group grid place-items-center pointer-events-none block m-[0.125em] h-[0.875em] w-[0.875em] data-[state=checked]:translate-x-full rounded-full bg-white transition",
+  "group grid place-items-center pointer-events-none m-[0.125em] h-[0.875em] w-[0.875em] data-[state=checked]:translate-x-full rounded-full bg-white transition",
 )
 
 type SwitchProps = ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> &

@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Card, Field, Prose, cx } from "@curiousleaf/design"
+import { Action, Field, Prose, Sidebar } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { PostSchema } from "@repo/database"
 import { postSchema } from "@repo/database"
@@ -61,13 +61,8 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
 
   return (
     <FormProvider {...form}>
-      <Card.Panel
-        theme="white"
-        flex="column"
-        className={cx("border max-md:border-t md:w-72 md:shrink-0 md:border-l", className)}
-        {...props}
-      >
-        <Form.Fieldset className="sticky top-16" disabled={isLoading}>
+      <Sidebar size="lg" className="h-auto max-md:static max-md:w-auto">
+        <Form.Fieldset className="sticky top-16 lg:top-6" disabled={isLoading}>
           <Form.Field control={form.control} name="boardId" label="Board">
             <Form.Select
               options={boards.data?.map(({ name, id }) => ({
@@ -94,18 +89,11 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
         </Form.Fieldset>
 
         <div className="flex grow flex-col items-start justify-end">
-          <Button
-            size="sm"
-            theme="secondary"
-            variant="ghost"
-            prefix={<ArrowLeftIcon />}
-            className="sticky bottom-4 text-gray-500"
-            asChild
-          >
-            <Link href="..">Back to all posts</Link>
-          </Button>
+          <Action prefix={<ArrowLeftIcon />} className="sticky bottom-4" asChild>
+            <Link href=".">Back to all posts</Link>
+          </Action>
         </div>
-      </Card.Panel>
+      </Sidebar>
     </FormProvider>
   )
 }

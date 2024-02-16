@@ -1,11 +1,10 @@
-import { H5, Series } from "@curiousleaf/design"
+import { Dot, H5, Series } from "@curiousleaf/design"
 import { ChevronUpIcon, MessageCircleIcon } from "lucide-react"
 import Link from "next/link"
 import type { ComponentPropsWithoutRef } from "react"
 
 import { Badge } from "~/components/interface/badge"
 import { Card, CardPanel } from "~/components/interface/card"
-import { Dot } from "~/components/interface/dot"
 import type { RouterOutputs } from "~/services/trpc"
 
 type PostItemProps = ComponentPropsWithoutRef<typeof Card> & {
@@ -26,7 +25,10 @@ export const PostItem = ({ post, ...props }: PostItemProps) => {
           </Series>
 
           <Series>
-            <Badge theme="white" prefix={<Dot color={post.status.color} className="mx-0.5" />}>
+            <Badge
+              theme="white"
+              prefix={<Dot style={{ color: post.status.color }} className="mx-0.5" />}
+            >
               {post.status.name}
             </Badge>
 

@@ -121,7 +121,7 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
             <label
               className={cx(
                 "flex select-none items-center gap-2 font-medium",
-                isPrivate ? "text-blue-600" : "text-zinc-500",
+                isPrivate ? "text-blue-600" : "text-gray-500",
               )}
             >
               {isPrivate ? "Private" : "Public"}
