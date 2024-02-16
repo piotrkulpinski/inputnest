@@ -70,7 +70,7 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
 
   return (
     <FormProvider {...form}>
-      <Form className="contents" onSubmit={form.handleSubmit(onSubmit)} {...props}>
+      <Form onSubmit={form.handleSubmit(onSubmit)} className="contents" {...props}>
         <BoxHeader title={`${isEditing ? "Update" : "Create New"} Board`}>
           <DialogClose />
         </BoxHeader>

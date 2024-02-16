@@ -1,20 +1,16 @@
-import { Button } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { TagSchema } from "@repo/database"
 import { tagSchema, tagDefaults } from "@repo/database"
 import type { HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 
-import { FormColorPicker } from "~/components/form/controls/color-picker"
-import { FormInput } from "~/components/form/controls/input"
-import { FormField } from "~/components/form/FormField"
-import { FormFieldset } from "~/components/form/fieldset"
 import { BoxHeader, BoxFooter } from "~/components/interface/box"
 import { DialogCancel, DialogClose } from "~/components/interface/dialog"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/company-provider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
+import { Form } from "~/components/form/Form"
 
 type TagFormProps = HTMLAttributes<HTMLFormElement> & {
   tag?: RouterOutputs["tags"]["getAll"][number]
@@ -58,28 +54,26 @@ export const TagForm = ({ tag, ...props }: TagFormProps) => {
 
   return (
     <FormProvider {...form}>
-      <form className="contents" onSubmit={form.handleSubmit(onSubmit)} {...props}>
+      <Form onSubmit={form.handleSubmit(onSubmit)} className="contents" {...props}>
         <BoxHeader title={`${isEditing ? "Update" : "Create New"} Tag`}>
           <DialogClose />
         </BoxHeader>
 
-        <FormFieldset>
-          <FormField control={form.control} name="name" label="Name" required>
-            <FormInput data-1p-ignore />
-          </FormField>
+        <Form.Fieldset>
+          <Form.Field control={form.control} name="name" label="Name" required>
+            <Form.Input data-1p-ignore />
+          </Form.Field>
 
-          <FormField control={form.control} name="color" label="Color" required>
-            <FormColorPicker />
-          </FormField>
-        </FormFieldset>
+          <Form.Field control={form.control} name="color" label="Color" required>
+            <Form.ColorPicker />
+          </Form.Field>
+        </Form.Fieldset>
 
         <BoxFooter>
-          <Button type="submit" theme="secondary" loading={isLoading}>
-            {isEditing ? "Update" : "Create"} Tag
-          </Button>
+          <Form.Button loading={isLoading}>{isEditing ? "Update" : "Create"} Tag</Form.Button>
           <DialogCancel />
         </BoxFooter>
-      </form>
+      </Form>
     </FormProvider>
   )
 }

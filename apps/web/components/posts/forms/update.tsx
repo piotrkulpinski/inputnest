@@ -1,14 +1,10 @@
-import { Button } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { PostSchema } from "@repo/database"
 import { postSchema } from "@repo/database"
 import { forwardRef, type HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
+import { Form } from "~/components/form/Form"
 
-import { FormEditor } from "~/components/form/controls/editor"
-import { FormInput } from "~/components/form/controls/input"
-import { FormField } from "~/components/form/FormField"
-import { FormFieldset } from "~/components/form/fieldset"
 import { BoxHeader, BoxFooter } from "~/components/interface/box"
 import { DialogCancel, DialogClose } from "~/components/interface/dialog"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
@@ -52,28 +48,26 @@ export const PostUpdateForm = forwardRef<HTMLFormElement, PostUpdateFormProps>(
 
     return (
       <FormProvider {...form}>
-        <form ref={ref} className="contents" onSubmit={form.handleSubmit(onSubmit)} {...props}>
+        <Form ref={ref} onSubmit={form.handleSubmit(onSubmit)} className="contents" {...props}>
           <BoxHeader title="Update Post">
             <DialogClose />
           </BoxHeader>
 
-          <FormFieldset disabled={isLoading}>
-            <FormField control={form.control} name="title" label="Title" required>
-              <FormInput placeholder="Short, descriptive title" />
-            </FormField>
+          <Form.Fieldset disabled={isLoading}>
+            <Form.Field control={form.control} name="title" label="Title" required>
+              <Form.Input placeholder="Short, descriptive title" />
+            </Form.Field>
 
-            <FormField control={form.control} name="content" label="Content">
-              <FormEditor minRows={5} placeholder="Provide more details here" />
-            </FormField>
-          </FormFieldset>
+            <Form.Field control={form.control} name="content" label="Content">
+              <Form.Editor minRows={5} placeholder="Provide more details here" />
+            </Form.Field>
+          </Form.Fieldset>
 
           <BoxFooter>
-            <Button type="submit" theme="secondary" loading={isLoading}>
-              Update Post
-            </Button>
+            <Form.Button loading={isLoading}>Update Post</Form.Button>
             <DialogCancel />
           </BoxFooter>
-        </form>
+        </Form>
       </FormProvider>
     )
   },
