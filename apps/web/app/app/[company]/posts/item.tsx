@@ -1,10 +1,10 @@
-import { Dot, H5, Series } from "@curiousleaf/design"
+import { Badge, H5, Series } from "@curiousleaf/design"
 import { ChevronUpIcon, MessageCircleIcon } from "lucide-react"
 import Link from "next/link"
 import type { ComponentPropsWithoutRef } from "react"
 
-import { Badge } from "~/components/interface/badge"
 import { Card, CardPanel } from "~/components/interface/card"
+import { Status } from "~/components/interface/status"
 import type { RouterOutputs } from "~/services/trpc"
 
 type PostItemProps = ComponentPropsWithoutRef<typeof Card> & {
@@ -17,23 +17,25 @@ export const PostItem = ({ post, ...props }: PostItemProps) => {
       <Link href={`posts/${post.id}`}>
         <CardPanel theme="white" flex="row">
           <Series className="min-w-0 flex-1 flex-nowrap">
-            <Badge theme="white" prefix={<ChevronUpIcon />}>
+            <Badge theme="gray" variant="outline" prefix={<ChevronUpIcon />}>
               {post._count.votes}
             </Badge>
 
             <H5 className="truncate">{post.title}</H5>
           </Series>
 
-          <Series>
-            <Badge
-              theme="white"
-              prefix={<Dot style={{ color: post.status.color }} className="mx-0.5" />}
-            >
-              {post.status.name}
+          <Series size="sm">
+            <Badge theme="gray" variant="outline" asChild>
+              <Status color={post.status.color}>{post.status.name}</Status>
             </Badge>
 
-            <Badge>{post.board.name}</Badge>
-            <Badge prefix={<MessageCircleIcon />}>{post._count.comments}</Badge>
+            <Badge theme="gray" variant="soft">
+              {post.board.name}
+            </Badge>
+
+            <Badge theme="gray" variant="soft" prefix={<MessageCircleIcon />}>
+              {post._count.comments}
+            </Badge>
           </Series>
         </CardPanel>
       </Link>

@@ -2,13 +2,13 @@ import { Dot, cx } from "@curiousleaf/design"
 import { forwardRef } from "react"
 import type { HTMLAttributes } from "react"
 
-export const Status = forwardRef<HTMLDivElement, HTMLAttributes<HTMLElement>>((props, ref) => {
+export const Status = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>((props, ref) => {
   const { children, className, color, ...rest } = props
 
   return (
-    <div ref={ref} className={cx("flex items-center gap-[0.75em]", className)} {...rest}>
+    <span ref={ref} className={cx("flex items-center !gap-[1ch]", className)} {...rest}>
       <Dot style={{ color }} />
       {children}
-    </div>
+    </span>
   )
 })

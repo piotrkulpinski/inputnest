@@ -1,6 +1,6 @@
 "use client"
 
-import { Action, Dot, H6, Markdown, Series, cx } from "@curiousleaf/design"
+import { Action, Badge, Dot, H6, Markdown, Series, cx } from "@curiousleaf/design"
 import { LockIcon, PinIcon, XIcon, ReplyIcon } from "lucide-react"
 import Link from "next/link"
 import { type HTMLAttributes } from "react"
@@ -8,7 +8,6 @@ import { type HTMLAttributes } from "react"
 import { CommentForm } from "~/components/comments/form"
 import { CommentItemActions } from "~/components/comments/item-actions"
 import { CommentTree } from "~/components/comments/tree"
-import { Badge } from "~/components/interface/badge"
 import { Time } from "~/components/interface/time"
 import { UserAvatar } from "~/components/users/avatar"
 import { useComments } from "~/providers/comments-provider"
@@ -37,7 +36,7 @@ export const CommentItem = ({ className, comment, ...props }: CommentItemProps) 
       {...props}
     >
       <div className="flex items-start gap-4">
-        <UserAvatar user={comment.author} size="lg" className="ring-4 ring-gray-50 md:ring-8" />
+        <UserAvatar user={comment.author} className="ring-4 ring-gray-50 md:ring-8" />
 
         <div className="flex w-full flex-col gap-4">
           <Series>
@@ -47,7 +46,8 @@ export const CommentItem = ({ className, comment, ...props }: CommentItemProps) 
 
             {comment.isPrivate && (
               <Badge
-                theme="blueSoft"
+                theme="blue"
+                variant="soft"
                 suffix={<LockIcon />}
                 className="-my-0.5 @md:first-of-type:ml-auto"
               >
@@ -57,7 +57,8 @@ export const CommentItem = ({ className, comment, ...props }: CommentItemProps) 
 
             {comment.isPinned && (
               <Badge
-                theme="purpleSoft"
+                theme="purple"
+                variant="soft"
                 suffix={<PinIcon />}
                 className="-my-0.5 @md:first-of-type:ml-auto"
               >

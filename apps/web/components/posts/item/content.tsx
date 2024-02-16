@@ -13,7 +13,7 @@ export const PostItemContent = ({ ...props }: HTMLAttributes<HTMLElement>) => {
 
   return (
     <CardPanel theme="white" flex="column" className="md:min-h-[7.5rem]" {...props}>
-      {post.content && <Markdown size="md" content={post.content} />}
+      {post.content && <Markdown size="md" content={post.content} className="max-w-none" />}
 
       <Series className="mt-2">
         <Series>
