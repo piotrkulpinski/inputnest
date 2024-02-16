@@ -14,7 +14,7 @@ import { api } from "~/services/trpc"
 import { buildCommentsTree } from "~/utils/comments"
 
 export const CommentList = () => {
-  const { id } = useParams()
+  const { id } = useParams() as { id: string }
 
   const commentsQuery = api.comments.getAll.useQuery({ postId: id! }, { enabled: !!id })
 
@@ -29,9 +29,8 @@ export const CommentList = () => {
       <QueryCell
         query={commentsQuery}
         error={() => (
-          <Paragraph className="mt-4">There was an error loading the comments.</Paragraph>
+          <Paragraph className="mt-4 text-red">There was an error loading the comments.</Paragraph>
         )}
-        empty={() => <Paragraph className="mt-4">No one has commented yet.</Paragraph>}
         loading={() => (
           <CommentTree>
             {Array.from({ length: 2 }).map((_, i) => (
@@ -42,7 +41,7 @@ export const CommentList = () => {
         success={({ data }) => (
           <CommentsProvider>
             <CommentTree>
-              {buildCommentsTree(data).map((comment) => (
+              {buildCommentsTree(data).map(comment => (
                 <CommentItem key={comment.id} comment={comment} />
               ))}
             </CommentTree>

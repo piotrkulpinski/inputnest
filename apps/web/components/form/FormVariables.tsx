@@ -24,7 +24,7 @@ const FormVariablesList = ({ variables }: FormVariablesProps) => {
         <Popover.Close
           key={index}
           onClick={() => onVariableClick(variable)}
-          className="text-blue-700/75 whitespace-nowrap font-mono text-2xs hover:enabled:text-black"
+          className="whitespace-nowrap font-mono text-2xs text-blue-dark/75 hover:enabled:text-black"
         >
           {`{{${variable}}}`}
         </Popover.Close>

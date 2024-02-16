@@ -1,10 +1,10 @@
 "use client"
 
+import { Container } from "@curiousleaf/design"
 import { notFound, useParams } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
 import { Toaster } from "~/components/globals/toaster"
-import { Container } from "~/components/interface/container"
 import { CompanyProvider } from "~/providers/company-provider"
 import { api } from "~/services/trpc"
 
