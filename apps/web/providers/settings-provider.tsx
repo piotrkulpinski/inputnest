@@ -31,15 +31,14 @@ export const SettingsProvider = ({ children }: PropsWithChildren) => {
 
   const { mutate: updateSettings, isLoading } = api.companies.update.useMutation({
     onSuccess: async ({ slug }) => {
-      // Invalidate the company list
-      await apiUtils.companies.getAll.invalidate()
-      await apiUtils.companies.getBySlug.invalidate({ slug })
-
-      // Redirect with success message
       handleSuccess({
         redirect: company.slug !== slug ? `/app/${slug}/settings` : undefined,
         success: "Settings updated successfully",
       })
+
+      // Invalidate the company list
+      await apiUtils.companies.getAll.invalidate()
+      await apiUtils.companies.getBySlug.invalidate({ slug })
     },
 
     onError: error => handleError({ error, form }),

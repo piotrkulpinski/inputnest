@@ -27,15 +27,14 @@ export const TagForm = ({ tag, ...props }: TagFormProps) => {
   })
 
   const onSuccess = async () => {
+    handleSuccess({
+      close: true,
+      success: `Tag ${isEditing ? "updated" : "created"} successfully`,
+    })
+
     // Invalidate the tags cache
     await apiUtils.tags.getAll.invalidate({ companyId })
     await apiUtils.tags.get.invalidate({ id: tag?.id, companyId })
-
-    // Redirect with success message
-    handleSuccess({
-      redirect: "..",
-      success: `Tag ${isEditing ? "updated" : "created"} successfully`,
-    })
   }
 
   const createTag = api.tags.create.useMutation({ onSuccess })

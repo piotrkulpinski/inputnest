@@ -23,12 +23,13 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
 
   const deletePost = api.posts.delete.useMutation({
     onSuccess: async () => {
-      await apiUtils.posts.getAll.invalidate({ companyId })
-
       handleSuccess({
         redirect: `/app/${slug}/posts`,
         success: "Post deleted successfully",
       })
+
+      // Invalidate the posts cache
+      await apiUtils.posts.getAll.invalidate({ companyId })
     },
   })
 
