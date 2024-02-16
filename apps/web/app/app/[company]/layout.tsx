@@ -1,7 +1,7 @@
-"use client"
+// "use client"
 
 import { Container } from "@curiousleaf/design"
-import { notFound, useParams } from "next/navigation"
+import { db } from "@repo/database"
 import type { PropsWithChildren } from "react"
 
 import { Checkout } from "~/components/globals/checkout"
@@ -9,29 +9,33 @@ import { Toaster } from "~/components/globals/toaster"
 import { NavBar } from "~/components/navs/NavBar"
 import { NavSide } from "~/components/navs/NavSide"
 import { CompanyProvider } from "~/providers/company-provider"
-import { api } from "~/services/trpc"
 
-export default function CompanyLayout({ children }: PropsWithChildren) {
-  const { company: slug } = useParams() as { company: string }
+type CompanyLayoutProps = PropsWithChildren<{ params: { company: string } }>
 
-  const { data: company, isLoading, isSuccess } = api.companies.getBySlug.useQuery({ slug })
-
-  if (isLoading) {
-    return "loading..."
-  }
-
-  if (!isSuccess || !company) {
-    notFound()
-  }
+export default async function CompanyLayout({ children, params }: CompanyLayoutProps) {
+  // TODO: Make sure to properly authenticate this
+  const company = await db.company.findFirstOrThrow({
+    where: { slug: params.company },
+    include: {
+      domain: true,
+      subscription: true,
+      members: {
+        where: { role: { in: ["Owner", "Manager"] } },
+        include: { user: true },
+      },
+    },
+  })
 
   return (
     <CompanyProvider company={company}>
-      <div className="flex min-h-screen flex-col bg-gray-50 lg:flex-row">
+      <div className="flex min-h-screen flex-col lg:flex-row">
         <NavBar className="lg:hidden" />
         <NavSide className="max-lg:hidden" floating />
 
         <main className="m-2 grow">
-          <Container className="!p-0">{children}</Container>
+          <Container size="sm" className="!p-0">
+            {children}
+          </Container>
         </main>
       </div>
 

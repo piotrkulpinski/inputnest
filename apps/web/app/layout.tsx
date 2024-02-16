@@ -43,7 +43,9 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${sansFont.variable} font-sans`}>
+      <body
+        className={`${sansFont.variable} bg-gray-50 bg-[url('/pattern.svg')] bg-fixed bg-top bg-repeat-x font-sans`}
+      >
         <ClerkProvider
           appearance={{
             layout: { socialButtonsVariant: "blockButton", shimmer: true },

@@ -1,3 +1,5 @@
+"use client"
+
 import type { MenuItemElement, MenuItemProps } from "@curiousleaf/design"
 import { Accordion, MenuItem } from "@curiousleaf/design"
 import { isExternalLink } from "@curiousleaf/utils"
@@ -28,7 +30,7 @@ const isItemActive = (item: Pick<NavItemProps, "href" | "end">, pathname: string
 
 const NavItemIndicator = () => {
   return (
-    <div className="size-icon relative shrink-0">
+    <div className="relative size-icon shrink-0">
       <div className="absolute -bottom-2 -top-2 left-1/2 -my-px w-px -translate-x-1/2 bg-gray-200/75 group-first/menu-item:-top-full group-last/menu-item:bottom-1/2" />
       <div className="absolute left-1/2 top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gray-200 group-aria-[current=page]/menu-item:bg-current" />
     </div>

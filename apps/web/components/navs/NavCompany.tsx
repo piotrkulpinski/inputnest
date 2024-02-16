@@ -1,3 +1,5 @@
+"use client"
+
 import { Avatar } from "@curiousleaf/design"
 import { CheckIcon, MoreHorizontalIcon, PlusIcon } from "lucide-react"
 import type { HTMLAttributes } from "react"

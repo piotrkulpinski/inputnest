@@ -1,3 +1,5 @@
+"use client"
+
 import { Button, Container, Drawer, cx } from "@curiousleaf/design"
 import { IconMenu2 } from "@tabler/icons-react"
 import Link from "next/link"
