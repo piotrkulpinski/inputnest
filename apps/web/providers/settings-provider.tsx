@@ -32,6 +32,7 @@ export const SettingsProvider = ({ children }: PropsWithChildren) => {
   const { mutate: updateSettings, isLoading } = api.companies.update.useMutation({
     onSuccess: async ({ slug }) => {
       handleSuccess({
+        refresh: company.slug === slug,
         redirect: company.slug !== slug ? `/app/${slug}/settings` : undefined,
         success: "Settings updated successfully",
       })

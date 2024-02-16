@@ -10,14 +10,18 @@ export const useMutationHandler = () => {
 
   type HandleSuccess = {
     redirect?: string
+    refresh?: boolean
     close?: boolean
     success?: string
     error?: string
   }
 
-  const handleSuccess = ({ redirect, close, success, error }: HandleSuccess) => {
+  const handleSuccess = ({ redirect, refresh, close, success, error }: HandleSuccess) => {
     // If we have a redirect, navigate to it
     redirect && router.push(redirect)
+
+    // If we have a refresh, refresh the page
+    refresh && router.refresh()
 
     // If closing panels, trigger escape
     close && publishEscape()
