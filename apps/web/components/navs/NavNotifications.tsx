@@ -1,11 +1,10 @@
 import { useUser } from "@clerk/nextjs"
-import { Button, Dot, Dropdown, Paragraph, Prose, cx } from "@curiousleaf/design"
+import { Badge, Button, Dot, Dropdown, Paragraph, Prose, cx } from "@curiousleaf/design"
 import { isRequestInFlight, NetworkStatus } from "@knocklabs/client"
 import { BellIcon, CheckCheckIcon } from "lucide-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 
-import { Badge } from "~/components/interface/badge"
 import { Time } from "~/components/interface/time"
 import { NotificationsProvider, useNotifications } from "~/providers/notifications-provider"
 import { formatBadgeCount } from "~/utils/helpers"

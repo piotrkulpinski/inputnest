@@ -2,7 +2,7 @@
 
 import { Button, Tooltip } from "@curiousleaf/design"
 import { useCopyToClipboard } from "@uidotdev/usehooks"
-import { CheckIcon, CopyIcon, SquarePenIcon, Trash2Icon } from "lucide-react"
+import { CheckIcon, CopyIcon, PencilIcon, Trash2Icon } from "lucide-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 
@@ -44,7 +44,7 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
         />
       </Tooltip>
 
-      <Button size="md" theme="secondary" variant="outline" prefix={<SquarePenIcon />} asChild>
+      <Button size="md" theme="secondary" variant="outline" prefix={<PencilIcon />} asChild>
         <Link href="./edit">Edit</Link>
       </Button>
 
