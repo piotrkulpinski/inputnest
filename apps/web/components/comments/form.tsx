@@ -1,12 +1,11 @@
 "use client"
 
-import { Series, cx } from "@curiousleaf/design"
+import { Label, Series, Switch, cx } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AppRouter } from "@repo/api"
 import type { CommentSchema } from "@repo/database"
 import { commentDefaults, commentSchema } from "@repo/database"
 import type { TRPCClientErrorLike } from "@trpc/client"
-import { LockIcon, EyeIcon } from "lucide-react"
 import { useParams } from "next/navigation"
 import { useState } from "react"
 import type { HTMLAttributes, KeyboardEventHandler } from "react"
@@ -14,7 +13,6 @@ import { Controller, FormProvider, useForm } from "react-hook-form"
 import { toast } from "sonner"
 
 import { Form } from "~/components/form/Form"
-import { Switch } from "~/components/interface/switch"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useComments } from "~/providers/comments-provider"
 import { api } from "~/services/trpc"
@@ -118,29 +116,24 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
               {!isMetaKeyDown && `${editing ? "Update" : "Post"} ${replying ? "Reply" : "Comment"}`}
             </Form.Button>
 
-            <label
-              className={cx(
-                "flex select-none items-center gap-2 font-medium",
-                isPrivate ? "text-blue-600" : "text-gray-500",
-              )}
+            <Label
+              className={cx("flex items-center gap-2", isPrivate ? "text-blue" : "text-gray-500")}
             >
               {isPrivate ? "Private" : "Public"}
 
               <Controller
                 control={form.control}
                 name="isPrivate"
-                render={({ field }) => (
+                render={({ field: { value, onChange, ...field } }) => (
                   <Switch
-                    hasError={!!form.formState.errors.isPrivate}
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    onIcon={<LockIcon />}
-                    offIcon={<EyeIcon />}
-                    ref={field.ref}
+                    error={!!form.formState.errors.isPrivate}
+                    checked={value}
+                    onCheckedChange={onChange}
+                    {...field}
                   />
                 )}
               />
-            </label>
+            </Label>
           </Series>
         </fieldset>
       </Form>

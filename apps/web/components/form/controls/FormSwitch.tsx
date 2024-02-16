@@ -1,9 +1,8 @@
-import { Box, BoxElement, BoxProps, SwitchProps } from "@curiousleaf/design"
+import { Box, BoxElement, BoxProps, Switch, SwitchProps } from "@curiousleaf/design"
 import { forwardRef } from "react"
 import type { ReactNode } from "react"
 import { FormControl } from "~/components/form/FormControl"
 
-import { Switch } from "~/components/interface/switch"
 import { useFieldContext } from "~/providers/FieldProvider"
 
 type FormSwitchProps = SwitchProps &
@@ -24,7 +23,7 @@ export const FormSwitch = forwardRef<BoxElement, FormSwitchProps>((props, ref) =
     >
       <FormControl>
         <Switch
-          hasError={!!fieldState.error}
+          error={!!fieldState.error}
           checked={field.value}
           onCheckedChange={field.onChange}
           {...rest}

@@ -62,8 +62,12 @@ export default function Route() {
         <QueryCell
           query={boardsQuery}
           loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
-          error={() => <Paragraph>There was an error loading the boards.</Paragraph>}
-          empty={() => <Paragraph>No boards added for this company yet.</Paragraph>}
+          error={() => (
+            <Paragraph className="text-red">There was an error loading the boards.</Paragraph>
+          )}
+          empty={() => (
+            <Paragraph className="text-gray-600">No boards added for this company yet.</Paragraph>
+          )}
           success={() => (
             <SortableProvider items={boards.map(({ id }) => id)} onDragEnd={move}>
               {boards.map(board => (
