@@ -10,23 +10,23 @@ export const useMutationHandler = () => {
 
   type HandleSuccess = {
     redirect?: string
-    closePanels?: boolean
+    close?: boolean
     success?: string
     error?: string
   }
 
-  const handleSuccess = ({ redirect, closePanels, success, error }: HandleSuccess) => {
+  const handleSuccess = ({ redirect, close, success, error }: HandleSuccess) => {
+    // If we have a redirect, navigate to it
+    redirect && router.push(redirect)
+
+    // If closing panels, trigger escape
+    close && publishEscape()
+
     // If we have a success message, show it
     success && toast.success(success)
 
     // If we have an error message, show it
     error && toast.error(error)
-
-    // If we have a redirect, navigate to it
-    redirect && router.push(redirect)
-
-    // If closing panels, trigger escape
-    closePanels && publishEscape()
   }
 
   type HandleError<T extends FieldValues> = {

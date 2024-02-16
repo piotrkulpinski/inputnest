@@ -31,14 +31,14 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
   })
 
   const onSuccess = async () => {
+    handleSuccess({
+      close: true,
+      success: `Board ${isEditing ? "updated" : "created"} successfully`,
+    })
+
     // Invalidate the boards cache
     await apiUtils.boards.getAll.invalidate({ companyId })
     await apiUtils.boards.get.invalidate({ id: board?.id, companyId })
-
-    // Redirect with success message
-    handleSuccess({
-      success: `Board ${isEditing ? "updated" : "created"} successfully`,
-    })
   }
 
   const onError = (error: TRPCClientErrorLike<AppRouter>) => {

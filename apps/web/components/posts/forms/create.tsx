@@ -32,15 +32,14 @@ export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFor
     })
 
     const { mutate: createPost, isLoading } = api.posts.create.useMutation({
-      onSuccess: async () => {
-        // Invalidate the boards cache
-        await apiUtils.posts.getAll.invalidate()
-
-        // Redirect with success message
+      onSuccess: async post => {
         handleSuccess({
-          redirect: "..",
+          redirect: `posts/${post.id}`,
           success: "Post created successfully",
         })
+
+        // Invalidate the boards cache
+        await apiUtils.posts.getAll.invalidate()
       },
 
       onError: error => handleError({ error, form }),
@@ -62,32 +61,41 @@ export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFor
             </Dialog.Panel>
 
             <Dialog.Panel scrollable>
-              <Form.Fieldset disabled={isLoading}>
-                <Form.Field control={form.control} name="title" label="Title" required>
+              <Form.Fieldset layout="stacked" columns={2} disabled={isLoading}>
+                <Form.Field
+                  control={form.control}
+                  name="title"
+                  label="Title"
+                  className="col-span-2"
+                  required
+                >
                   <Form.Input placeholder="Short, descriptive title" />
                 </Form.Field>
 
-                <Form.Fieldset className="flex-row">
-                  <Form.Field control={form.control} name="boardId" label="Board" required>
-                    <Form.Select
-                      options={boards.data?.map(({ name, id }) => ({
-                        label: name,
-                        value: id,
-                      }))}
-                    />
-                  </Form.Field>
+                <Form.Field control={form.control} name="boardId" label="Board" required>
+                  <Form.Select
+                    options={boards.data?.map(({ name, id }) => ({
+                      label: name,
+                      value: id,
+                    }))}
+                  />
+                </Form.Field>
 
-                  <Form.Field control={form.control} name="statusId" label="Status" required>
-                    <Form.Select
-                      options={statuses.data?.map(({ name, id, color }) => ({
-                        label: <Status color={color}>{name}</Status>,
-                        value: id,
-                      }))}
-                    />
-                  </Form.Field>
-                </Form.Fieldset>
+                <Form.Field control={form.control} name="statusId" label="Status" required>
+                  <Form.Select
+                    options={statuses.data?.map(({ name, id, color }) => ({
+                      label: <Status color={color}>{name}</Status>,
+                      value: id,
+                    }))}
+                  />
+                </Form.Field>
 
-                <Form.Field control={form.control} name="content" label="Content">
+                <Form.Field
+                  control={form.control}
+                  name="content"
+                  label="Content"
+                  className="col-span-2"
+                >
                   <Form.Editor minRows={5} placeholder="Provide more details here" />
                 </Form.Field>
               </Form.Fieldset>

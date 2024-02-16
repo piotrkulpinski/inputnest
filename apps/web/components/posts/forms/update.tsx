@@ -26,15 +26,14 @@ export const PostUpdateForm = forwardRef<HTMLFormElement, PostUpdateFormProps>(
 
     const { mutate: updatePost, isLoading } = api.posts.update.useMutation({
       onSuccess: async () => {
+        handleSuccess({
+          close: true,
+          success: "Post updated successfully",
+        })
+
         // Invalidate the boards cache
         await apiUtils.posts.getAll.invalidate()
         await apiUtils.posts.get.invalidate({ id: post.id })
-
-        // Redirect with success message
-        handleSuccess({
-          closePanels: true,
-          success: "Post updated successfully",
-        })
       },
 
       onError: error => handleError({ error, form }),

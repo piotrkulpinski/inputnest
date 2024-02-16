@@ -16,14 +16,13 @@ export const CompanySettingsDeleteForm = (props: HTMLAttributes<HTMLElement>) =>
 
   const { mutate: deleteCompany, isLoading } = api.companies.delete.useMutation({
     onSuccess: async () => {
-      // Invalidate the company list
-      await apiUtils.companies.getAll.invalidate()
-
-      // Redirect with success message
       handleSuccess({
         redirect: "/",
         success: "Company deleted successfully",
       })
+
+      // Invalidate the company list
+      await apiUtils.companies.getAll.invalidate()
     },
   })
 

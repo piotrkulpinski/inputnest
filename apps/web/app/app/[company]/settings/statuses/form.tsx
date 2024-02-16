@@ -27,15 +27,14 @@ export const StatusForm = ({ status, ...props }: StatusFormProps) => {
   })
 
   const onSuccess = async () => {
+    handleSuccess({
+      close: true,
+      success: `Status ${isEditing ? "updated" : "created"} successfully`,
+    })
+
     // Invalidate the statuses cache
     await apiUtils.statuses.getAll.invalidate({ companyId })
     await apiUtils.statuses.get.invalidate({ id: status?.id, companyId })
-
-    // Redirect with success message
-    handleSuccess({
-      redirect: "..",
-      success: `Status ${isEditing ? "updated" : "created"} successfully`,
-    })
   }
 
   const createStatus = api.statuses.create.useMutation({ onSuccess })
