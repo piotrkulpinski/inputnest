@@ -1,6 +1,5 @@
-import { Button, Card, H5, Series } from "@curiousleaf/design"
+import { Button, Card, H5, Series, Shimmer } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
-import { Shimmer } from "~/components/interface/Shimmer"
 
 export const Skeleton = ({ ...props }: HTMLAttributes<HTMLElement>) => {
   return (

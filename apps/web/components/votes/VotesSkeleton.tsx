@@ -1,7 +1,5 @@
-import { AvatarGroup } from "@curiousleaf/design"
+import { AvatarGroup, Shimmer } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
-
-import { Shimmer } from "~/components/interface/Shimmer"
 
 export const VotesSkeleton = (props: HTMLAttributes<HTMLElement>) => {
   return (
