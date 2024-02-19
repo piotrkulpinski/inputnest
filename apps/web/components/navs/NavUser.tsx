@@ -63,6 +63,13 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
   }
 
   const navs: NavItemProps[][] = [
+    // [
+    //   {
+    //     title: "Inbox",
+    //     prefix: <InboxIcon />,
+    //     suffix: <Badge size="sm">{formatBadgeCount(99)}</Badge>,
+    //   },
+    // ],
     [
       {
         title: "Live Chat",

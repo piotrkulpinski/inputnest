@@ -16,7 +16,7 @@ export const DeleteForm = (props: HTMLAttributes<HTMLElement>) => {
   const { mutate: deleteCompany, isLoading } = api.companies.delete.useMutation({
     onSuccess: async () => {
       handleSuccess({
-        redirect: "/",
+        redirect: "/app",
         success: "Company deleted successfully",
       })
 
