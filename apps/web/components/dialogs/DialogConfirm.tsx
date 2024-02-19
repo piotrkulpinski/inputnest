@@ -55,23 +55,23 @@ export const DialogConfirm = forwardRef<HTMLButtonElement, DialogConfirmProps>((
       <FormProvider {...form}>
         <Dialog.Content asChild>
           <Form onSubmit={form.handleSubmit(onSubmit)}>
-            <Dialog.Panel>
-              <Header size="h4" title={title} description={description}>
-                <Dialog.Close />
-              </Header>
+            <Dialog.Panel asChild>
+              <Form.Fieldset>
+                <Header size="h4" title={title} description={description}>
+                  <Dialog.Close />
+                </Header>
 
-              {!!confirmText && (
-                <Form.Fieldset>
+                {!!confirmText && (
                   <Form.Field
                     control={form.control}
                     name="confirm"
-                    label={`Type ${confirmText} to confirm`}
+                    label={`Type "${confirmText}" to confirm`}
                     required
                   >
                     <Form.Input placeholder={confirmText} />
                   </Form.Field>
-                </Form.Fieldset>
-              )}
+                )}
+              </Form.Fieldset>
             </Dialog.Panel>
 
             <Dialog.Footer>

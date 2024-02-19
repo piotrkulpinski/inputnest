@@ -7,11 +7,11 @@ import { companyDefaults, companySchema } from "@repo/database"
 import type { HTMLAttributes } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
+import { Form } from "~/components/form/Form"
 import { useComputedField } from "~/hooks/useComputedField"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { api } from "~/services/trpc"
 import { getTenantHost } from "~/utils/helpers"
-import { Form } from "~/components/form/Form"
 
 export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) => {
   const apiUtils = api.useUtils()
