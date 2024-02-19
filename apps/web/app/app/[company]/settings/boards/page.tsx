@@ -2,7 +2,7 @@
 
 import { Button, Card, Dialog, Header, Paragraph, Series } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 
 import { BoardForm } from "~/app/app/[company]/settings/boards/BoardForm"
 import { BoardItem } from "~/app/app/[company]/settings/boards/BoardItem"
