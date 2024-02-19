@@ -1,5 +1,3 @@
-// "use client"
-
 import { Container } from "@curiousleaf/design"
 import { db } from "@repo/database"
 import { notFound } from "next/navigation"

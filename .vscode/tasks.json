@@ -9,50 +9,35 @@
     "showReuseMessage": true
   },
   "tasks": [
-    // Workspaces
-    // {
-    //   "type": "process",
-    //   "label": "design",
-    //   "command": "",
-    //   "isBackground": true,
-    //   "options": {
-    //     "cwd": "${workspaceFolder}/packages/design/"
-    //   },
-    //   "dependsOrder": "sequence",
-    //   "runOptions": {
-    //     "runOn": "folderOpen"
-    //   }
-    // },
-    // // Background Jobs
-    // {
-    //   "type": "shell",
-    //   "label": "dev",
-    //   "command": "pnpm dev",
-    //   "isBackground": true,
-    //   "dependsOrder": "sequence",
-    //   "runOptions": {
-    //     "runOn": "folderOpen"
-    //   }
-    // },
-    // {
-    //   "type": "shell",
-    //   "label": "storybook",
-    //   "command": "pnpm design storybook",
-    //   "isBackground": true,
-    //   "dependsOrder": "sequence",
-    //   "runOptions": {
-    //     "runOn": "folderOpen"
-    //   }
-    // },
-    // {
-    //   "type": "shell",
-    //   "label": "rollup",
-    //   "command": "pnpm design watch",
-    //   "isBackground": true,
-    //   "dependsOrder": "sequence",
-    //   "runOptions": {
-    //     "runOn": "folderOpen"
-    //   }
-    // },
+    {
+      "type": "shell",
+      "label": "dev",
+      "command": "bun dev",
+      "isBackground": true,
+      "dependsOrder": "sequence",
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "design",
+      "command": "bun storybook",
+      "isBackground": true,
+      "dependsOrder": "sequence",
+      "options": {
+        "cwd": "${workspaceFolder}/shared/design/"
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    // Not automatic tasks
+    {
+      "type": "shell",
+      "label": "stripe: listen",
+      "command": "stripe listen --forward-to localhost:8000/api/stripe/webhooks",
+      "isBackground": false
+    }
   ]
 }
