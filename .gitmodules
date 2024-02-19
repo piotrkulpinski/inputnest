@@ -1,6 +1,6 @@
-[submodule "packages/design"]
+[submodule "shared/design"]
 	path = shared/design
-	url = git@github.com:curious-leaf/design.git
+	url = https://github.com/curious-leaf/design.git
 [submodule "shared/utils"]
 	path = shared/utils
-	url = git@github.com:curious-leaf/utils.git
+	url = https://github.com/curious-leaf/utils.git
