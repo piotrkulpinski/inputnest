@@ -2,9 +2,17 @@ import { usePathname } from "next/navigation"
 import { useMemo } from "react"
 
 import { NavItemProps } from "~/components/navs/NavItem"
-import { useCompany } from "~/providers/company-provider"
+import { useCompany } from "~/providers/CompanyProvider"
 
-import { SettingsIcon, TableIcon } from "lucide-react"
+import {
+  DownloadCloudIcon,
+  GanttChartSquareIcon,
+  LayoutDashboardIcon,
+  LibraryIcon,
+  MilestoneIcon,
+  SettingsIcon,
+  UsersIcon,
+} from "lucide-react"
 import { Badge } from "@curiousleaf/design"
 
 export type Menu = {
@@ -20,11 +28,11 @@ export const useMenu = () => {
     {
       title: "Manage",
       items: [
-        { title: "Dashboard", href: `/app/${slug}`, prefix: <TableIcon />, end: true },
-        { title: "Posts", href: `/app/${slug}/posts`, prefix: <TableIcon /> },
+        { title: "Dashboard", href: `/app/${slug}`, prefix: <LayoutDashboardIcon />, end: true },
+        { title: "Posts", href: `/app/${slug}/posts`, prefix: <LibraryIcon /> },
         {
           title: "Roadmap",
-          prefix: <TableIcon />,
+          prefix: <MilestoneIcon />,
           suffix: (
             <Badge theme="gray" variant="outline">
               Soon
@@ -34,7 +42,7 @@ export const useMenu = () => {
         },
         {
           title: "Changelog",
-          prefix: <TableIcon />,
+          prefix: <GanttChartSquareIcon />,
           suffix: (
             <Badge theme="gray" variant="outline">
               Soon
@@ -44,7 +52,7 @@ export const useMenu = () => {
         },
         {
           title: "Users",
-          prefix: <TableIcon />,
+          prefix: <UsersIcon />,
           suffix: (
             <Badge theme="gray" variant="outline">
               Soon
@@ -70,7 +78,16 @@ export const useMenu = () => {
             { title: "Tags", href: `/app/${slug}/settings/tags` },
           ],
         },
-        { title: "Import/Export", href: `/#`, prefix: <TableIcon /> },
+        {
+          title: "Import/Export",
+          prefix: <DownloadCloudIcon />,
+          suffix: (
+            <Badge theme="gray" variant="outline">
+              Soon
+            </Badge>
+          ),
+          disabled: true,
+        },
       ],
     },
   ]

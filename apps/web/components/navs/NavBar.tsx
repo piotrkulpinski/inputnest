@@ -7,7 +7,7 @@ import type { HTMLAttributes } from "react"
 
 import { NavSide } from "~/components/navs/NavSide"
 import { config } from "~/config"
-import { Logo } from "../interface/logo"
+import { Logo } from "../interface/Logo"
 
 export const NavBar = ({ className }: HTMLAttributes<HTMLElement>) => {
   return (

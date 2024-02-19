@@ -1,6 +1,6 @@
 import { AvatarGroup, AvatarGroupProps, Tooltip } from "@curiousleaf/design"
 
-import { UserAvatar } from "~/components/users/avatar"
+import { UserAvatar } from "~/components/users/UserAvatar"
 import type { RouterOutputs } from "~/services/trpc"
 
 type VotesListProps = AvatarGroupProps & {

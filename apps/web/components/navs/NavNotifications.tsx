@@ -7,8 +7,8 @@ import { BellIcon, CheckCheckIcon } from "lucide-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 
-import { Time } from "~/components/interface/time"
-import { NotificationsProvider, useNotifications } from "~/providers/notifications-provider"
+import { Time } from "~/components/interface/Time"
+import { NotificationsProvider, useNotifications } from "~/providers/NotificationsProvider"
 import { formatBadgeCount } from "~/utils/helpers"
 
 const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLElement>) => {

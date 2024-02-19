@@ -1,13 +1,12 @@
-import { H5, cx, IconLoader, Button, Dialog } from "@curiousleaf/design"
+import { H5, cx, Button, Dialog, Card, Action, Draggable, Series } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
-import { StatusForm } from "~/app/app/[company]/settings/statuses/form"
-import { DialogConfirm } from "~/components/dialogs/confirm"
-import { Card, CardActions, CardDraggable, CardPanel } from "~/components/interface/card"
-import { Status } from "~/components/interface/status"
-import { useCompany } from "~/providers/company-provider"
-import { useSortable } from "~/providers/sortable-provider"
+import { StatusForm } from "~/app/app/[company]/settings/statuses/StatusForm"
+import { DialogConfirm } from "~/components/dialogs/DialogConfirm"
+import { Status } from "~/components/interface/Status"
+import { useCompany } from "~/providers/CompanyProvider"
+import { useSortable } from "~/providers/SortableProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
@@ -35,31 +34,31 @@ export const StatusItem = ({ status, ...props }: StatusItemProps) => {
   })
 
   return (
-    <Card ref={ref} style={style} {...props}>
-      <CardPanel theme="gray" flex="row">
-        <CardDraggable isDragging={isDragging} {...attributes} {...listeners} />
+    <Card ref={ref} style={style} className="group/status" {...props}>
+      <Card.Row theme="gray">
+        <Series>
+          <Draggable dragging={isDragging} {...attributes} {...listeners} />
 
-        <H5 asChild>
-          <Status color={status.color}>{status.name}</Status>
-        </H5>
+          <H5 asChild>
+            <Status color={status.color}>{status.name}</Status>
+          </H5>
+        </Series>
 
-        <CardActions>
-          <div className="order-last mr-2 text-2xs font-medium md:order-first">
-            {status.isDefault && "Default"}
-
-            {!status.isDefault && (
-              <button
-                className={cx(!defaultStatus.isLoading && "md:hidden md:group-hover/card:flex")}
-                onClick={() => defaultStatus.mutate({ id: status.id })}
-              >
-                {defaultStatus.isLoading ? <IconLoader /> : "Make Default"}
-              </button>
+        <Series>
+          <Action
+            className={cx(
+              "order-last text-2xs font-medium md:order-first",
+              status.isDefault ? "pointer-events-none" : "md:hidden md:group-hover/status:flex",
             )}
-          </div>
+            loading={defaultStatus.isLoading}
+            onClick={() => defaultStatus.mutate({ id: status.id })}
+          >
+            {status.isDefault ? "Default" : "Make Default"}
+          </Action>
 
           <Dialog>
             <Dialog.Trigger asChild>
-              <Button theme="secondary" variant="outline">
+              <Button size="md" theme="secondary" variant="outline">
                 Edit
               </Button>
             </Dialog.Trigger>
@@ -72,12 +71,12 @@ export const StatusItem = ({ status, ...props }: StatusItemProps) => {
             label="Delete Status"
             onConfirm={() => deleteStatus.mutate({ id: status.id })}
           >
-            <Button theme="negative" variant="outline" loading={deleteStatus.isLoading}>
+            <Button size="md" theme="negative" variant="outline" loading={deleteStatus.isLoading}>
               Delete
             </Button>
           </DialogConfirm>
-        </CardActions>
-      </CardPanel>
+        </Series>
+      </Card.Row>
     </Card>
   )
 }

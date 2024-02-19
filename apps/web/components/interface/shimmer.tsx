@@ -1,7 +1,6 @@
 import { cx } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
-
 export const Shimmer = ({ className, ...props }: HTMLAttributes<HTMLElement>) => {
   return (
     <div

@@ -6,7 +6,7 @@ import type { PropsWithChildren } from "react"
 
 import { config } from "~/config"
 import { env } from "~/env"
-import { TRPCProvider } from "~/providers/trpc-provider"
+import { TRPCProvider } from "~/providers/TrpcProvider"
 
 import "~/public/globals.css"
 

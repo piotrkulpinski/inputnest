@@ -10,12 +10,12 @@ import { useEffect, type HTMLAttributes } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { Form } from "~/components/form/Form"
 
-import { Status } from "~/components/interface/status"
-import { VotesList } from "~/components/votes/list"
-import { VotesSkeleton } from "~/components/votes/skeleton"
+import { Status } from "~/components/interface/Status"
+import { VotesList } from "~/components/votes/VotesList"
+import { VotesSkeleton } from "~/components/votes/VotesSkeleton"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/company-provider"
-import { usePost } from "~/providers/post-provider"
+import { useCompany } from "~/providers/CompanyProvider"
+import { usePost } from "~/providers/PostProvider"
 import { api } from "~/services/trpc"
 
 export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElement>) => {

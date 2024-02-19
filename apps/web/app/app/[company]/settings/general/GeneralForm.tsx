@@ -2,12 +2,12 @@
 
 import type { HTMLAttributes } from "react"
 
-import { useSettings } from "~/providers/settings-provider"
+import { useSettings } from "~/providers/SettingsProvider"
 import { getTenantHost } from "~/utils/helpers"
 import { Form } from "~/components/form/Form"
 import { Card, Header } from "@curiousleaf/design"
 
-export const CompanySettingsGeneralForm = (props: HTMLAttributes<HTMLElement>) => {
+export const GeneralForm = (props: HTMLAttributes<HTMLElement>) => {
   const { form, onSubmit, isLoading } = useSettings()
 
   return (
@@ -41,9 +41,9 @@ export const CompanySettingsGeneralForm = (props: HTMLAttributes<HTMLElement>) =
           </Form.Fieldset>
         </Card.Section>
 
-        <Card.Footer>
+        <Card.Row direction="rowReverse">
           <Form.Button loading={isLoading}>Save Changes</Form.Button>
-        </Card.Footer>
+        </Card.Row>
       </Form>
     </Card>
   )

@@ -1,21 +1,21 @@
 import { Section } from "@curiousleaf/design"
-import { CompanySettingsAppearanceForm } from "~/app/app/[company]/settings/general/appearance"
-import { CompanySettingsDeleteForm } from "~/app/app/[company]/settings/general/delete"
-import { CompanySettingsGeneralForm } from "~/app/app/[company]/settings/general/general"
-import { SettingsProvider } from "~/providers/settings-provider"
+import { AppearanceForm } from "~/app/app/[company]/settings/general/AppearanceForm"
+import { DeleteForm } from "~/app/app/[company]/settings/general/DeleteForm"
+import { GeneralForm } from "~/app/app/[company]/settings/general/GeneralForm"
+import { SettingsProvider } from "~/providers/SettingsProvider"
 
-export default function CompanySettingsGeneralPage() {
+export default function SettingsGeneralPage() {
   return (
     <Section>
       <SettingsProvider>
-        <CompanySettingsGeneralForm />
+        <GeneralForm />
       </SettingsProvider>
 
       <SettingsProvider>
-        <CompanySettingsAppearanceForm />
+        <AppearanceForm />
       </SettingsProvider>
 
-      <CompanySettingsDeleteForm />
+      <DeleteForm />
     </Section>
   )
 }

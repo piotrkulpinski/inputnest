@@ -4,8 +4,8 @@ import { Container } from "@curiousleaf/design"
 import { notFound, useParams } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
-import { Toaster } from "~/components/globals/toaster"
-import { CompanyProvider } from "~/providers/company-provider"
+import { Toaster } from "~/components/globals/Toaster"
+import { CompanyProvider } from "~/providers/CompanyProvider"
 import { api } from "~/services/trpc"
 
 export default function CompanyLayout({ children }: PropsWithChildren) {

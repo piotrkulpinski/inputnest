@@ -1,56 +1,56 @@
-import { Dialog, Header } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { StatusSchema } from "@repo/database"
-import { statusSchema, statusDefaults } from "@repo/database"
+import type { TagSchema } from "@repo/database"
+import { tagSchema, tagDefaults } from "@repo/database"
 import type { HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
-import { Form } from "~/components/form/Form"
 
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/company-provider"
+import { useCompany } from "~/providers/CompanyProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
+import { Form } from "~/components/form/Form"
+import { Dialog, Header } from "@curiousleaf/design"
 
-type StatusFormProps = HTMLAttributes<HTMLFormElement> & {
-  status?: RouterOutputs["statuses"]["getAll"][number]
+type TagFormProps = HTMLAttributes<HTMLFormElement> & {
+  tag?: RouterOutputs["tags"]["getAll"][number]
 }
 
-export const StatusForm = ({ status, ...props }: StatusFormProps) => {
+export const TagForm = ({ tag, ...props }: TagFormProps) => {
   const apiUtils = api.useUtils()
   const { handleSuccess } = useMutationHandler()
   const { id: companyId } = useCompany()
-  const isEditing = !!status
+  const isEditing = !!tag
 
-  const form = useForm<StatusSchema>({
-    resolver: zodResolver(statusSchema),
-    values: status ?? statusDefaults,
+  const form = useForm<TagSchema>({
+    resolver: zodResolver(tagSchema),
+    values: tag ?? tagDefaults,
   })
 
   const onSuccess = async () => {
     handleSuccess({
       close: true,
-      success: `Status ${isEditing ? "updated" : "created"} successfully`,
+      success: `Tag ${isEditing ? "updated" : "created"} successfully`,
     })
 
-    // Invalidate the statuses cache
-    await apiUtils.statuses.getAll.invalidate({ companyId })
-    await apiUtils.statuses.get.invalidate({ id: status?.id, companyId })
+    // Invalidate the tags cache
+    await apiUtils.tags.getAll.invalidate({ companyId })
+    await apiUtils.tags.get.invalidate({ id: tag?.id, companyId })
 
     // Reset the form
     form.reset()
   }
 
-  const createStatus = api.statuses.create.useMutation({ onSuccess })
-  const updateStatus = api.statuses.update.useMutation({ onSuccess })
-  const isLoading = createStatus.isLoading || updateStatus.isLoading
+  const createTag = api.tags.create.useMutation({ onSuccess })
+  const updateTag = api.tags.update.useMutation({ onSuccess })
+  const isLoading = createTag.isLoading || updateTag.isLoading
 
   // Handle the form submission
-  const onSubmit = (data: StatusSchema) => {
-    if (status?.id) {
-      return updateStatus.mutate({ ...data, id: status.id })
+  const onSubmit = (data: TagSchema) => {
+    if (tag?.id) {
+      return updateTag.mutate({ ...data, id: tag.id })
     }
 
-    return createStatus.mutate({ ...data, companyId })
+    return createTag.mutate({ ...data, companyId })
   }
 
   return (
@@ -58,7 +58,7 @@ export const StatusForm = ({ status, ...props }: StatusFormProps) => {
       <Dialog.Content size="sm" asChild>
         <Form onSubmit={form.handleSubmit(onSubmit)} {...props}>
           <Dialog.Panel sticky asChild>
-            <Header size="h4" title={`${isEditing ? "Update" : "Create New"} Status`}>
+            <Header size="h4" title={`${isEditing ? "Update" : "Create New"} Tag`}>
               <Dialog.Close />
             </Header>
           </Dialog.Panel>
@@ -76,7 +76,7 @@ export const StatusForm = ({ status, ...props }: StatusFormProps) => {
           </Dialog.Panel>
 
           <Dialog.Footer>
-            <Form.Button loading={isLoading}>{isEditing ? "Update" : "Create"} Status</Form.Button>
+            <Form.Button loading={isLoading}>{isEditing ? "Update" : "Create"} Tag</Form.Button>
             <Dialog.Cancel />
           </Dialog.Footer>
         </Form>

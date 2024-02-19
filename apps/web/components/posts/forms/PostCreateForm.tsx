@@ -6,9 +6,9 @@ import { forwardRef, type HTMLAttributes } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { Form } from "~/components/form/Form"
 
-import { Status } from "~/components/interface/status"
+import { Status } from "~/components/interface/Status"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/company-provider"
+import { useCompany } from "~/providers/CompanyProvider"
 import { api } from "~/services/trpc"
 
 export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFormElement>>(

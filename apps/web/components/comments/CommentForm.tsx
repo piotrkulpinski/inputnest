@@ -14,7 +14,7 @@ import { toast } from "sonner"
 
 import { Form } from "~/components/form/Form"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useComments } from "~/providers/comments-provider"
+import { useComments } from "~/providers/CommentsProvider"
 import { api } from "~/services/trpc"
 
 type CommentFormProps = HTMLAttributes<HTMLFormElement> & {

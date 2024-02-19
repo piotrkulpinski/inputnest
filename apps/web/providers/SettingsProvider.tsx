@@ -7,7 +7,7 @@ import type { FormEventHandler, PropsWithChildren } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/company-provider"
+import { useCompany } from "~/providers/CompanyProvider"
 import { api } from "~/services/trpc"
 import { createSimpleContext } from "~/utils/providers"
 

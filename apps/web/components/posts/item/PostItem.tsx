@@ -1,19 +1,18 @@
 "use client"
 
-import { Avatar, Dot, Series } from "@curiousleaf/design"
+import { Avatar, Card, Dot, Series, Sidebar } from "@curiousleaf/design"
 import { notFound } from "next/navigation"
 import type { HTMLAttributes } from "react"
 
-import { Card, CardPanel } from "~/components/interface/card"
-import { Shimmer } from "~/components/interface/shimmer"
-import { PostItemComments } from "~/components/posts/item/comments"
-import { PostItemContent } from "~/components/posts/item/content"
-import { PostItemHead } from "~/components/posts/item/head"
-import { PostItemSidebar } from "~/components/posts/item/sidebar"
-import { QueryCell } from "~/components/utils/query-cell"
-import { VotesVote } from "~/components/votes/vote"
-import { useCompany } from "~/providers/company-provider"
-import { PostProvider } from "~/providers/post-provider"
+import { Shimmer } from "~/components/interface/Shimmer"
+import { PostItemComments } from "~/components/posts/item/PostItemComments"
+import { PostItemContent } from "~/components/posts/item/PostItemContent"
+import { PostItemHead } from "~/components/posts/item/PostItemHead"
+import { PostItemSidebar } from "~/components/posts/item/PostItemSidebar"
+import { QueryCell } from "~/components/utils/QueryCell"
+import { VotesVote } from "~/components/votes/VotesVote"
+import { useCompany } from "~/providers/CompanyProvider"
+import { PostProvider } from "~/providers/PostProvider"
 import { api } from "~/services/trpc"
 
 type PostItemProps = HTMLAttributes<HTMLElement> & {
@@ -34,7 +33,7 @@ export const PostItem = ({ id, ...props }: PostItemProps) => {
           <Card {...props}>
             <PostItemHead />
 
-            <div className="flex flex-col md:flex-row">
+            <div className="flex flex-col border-t md:flex-row">
               <div className="flex grow flex-col divide-y">
                 <PostItemContent />
                 <PostItemComments />
@@ -52,14 +51,14 @@ export const PostItem = ({ id, ...props }: PostItemProps) => {
 const PostItemSkeleton = ({ ...props }: HTMLAttributes<HTMLElement>) => {
   return (
     <Card {...props}>
-      <CardPanel flex="row">
+      <Card.Row>
         <VotesVote disabled>0</VotesVote>
-        <div className="h-6 w-1/3 rounded bg-current opacity-10" />
-      </CardPanel>
+        <div className="mr-auto h-6 w-1/3 rounded bg-current opacity-10" />
+      </Card.Row>
 
-      <div className="flex flex-col md:flex-row">
+      <div className="flex flex-col border-t md:flex-row">
         <div className="flex grow flex-col divide-y">
-          <CardPanel>
+          <Card.Panel>
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-1">
                 <div className="h-5 w-3/4 rounded bg-current opacity-5" />
@@ -69,19 +68,19 @@ const PostItemSkeleton = ({ ...props }: HTMLAttributes<HTMLElement>) => {
                 <div className="h-5 w-1/2 rounded bg-current opacity-5" />
               </div>
 
-              <Series className="mt-2">
-                <Avatar />
+              <Series className="mt-2 text-sm">
+                <Avatar className="grayscale" />
                 <div className="h-5 w-24 rounded bg-current opacity-5" />
                 <Dot className="text-gray-200" />
                 <div className="h-5 w-20 rounded bg-current opacity-5" />
               </Series>
             </div>
-          </CardPanel>
+          </Card.Panel>
 
           <PostItemComments />
         </div>
 
-        <CardPanel className="border max-md:border-t md:w-72 md:shrink-0 md:border-l" />
+        <Sidebar size="lg" className="h-auto max-md:static max-md:w-auto" />
       </div>
 
       <Shimmer className="!border-t-0" />

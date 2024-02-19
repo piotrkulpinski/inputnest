@@ -1,27 +1,25 @@
-import { Button, H5 } from "@curiousleaf/design"
+import { Button, Card, H5, Series } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
-
-import { Card, CardActions, CardPanel } from "~/components/interface/card"
-import { Shimmer } from "~/components/interface/shimmer"
+import { Shimmer } from "~/components/interface/Shimmer"
 
 export const Skeleton = ({ ...props }: HTMLAttributes<HTMLElement>) => {
   return (
     <Card {...props}>
-      <CardPanel theme="gray" flex="row">
+      <Card.Row theme="gray">
         <H5 className="w-40 rounded bg-current opacity-10">&nbsp;</H5>
 
-        <CardActions>
-          <Button theme="secondary" variant="outline" loading>
+        <Series>
+          <Button size="md" theme="secondary" variant="outline" loading>
             Edit
           </Button>
 
-          <Button theme="secondary" variant="outline" loading>
+          <Button size="md" theme="secondary" variant="outline" loading>
             Delete
           </Button>
-        </CardActions>
+        </Series>
 
         <Shimmer />
-      </CardPanel>
+      </Card.Row>
     </Card>
   )
 }
