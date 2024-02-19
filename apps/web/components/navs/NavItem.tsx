@@ -3,7 +3,7 @@
 import type { MenuItemElement, MenuItemProps } from "@curiousleaf/design"
 import { Accordion, MenuItem } from "@curiousleaf/design"
 import { isExternalLink } from "@curiousleaf/utils"
-import { IconChevronDown } from "@tabler/icons-react"
+import { ChevronDownIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { forwardRef, useMemo } from "react"
@@ -38,7 +38,7 @@ const NavItemIndicator = () => {
 }
 
 const NavItemTrigger = () => {
-  return <IconChevronDown className="group-data-[state=open]/menu-item:rotate-180" />
+  return <ChevronDownIcon className="group-data-[state=open]/menu-item:rotate-180" />
 }
 
 export const NavItemButton = forwardRef<MenuItemElement, NavItemProps>((props, ref) => {

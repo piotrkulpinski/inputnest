@@ -1,10 +1,10 @@
 "use client"
 
 import { Button, Container, Drawer, cx } from "@curiousleaf/design"
-import { IconMenu2 } from "@tabler/icons-react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 
+import { MenuIcon } from "lucide-react"
 import { NavSide } from "~/components/navs/NavSide"
 import { config } from "~/config"
 import { Logo } from "../interface/Logo"
@@ -19,7 +19,7 @@ export const NavBar = ({ className }: HTMLAttributes<HTMLElement>) => {
               theme="secondary"
               variant="ghost"
               size="sm"
-              prefix={<IconMenu2 />}
+              prefix={<MenuIcon />}
               className="-my-1"
             />
           </Drawer.Trigger>
