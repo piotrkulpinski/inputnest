@@ -3,7 +3,7 @@
 import type { QueryClientConfig } from "@tanstack/react-query"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import { loggerLink, httpBatchLink } from "@trpc/client"
+import { httpBatchLink, loggerLink } from "@trpc/client"
 import { useState } from "react"
 import superjson from "superjson"
 
@@ -34,7 +34,7 @@ export function TRPCProvider({ children, headers }: TRPCProviderProps) {
       transformer: superjson,
       links: [
         loggerLink({
-          enabled: (opts) => isDev || (opts.direction === "down" && opts.result instanceof Error),
+          enabled: opts => isDev || (opts.direction === "down" && opts.result instanceof Error),
         }),
         httpBatchLink({
           url: `${env.NEXT_PUBLIC_URL}/api/trpc`,

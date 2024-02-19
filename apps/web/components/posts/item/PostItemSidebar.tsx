@@ -8,8 +8,8 @@ import { ArrowLeftIcon } from "lucide-react"
 import Link from "next/link"
 import { useEffect, type HTMLAttributes } from "react"
 import { FormProvider, useForm } from "react-hook-form"
-import { Form } from "~/components/form/Form"
 
+import { Form } from "~/components/form/Form"
 import { Status } from "~/components/interface/Status"
 import { VotesList } from "~/components/votes/VotesList"
 import { VotesSkeleton } from "~/components/votes/VotesSkeleton"
@@ -57,7 +57,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
     })
 
     return () => subscription.unsubscribe()
-  }, [form.watch])
+  }, [form.watch, onSubmit])
 
   return (
     <FormProvider {...form}>

@@ -8,10 +8,10 @@ export const buildCommentsTree = (comments: Comment[]) => {
   const roots: CommentWithChildren[] = []
 
   // Map each comment to its ID, adding an empty children array
-  comments.map((comment) => commentMap.set(comment.id, { ...comment, children: [] }))
+  comments.map(comment => commentMap.set(comment.id, { ...comment, children: [] }))
 
   // Attach children to their parents
-  comments.forEach((comment) => {
+  for (const comment of comments) {
     const commentElement = commentMap.get(comment.id)
     const parentCommentElement = comment.parentId ? commentMap.get(comment.parentId) : null
     const childrenMap = parentCommentElement ? parentCommentElement.children : roots
@@ -19,7 +19,7 @@ export const buildCommentsTree = (comments: Comment[]) => {
     if (commentElement) {
       childrenMap.push(commentElement)
     }
-  })
+  }
 
   return roots
 }

@@ -16,7 +16,7 @@ import { buildCommentsTree } from "~/utils/comments"
 export const CommentList = () => {
   const { id } = useParams() as { id: string }
 
-  const commentsQuery = api.comments.getAll.useQuery({ postId: id! }, { enabled: !!id })
+  const commentsQuery = api.comments.getAll.useQuery({ postId: id }, { enabled: !!id })
 
   return (
     <>

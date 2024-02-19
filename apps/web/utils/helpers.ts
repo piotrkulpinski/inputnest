@@ -1,18 +1,6 @@
 import { removeHttp } from "@curiousleaf/utils"
-import type { ReactNode } from "react"
-import { Children } from "react"
 
 import { env } from "~/env"
-
-/**
- * Checks if the given ReactNode is empty.
- *
- * @param children - The ReactNode to check.
- * @returns True if the ReactNode is empty, false otherwise.
- */
-export const isChildrenEmpty = (children: ReactNode) => {
-  return Children.count(children) === 0
-}
 
 /**
  * Formats the badge count to display on the UI.

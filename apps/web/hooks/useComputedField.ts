@@ -19,6 +19,7 @@ export const useComputedField = <T extends FieldValues>({
   const source = form.watch(sourceField)
   const state = form.getFieldState(computedField)
 
+  // biome-ignore lint:
   useEffect(() => {
     if (enabled && !state.isTouched) {
       form.setValue(computedField, callback(source) as PathValue<T, Path<T>>, {
@@ -26,5 +27,5 @@ export const useComputedField = <T extends FieldValues>({
         shouldDirty: form.formState.isDirty,
       })
     }
-  }, [source])
+  }, [source, enabled])
 }

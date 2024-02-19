@@ -6,7 +6,7 @@ import { forwardRef } from "react"
 import { api } from "~/services/trpc"
 
 type VotesVoteProps = ComponentPropsWithoutRef<typeof Button> & {
-  postId?: string
+  postId: string
 }
 
 export const VotesVote = forwardRef<ElementRef<typeof Button>, VotesVoteProps>((props, ref) => {
@@ -14,7 +14,7 @@ export const VotesVote = forwardRef<ElementRef<typeof Button>, VotesVoteProps>((
   const apiUtils = api.useUtils()
 
   const { data: vote, isLoading: isLoadingVote } = api.votes.get.useQuery(
-    { postId: postId! },
+    { postId },
     { enabled: !!postId },
   )
 

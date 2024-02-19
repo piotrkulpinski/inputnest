@@ -1,7 +1,17 @@
 "use client"
 
 import { useUser } from "@clerk/nextjs"
-import { Badge, Button, Dot, Dropdown, Paragraph, Prose, cx } from "@curiousleaf/design"
+import {
+  Badge,
+  Button,
+  Dot,
+  Dropdown,
+  H6,
+  MenuItem,
+  Paragraph,
+  Prose,
+  cx,
+} from "@curiousleaf/design"
 import { isRequestInFlight, NetworkStatus } from "@knocklabs/client"
 import { BellIcon, CheckCheckIcon } from "lucide-react"
 import Link from "next/link"
@@ -30,9 +40,9 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
         )}
       </Dropdown.Trigger>
 
-      <Dropdown.Content align="end" className="w-[18rem]" {...props}>
+      <Dropdown.Content side="top" align="start" className="w-[18rem]" {...props}>
         <Dropdown.Label className="flex items-center justify-between">
-          <strong className="truncate font-semibold">Notifications</strong>
+          <H6 className="grow truncate">Notifications</H6>
 
           {!!items.length && (
             <Button
@@ -49,17 +59,17 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
           )}
         </Dropdown.Label>
 
-        <Dropdown.Group className="max-h-[25rem] overflow-y-auto !py-0">
-          <Dropdown.Group>
-            {items.length ? (
-              items.map(item => (
-                <Dropdown.Item
-                  key={item.id}
+        {items.length ? (
+          <Dropdown.Group className="max-h-[25rem] overflow-y-auto">
+            {items.map(item => (
+              <Dropdown.Item key={item.id} asChild>
+                <MenuItem
                   prefix={
                     <Dot className={cx("mt-2", item.read_at ? "text-gray-300" : "text-primary")} />
                   }
                   onClick={() => feedClient.markAsRead(item)}
-                  className="!items-start"
+                  // className="!items-start"
+                  asChild
                 >
                   <Link href={item.blocks[1]?.rendered ?? ""}>
                     <div className="whitespace-normal">
@@ -75,30 +85,32 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
                       />
                     </div>
                   </Link>
-                </Dropdown.Item>
-              ))
-            ) : (
-              <Dropdown.Label>
-                <Paragraph>We&apos;ll let you know when we got something for you.</Paragraph>
-              </Dropdown.Label>
-            )}
+                </MenuItem>
+              </Dropdown.Item>
+            ))}
           </Dropdown.Group>
+        ) : (
+          <Dropdown.Label>
+            <Paragraph size="sm" className="text-gray-600">
+              We&apos;ll let you know when we got something for you.
+            </Paragraph>
+          </Dropdown.Label>
+        )}
 
-          {!!pageInfo.after && (
-            <Dropdown.Group>
-              <Button
-                size="sm"
-                theme="secondary"
-                variant="outline"
-                onClick={() => feedClient.fetchNextPage()}
-                loading={networkStatus === NetworkStatus.fetchMore}
-                disabled={requestInFlight}
-              >
-                Load more
-              </Button>
-            </Dropdown.Group>
-          )}
-        </Dropdown.Group>
+        {!!pageInfo.after && (
+          <Dropdown.Group>
+            <Button
+              size="sm"
+              theme="secondary"
+              variant="outline"
+              onClick={() => feedClient.fetchNextPage()}
+              loading={networkStatus === NetworkStatus.fetchMore}
+              disabled={requestInFlight}
+            >
+              Load more
+            </Button>
+          </Dropdown.Group>
+        )}
       </Dropdown.Content>
     </Dropdown>
   )

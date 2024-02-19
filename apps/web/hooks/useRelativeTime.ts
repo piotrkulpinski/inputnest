@@ -50,16 +50,24 @@ export const useRelativeTime = (
 
     if (elapsed < minute) {
       return intl.format(sign * Math.round(elapsed / second), "second")
-    } else if (elapsed < hour) {
-      return intl.format(sign * Math.round(elapsed / minute), "minute")
-    } else if (elapsed < day) {
-      return intl.format(sign * Math.round(elapsed / hour), "hour")
-    } else if (elapsed < month) {
-      return intl.format(sign * Math.round(elapsed / day), "day")
-    } else if (elapsed < year) {
-      return intl.format(sign * Math.round(elapsed / month), "month")
-    } else {
-      return intl.format(sign * Math.round(elapsed / year), "year")
     }
+
+    if (elapsed < hour) {
+      return intl.format(sign * Math.round(elapsed / minute), "minute")
+    }
+
+    if (elapsed < day) {
+      return intl.format(sign * Math.round(elapsed / hour), "hour")
+    }
+
+    if (elapsed < month) {
+      return intl.format(sign * Math.round(elapsed / day), "day")
+    }
+
+    if (elapsed < year) {
+      return intl.format(sign * Math.round(elapsed / month), "month")
+    }
+
+    return intl.format(sign * Math.round(elapsed / year), "year")
   }, [now, time, intl])
 }

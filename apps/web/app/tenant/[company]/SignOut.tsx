@@ -19,5 +19,9 @@ export const SignOut = () => {
     }
   }
 
-  return <button onClick={handleClick}>Sign {isSignedIn ? "Out" : "In"}</button>
+  return (
+    <button type="button" onClick={handleClick}>
+      Sign {isSignedIn ? "Out" : "In"}
+    </button>
+  )
 }

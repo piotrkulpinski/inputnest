@@ -1,4 +1,4 @@
-import { useState, type PropsWithChildren } from "react"
+import { type PropsWithChildren, useState } from "react"
 
 import type { CommentWithChildren } from "~/utils/comments"
 import { createSimpleContext } from "~/utils/providers"

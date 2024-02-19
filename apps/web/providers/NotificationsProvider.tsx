@@ -45,7 +45,7 @@ export const NotificationsProvider = ({ children, userId }: NotificationsProvide
     feedClientRef.current = feedClient
 
     return feedClient
-  }, [knock])
+  }, [knock, knockFeedChannelId])
 
   // When the feed client changes issue a re-fetch
   useEffect(() => {

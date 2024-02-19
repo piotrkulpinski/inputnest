@@ -41,7 +41,7 @@ export const useCrisp = () => {
     }
   }, [user])
 
-  const toggleChat: MouseEventHandler = (e) => {
+  const toggleChat: MouseEventHandler = e => {
     if (!Crisp.isCrispInjected()) {
       e.preventDefault()
       setIsLoading(true)

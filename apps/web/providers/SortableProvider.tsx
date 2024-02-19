@@ -1,17 +1,17 @@
 import type { DragEndEvent, UniqueIdentifier } from "@dnd-kit/core"
 import {
-  closestCenter,
   DndContext,
   KeyboardSensor,
   MeasuringStrategy,
   PointerSensor,
+  closestCenter,
   useSensor,
   useSensors,
 } from "@dnd-kit/core"
 import { restrictToParentElement } from "@dnd-kit/modifiers"
 import {
-  arrayMove,
   SortableContext,
+  arrayMove,
   sortableKeyboardCoordinates,
   useSortable as useDNDSortable,
   verticalListSortingStrategy,
@@ -19,7 +19,7 @@ import {
 import type { Arguments } from "@dnd-kit/sortable/dist/hooks/useSortable"
 import { CSS } from "@dnd-kit/utilities"
 import { useId } from "react"
-import type { ComponentPropsWithRef, CSSProperties } from "react"
+import type { CSSProperties, ComponentPropsWithRef } from "react"
 
 export type SortableProviderProps = Omit<ComponentPropsWithRef<typeof DndContext>, "onDragEnd"> & {
   items: UniqueIdentifier[]
