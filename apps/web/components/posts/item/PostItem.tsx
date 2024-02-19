@@ -1,10 +1,9 @@
 "use client"
 
-import { Avatar, Card, Dot, Series, Sidebar } from "@curiousleaf/design"
+import { Avatar, Card, Dot, Series, Shimmer, Sidebar } from "@curiousleaf/design"
 import { notFound } from "next/navigation"
 import type { HTMLAttributes } from "react"
 
-import { Shimmer } from "~/components/interface/Shimmer"
 import { PostItemComments } from "~/components/posts/item/PostItemComments"
 import { PostItemContent } from "~/components/posts/item/PostItemContent"
 import { PostItemHead } from "~/components/posts/item/PostItemHead"

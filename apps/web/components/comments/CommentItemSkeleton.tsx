@@ -1,7 +1,5 @@
-import { Avatar, H6, cx } from "@curiousleaf/design"
+import { Avatar, H6, Shimmer, cx } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
-
-import { Shimmer } from "~/components/interface/Shimmer"
 
 export const CommentItemSkeleton = ({ className, ...props }: HTMLAttributes<HTMLElement>) => {
   return (
