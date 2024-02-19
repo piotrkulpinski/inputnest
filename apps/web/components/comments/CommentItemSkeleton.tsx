@@ -6,7 +6,7 @@ import { Shimmer } from "~/components/interface/Shimmer"
 export const CommentItemSkeleton = ({ className, ...props }: HTMLAttributes<HTMLElement>) => {
   return (
     <div className={cx("relative flex gap-4", className)} {...props}>
-      <Avatar className="ring-4 ring-gray-50 md:ring-8" />
+      <Avatar className="ring-4 ring-gray-50 grayscale md:ring-8" />
 
       <div className="max-w-xs grow space-y-1">
         <H6 className="mb-2 h-5 w-32 rounded bg-current opacity-10" />

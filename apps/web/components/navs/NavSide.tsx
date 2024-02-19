@@ -32,6 +32,8 @@ export const NavSide = forwardRef<
         </Sidebar.Content>
       </Accordion>
 
+      {/* <NavNotifications /> */}
+
       <Button
         size="md"
         theme="secondary"
