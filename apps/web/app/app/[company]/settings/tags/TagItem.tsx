@@ -1,13 +1,12 @@
-import { Button, Dialog, H5 } from "@curiousleaf/design"
+import { Button, Card, Dialog, Draggable, H5, Series } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
-import { TagForm } from "~/app/app/[company]/settings/tags/form"
-import { DialogConfirm } from "~/components/dialogs/confirm"
-import { Card, CardActions, CardDraggable, CardPanel } from "~/components/interface/card"
-import { Status } from "~/components/interface/status"
-import { useCompany } from "~/providers/company-provider"
-import { useSortable } from "~/providers/sortable-provider"
+import { TagForm } from "~/app/app/[company]/settings/tags/TagForm"
+import { DialogConfirm } from "~/components/dialogs/DialogConfirm"
+import { Status } from "~/components/interface/Status"
+import { useCompany } from "~/providers/CompanyProvider"
+import { useSortable } from "~/providers/SortableProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
@@ -28,18 +27,20 @@ export const TagItem = ({ tag, ...props }: TagItemProps) => {
   })
 
   return (
-    <Card ref={ref} style={style} {...props}>
-      <CardPanel theme="gray" flex="row">
-        <CardDraggable isDragging={isDragging} {...attributes} {...listeners} />
+    <Card ref={ref} style={style} className="group/tag" {...props}>
+      <Card.Row theme="gray">
+        <Series>
+          <Draggable dragging={isDragging} {...attributes} {...listeners} />
 
-        <H5 asChild>
-          <Status color={tag.color}>{tag.name}</Status>
-        </H5>
+          <H5 asChild>
+            <Status color={tag.color}>{tag.name}</Status>
+          </H5>
+        </Series>
 
-        <CardActions>
+        <Series>
           <Dialog>
             <Dialog.Trigger asChild>
-              <Button theme="secondary" variant="outline">
+              <Button size="md" theme="secondary" variant="outline">
                 Edit
               </Button>
             </Dialog.Trigger>
@@ -52,12 +53,12 @@ export const TagItem = ({ tag, ...props }: TagItemProps) => {
             label="Delete Tag"
             onConfirm={() => deleteTag.mutate({ id: tag.id })}
           >
-            <Button theme="negative" variant="outline" loading={deleteTag.isLoading}>
+            <Button size="md" theme="negative" variant="outline" loading={deleteTag.isLoading}>
               Delete
             </Button>
           </DialogConfirm>
-        </CardActions>
-      </CardPanel>
+        </Series>
+      </Card.Row>
     </Card>
   )
 }

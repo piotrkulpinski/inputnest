@@ -1,10 +1,9 @@
-import { Badge, H5, Series } from "@curiousleaf/design"
+import { Badge, Card, H5, Series } from "@curiousleaf/design"
 import { ChevronUpIcon, MessageCircleIcon } from "lucide-react"
 import Link from "next/link"
 import type { ComponentPropsWithoutRef } from "react"
 
-import { Card, CardPanel } from "~/components/interface/card"
-import { Status } from "~/components/interface/status"
+import { Status } from "~/components/interface/Status"
 import type { RouterOutputs } from "~/services/trpc"
 
 type PostItemProps = ComponentPropsWithoutRef<typeof Card> & {
@@ -15,7 +14,7 @@ export const PostItem = ({ post, ...props }: PostItemProps) => {
   return (
     <Card asChild {...props}>
       <Link href={`posts/${post.id}`}>
-        <CardPanel theme="white" flex="row">
+        <Card.Row>
           <Series className="min-w-0 flex-1 flex-nowrap">
             <Badge theme="gray" variant="outline" prefix={<ChevronUpIcon />}>
               {post._count.votes}
@@ -37,7 +36,7 @@ export const PostItem = ({ post, ...props }: PostItemProps) => {
               {post._count.comments}
             </Badge>
           </Series>
-        </CardPanel>
+        </Card.Row>
       </Link>
     </Card>
   )

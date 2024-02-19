@@ -1,21 +1,20 @@
 "use client"
 
-import { Dot, H6, Markdown, Series } from "@curiousleaf/design"
+import { Card, Dot, H6, Markdown, Series } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
-import { CardPanel } from "~/components/interface/card"
-import { Time } from "~/components/interface/time"
-import { UserAvatar } from "~/components/users/avatar"
-import { usePost } from "~/providers/post-provider"
+import { Time } from "~/components/interface/Time"
+import { UserAvatar } from "~/components/users/UserAvatar"
+import { usePost } from "~/providers/PostProvider"
 
 export const PostItemContent = ({ ...props }: HTMLAttributes<HTMLElement>) => {
   const { post } = usePost()
 
   return (
-    <CardPanel theme="white" flex="column" className="md:min-h-[7.5rem]" {...props}>
+    <Card.Row theme="white" direction="column" className="md:min-h-[7.5rem]" {...props}>
       {post.content && <Markdown size="md" content={post.content} className="max-w-none" />}
 
-      <Series className="mt-2">
+      <Series className="mt-2 text-sm">
         <Series>
           {post.author && (
             <>
@@ -28,6 +27,6 @@ export const PostItemContent = ({ ...props }: HTMLAttributes<HTMLElement>) => {
           <Time date={post.createdAt} className="opacity-50" />
         </Series>
       </Series>
-    </CardPanel>
+    </Card.Row>
   )
 }

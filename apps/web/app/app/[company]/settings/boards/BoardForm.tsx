@@ -11,7 +11,7 @@ import { Form } from "~/components/form/Form"
 
 import { useComputedField } from "~/hooks/useComputedField"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/company-provider"
+import { useCompany } from "~/providers/CompanyProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 

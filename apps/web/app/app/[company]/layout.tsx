@@ -5,11 +5,11 @@ import { db } from "@repo/database"
 import { notFound } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
-import { Checkout } from "~/components/globals/checkout"
-import { Toaster } from "~/components/globals/toaster"
+import { Checkout } from "~/components/globals/Checkout"
+import { Toaster } from "~/components/globals/Toaster"
 import { NavBar } from "~/components/navs/NavBar"
 import { NavSide } from "~/components/navs/NavSide"
-import { CompanyProvider } from "~/providers/company-provider"
+import { CompanyProvider } from "~/providers/CompanyProvider"
 
 type CompanyLayoutProps = PropsWithChildren<{ params: { company: string } }>
 
@@ -35,11 +35,9 @@ export default async function CompanyLayout({ children, params }: CompanyLayoutP
         <NavBar className="lg:hidden" />
         <NavSide className="max-lg:hidden" floating />
 
-        <main className="m-2 grow">
-          <Container size="sm" className="!p-0">
-            {children}
-          </Container>
-        </main>
+        <Container size="sm" className="!p-2">
+          {children}
+        </Container>
       </div>
 
       <Toaster />

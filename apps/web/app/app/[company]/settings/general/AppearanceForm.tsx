@@ -5,10 +5,10 @@ import type { HTMLAttributes } from "react"
 import { Form } from "~/components/form/Form"
 
 import { config } from "~/config"
-import { useSettings } from "~/providers/settings-provider"
+import { useSettings } from "~/providers/SettingsProvider"
 import { getImage } from "~/utils/images"
 
-export const CompanySettingsAppearanceForm = (props: HTMLAttributes<HTMLElement>) => {
+export const AppearanceForm = (props: HTMLAttributes<HTMLElement>) => {
   const { form, onSubmit, isLoading } = useSettings()
 
   // Watch form values
@@ -96,9 +96,9 @@ export const CompanySettingsAppearanceForm = (props: HTMLAttributes<HTMLElement>
           </Form.Fieldset>
         </Card.Section>
 
-        <Card.Footer>
+        <Card.Row direction="rowReverse">
           <Form.Button loading={isLoading}>Save Changes</Form.Button>
-        </Card.Footer>
+        </Card.Row>
       </Form>
     </Card>
   )

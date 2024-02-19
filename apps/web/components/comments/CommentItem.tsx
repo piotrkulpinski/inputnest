@@ -5,12 +5,12 @@ import { LockIcon, PinIcon, XIcon, ReplyIcon } from "lucide-react"
 import Link from "next/link"
 import { type HTMLAttributes } from "react"
 
-import { CommentForm } from "~/components/comments/form"
-import { CommentItemActions } from "~/components/comments/item-actions"
-import { CommentTree } from "~/components/comments/tree"
-import { Time } from "~/components/interface/time"
-import { UserAvatar } from "~/components/users/avatar"
-import { useComments } from "~/providers/comments-provider"
+import { CommentForm } from "~/components/comments/CommentForm"
+import { CommentItemActions } from "~/components/comments/CommentItemActions"
+import { CommentTree } from "~/components/comments/CommentTree"
+import { Time } from "~/components/interface/Time"
+import { UserAvatar } from "~/components/users/UserAvatar"
+import { useComments } from "~/providers/CommentsProvider"
 import type { CommentWithChildren } from "~/utils/comments"
 
 type CommentItemProps = HTMLAttributes<HTMLElement> & {

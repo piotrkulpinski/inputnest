@@ -3,12 +3,12 @@
 import { Button, Card, Header } from "@curiousleaf/design"
 import type { HTMLAttributes } from "react"
 
-import { DialogConfirm } from "~/components/dialogs/confirm"
+import { DialogConfirm } from "~/components/dialogs/DialogConfirm"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/company-provider"
+import { useCompany } from "~/providers/CompanyProvider"
 import { api } from "~/services/trpc"
 
-export const CompanySettingsDeleteForm = (props: HTMLAttributes<HTMLElement>) => {
+export const DeleteForm = (props: HTMLAttributes<HTMLElement>) => {
   const { handleSuccess } = useMutationHandler()
   const apiUtils = api.useUtils()
   const { id, slug } = useCompany()
@@ -34,7 +34,7 @@ export const CompanySettingsDeleteForm = (props: HTMLAttributes<HTMLElement>) =>
         />
       </Card.Panel>
 
-      <Card.Footer className="border-red-light bg-red-lighter">
+      <Card.Row direction="rowReverse" className="border-red-light bg-red-lighter">
         <DialogConfirm
           title="Delete your company?"
           label="Delete Company"
@@ -45,7 +45,7 @@ export const CompanySettingsDeleteForm = (props: HTMLAttributes<HTMLElement>) =>
             Delete
           </Button>
         </DialogConfirm>
-      </Card.Footer>
+      </Card.Row>
     </Card>
   )
 }

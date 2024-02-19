@@ -3,7 +3,7 @@ import type { Profile } from "@repo/database"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
-import { useCompany } from "~/providers/company-provider"
+import { useCompany } from "~/providers/CompanyProvider"
 import { getImage } from "~/utils/images"
 
 type UserAvatarProps = ComponentPropsWithoutRef<typeof Avatar> & {

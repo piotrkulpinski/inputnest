@@ -15,7 +15,7 @@ import { toast } from "sonner"
 import { NavDropdown } from "~/components/navs/NavDropdown"
 import { NavItemProps } from "~/components/navs/NavItem"
 
-import { useComments } from "~/providers/comments-provider"
+import { useComments } from "~/providers/CommentsProvider"
 import { api } from "~/services/trpc"
 import type { CommentWithChildren } from "~/utils/comments"
 

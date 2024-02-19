@@ -5,7 +5,7 @@ import { CheckIcon, MoreHorizontalIcon, PlusIcon } from "lucide-react"
 import type { HTMLAttributes } from "react"
 
 import { config } from "~/config"
-import { useCompany } from "~/providers/company-provider"
+import { useCompany } from "~/providers/CompanyProvider"
 import { api } from "~/services/trpc"
 import { NavItemButton, NavItemProps } from "./NavItem"
 import { NavDropdown } from "./NavDropdown"

@@ -1,7 +1,7 @@
 import { ClerkLoading, SignUp } from "@clerk/nextjs"
 import { IconLoader } from "@curiousleaf/design"
 
-import { AuthLayout } from "~/components/auth/layout"
+import { AuthLayout } from "~/components/auth/AuthLayout"
 
 export default function SignUpPage() {
   return (

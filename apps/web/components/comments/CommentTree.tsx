@@ -8,7 +8,7 @@ export const CommentTree = ({ children, className, ...props }: HTMLAttributes<HT
   }
 
   return (
-    <Section className={cx("relative mt-4", className)} {...props}>
+    <Section className={cx("relative my-4", className)} {...props}>
       <div className="absolute bottom-0 left-4 top-0 mt-8 w-[1px] bg-gray-200" />
 
       {children}

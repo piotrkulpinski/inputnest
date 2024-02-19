@@ -1,14 +1,14 @@
 "use client"
 
-import { Button, Dialog, Header, Paragraph, Section } from "@curiousleaf/design"
+import { Button, Card, Dialog, Header, Paragraph, Series } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 
-import { PostItem } from "~/app/app/[company]/posts/item"
-import { Skeleton } from "~/components/interface/skeleton"
-import { PostCreateForm } from "~/components/posts/forms/create"
-import { HeadingCounter } from "~/components/utils/heading-counter"
-import { QueryCell } from "~/components/utils/query-cell"
-import { useCompany } from "~/providers/company-provider"
+import { PostItem } from "~/app/app/[company]/posts/PostItem"
+import { Skeleton } from "~/components/interface/Skeleton"
+import { PostCreateForm } from "~/components/posts/forms/PostCreateForm"
+import { HeadingCounter } from "~/components/utils/HeadingCounter"
+import { QueryCell } from "~/components/utils/QueryCell"
+import { useCompany } from "~/providers/CompanyProvider"
 import { api } from "~/services/trpc"
 
 export default function Route() {
@@ -16,38 +16,45 @@ export default function Route() {
   const postsQuery = api.posts.getAll.useQuery({ companyId })
 
   return (
-    <Section>
-      <Header title={<HeadingCounter data={postsQuery.data}>Posts</HeadingCounter>}>
-        <Dialog>
-          <Dialog.Trigger asChild>
-            <Button theme="secondary" prefix={<PlusIcon />}>
-              Create Post
-            </Button>
-          </Dialog.Trigger>
+    <Card>
+      <Card.Panel asChild>
+        <Header
+          title={<HeadingCounter data={postsQuery.data}>Posts</HeadingCounter>}
+          description="Posts are used to express a single idea or request."
+        >
+          <Dialog>
+            <Dialog.Trigger asChild>
+              <Button theme="secondary" prefix={<PlusIcon />}>
+                Create Post
+              </Button>
+            </Dialog.Trigger>
 
-          <PostCreateForm />
-        </Dialog>
-      </Header>
+            <PostCreateForm />
+          </Dialog>
+        </Header>
+      </Card.Panel>
 
-      <div className="flex flex-col -space-y-px">
-        <QueryCell
-          query={postsQuery}
-          loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
-          error={() => (
-            <Paragraph className="text-red">There was an error loading the posts.</Paragraph>
-          )}
-          empty={() => (
-            <Paragraph className="text-gray-600">No posts added for this company yet.</Paragraph>
-          )}
-          success={({ data }) => (
-            <>
-              {data.map(post => (
-                <PostItem key={post.id} post={post} />
-              ))}
-            </>
-          )}
-        />
-      </div>
-    </Section>
+      <Card.Panel>
+        <Series>
+          <QueryCell
+            query={postsQuery}
+            loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
+            error={() => (
+              <Paragraph className="text-red">There was an error loading the posts.</Paragraph>
+            )}
+            empty={() => (
+              <Paragraph className="text-gray-600">No posts added for this company yet.</Paragraph>
+            )}
+            success={({ data }) => (
+              <>
+                {data.map(post => (
+                  <PostItem key={post.id} post={post} />
+                ))}
+              </>
+            )}
+          />
+        </Series>
+      </Card.Panel>
+    </Card>
   )
 }

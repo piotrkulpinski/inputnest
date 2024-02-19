@@ -1,17 +1,17 @@
 "use client"
 
-import { Button, Card, Dialog, Fieldset, Header, Paragraph } from "@curiousleaf/design"
+import { Button, Card, Dialog, Header, Paragraph, Series } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 import { useState, useEffect } from "react"
 
-import { TagForm } from "~/app/app/[company]/settings/tags/form"
-import { TagItem } from "~/app/app/[company]/settings/tags/item"
-import { Skeleton } from "~/components/interface/skeleton"
-import { HeadingCounter } from "~/components/utils/heading-counter"
-import { QueryCell } from "~/components/utils/query-cell"
+import { TagForm } from "~/app/app/[company]/settings/tags/TagForm"
+import { TagItem } from "~/app/app/[company]/settings/tags/TagItem"
+import { Skeleton } from "~/components/interface/Skeleton"
+import { HeadingCounter } from "~/components/utils/HeadingCounter"
+import { QueryCell } from "~/components/utils/QueryCell"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/company-provider"
-import { SortableProvider } from "~/providers/sortable-provider"
+import { useCompany } from "~/providers/CompanyProvider"
+import { SortableProvider } from "~/providers/SortableProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
@@ -64,7 +64,7 @@ export default function Route() {
       </Card.Panel>
 
       <Card.Panel>
-        <Fieldset>
+        <Series size="lg">
           <QueryCell
             query={tagsQuery}
             loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
@@ -82,7 +82,7 @@ export default function Route() {
               </SortableProvider>
             )}
           />
-        </Fieldset>
+        </Series>
       </Card.Panel>
     </Card>
   )

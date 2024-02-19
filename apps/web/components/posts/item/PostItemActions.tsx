@@ -1,16 +1,15 @@
 "use client"
 
-import { Button, Dialog, Tooltip } from "@curiousleaf/design"
+import { Button, Dialog, Series, Tooltip } from "@curiousleaf/design"
 import { useCopyToClipboard } from "@uidotdev/usehooks"
 import { CheckIcon, CopyIcon } from "lucide-react"
 import type { HTMLAttributes } from "react"
 
-import { DialogConfirm } from "~/components/dialogs/confirm"
-import { CardActions } from "~/components/interface/card"
-import { PostUpdateForm } from "~/components/posts/forms/update"
+import { DialogConfirm } from "~/components/dialogs/DialogConfirm"
+import { PostUpdateForm } from "~/components/posts/forms/PostUpdateForm"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/company-provider"
-import { usePost } from "~/providers/post-provider"
+import { useCompany } from "~/providers/CompanyProvider"
+import { usePost } from "~/providers/PostProvider"
 import { api } from "~/services/trpc"
 import { getTenantUrl } from "~/utils/helpers"
 
@@ -34,7 +33,7 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
   })
 
   return (
-    <CardActions {...props}>
+    <Series {...props}>
       <Tooltip tooltip="Copy Link">
         <Button
           size="md"
@@ -64,6 +63,6 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
           Delete
         </Button>
       </DialogConfirm>
-    </CardActions>
+    </Series>
   )
 }
