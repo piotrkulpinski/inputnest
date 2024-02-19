@@ -25,7 +25,7 @@ export default function Route() {
 
   const { mutate: reorderBoards } = api.boards.reorder.useMutation({
     onSuccess: async () => {
-      handleSuccess({ success: `Boards reordered successfully` })
+      handleSuccess({ success: "Boards reordered successfully" })
 
       // Invalidate the boards cache
       await apiUtils.boards.getAll.invalidate({ companyId })
@@ -42,7 +42,7 @@ export default function Route() {
   // Update the boards when the loader data changes
   useEffect(() => {
     boardsQuery.isSuccess && setBoards(boardsQuery.data)
-  }, [boardsQuery.data])
+  }, [boardsQuery.isSuccess, boardsQuery.data])
 
   return (
     <Card>
@@ -64,7 +64,7 @@ export default function Route() {
       </Card.Panel>
 
       <Card.Panel>
-        <Series size="lg">
+        <Series size="lg" direction="column">
           <QueryCell
             query={boardsQuery}
             loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}

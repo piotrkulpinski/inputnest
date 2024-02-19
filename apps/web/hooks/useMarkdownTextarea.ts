@@ -1,4 +1,4 @@
-import { type RefObject } from "react"
+import type { RefObject } from "react"
 
 type UseMarkdownTextareaProps = {
   textareaRef: RefObject<HTMLTextAreaElement>

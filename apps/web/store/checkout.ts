@@ -5,7 +5,7 @@ export type CheckoutStore = {
   setClientSecret: (clientSecret: string | null) => void
 }
 
-export const useCheckoutStore = create<CheckoutStore>((set) => ({
+export const useCheckoutStore = create<CheckoutStore>(set => ({
   clientSecret: null,
-  setClientSecret: (clientSecret) => set(() => ({ clientSecret })),
+  setClientSecret: clientSecret => set(() => ({ clientSecret })),
 }))

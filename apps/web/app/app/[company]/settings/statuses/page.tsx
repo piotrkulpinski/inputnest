@@ -24,7 +24,7 @@ export default function Route() {
 
   const { mutate: reorderStatuses } = api.statuses.reorder.useMutation({
     onSuccess: async () => {
-      handleSuccess({ success: `Statuses reordered successfully` })
+      handleSuccess({ success: "Statuses reordered successfully" })
 
       // Invalidate the statuses cache
       await apiUtils.statuses.getAll.invalidate({ companyId })
@@ -41,7 +41,7 @@ export default function Route() {
   // Update the statuses when the loader data changes
   useEffect(() => {
     statusesQuery.isSuccess && setStatuses(statusesQuery.data)
-  }, [statusesQuery.data])
+  }, [statusesQuery.isSuccess, statusesQuery.data])
 
   return (
     <Card>
@@ -63,7 +63,7 @@ export default function Route() {
       </Card.Panel>
 
       <Card.Panel>
-        <Series size="lg">
+        <Series size="lg" direction="column">
           <QueryCell
             query={statusesQuery}
             loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}

@@ -1,7 +1,7 @@
 "use client"
 
 import { Button, Header } from "@curiousleaf/design"
-import { SearchIcon, BellRingIcon, CalendarIcon, PlusIcon, LayoutDashboardIcon } from "lucide-react"
+import { SearchIcon, BellRingIcon, CalendarIcon, PlusIcon } from "lucide-react"
 
 export default function CompanyRoute() {
   return (
@@ -17,7 +17,9 @@ export default function CompanyRoute() {
         <Button theme="secondary" variant="outline" prefix={<CalendarIcon />}>
           Schedule
         </Button>
-        <Button theme="secondary" prefix={<PlusIcon />}>Create Request</Button>
+        <Button theme="secondary" prefix={<PlusIcon />}>
+          Create Request
+        </Button>
       </div>
     </Header>
   )

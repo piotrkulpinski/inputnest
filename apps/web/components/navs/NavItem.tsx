@@ -56,7 +56,7 @@ export const NavItemLink = forwardRef<MenuItemElement, NavItemProps>((props, ref
   const { children, title, href, end, active, ...rest } = props
 
   const pathname = usePathname()
-  const isActive = useMemo(() => isItemActive({ href, end }, pathname), [href, pathname])
+  const isActive = useMemo(() => isItemActive({ href, end }, pathname), [href, end, pathname])
 
   return (
     <MenuItem ref={ref} active={active ?? isActive} asChild {...rest}>
@@ -83,7 +83,9 @@ export const NavItem = forwardRef<MenuItemElement, NavItemProps>((props, ref) =>
         </Accordion.Trigger>
 
         <Accordion.Content className="space-y-0.5">
-          {items?.map((subItem, i) => <NavItem key={i} {...subItem} prefix={NavItemIndicator()} />)}
+          {items?.map((subItem, i) => (
+            <NavItem key={i} {...subItem} prefix={NavItemIndicator()} />
+          ))}
         </Accordion.Content>
       </Accordion.Item>
     )

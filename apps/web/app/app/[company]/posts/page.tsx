@@ -35,7 +35,7 @@ export default function Route() {
       </Card.Panel>
 
       <Card.Panel>
-        <Series>
+        <Series direction="column">
           <QueryCell
             query={postsQuery}
             loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}

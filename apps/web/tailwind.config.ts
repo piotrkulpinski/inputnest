@@ -24,5 +24,5 @@ export default {
         display: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
     },
-  }
+  },
 } satisfies Config

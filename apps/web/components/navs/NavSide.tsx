@@ -7,6 +7,7 @@ import { useMenu } from "~/hooks/useMenu"
 import { NavCompany } from "~/components/navs/NavCompany"
 import { NavUser } from "~/components/navs/NavUser"
 import { NavItem } from "./NavItem"
+import { NavNotifications } from "~/components/navs/NavNotifications"
 
 export const NavSide = forwardRef<
   ElementRef<typeof Sidebar>,
@@ -32,7 +33,7 @@ export const NavSide = forwardRef<
         </Sidebar.Content>
       </Accordion>
 
-      {/* <NavNotifications /> */}
+      <NavNotifications />
 
       <Button
         size="md"

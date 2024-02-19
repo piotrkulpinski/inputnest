@@ -16,7 +16,6 @@ export const FormField = <T extends FieldValues>(props: FormFieldProps<T>) => {
   const controller = useController({ control, name })
   const { error } = controller.fieldState
 
-  // TODO: pass id to the label as well
   return (
     <FieldProvider<T> id={id} controller={controller}>
       <Field id={id} {...rest}>

@@ -4,6 +4,7 @@ import { useMemo } from "react"
 import { NavItemProps } from "~/components/navs/NavItem"
 import { useCompany } from "~/providers/CompanyProvider"
 
+import { Badge } from "@curiousleaf/design"
 import {
   DownloadCloudIcon,
   GanttChartSquareIcon,
@@ -13,7 +14,6 @@ import {
   SettingsIcon,
   UsersIcon,
 } from "lucide-react"
-import { Badge } from "@curiousleaf/design"
 
 export type Menu = {
   title?: string
@@ -97,7 +97,7 @@ export const useMenu = () => {
       menus
         .flatMap(({ items }) => items)
         .find(({ items }) => items?.some(({ href }) => pathname === href)),
-    [pathname],
+    [pathname, menus],
   )
 
   return {

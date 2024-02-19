@@ -3,7 +3,7 @@
 import { Action, Badge, Dot, H6, Markdown, Series, cx } from "@curiousleaf/design"
 import { LockIcon, PinIcon, XIcon, ReplyIcon } from "lucide-react"
 import Link from "next/link"
-import { type HTMLAttributes } from "react"
+import type { HTMLAttributes } from "react"
 
 import { CommentForm } from "~/components/comments/CommentForm"
 import { CommentItemActions } from "~/components/comments/CommentItemActions"

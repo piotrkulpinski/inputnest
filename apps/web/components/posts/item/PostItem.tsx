@@ -10,7 +10,6 @@ import { PostItemContent } from "~/components/posts/item/PostItemContent"
 import { PostItemHead } from "~/components/posts/item/PostItemHead"
 import { PostItemSidebar } from "~/components/posts/item/PostItemSidebar"
 import { QueryCell } from "~/components/utils/QueryCell"
-import { VotesVote } from "~/components/votes/VotesVote"
 import { useCompany } from "~/providers/CompanyProvider"
 import { PostProvider } from "~/providers/PostProvider"
 import { api } from "~/services/trpc"
@@ -52,7 +51,6 @@ const PostItemSkeleton = ({ ...props }: HTMLAttributes<HTMLElement>) => {
   return (
     <Card {...props}>
       <Card.Row>
-        <VotesVote disabled>0</VotesVote>
         <div className="mr-auto h-6 w-1/3 rounded bg-current opacity-10" />
       </Card.Row>
 

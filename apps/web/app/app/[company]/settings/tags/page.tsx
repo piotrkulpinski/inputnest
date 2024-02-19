@@ -25,7 +25,7 @@ export default function Route() {
 
   const { mutate: reorderTags } = api.tags.reorder.useMutation({
     onSuccess: async () => {
-      handleSuccess({ success: `Tags reordered successfully` })
+      handleSuccess({ success: "Tags reordered successfully" })
 
       // Invalidate the tags cache
       await apiUtils.tags.getAll.invalidate({ companyId })
@@ -42,7 +42,7 @@ export default function Route() {
   // Update the tags when the loader data changes
   useEffect(() => {
     tagsQuery.isSuccess && setTags(tagsQuery.data)
-  }, [tagsQuery.data])
+  }, [tagsQuery.isSuccess, tagsQuery.data])
 
   return (
     <Card>
@@ -64,7 +64,7 @@ export default function Route() {
       </Card.Panel>
 
       <Card.Panel>
-        <Series size="lg">
+        <Series size="lg" direction="column">
           <QueryCell
             query={tagsQuery}
             loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
