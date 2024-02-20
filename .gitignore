@@ -12,6 +12,9 @@ node_modules
 .env.test.local
 .env.production.local
 
+# Allow .env symlink
+!packages/database/.env
+
 # Testing
 coverage
 
