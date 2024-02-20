@@ -16,8 +16,8 @@ export const companyDefaults = {
     company: {
       theme: Theme.user,
       color: "#0051FF",
-      tagline: "My new UserPledge company! 👋",
-      description: "This is a company built with UserPledge!",
+      tagline: "My new InputNest company! 👋",
+      description: "This is a company built with InputNest!",
     },
   },
 }

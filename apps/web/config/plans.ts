@@ -5,17 +5,17 @@ export const plansConfig = {
   plans: [
     {
       name: "Free",
-      description: "The essentials to get you started with UserPledge.",
+      description: "The essentials to get you started with InputNest.",
       features: [
-        { text: "UserPledge.site domain" },
+        { text: "InputNest.site domain" },
         { text: "Unlimited CMS items" },
-        { text: "Made in UserPledge badge", type: "negative" },
+        { text: "Made in InputNest badge", type: "negative" },
       ],
       level: 0,
     },
     {
       name: "Basic",
-      description: "Take your UserPledge website to the next level.",
+      description: "Take your InputNest website to the next level.",
       features: [
         { text: "Custom domain" },
         { text: "Free SSL certificates" },

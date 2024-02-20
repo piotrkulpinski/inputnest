@@ -5,10 +5,10 @@ import { plansConfig } from "~/config/plans"
 import { routesConfig } from "~/config/routes"
 
 export const config = {
-  title: "UserPledge",
+  title: "InputNest",
   tagline: "The easiest way to collect anything online",
   description:
-    "Putting together a directory website was time consuming. UserPledge lets you focus on the content and makes the entire process effortless.",
+    "Putting together a directory website was time consuming. InputNest lets you focus on the content and makes the entire process effortless.",
 
   // Command
   commandShortcuts: [{ key: "k", metaKey: true }] as const,
