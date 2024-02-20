@@ -15,7 +15,7 @@ export default async function SignInPage() {
   return (
     <BasicLayout
       title="Sign in to your account"
-      description="An UserPledge account is all you need to start collecting customer feedback."
+      description="An InputNest account is all you need to start collecting customer feedback."
     >
       <div className="flex flex-col gap-4">
         <SignInButton
