@@ -7,11 +7,11 @@ import type { HTMLAttributes } from "react"
 import { config } from "~/config"
 import { useCompany } from "~/providers/CompanyProvider"
 import { api } from "~/services/trpc"
-import { NavItemButton, NavItemProps } from "./NavItem"
 import { NavDropdown } from "./NavDropdown"
+import { NavItemButton, NavItemProps } from "./NavItem"
 
 export const NavCompany = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => {
-  const { name, slug: companySlug } = useCompany()
+  const { name, slug: companySlug, logo } = useCompany()
   const { data } = api.companies.getAll.useQuery()
 
   // Get the plan for the company
@@ -20,10 +20,10 @@ export const NavCompany = ({ className, ...props }: HTMLAttributes<HTMLDivElemen
 
   const navs: NavItemProps[][] = [
     // List of companies
-    data?.map(({ name, slug }) => ({
+    data?.map(({ name, slug, logo }) => ({
       title: name,
       href: `/app/${slug}`,
-      prefix: <Avatar initials={name} shape="rounded" size="xs" />,
+      prefix: <Avatar src={logo} initials={name} shape="rounded" size="xs" />,
       suffix:
         slug === companySlug ? (
           <CheckIcon className="text-green-dark" />
@@ -44,7 +44,7 @@ export const NavCompany = ({ className, ...props }: HTMLAttributes<HTMLDivElemen
     <NavDropdown navs={navs} align="start" {...props}>
       <NavItemButton
         title={name}
-        prefix={<Avatar initials={name} shape="rounded" size="xs" />}
+        prefix={<Avatar src={logo} initials={name} shape="rounded" size="xs" />}
         suffix={<MoreHorizontalIcon />}
       />
     </NavDropdown>

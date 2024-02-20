@@ -1,90 +1,29 @@
-import { Cloudinary } from "@cloudinary/url-gen"
-import * as Resize from "@cloudinary/url-gen/actions/resize"
-import { formatBytes } from "@curiousleaf/utils"
-import type { UploadApiResponse } from "cloudinary"
-import wretch from "wretch"
+import { getS3SignedUrl } from "~/actions/s3"
 
-import { env } from "~/env"
+export const computeSHA256 = async (file: File) => {
+  const buffer = await file.arrayBuffer()
+  const hashBuffer = await crypto.subtle.digest("SHA-256", buffer)
+  const hashArray = Array.from(new Uint8Array(hashBuffer))
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("")
 
-export const toBase64 = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result as string)
-    reader.onerror = reject
-  })
+  return hashHex
 }
 
-type UploadImage = {
+export type UploadImageProps = {
   file: File
   folder: string
-  fileSizeLimit: number
 }
 
-export const uploadImage = async ({ file, folder, fileSizeLimit }: UploadImage) => {
-  if (file.size > fileSizeLimit) {
-    throw new Error(`Maximum file size is ${formatBytes(fileSizeLimit)}`)
-  }
+export const uploadImage = async ({ file, folder }: UploadImageProps) => {
+  const checksum = await computeSHA256(file)
 
-  const image = await wretch("/api/images/upload")
-    .post({ file: await toBase64(file), folder })
-    .json<UploadApiResponse>()
-
-  return image
-}
-
-type CloudinaryImage = {
-  image?: string | null
-  width?: string | number
-  height?: string | number
-  resize?:
-    | "imaggaScale"
-    | "imaggaCrop"
-    | "crop"
-    | "fill"
-    | "scale"
-    | "minimumPad"
-    | "fit"
-    | "pad"
-    | "limitFit"
-    | "thumbnail"
-    | "limitFill"
-    | "minimumFit"
-    | "limitPad"
-    | "fillPad"
-}
-
-export const getImage = ({ image, width, height, resize = "limitFit" }: CloudinaryImage) => {
-  if (!image) {
-    return ""
-  }
-
-  const cloudinary = new Cloudinary({
-    cloud: {
-      cloudName: env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    },
-    url: {
-      secure: true,
-      analytics: false,
-    },
+  const url = await getS3SignedUrl({
+    folder,
+    checksum,
+    name: file.name.replace(/\.[^/.]+$/, ""),
+    type: file.type,
+    size: file.size,
   })
 
-  const cloudImage = cloudinary
-    .image(image)
-    .setDeliveryType(image.startsWith("http") ? "fetch" : "upload")
-
-  if (width ?? height) {
-    cloudImage.resize(Resize[resize](width, height))
-  }
-
-  return cloudImage.format("auto").quality("auto").toURL()
-}
-
-export const getOGImage = (image: CloudinaryImage["image"]) => {
-  return getImage({
-    image,
-    width: 1200,
-    height: 630,
-    resize: "fill",
-  })
+  return fetch(url, { method: "PUT", body: file })
 }
