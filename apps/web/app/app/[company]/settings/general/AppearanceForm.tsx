@@ -1,6 +1,7 @@
 "use client"
 
 import { Card, Header } from "@curiousleaf/design"
+import { Theme } from "@repo/database"
 import type { HTMLAttributes } from "react"
 import { Form } from "~/components/form/Form"
 
@@ -13,8 +14,7 @@ export const AppearanceForm = (props: HTMLAttributes<HTMLElement>) => {
 
   // Watch form values
   const id = form.getValues("id")
-  const logo = form.watch("settings.company.logo")
-  const favicon = form.watch("settings.company.favicon")
+  const logo = form.watch("logo")
 
   return (
     <Card asChild {...props}>
@@ -22,15 +22,15 @@ export const AppearanceForm = (props: HTMLAttributes<HTMLElement>) => {
         <Card.Section>
           <Header
             title="Appearance"
-            description="Upload your logo and favicon, and choose a theme for your website."
+            description="You can customize your company's appearance from here."
           />
 
           <Form.Fieldset>
             <Form.Field
               control={form.control}
-              name="settings.company.logo"
+              name="logo"
               label="Logo"
-              hint="Choose a theme for your website. Last option enables the theme switcher."
+              hint="Displayed in the header of your website. Recommended size: 96x96px."
             >
               <Form.Uploader folder={id} fileSizeLimit={config.fileLimitSm}>
                 {logo && <img src={getImage({ image: logo, height: 48 })} alt="" className="h-5" />}
@@ -39,59 +39,24 @@ export const AppearanceForm = (props: HTMLAttributes<HTMLElement>) => {
 
             <Form.Field
               control={form.control}
-              name="settings.company.favicon"
-              label="Favicon"
-              hint="Upload an icon for browser tabs, at least 32x32px"
-            >
-              <Form.Uploader folder={id} fileSizeLimit={config.fileLimitSm}>
-                {favicon && (
-                  <img src={getImage({ image: favicon, height: 48 })} alt="" className="h-5" />
-                )}
-              </Form.Uploader>
-            </Form.Field>
-
-            <Form.Field
-              control={form.control}
-              name="settings.company.theme"
+              name="theme"
               label="Theme"
-              hint="Default theme for your website. Last option enables the theme switcher."
+              hint="Select an interface theme for your public portal."
               required
             >
               <Form.RadioGroup
-                options={[
-                  { label: "Light", value: "light" },
-                  { label: "Dark", value: "dark" },
-                  { label: "User Preferred", value: "user" },
-                ]}
+                options={[{ value: Theme.Light }, { value: Theme.Dark }, { value: Theme.System }]}
               />
             </Form.Field>
 
             <Form.Field
               control={form.control}
-              name="settings.company.color"
+              name="brandColor"
               label="Brand Color"
-              hint="Primary color for your website."
+              hint="Assign a brand color to your public portal."
               required
             >
               <Form.ColorPicker />
-            </Form.Field>
-
-            <Form.Field
-              control={form.control}
-              name="settings.company.tagline"
-              label="Tagline"
-              hint="A short, catchy description of the website. Max. 100 characters."
-            >
-              <Form.Input />
-            </Form.Field>
-
-            <Form.Field
-              control={form.control}
-              name="settings.company.description"
-              label="Description"
-              hint="A longer description of the website. Temporarily used as a website intro. Max. 250 characters."
-            >
-              <Form.TextArea minRows={3} />
             </Form.Field>
           </Form.Fieldset>
         </Card.Section>

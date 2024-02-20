@@ -4,7 +4,7 @@ import { domainNameSchema } from "./index"
 
 export const domainSchema = z.object({
   id: z.string().min(1),
-  name: domainNameSchema.default(""),
+  name: domainNameSchema,
   companyId: z.string().min(1),
 })
 

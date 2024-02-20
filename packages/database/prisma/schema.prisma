@@ -1,23 +1,24 @@
-generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch"]
-  binaryTargets   = ["native", "darwin-arm64"]
-}
-
-generator json {
-  provider = "prisma-json-types-generator"
-}
-
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
 enum CompanyMemberRole {
   Owner
   Manager
   Contributor
+}
+
+enum Theme {
+  Light
+  Dark
+  System
 }
 
 // Account, User, Session, and VerificationToken based on: https://authjs.dev/reference/adapter/prisma
@@ -83,14 +84,14 @@ model VerificationToken {
 }
 
 model Company {
-  id        String   @id @default(cuid())
-  name      String
-  slug      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  /// [CompanySettingsJson]
-  settings Json @default("{}")
+  id         String   @id @default(cuid())
+  name       String
+  slug       String   @unique
+  theme      Theme    @default(System)
+  logo       String?
+  brandColor String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   // Relations
   members      CompanyMember[]
@@ -130,7 +131,7 @@ model Subscription {
 
 model Domain {
   id        String   @id @default(cuid())
-  name      String   @unique @default("")
+  name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

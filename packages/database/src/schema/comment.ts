@@ -2,16 +2,10 @@ import * as z from "zod"
 
 import { idSchema } from "./index"
 
-export const commentDefaults = {
-  content: "",
-  isPrivate: false,
-  isPinned: false,
-}
-
 export const commentSchema = z.object({
   content: z.string().trim().min(3),
-  isPrivate: z.coerce.boolean(),
-  isPinned: z.coerce.boolean(),
+  isPrivate: z.coerce.boolean().default(false),
+  isPinned: z.coerce.boolean().default(false),
   parentId: z.string().nullish(),
 })
 
