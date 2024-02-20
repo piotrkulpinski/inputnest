@@ -1,16 +1,16 @@
 import { z } from "zod"
 
 const reservedSlugs = [
-  "backpack-scout",
+  "app",
   "admin",
   "auth",
+  "console",
   "staging",
   "checkout",
   "feedback",
   "root",
   "blog",
   "cms",
-  "app",
   "demo",
   "docs",
   "test",
