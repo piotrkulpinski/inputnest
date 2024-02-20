@@ -1,4 +1,4 @@
-import { OnboardingForm } from "~/app/app/onboarding/form"
+import { OnboardingForm } from "~/app/app/onboarding/OnboardingForm"
 import { AuthLayout } from "~/components/auth/AuthLayout"
 
 export default function OnboardingRoute() {
