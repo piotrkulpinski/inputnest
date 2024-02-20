@@ -1,40 +1,55 @@
 import {
   Button,
   ButtonGroup,
+  TextArea,
   TextAreaElement,
   TextAreaProps,
   Tooltip,
   cx,
 } from "@curiousleaf/design"
-import { ItalicIcon, StrikethroughIcon, CodeIcon, LinkIcon, BoldIcon } from "lucide-react"
+import { BoldIcon, CodeIcon, ItalicIcon, LinkIcon, StrikethroughIcon } from "lucide-react"
 import { forwardRef, useRef } from "react"
 import type { RefObject } from "react"
-import { useFormContext } from "react-hook-form"
-import { FormTextArea } from "~/components/form/controls/FormTextArea"
+import { FormControl } from "~/components/form/FormControl"
 
 import { useMarkdownTextarea } from "~/hooks/useMarkdownTextarea"
 import { useFieldContext } from "~/providers/FieldProvider"
 
 export const FormEditor = forwardRef<TextAreaElement, TextAreaProps>((props, _) => {
   const { className, ...rest } = props
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const { field, fieldState } = useFieldContext()
+  const { ref, ...fieldProps } = field
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+
+  const assignRef = (e: HTMLTextAreaElement | null) => {
+    ref(e)
+    textareaRef.current = e
+  }
 
   return (
     <div className="relative">
-      <FormTextArea className={cx("pb-14", className)} ref={textareaRef} {...rest} />
+      <FormControl>
+        <TextArea
+          ref={assignRef}
+          error={!!fieldState.error}
+          className={cx("pb-14", className)}
+          {...fieldProps}
+          {...rest}
+        />
+      </FormControl>
+
       <EditorToolbar textareaRef={textareaRef} />
     </div>
   )
 })
 
 const EditorToolbar = ({ textareaRef }: { textareaRef: RefObject<HTMLTextAreaElement> }) => {
-  const { setValue, getValues } = useFormContext()
   const { field } = useFieldContext()
 
   const { toggleMarker } = useMarkdownTextarea({
     textareaRef,
-    value: getValues(field.name),
-    onValueChange: value => setValue(field.name, value),
+    value: field.value,
+    onValueChange: value => field.onChange(value),
   })
 
   return (
