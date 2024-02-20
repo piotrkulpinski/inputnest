@@ -14,7 +14,7 @@ type CommentsContext = {
 
 const CommentsContext = createSimpleContext<CommentsContext>("Comments")
 
-export const CommentsProvider = ({ children }: PropsWithChildren) => {
+export const CommentsProvider = ({ ...props }: PropsWithChildren) => {
   const [replying, setReplying] = useState<CommentWithChildren>()
   const [editing, setEditing] = useState<CommentWithChildren>()
 
@@ -39,9 +39,8 @@ export const CommentsProvider = ({ children }: PropsWithChildren) => {
   return (
     <CommentsContext.Provider
       value={{ replying, editing, onReply, onReplyCancel, onEdit, onEditCancel }}
-    >
-      {children}
-    </CommentsContext.Provider>
+      {...props}
+    />
   )
 }
 

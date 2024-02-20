@@ -1,5 +1,5 @@
 import { Avatar, IconStar, Tooltip } from "@curiousleaf/design"
-import type { Profile } from "@repo/database"
+import { User } from "next-auth"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
@@ -7,7 +7,7 @@ import { useCompany } from "~/providers/CompanyProvider"
 import { getImage } from "~/utils/images"
 
 type UserAvatarProps = ComponentPropsWithoutRef<typeof Avatar> & {
-  user: Profile
+  user: User
 }
 
 export const UserAvatar = forwardRef<ElementRef<typeof Avatar>, UserAvatarProps>((props, ref) => {
@@ -15,7 +15,7 @@ export const UserAvatar = forwardRef<ElementRef<typeof Avatar>, UserAvatarProps>
   const { user, ...rest } = props
 
   const isMember = members.some(({ userId }) => userId === user.id)
-  const src = getImage({ image: user.imageUrl, width: 96, height: 96 })
+  const src = getImage({ image: user.image, width: 96, height: 96 })
 
   return (
     <Avatar

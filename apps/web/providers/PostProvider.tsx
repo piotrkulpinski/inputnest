@@ -13,8 +13,8 @@ type PostProviderProps = PropsWithChildren<{
   post: RouterOutputs["posts"]["get"]
 }>
 
-export const PostProvider = ({ children, post }: PostProviderProps) => {
-  return <PostContext.Provider value={{ post }}>{children}</PostContext.Provider>
+export const PostProvider = ({ post, ...props }: PostProviderProps) => {
+  return <PostContext.Provider value={{ post }} {...props} />
 }
 
 export const usePost = PostContext.useValue

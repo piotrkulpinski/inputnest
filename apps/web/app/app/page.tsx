@@ -1,20 +1,16 @@
 import { db } from "@repo/database"
 import { redirect } from "next/navigation"
 import { config } from "~/config"
+import { auth } from "~/services/auth"
 
 export default async function Route() {
-  // TODO: Make sure to properly authenticate this
+  const session = await auth()
+  const userId = session?.user?.id
+
   const company = await db.company
     .findFirstOrThrow({
-      // where: { slug: params.company },
-      include: {
-        domain: true,
-        subscription: true,
-        members: {
-          where: { role: { in: ["Owner", "Manager"] } },
-          include: { user: true },
-        },
-      },
+      where: { members: { some: { userId, role: { in: ["Owner", "Manager"] } } } },
+      select: { slug: true },
     })
     .catch(() => redirect(config.routes.onboarding))
 

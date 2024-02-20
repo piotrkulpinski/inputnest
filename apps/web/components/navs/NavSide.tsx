@@ -1,13 +1,13 @@
 "use client"
 
 import { Accordion, Button, Shortcut, Sidebar } from "@curiousleaf/design"
-import { forwardRef, type ComponentPropsWithoutRef, type ElementRef } from "react"
+import { type ComponentPropsWithoutRef, type ElementRef, forwardRef } from "react"
 
-import { useMenu } from "~/hooks/useMenu"
 import { NavCompany } from "~/components/navs/NavCompany"
-import { NavUser } from "~/components/navs/NavUser"
-import { NavItem } from "./NavItem"
 import { NavNotifications } from "~/components/navs/NavNotifications"
+import { NavUser } from "~/components/navs/NavUser"
+import { useMenu } from "~/hooks/useMenu"
+import { NavItem } from "./NavItem"
 
 export const NavSide = forwardRef<
   ElementRef<typeof Sidebar>,

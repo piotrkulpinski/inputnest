@@ -1,6 +1,5 @@
 "use client"
 
-import { useClerk, useUser } from "@clerk/nextjs"
 import type { AvatarProps } from "@curiousleaf/design"
 import { Avatar } from "@curiousleaf/design"
 import {
@@ -19,15 +18,14 @@ import { config } from "~/config"
 import { useCrisp } from "~/hooks/useCrisp"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 
+import { signOut, useSession } from "next-auth/react"
 import { NavDropdown } from "./NavDropdown"
 import type { NavItemProps } from "./NavItem"
 import { NavItemButton } from "./NavItem"
 
 export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) => {
   const { handleSuccess } = useMutationHandler()
-  const { user, isSignedIn } = useUser()
-  const { redirectToUserProfile } = useClerk()
-  const { signOut } = useClerk()
+  const { data: session, status } = useSession()
   const [isLogoutLoading, setIsLogoutLoading] = useState(false)
   const { isLoading: isChatLoading, toggleChat } = useCrisp()
 
@@ -37,7 +35,7 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
   //   },
   // })
 
-  if (!isSignedIn) {
+  if (status !== "authenticated") {
     return null
   }
 
@@ -57,8 +55,8 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
 
     // Redirect with success message
     handleSuccess({
-      redirect: config.routes.dashboard,
-      success: "You have been logged out.",
+      redirect: config.routes.signIn,
+      success: "You have been successfully logged out.",
     })
   }
 
@@ -80,7 +78,7 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
       {
         title: "Profile",
         prefix: <UserIcon />,
-        onClick: redirectToUserProfile,
+        // onClick: redirectToUserProfile,
       },
     ],
     [
@@ -114,13 +112,13 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
   ]
 
   const getUserAvatar = ({ ...props }: AvatarProps) => {
-    return <Avatar src={user.imageUrl} initials={user.fullName || ""} {...props} />
+    return <Avatar src={session.user?.image || ""} initials={session.user?.name || ""} {...props} />
   }
 
   return (
     <NavDropdown navs={navs} align="start" {...props}>
       <NavItemButton
-        title={user.fullName || user.primaryEmailAddress?.emailAddress || ""}
+        title={session.user?.name || session.user?.email || ""}
         prefix={getUserAvatar({ size: "sm" })}
         suffix={<MoreHorizontalIcon />}
         className={className}

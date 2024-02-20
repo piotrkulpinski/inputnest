@@ -1,4 +1,3 @@
-import { ClerkProvider } from "@clerk/nextjs"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { headers } from "next/headers"
@@ -42,33 +41,9 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body
-        className={`${sansFont.variable} bg-gray-50 bg-[url('/pattern.svg')] bg-fixed bg-top bg-repeat-x font-sans`}
-      >
-        <ClerkProvider
-          appearance={{
-            layout: { socialButtonsVariant: "blockButton", shimmer: true },
-            variables: { colorPrimary: "black" },
-            elements: {
-              rootBox: "w-full h-full",
-              main: "gap-6",
-              card: "w-full m-0 p-0 gap-4 bg-transparent shadow-none",
-              header: "hidden",
-              logoBox: "hidden",
-              dividerLine: "bg-gray-200",
-              formButtonPrimary: "bg-black text-white font-medium text-sm py-3 px-6 normal-case",
-              formFieldLabel: "mb-1",
-              formFieldInput: "border",
-              footerActionText: "text-xs opacity-60",
-              footerActionLink: "text-xs underline focus:shadow-none",
-              socialButtonsBlockButton: "bg-white border tracking-wide hover:bg-gray-50",
-              socialButtonsBlockButton__google: "order-first",
-            },
-          }}
-        >
-          <TRPCProvider headers={headers()}>{children}</TRPCProvider>
-        </ClerkProvider>
+    <html lang="en" className={`${sansFont.variable} font-sans scroll-smooth`}>
+      <body className="bg-gray-50 bg-[url('/pattern.svg')] bg-fixed bg-top bg-repeat-x">
+        <TRPCProvider headers={headers()}>{children}</TRPCProvider>
       </body>
     </html>
   )

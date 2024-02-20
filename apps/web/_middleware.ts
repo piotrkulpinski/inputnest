@@ -17,7 +17,7 @@ export default authMiddleware({
     }
 
     const { pathname, searchParams } = nextUrl
-    const host = headers.get("host")!
+    const host = headers.get("host") || ""
 
     // Get the subdomain of the request (e.g. demo)
     const subdomain = getSubdomainFromHost(host)

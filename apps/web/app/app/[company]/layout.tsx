@@ -1,5 +1,5 @@
 import { Container } from "@curiousleaf/design"
-import { db } from "@repo/database"
+import { companyInclude, db } from "@repo/database"
 import { notFound } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
@@ -8,22 +8,19 @@ import { Toaster } from "~/components/globals/Toaster"
 import { NavBar } from "~/components/navs/NavBar"
 import { NavSide } from "~/components/navs/NavSide"
 import { CompanyProvider } from "~/providers/CompanyProvider"
+import { auth } from "~/services/auth"
 
 type CompanyLayoutProps = PropsWithChildren<{ params: { company: string } }>
 
 export default async function CompanyLayout({ children, params }: CompanyLayoutProps) {
-  // TODO: Make sure to properly authenticate this
+  const session = await auth()
+  const userId = session?.user?.id
+  const slug = params.company
+
   const company = await db.company
     .findFirstOrThrow({
-      where: { slug: params.company },
-      include: {
-        domain: true,
-        subscription: true,
-        members: {
-          where: { role: { in: ["Owner", "Manager"] } },
-          include: { user: true },
-        },
-      },
+      where: { slug, members: { some: { userId, role: { in: ["Owner", "Manager"] } } } },
+      include: companyInclude,
     })
     .catch(() => notFound())
 

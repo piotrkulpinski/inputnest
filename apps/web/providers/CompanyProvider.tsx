@@ -1,5 +1,6 @@
 "use client"
 
+import { CompanyWithMembers } from "@repo/database"
 import type { PropsWithChildren } from "react"
 
 import type { RouterOutputs } from "~/services/trpc"
@@ -7,14 +8,14 @@ import { createSimpleContext } from "~/utils/providers"
 
 type Company = NonNullable<RouterOutputs["companies"]["getBySlug"]>
 
-const CompanyContext = createSimpleContext<Company>("Company")
+const CompanyContext = createSimpleContext<CompanyWithMembers>("Company")
 
 type CompanyProviderProps = PropsWithChildren<{
-  company: Company
+  company: CompanyWithMembers
 }>
 
-export const CompanyProvider = ({ children, company }: CompanyProviderProps) => {
-  return <CompanyContext.Provider value={company}>{children}</CompanyContext.Provider>
+export const CompanyProvider = ({ company, ...props }: CompanyProviderProps) => {
+  return <CompanyContext.Provider value={company} {...props} />
 }
 
 export const useCompany = CompanyContext.useValue

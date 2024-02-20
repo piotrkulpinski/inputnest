@@ -1,15 +1,15 @@
 "use client"
 
-import { useUser } from "@clerk/nextjs"
 import { publishEscape } from "@curiousleaf/utils"
 import { Crisp } from "crisp-sdk-web"
+import { useSession } from "next-auth/react"
 import type { MouseEventHandler } from "react"
 import { useEffect, useState } from "react"
 
 import { env } from "~/env"
 
 export const useCrisp = () => {
-  const { user } = useUser()
+  const { data: session } = useSession()
   const [isLoading, setIsLoading] = useState(false)
 
   // Initialize Crisp and set event listeners
@@ -34,12 +34,12 @@ export const useCrisp = () => {
 
   // Set Crisp user data
   useEffect(() => {
-    if (user) {
-      Crisp.user.setEmail(user.primaryEmailAddress?.emailAddress ?? "")
-      Crisp.user.setAvatar(user.imageUrl)
-      Crisp.user.setNickname(user.fullName ?? "")
+    if (session?.user) {
+      Crisp.user.setEmail(session.user.email ?? "")
+      Crisp.user.setAvatar(session.user.image ?? "")
+      Crisp.user.setNickname(session.user.name ?? "")
     }
-  }, [user])
+  }, [session])
 
   const toggleChat: MouseEventHandler = e => {
     if (!Crisp.isCrispInjected()) {

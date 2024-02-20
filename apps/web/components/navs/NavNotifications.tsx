@@ -1,6 +1,5 @@
 "use client"
 
-import { useUser } from "@clerk/nextjs"
 import {
   Badge,
   Button,
@@ -12,8 +11,9 @@ import {
   Prose,
   cx,
 } from "@curiousleaf/design"
-import { isRequestInFlight, NetworkStatus } from "@knocklabs/client"
+import { NetworkStatus, isRequestInFlight } from "@knocklabs/client"
 import { BellIcon, CheckCheckIcon } from "lucide-react"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
 import type { HTMLAttributes } from "react"
 
@@ -117,18 +117,18 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
 }
 
 export const NavNotifications = (props: HTMLAttributes<HTMLElement>) => {
-  const { user, isSignedIn, isLoaded } = useUser()
+  const { data: session, status } = useSession()
 
-  if (!isLoaded) {
+  if (status === "loading") {
     return <NavNotificationsSkeleton />
   }
 
-  if (!isSignedIn) {
+  if (status !== "authenticated" || !session.user?.id) {
     return null
   }
 
   return (
-    <NotificationsProvider userId={user.id}>
+    <NotificationsProvider userId={session.user.id}>
       <NavNotificationsDropdown {...props} />
     </NotificationsProvider>
   )
