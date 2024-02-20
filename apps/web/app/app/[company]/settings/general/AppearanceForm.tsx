@@ -2,12 +2,11 @@
 
 import { Card, Header } from "@curiousleaf/design"
 import { Theme } from "@repo/database"
+import Image from "next/image"
 import type { HTMLAttributes } from "react"
 import { Form } from "~/components/form/Form"
 
-import { config } from "~/config"
 import { useSettings } from "~/providers/SettingsProvider"
-import { getImage } from "~/utils/images"
 
 export const AppearanceForm = (props: HTMLAttributes<HTMLElement>) => {
   const { form, onSubmit, isLoading } = useSettings()
@@ -32,8 +31,8 @@ export const AppearanceForm = (props: HTMLAttributes<HTMLElement>) => {
               label="Logo"
               hint="Displayed in the header of your website. Recommended size: 96x96px."
             >
-              <Form.Uploader folder={id} fileSizeLimit={config.fileLimitSm}>
-                {logo && <img src={getImage({ image: logo, height: 48 })} alt="" className="h-5" />}
+              <Form.Uploader folder={id}>
+                {logo && <Image src={logo} alt="" width={48} height={48} className="h-6 w-auto" />}
               </Form.Uploader>
             </Form.Field>
 

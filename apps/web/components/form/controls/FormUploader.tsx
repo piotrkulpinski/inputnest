@@ -4,16 +4,13 @@ import { forwardRef, useState } from "react"
 import { useFormContext } from "react-hook-form"
 
 import { useFieldContext } from "~/providers/FieldProvider"
-import { uploadImage } from "~/utils/images"
+import { UploadImageProps, uploadImage } from "~/utils/images"
 
-export type FormUploaderProps = Omit<UploaderProps, "label" | "onChange" | "onClear"> & {
-  folder: string
-  accept?: string[]
-  fileSizeLimit: number
-}
+export type FormUploaderProps = Omit<UploaderProps, "label" | "onChange" | "onClear"> &
+  Omit<UploadImageProps, "file">
 
 export const FormUploader = forwardRef<UploaderElement, FormUploaderProps>((props, ref) => {
-  const { folder, fileSizeLimit, ...rest } = props
+  const { folder, ...rest } = props
 
   const [loading, setLoading] = useState<boolean>(false)
   const { setError, clearErrors, watch } = useFormContext()
@@ -24,13 +21,19 @@ export const FormUploader = forwardRef<UploaderElement, FormUploaderProps>((prop
     clearErrors(field.name)
     setLoading(true)
 
-    await uploadImage({ file, folder, fileSizeLimit })
-      // Set the image
-      .then(image => field.onChange(image.public_id))
+    try {
+      await uploadImage({ file, folder }).then(({ url }) => {
+        field.onChange(url.split("?")[0])
+      })
+    } catch (e) {
+      console.error(e)
+
       // Set the error
-      .catch(error => setError(field.name, { type: "custom", message: getErrorMessage(error) }))
+      setError(field.name, { type: "custom", message: getErrorMessage(e) })
+    } finally {
       // Set loading to false
-      .finally(() => setLoading(false))
+      setLoading(false)
+    }
   }
 
   const onClear = () => {

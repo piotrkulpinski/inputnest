@@ -4,7 +4,6 @@ import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
 import { useCompany } from "~/providers/CompanyProvider"
-import { getImage } from "~/utils/images"
 
 type UserAvatarProps = ComponentPropsWithoutRef<typeof Avatar> & {
   user: User
@@ -15,12 +14,11 @@ export const UserAvatar = forwardRef<ElementRef<typeof Avatar>, UserAvatarProps>
   const { user, ...rest } = props
 
   const isMember = members.some(({ userId }) => userId === user.id)
-  const src = getImage({ image: user.image, width: 96, height: 96 })
 
   return (
     <Avatar
       ref={ref}
-      src={src}
+      src={user.image || ""}
       initials={user.name || ""}
       bottomStatus={
         isMember && (
