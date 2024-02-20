@@ -14,7 +14,7 @@ import { ZodError } from "zod"
  *
  */
 type CreateContextOptions = {
-  userId: string | null
+  userId?: string
 }
 
 /**

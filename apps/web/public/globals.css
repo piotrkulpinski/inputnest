@@ -26,11 +26,6 @@ svg[stroke="currentColor"]:not([class*="size"]) {
   @apply size-icon;
 }
 
-/* Clerk */
-div[class^="cl-internal"]:last-child {
-  display: none;
-}
-
 /* Scroll Margin */
 * {
   @apply scroll-mt-16;
