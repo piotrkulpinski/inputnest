@@ -7,12 +7,12 @@ import type { HTMLAttributes, ReactNode } from "react"
 import { Logo } from "~/components/interface/Logo"
 import { config } from "~/config"
 
-type AuthLayoutProps = HTMLAttributes<HTMLDivElement> & {
+type BasicLayoutProps = HTMLAttributes<HTMLDivElement> & {
   title: ReactNode
-  subtitle?: ReactNode
+  description?: ReactNode
 }
 
-export const AuthLayout = ({ children, title, subtitle }: AuthLayoutProps) => {
+export const BasicLayout = ({ children, title, description }: BasicLayoutProps) => {
   return (
     <Card className="fixed left-1/2 top-[10vh] max-h-[calc(90vh-2rem)] w-[calc(100vw-2rem)] max-w-sm -translate-x-1/2 overflow-y-auto">
       <Card.Panel className="flex flex-col items-start gap-3">
@@ -22,9 +22,9 @@ export const AuthLayout = ({ children, title, subtitle }: AuthLayoutProps) => {
 
         <H3 className="mt-5">{title}</H3>
 
-        {!!subtitle && (
+        {!!description && (
           <Paragraph size="sm" className="opacity-60">
-            {subtitle}
+            {description}
           </Paragraph>
         )}
       </Card.Panel>
