@@ -11,7 +11,7 @@ export const PostItemContent = ({ ...props }: HTMLAttributes<HTMLElement>) => {
   const { post } = usePost()
 
   return (
-    <Card.Row theme="white" direction="column" className="md:min-h-[7.5rem]" {...props}>
+    <Card.Row theme="white" direction="column" className="md:min-h-[10rem]" {...props}>
       {post.content && <Markdown size="md" content={post.content} className="max-w-none" />}
 
       <Series className="mt-2 text-sm">
