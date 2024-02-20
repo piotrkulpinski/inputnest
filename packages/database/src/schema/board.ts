@@ -2,18 +2,11 @@ import * as z from "zod"
 
 import { idSchema, slugSchema } from "./index"
 
-export const boardDefaults = {
-  name: "",
-  slug: "",
-  order: 99,
-  isDefault: false,
-}
-
 export const boardSchema = z.object({
   name: z.string().trim().min(3),
   slug: slugSchema.min(3),
-  order: z.coerce.number().int().min(0),
-  isDefault: z.coerce.boolean(),
+  order: z.coerce.number().int().min(0).default(99),
+  isDefault: z.coerce.boolean().default(false),
 })
 
 export const boardRelationSchema = z.object({

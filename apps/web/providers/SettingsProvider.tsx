@@ -29,7 +29,7 @@ export const SettingsProvider = ({ children }: PropsWithChildren) => {
     values: company,
   })
 
-  const { mutate: updateSettings, isLoading } = api.companies.update.useMutation({
+  const { mutate: updateCompany, isLoading } = api.companies.update.useMutation({
     onSuccess: async ({ slug }) => {
       handleSuccess({
         refresh: company.slug === slug,
@@ -46,7 +46,7 @@ export const SettingsProvider = ({ children }: PropsWithChildren) => {
   })
 
   const onSubmit = form.handleSubmit(data => {
-    updateSettings(data)
+    updateCompany(data)
   })
 
   return (
