@@ -1,7 +1,7 @@
-import { BrainIcon } from "lucide-react"
+import Image from "next/image"
 import { redirect } from "next/navigation"
-import { AuthButton } from "~/components/auth/AuthButton"
-import { AuthLayout } from "~/components/auth/AuthLayout"
+import { SignInButton } from "~/app/auth/signin/SignInButton"
+import { BasicLayout } from "~/components/layouts/BasicLayout"
 import { config } from "~/config"
 import { auth } from "~/services/auth"
 
@@ -13,13 +13,17 @@ export default async function SignInPage() {
   }
 
   return (
-    <AuthLayout
+    <BasicLayout
       title="Sign in to your account"
-      subtitle="An UserPledge account is all you need to start collecting customer feedback."
+      description="An UserPledge account is all you need to start collecting customer feedback."
     >
       <div className="flex flex-col gap-4">
-        <AuthButton provider="google" variant="solid" prefix={<BrainIcon />} />
+        <SignInButton
+          provider="google"
+          variant="solid"
+          prefix={<Image src="/google.svg" alt="" width={20} height={20} unoptimized />}
+        />
       </div>
-    </AuthLayout>
+    </BasicLayout>
   )
 }
