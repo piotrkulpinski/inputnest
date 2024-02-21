@@ -14,10 +14,10 @@ export const GeneralForm = (props: HTMLAttributes<HTMLElement>) => {
     <Card asChild {...props}>
       <Form onSubmit={onSubmit}>
         <Card.Section>
-          <Header title="General" description="View and update your company details." />
+          <Header title="General" description="View and update your workspace details." />
 
           <Form.Fieldset>
-            <Form.Field control={form.control} name="name" label="Company Name" required>
+            <Form.Field control={form.control} name="name" label="Workspace Name" required>
               <Form.Input data-1p-ignore className="max-w-lg" />
             </Form.Field>
 
@@ -25,7 +25,7 @@ export const GeneralForm = (props: HTMLAttributes<HTMLElement>) => {
               control={form.control}
               name="slug"
               label="Subdomain"
-              hint="Your company is visible at this address."
+              hint="Your workspace is visible at this address."
               required
             >
               <Form.Affix suffix={getTenantHost()} className="max-w-sm">

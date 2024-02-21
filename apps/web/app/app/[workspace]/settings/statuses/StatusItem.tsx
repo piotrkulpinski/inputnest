@@ -1,12 +1,12 @@
-import { H5, cx, Button, Dialog, Card, Action, Draggable, Series } from "@curiousleaf/design"
+import { Action, Button, Card, Dialog, Draggable, H5, Series, cx } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
-import { StatusForm } from "~/app/app/[company]/settings/statuses/StatusForm"
+import { StatusForm } from "~/app/app/[workspace]/settings/statuses/StatusForm"
 import { DialogConfirm } from "~/components/dialogs/DialogConfirm"
 import { Status } from "~/components/interface/Status"
-import { useCompany } from "~/providers/CompanyProvider"
 import { useSortable } from "~/providers/SortableProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
@@ -16,19 +16,19 @@ type StatusItemProps = ComponentPropsWithoutRef<typeof Card> & {
 
 export const StatusItem = ({ status, ...props }: StatusItemProps) => {
   const apiUtils = api.useUtils()
-  const { id: companyId } = useCompany()
+  const { id: workspaceId } = useWorkspace()
   const { attributes, listeners, isDragging, ref, style } = useSortable({ id: status.id })
 
   const deleteStatus = api.statuses.delete.useMutation({
     onSuccess: async () => {
-      await apiUtils.statuses.getAll.invalidate({ companyId })
+      await apiUtils.statuses.getAll.invalidate({ workspaceId })
       toast.success("Status deleted successfully")
     },
   })
 
   const defaultStatus = api.statuses.makeDefault.useMutation({
     onSuccess: async () => {
-      await apiUtils.statuses.getAll.invalidate({ companyId })
+      await apiUtils.statuses.getAll.invalidate({ workspaceId })
       toast.success("Default status updated successfully")
     },
   })

@@ -19,7 +19,7 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>((props, ref) => {
         {child => (
           <>
             <svg
-              xmlns="http://www.w3.company/2000/svg"
+              xmlns="http://www.w3.workspace/2000/svg"
               width="24"
               height="24"
               viewBox="0 0 24 24"

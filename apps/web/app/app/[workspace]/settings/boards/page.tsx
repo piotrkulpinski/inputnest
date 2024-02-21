@@ -4,31 +4,31 @@ import { Button, Card, Dialog, Header, Paragraph, Series } from "@curiousleaf/de
 import { PlusIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 
-import { BoardForm } from "~/app/app/[company]/settings/boards/BoardForm"
-import { BoardItem } from "~/app/app/[company]/settings/boards/BoardItem"
+import { BoardForm } from "~/app/app/[workspace]/settings/boards/BoardForm"
+import { BoardItem } from "~/app/app/[workspace]/settings/boards/BoardItem"
 import { Skeleton } from "~/components/interface/Skeleton"
 import { HeadingCounter } from "~/components/utils/HeadingCounter"
 import { QueryCell } from "~/components/utils/QueryCell"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/CompanyProvider"
 import { SortableProvider } from "~/providers/SortableProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
 export default function Route() {
   const apiUtils = api.useUtils()
-  const { id: companyId } = useCompany()
+  const { id: workspaceId } = useWorkspace()
   const { handleSuccess } = useMutationHandler()
   const [boards, setBoards] = useState<RouterOutputs["boards"]["getAll"]>([])
 
-  const boardsQuery = api.boards.getAll.useQuery({ companyId })
+  const boardsQuery = api.boards.getAll.useQuery({ workspaceId })
 
   const { mutate: reorderBoards } = api.boards.reorder.useMutation({
     onSuccess: async () => {
       handleSuccess({ success: "Boards reordered successfully" })
 
       // Invalidate the boards cache
-      await apiUtils.boards.getAll.invalidate({ companyId })
+      await apiUtils.boards.getAll.invalidate({ workspaceId })
     },
   })
 
@@ -72,7 +72,9 @@ export default function Route() {
               <Paragraph className="text-red">There was an error loading the boards.</Paragraph>
             )}
             empty={() => (
-              <Paragraph className="text-gray-600">No boards added for this company yet.</Paragraph>
+              <Paragraph className="text-gray-600">
+                No boards added for this workspace yet.
+              </Paragraph>
             )}
             success={() => (
               <SortableProvider items={boards.map(({ id }) => id)} onDragEnd={move}>

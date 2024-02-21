@@ -9,7 +9,7 @@ generator client {
   previewFeatures = ["fullTextSearch"]
 }
 
-enum CompanyMemberRole {
+enum WorkspaceMemberRole {
   Owner
   Manager
   Contributor
@@ -66,12 +66,12 @@ model User {
   updatedAt     DateTime  @updatedAt
 
   // Relations
-  accounts  Account[]
-  sessions  Session[]
-  companies CompanyMember[]
-  comments  Comment[]
-  votes     Vote[]
-  posts     Post[]
+  accounts   Account[]
+  sessions   Session[]
+  workspaces WorkspaceMember[]
+  comments   Comment[]
+  votes      Vote[]
+  posts      Post[]
 }
 
 model VerificationToken {
@@ -83,7 +83,7 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Company {
+model Workspace {
   id         String   @id @default(cuid())
   name       String
   slug       String   @unique
@@ -94,7 +94,7 @@ model Company {
   updatedAt  DateTime @updatedAt
 
   // Relations
-  members      CompanyMember[]
+  members      WorkspaceMember[]
   domain       Domain?
   subscription Subscription?
   boards       Board[]
@@ -103,17 +103,17 @@ model Company {
   statuses     Status[]
 }
 
-model CompanyMember {
-  role CompanyMemberRole @default(Contributor)
+model WorkspaceMember {
+  role WorkspaceMemberRole @default(Contributor)
 
   // Relations
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspaceId String
 
   // Indexes
-  @@id([userId, companyId])
+  @@id([userId, workspaceId])
 }
 
 model Subscription {
@@ -125,8 +125,8 @@ model Subscription {
   cancelAtPeriodEnd  Boolean @default(false)
 
   // Relations
-  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId String  @unique
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspaceId String    @unique
 }
 
 model Domain {
@@ -136,8 +136,8 @@ model Domain {
   updatedAt DateTime @updatedAt
 
   // Relations
-  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId String  @unique
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspaceId String    @unique
 }
 
 model Board {
@@ -150,12 +150,12 @@ model Board {
   updatedAt DateTime @updatedAt
 
   // Relations
-  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId String
-  posts     Post[]
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspaceId String
+  posts       Post[]
 
   // Indexes
-  @@unique([companyId, slug])
+  @@unique([workspaceId, slug])
 }
 
 model Status {
@@ -168,9 +168,9 @@ model Status {
   updatedAt DateTime @updatedAt
 
   // Relations
-  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId String
-  posts     Post[]
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspaceId String
+  posts       Post[]
 }
 
 model Tag {
@@ -182,9 +182,9 @@ model Tag {
   updatedAt DateTime @updatedAt
 
   // Relations
-  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId String
-  posts     Post[]
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspaceId String
+  posts       Post[]
 }
 
 model Post {
@@ -195,17 +195,17 @@ model Post {
   updatedAt DateTime @updatedAt
 
   // Relations
-  author    User?     @relation(fields: [authorId], references: [id], onDelete: SetNull)
-  authorId  String?
-  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId String
-  board     Board     @relation(fields: [boardId], references: [id])
-  boardId   String
-  status    Status    @relation(fields: [statusId], references: [id])
-  statusId  String
-  tags      Tag[]
-  comments  Comment[]
-  votes     Vote[]
+  author      User?     @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  authorId    String?
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspaceId String
+  board       Board     @relation(fields: [boardId], references: [id])
+  boardId     String
+  status      Status    @relation(fields: [statusId], references: [id])
+  statusId    String
+  tags        Tag[]
+  comments    Comment[]
+  votes       Vote[]
 }
 
 model Comment {

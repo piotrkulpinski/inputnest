@@ -6,7 +6,7 @@ import type { PostSchema } from "@repo/database"
 import { postSchema } from "@repo/database"
 import { ArrowLeftIcon } from "lucide-react"
 import Link from "next/link"
-import { useEffect, type HTMLAttributes } from "react"
+import { type HTMLAttributes, useEffect } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
 import { Form } from "~/components/form/Form"
@@ -14,19 +14,19 @@ import { Status } from "~/components/interface/Status"
 import { VotesList } from "~/components/votes/VotesList"
 import { VotesSkeleton } from "~/components/votes/VotesSkeleton"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/CompanyProvider"
 import { usePost } from "~/providers/PostProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import { api } from "~/services/trpc"
 
 export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElement>) => {
   const apiUtils = api.useUtils()
   const { handleError } = useMutationHandler()
   const { post } = usePost()
-  const { id: companyId } = useCompany()
+  const { id: workspaceId } = useWorkspace()
 
   const [boards, statuses, votes] = api.useQueries(t => [
-    t.boards.getAll({ companyId }),
-    t.statuses.getAll({ companyId }),
+    t.boards.getAll({ workspaceId }),
+    t.statuses.getAll({ workspaceId }),
     t.votes.getAll({ postId: post.id }),
   ])
 

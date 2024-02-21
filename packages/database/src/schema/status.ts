@@ -10,7 +10,7 @@ export const statusSchema = z.object({
 })
 
 export const statusRelationSchema = z.object({
-  companyId: z.string(),
+  workspaceId: z.string(),
 })
 
 export const createStatusSchema = statusSchema.merge(statusRelationSchema)

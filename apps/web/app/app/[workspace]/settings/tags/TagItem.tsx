@@ -2,11 +2,11 @@ import { Button, Card, Dialog, Draggable, H5, Series } from "@curiousleaf/design
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
-import { TagForm } from "~/app/app/[company]/settings/tags/TagForm"
+import { TagForm } from "~/app/app/[workspace]/settings/tags/TagForm"
 import { DialogConfirm } from "~/components/dialogs/DialogConfirm"
 import { Status } from "~/components/interface/Status"
-import { useCompany } from "~/providers/CompanyProvider"
 import { useSortable } from "~/providers/SortableProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
@@ -16,12 +16,12 @@ type TagItemProps = ComponentPropsWithoutRef<typeof Card> & {
 
 export const TagItem = ({ tag, ...props }: TagItemProps) => {
   const apiUtils = api.useUtils()
-  const { id: companyId } = useCompany()
+  const { id: workspaceId } = useWorkspace()
   const { attributes, listeners, isDragging, ref, style } = useSortable({ id: tag.id })
 
   const deleteTag = api.tags.delete.useMutation({
     onSuccess: async () => {
-      await apiUtils.tags.getAll.invalidate({ companyId })
+      await apiUtils.tags.getAll.invalidate({ workspaceId })
       toast.success("Tag deleted successfully")
     },
   })

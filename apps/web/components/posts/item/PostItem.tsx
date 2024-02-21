@@ -9,8 +9,8 @@ import { PostItemContent } from "~/components/posts/item/PostItemContent"
 import { PostItemHead } from "~/components/posts/item/PostItemHead"
 import { PostItemSidebar } from "~/components/posts/item/PostItemSidebar"
 import { QueryCell } from "~/components/utils/QueryCell"
-import { useCompany } from "~/providers/CompanyProvider"
 import { PostProvider } from "~/providers/PostProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import { api } from "~/services/trpc"
 
 type PostItemProps = HTMLAttributes<HTMLElement> & {
@@ -18,8 +18,8 @@ type PostItemProps = HTMLAttributes<HTMLElement> & {
 }
 
 export const PostItem = ({ id, ...props }: PostItemProps) => {
-  const { id: companyId } = useCompany()
-  const postQuery = api.posts.get.useQuery({ id, companyId }, { enabled: !!id })
+  const { id: workspaceId } = useWorkspace()
+  const postQuery = api.posts.get.useQuery({ id, workspaceId }, { enabled: !!id })
 
   return (
     <QueryCell

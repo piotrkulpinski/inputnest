@@ -9,18 +9,18 @@ import { getDefaults } from "~/utils/zod"
 
 import { Status } from "~/components/interface/Status"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/CompanyProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import { api } from "~/services/trpc"
 
 export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFormElement>>(
   ({ ...props }, ref) => {
     const apiUtils = api.useUtils()
     const { handleSuccess, handleError } = useMutationHandler()
-    const { id: companyId } = useCompany()
+    const { id: workspaceId } = useWorkspace()
 
     const [boards, statuses] = api.useQueries(t => [
-      t.boards.getAll({ companyId }),
-      t.statuses.getAll({ companyId }),
+      t.boards.getAll({ workspaceId }),
+      t.statuses.getAll({ workspaceId }),
     ])
 
     const form = useForm<PostSchema>({
@@ -48,7 +48,7 @@ export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFor
 
     // Handle the form submission
     const onSubmit = async (data: PostSchema) => {
-      return createPost({ ...data, companyId })
+      return createPost({ ...data, workspaceId })
     }
 
     return (

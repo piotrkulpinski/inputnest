@@ -2,7 +2,7 @@ import { usePathname } from "next/navigation"
 import { useMemo } from "react"
 
 import { NavItemProps } from "~/components/navs/NavItem"
-import { useCompany } from "~/providers/CompanyProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 
 import { Badge } from "@curiousleaf/design"
 import {
@@ -22,7 +22,7 @@ export type Menu = {
 
 export const useMenu = () => {
   const pathname = usePathname()
-  const { slug } = useCompany()
+  const { slug } = useWorkspace()
 
   const menus: Menu[] = [
     {

@@ -3,17 +3,17 @@
 import { Button, Card, Dialog, Header, Paragraph, Series } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
 
-import { PostItem } from "~/app/app/[company]/posts/PostItem"
+import { PostItem } from "~/app/app/[workspace]/posts/PostItem"
 import { Skeleton } from "~/components/interface/Skeleton"
 import { PostCreateForm } from "~/components/posts/forms/PostCreateForm"
 import { HeadingCounter } from "~/components/utils/HeadingCounter"
 import { QueryCell } from "~/components/utils/QueryCell"
-import { useCompany } from "~/providers/CompanyProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import { api } from "~/services/trpc"
 
 export default function Route() {
-  const { id: companyId } = useCompany()
-  const postsQuery = api.posts.getAll.useQuery({ companyId })
+  const { id: workspaceId } = useWorkspace()
+  const postsQuery = api.posts.getAll.useQuery({ workspaceId })
 
   return (
     <Card>
@@ -43,7 +43,9 @@ export default function Route() {
               <Paragraph className="text-red">There was an error loading the posts.</Paragraph>
             )}
             empty={() => (
-              <Paragraph className="text-gray-600">No posts added for this company yet.</Paragraph>
+              <Paragraph className="text-gray-600">
+                No posts added for this workspace yet.
+              </Paragraph>
             )}
             success={({ data }) => (
               <>

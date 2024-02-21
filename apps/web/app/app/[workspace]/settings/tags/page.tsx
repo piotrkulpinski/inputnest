@@ -2,33 +2,33 @@
 
 import { Button, Card, Dialog, Header, Paragraph, Series } from "@curiousleaf/design"
 import { PlusIcon } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 
-import { TagForm } from "~/app/app/[company]/settings/tags/TagForm"
-import { TagItem } from "~/app/app/[company]/settings/tags/TagItem"
+import { TagForm } from "~/app/app/[workspace]/settings/tags/TagForm"
+import { TagItem } from "~/app/app/[workspace]/settings/tags/TagItem"
 import { Skeleton } from "~/components/interface/Skeleton"
 import { HeadingCounter } from "~/components/utils/HeadingCounter"
 import { QueryCell } from "~/components/utils/QueryCell"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/CompanyProvider"
 import { SortableProvider } from "~/providers/SortableProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
 export default function Route() {
   const apiUtils = api.useUtils()
-  const { id: companyId } = useCompany()
+  const { id: workspaceId } = useWorkspace()
   const { handleSuccess } = useMutationHandler()
   const [tags, setTags] = useState<RouterOutputs["tags"]["getAll"]>([])
 
-  const tagsQuery = api.tags.getAll.useQuery({ companyId })
+  const tagsQuery = api.tags.getAll.useQuery({ workspaceId })
 
   const { mutate: reorderTags } = api.tags.reorder.useMutation({
     onSuccess: async () => {
       handleSuccess({ success: "Tags reordered successfully" })
 
       // Invalidate the tags cache
-      await apiUtils.tags.getAll.invalidate({ companyId })
+      await apiUtils.tags.getAll.invalidate({ workspaceId })
     },
   })
 
@@ -72,7 +72,7 @@ export default function Route() {
               <Paragraph className="text-red">There was an error loading the tags.</Paragraph>
             )}
             empty={() => (
-              <Paragraph className="text-gray-600">No tags added for this company yet.</Paragraph>
+              <Paragraph className="text-gray-600">No tags added for this workspace yet.</Paragraph>
             )}
             success={() => (
               <SortableProvider items={tags.map(({ id }) => id)} onDragEnd={move}>

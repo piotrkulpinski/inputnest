@@ -1,8 +1,4 @@
 export const contentConfig = {
-  defaultCompany: {
-    color: "#0051FF",
-  },
-
   defaultBoards: [
     { name: "Feature Requests", slug: "feature-requests", isDefault: true }, //
   ],

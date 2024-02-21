@@ -7,12 +7,12 @@ export default async function Route() {
   const session = await auth()
   const userId = session?.user?.id
 
-  const company = await db.company
+  const workspace = await db.workspace
     .findFirstOrThrow({
       where: { members: { some: { userId, role: { in: ["Owner", "Manager"] } } } },
       select: { slug: true },
     })
     .catch(() => redirect(config.routes.onboarding))
 
-  redirect(config.routes.dashboard + company.slug)
+  redirect(config.routes.dashboard + workspace.slug)
 }

@@ -3,14 +3,14 @@ import { User } from "next-auth"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
-import { useCompany } from "~/providers/CompanyProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 
 type UserAvatarProps = ComponentPropsWithoutRef<typeof Avatar> & {
   user: User
 }
 
 export const UserAvatar = forwardRef<ElementRef<typeof Avatar>, UserAvatarProps>((props, ref) => {
-  const { members } = useCompany()
+  const { members } = useWorkspace()
   const { user, ...rest } = props
 
   const isMember = members.some(({ userId }) => userId === user.id)

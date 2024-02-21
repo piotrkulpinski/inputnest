@@ -7,7 +7,7 @@ import { FormProvider, useForm } from "react-hook-form"
 import { Form } from "~/components/form/Form"
 
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/CompanyProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 import { getDefaults } from "~/utils/zod"
@@ -19,7 +19,7 @@ type StatusFormProps = HTMLAttributes<HTMLFormElement> & {
 export const StatusForm = ({ status, ...props }: StatusFormProps) => {
   const apiUtils = api.useUtils()
   const { handleSuccess } = useMutationHandler()
-  const { id: companyId } = useCompany()
+  const { id: workspaceId } = useWorkspace()
   const isEditing = !!status
 
   const form = useForm<StatusSchema>({
@@ -34,8 +34,8 @@ export const StatusForm = ({ status, ...props }: StatusFormProps) => {
     })
 
     // Invalidate the statuses cache
-    await apiUtils.statuses.getAll.invalidate({ companyId })
-    await apiUtils.statuses.get.invalidate({ id: status?.id, companyId })
+    await apiUtils.statuses.getAll.invalidate({ workspaceId })
+    await apiUtils.statuses.get.invalidate({ id: status?.id, workspaceId })
 
     // Reset the form
     form.reset()
@@ -51,7 +51,7 @@ export const StatusForm = ({ status, ...props }: StatusFormProps) => {
       return updateStatus.mutate({ ...data, id: status.id })
     }
 
-    return createStatus.mutate({ ...data, companyId })
+    return createStatus.mutate({ ...data, workspaceId })
   }
 
   return (

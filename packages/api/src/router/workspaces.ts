@@ -1,18 +1,18 @@
 import {
-  CompanyMemberRole,
-  companySchema,
-  createCompanySchema,
+  WorkspaceMemberRole,
+  createWorkspaceSchema,
   idSchema,
-  updateCompanySchema,
+  updateWorkspaceSchema,
+  workspaceSchema,
 } from "@repo/database"
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc"
 
-export const companiesRouter = createTRPCRouter({
+export const workspacesRouter = createTRPCRouter({
   getBySlug: publicProcedure
-    .input(companySchema.pick({ slug: true }))
+    .input(workspaceSchema.pick({ slug: true }))
     .query(async ({ ctx: { db }, input: { slug } }) => {
-      return await db.company.findFirst({
+      return await db.workspace.findFirst({
         where: { slug },
         include: {
           domain: true,
@@ -26,7 +26,7 @@ export const companiesRouter = createTRPCRouter({
     }),
 
   getAll: protectedProcedure.query(async ({ ctx: { db, userId } }) => {
-    return await db.company.findMany({
+    return await db.workspace.findMany({
       where: { members: { some: { userId } } },
       include: { domain: true, subscription: true },
       orderBy: { createdAt: "asc" },
@@ -34,53 +34,53 @@ export const companiesRouter = createTRPCRouter({
   }),
 
   create: protectedProcedure
-    .input(createCompanySchema)
+    .input(createWorkspaceSchema)
     .mutation(async ({ ctx: { db, userId }, input }) => {
-      const company = await db.company.create({
+      const workspace = await db.workspace.create({
         data: {
           ...input,
           members: {
             create: {
               userId,
-              role: CompanyMemberRole.Owner,
+              role: WorkspaceMemberRole.Owner,
             },
           },
         },
       })
 
       // await inngest.send({
-      //   name: "company.created",
-      //   data: company,
+      //   name: "workspace.created",
+      //   data: workspace,
       // })
 
-      return company
+      return workspace
     }),
 
   update: protectedProcedure
-    .input(updateCompanySchema)
+    .input(updateWorkspaceSchema)
     .mutation(async ({ ctx: { db, userId }, input }) => {
       const { id, ...data } = input
 
-      const company = await db.company.update({
+      const workspace = await db.workspace.update({
         where: { id, members: { some: { userId } } },
         data,
       })
 
-      return company
+      return workspace
     }),
 
   delete: protectedProcedure.input(idSchema).mutation(async ({ ctx: { db, userId }, input }) => {
     const { id } = input
 
-    const company = await db.company.delete({
+    const workspace = await db.workspace.delete({
       where: { id, members: { some: { userId } } },
     })
 
     // await inngest.send({
-    //   name: "company.deleted",
-    //   data: company,
+    //   name: "workspace.deleted",
+    //   data: workspace,
     // })
 
-    return company
+    return workspace
   }),
 })

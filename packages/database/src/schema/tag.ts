@@ -9,7 +9,7 @@ export const tagSchema = z.object({
 })
 
 export const tagRelationSchema = z.object({
-  companyId: z.string(),
+  workspaceId: z.string(),
 })
 
 export const createTagSchema = tagSchema.merge(tagRelationSchema)

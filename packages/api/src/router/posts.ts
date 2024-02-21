@@ -1,13 +1,13 @@
-import { postRelationSchema, idSchema, createPostSchema, updatePostSchema } from "@repo/database"
+import { createPostSchema, idSchema, postRelationSchema, updatePostSchema } from "@repo/database"
 
 import { createTRPCRouter, protectedProcedure } from "../trpc"
 
 export const postsRouter = createTRPCRouter({
   getAll: protectedProcedure
     .input(postRelationSchema)
-    .query(async ({ ctx: { db, userId }, input: { companyId } }) => {
+    .query(async ({ ctx: { db, userId }, input: { workspaceId } }) => {
       return await db.post.findMany({
-        where: { company: { id: companyId, members: { some: { userId } } } },
+        where: { workspace: { id: workspaceId, members: { some: { userId } } } },
         orderBy: { createdAt: "desc" },
         include: { board: true, status: true, _count: { select: { comments: true, votes: true } } },
       })
@@ -15,9 +15,9 @@ export const postsRouter = createTRPCRouter({
 
   get: protectedProcedure
     .input(idSchema.merge(postRelationSchema))
-    .query(async ({ ctx: { db, userId }, input: { id, companyId } }) => {
+    .query(async ({ ctx: { db, userId }, input: { id, workspaceId } }) => {
       return await db.post.findFirstOrThrow({
-        where: { id, company: { id: companyId, members: { some: { userId } } } },
+        where: { id, workspace: { id: workspaceId, members: { some: { userId } } } },
         include: { author: true, _count: { select: { comments: true, votes: true } } },
       })
     }),
@@ -43,7 +43,7 @@ export const postsRouter = createTRPCRouter({
     .input(idSchema)
     .mutation(async ({ ctx: { db, userId }, input: { id } }) => {
       return await db.post.delete({
-        where: { id, company: { members: { some: { userId } } } },
+        where: { id, workspace: { members: { some: { userId } } } },
       })
     }),
 })
