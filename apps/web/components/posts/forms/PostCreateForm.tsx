@@ -1,10 +1,11 @@
 import { Dialog, Header } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { PostSchema } from "@repo/database"
-import { postSchema, postDefaults } from "@repo/database"
-import { forwardRef, type HTMLAttributes } from "react"
-import { useForm, FormProvider } from "react-hook-form"
+import { postSchema } from "@repo/database"
+import { type HTMLAttributes, forwardRef } from "react"
+import { FormProvider, useForm } from "react-hook-form"
 import { Form } from "~/components/form/Form"
+import { getDefaults } from "~/utils/zod"
 
 import { Status } from "~/components/interface/Status"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
@@ -25,7 +26,7 @@ export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFor
     const form = useForm<PostSchema>({
       resolver: zodResolver(postSchema),
       defaultValues: {
-        ...postDefaults,
+        ...getDefaults(postSchema),
         boardId: boards.data?.find(({ isDefault }) => isDefault)?.id,
         statusId: statuses.data?.find(({ isDefault }) => isDefault)?.id ?? undefined,
       },

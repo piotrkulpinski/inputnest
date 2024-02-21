@@ -2,10 +2,10 @@
 
 import type { HTMLAttributes } from "react"
 
+import { Card, Header } from "@curiousleaf/design"
+import { Form } from "~/components/form/Form"
 import { useSettings } from "~/providers/SettingsProvider"
 import { getTenantHost } from "~/utils/helpers"
-import { Form } from "~/components/form/Form"
-import { Card, Header } from "@curiousleaf/design"
 
 export const GeneralForm = (props: HTMLAttributes<HTMLElement>) => {
   const { form, onSubmit, isLoading } = useSettings()
@@ -17,14 +17,8 @@ export const GeneralForm = (props: HTMLAttributes<HTMLElement>) => {
           <Header title="General" description="View and update your company details." />
 
           <Form.Fieldset>
-            <Form.Field
-              control={form.control}
-              name="name"
-              label="Name"
-              hint="Used as a logo fallback, and to identify your company on the dashboard."
-              required
-            >
-              <Form.Input data-1p-ignore />
+            <Form.Field control={form.control} name="name" label="Company Name" required>
+              <Form.Input data-1p-ignore className="max-w-lg" />
             </Form.Field>
 
             <Form.Field

@@ -3,10 +3,10 @@ import { toSlugCase } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AppRouter } from "@repo/api"
 import type { BoardSchema } from "@repo/database"
-import { boardSchema, boardDefaults } from "@repo/database"
+import { boardSchema } from "@repo/database"
 import type { TRPCClientErrorLike } from "@trpc/client"
 import type { HTMLAttributes } from "react"
-import { useForm, FormProvider } from "react-hook-form"
+import { FormProvider, useForm } from "react-hook-form"
 import { Form } from "~/components/form/Form"
 
 import { useComputedField } from "~/hooks/useComputedField"
@@ -14,6 +14,7 @@ import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/CompanyProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
+import { getDefaults } from "~/utils/zod"
 
 type BoardFormProps = HTMLAttributes<HTMLFormElement> & {
   board?: RouterOutputs["boards"]["getAll"][number]
@@ -27,7 +28,7 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
 
   const form = useForm<BoardSchema>({
     resolver: zodResolver(boardSchema),
-    values: board ?? boardDefaults,
+    values: board ?? getDefaults(boardSchema),
   })
 
   const onSuccess = async () => {

@@ -1,15 +1,16 @@
 import { Dialog, Header } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { StatusSchema } from "@repo/database"
-import { statusSchema, statusDefaults } from "@repo/database"
+import { statusSchema } from "@repo/database"
 import type { HTMLAttributes } from "react"
-import { useForm, FormProvider } from "react-hook-form"
+import { FormProvider, useForm } from "react-hook-form"
 import { Form } from "~/components/form/Form"
 
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/CompanyProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
+import { getDefaults } from "~/utils/zod"
 
 type StatusFormProps = HTMLAttributes<HTMLFormElement> & {
   status?: RouterOutputs["statuses"]["getAll"][number]
@@ -23,7 +24,7 @@ export const StatusForm = ({ status, ...props }: StatusFormProps) => {
 
   const form = useForm<StatusSchema>({
     resolver: zodResolver(statusSchema),
-    values: status ?? statusDefaults,
+    values: status ?? getDefaults(statusSchema),
   })
 
   const onSuccess = async () => {

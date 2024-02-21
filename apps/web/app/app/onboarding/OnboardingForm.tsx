@@ -3,7 +3,7 @@
 import { toSlugCase } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { CompanySchema } from "@repo/database"
-import { companyDefaults, companySchema } from "@repo/database"
+import { companySchema } from "@repo/database"
 import type { HTMLAttributes } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
@@ -12,6 +12,7 @@ import { useComputedField } from "~/hooks/useComputedField"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { api } from "~/services/trpc"
 import { getTenantHost } from "~/utils/helpers"
+import { getDefaults } from "~/utils/zod"
 
 export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) => {
   const apiUtils = api.useUtils()
@@ -19,7 +20,7 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
 
   const form = useForm<CompanySchema>({
     resolver: zodResolver(companySchema),
-    values: companyDefaults,
+    values: getDefaults(companySchema),
   })
 
   const { mutate: createCompany, isLoading } = api.companies.create.useMutation({
@@ -48,11 +49,12 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
     <FormProvider {...form}>
       <Form onSubmit={form.handleSubmit(v => createCompany(v))} {...props}>
         <Form.Fieldset className="size-full">
-          <Form.Field name="name" label="Name" required>
+          <Form.Field control={form.control} name="name" label="Name" required>
             <Form.Input placeholder="Acme Corporation" data-1p-ignore />
           </Form.Field>
 
           <Form.Field
+            control={form.control}
             name="slug"
             label="Subdomain"
             hint="Your company is visible at this address."
