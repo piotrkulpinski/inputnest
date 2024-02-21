@@ -19,7 +19,7 @@ export const NavDropdown = ({ children, navs, ...props }: NavDropdownProps) => {
           <Dropdown.Group key={i}>
             {nav.map((item, j) => (
               <Dropdown.Item key={j}>
-                <NavItem {...item} />
+                <NavItem linkable {...item} />
               </Dropdown.Item>
             ))}
           </Dropdown.Group>

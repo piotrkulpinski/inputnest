@@ -116,7 +116,7 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
   }
 
   return (
-    <NavDropdown navs={navs} align="start" {...props}>
+    <NavDropdown navs={navs} align="start" limitWidth="both" {...props}>
       <NavItemButton
         title={session.user?.name || session.user?.email || ""}
         prefix={getUserAvatar({ size: "sm" })}
