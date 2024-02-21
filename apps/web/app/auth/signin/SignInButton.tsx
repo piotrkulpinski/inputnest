@@ -17,7 +17,6 @@ export const SignInButton = forwardRef<ButtonElement, SignInButtonProps>((props,
   const { className, provider, theme = "secondary", variant = "outline", prefix, ...rest } = props
 
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams?.get("callbackUrl") || config.routes.dashboard
   const error = searchParams?.get("error")
 
   const [loading, setIsLoading] = useState(false)
@@ -26,7 +25,7 @@ export const SignInButton = forwardRef<ButtonElement, SignInButtonProps>((props,
     setIsLoading(true)
 
     signIn(provider, {
-      callbackUrl,
+      callbackUrl: config.routes.dashboard,
       consent: error === "RefreshAccessTokenError",
     })
   }

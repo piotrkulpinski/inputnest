@@ -15,7 +15,7 @@ export default async function Route() {
     where: { members: { some: { userId, role: { in: ["Owner", "Manager"] } } } },
   })
 
-  if (!workspaces) {
+  if (!workspaces.length) {
     redirect(config.routes.onboarding)
   }
 

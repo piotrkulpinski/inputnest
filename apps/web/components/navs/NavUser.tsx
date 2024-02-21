@@ -14,11 +14,11 @@ import {
 import type { HTMLAttributes } from "react"
 import { useState } from "react"
 
-import { config } from "~/config"
 import { useCrisp } from "~/hooks/useCrisp"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 
 import { signOut, useSession } from "next-auth/react"
+import { toast } from "sonner"
 import { NavDropdown } from "./NavDropdown"
 import type { NavItemProps } from "./NavItem"
 import { NavItemButton } from "./NavItem"
@@ -53,11 +53,8 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
     // Sign out
     await signOut()
 
-    // Redirect with success message
-    handleSuccess({
-      redirect: config.routes.signIn,
-      success: "You have been successfully logged out.",
-    })
+    // Show success message
+    toast.success("You have been successfully signed out.")
   }
 
   const navs: NavItemProps[][] = [
