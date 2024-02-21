@@ -28,7 +28,7 @@ export const NavCompany = ({ className, ...props }: HTMLAttributes<HTMLDivElemen
         slug === companySlug ? (
           <CheckIcon className="text-green-dark" />
         ) : (
-          <div className="size-4" />
+          <div className="size-5" />
         ),
     })) || [],
     [
@@ -41,7 +41,7 @@ export const NavCompany = ({ className, ...props }: HTMLAttributes<HTMLDivElemen
   ]
 
   return (
-    <NavDropdown navs={navs} align="start" {...props}>
+    <NavDropdown navs={navs} align="start" limitWidth="both" {...props}>
       <NavItemButton
         title={name}
         prefix={<Avatar src={logo} initials={name} shape="rounded" size="xs" />}

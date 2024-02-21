@@ -26,7 +26,7 @@ export const NavSide = forwardRef<
               <Sidebar.Heading>{title}</Sidebar.Heading>
 
               {items.map((item, j) => (
-                <NavItem key={j} {...item} />
+                <NavItem key={j} linkable {...item} />
               ))}
             </Sidebar.Menu>
           ))}
