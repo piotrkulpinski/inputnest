@@ -1,15 +1,16 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { TagSchema } from "@repo/database"
-import { tagSchema, tagDefaults } from "@repo/database"
+import { tagSchema } from "@repo/database"
 import type { HTMLAttributes } from "react"
-import { useForm, FormProvider } from "react-hook-form"
+import { FormProvider, useForm } from "react-hook-form"
 
+import { Dialog, Header } from "@curiousleaf/design"
+import { Form } from "~/components/form/Form"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useCompany } from "~/providers/CompanyProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
-import { Form } from "~/components/form/Form"
-import { Dialog, Header } from "@curiousleaf/design"
+import { getDefaults } from "~/utils/zod"
 
 type TagFormProps = HTMLAttributes<HTMLFormElement> & {
   tag?: RouterOutputs["tags"]["getAll"][number]
@@ -23,7 +24,7 @@ export const TagForm = ({ tag, ...props }: TagFormProps) => {
 
   const form = useForm<TagSchema>({
     resolver: zodResolver(tagSchema),
-    values: tag ?? tagDefaults,
+    values: tag ?? getDefaults(tagSchema),
   })
 
   const onSuccess = async () => {

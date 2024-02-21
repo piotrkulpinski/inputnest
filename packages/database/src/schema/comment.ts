@@ -6,7 +6,7 @@ export const commentSchema = z.object({
   content: z.string().trim().min(3),
   isPrivate: z.coerce.boolean().default(false),
   isPinned: z.coerce.boolean().default(false),
-  parentId: z.string().nullish(),
+  parentId: z.string().nullish().default(null),
 })
 
 export const commentRelationSchema = z.object({

@@ -32,7 +32,6 @@
         "runOn": "folderOpen"
       }
     },
-    // Not automatic tasks
     {
       "type": "shell",
       "label": "stripe: listen",

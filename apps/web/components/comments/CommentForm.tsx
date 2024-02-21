@@ -4,7 +4,7 @@ import { Label, Series, Switch, cx } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AppRouter } from "@repo/api"
 import type { CommentSchema } from "@repo/database"
-import { commentDefaults, commentSchema } from "@repo/database"
+import { commentSchema } from "@repo/database"
 import type { TRPCClientErrorLike } from "@trpc/client"
 import { useParams } from "next/navigation"
 import { useState } from "react"
@@ -16,6 +16,7 @@ import { Form } from "~/components/form/Form"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useComments } from "~/providers/CommentsProvider"
 import { api } from "~/services/trpc"
+import { getDefaults } from "~/utils/zod"
 
 type CommentFormProps = HTMLAttributes<HTMLFormElement> & {
   isLoading?: boolean
@@ -29,7 +30,7 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
   const [isMetaKeyDown, setIsMetaKeyDown] = useState(false)
 
   const values = editing ?? {
-    ...commentDefaults,
+    ...getDefaults(commentSchema),
     ...(replying && {
       parentId: replying?.id,
       isPrivate: replying?.isPrivate,
