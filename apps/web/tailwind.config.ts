@@ -23,6 +23,10 @@ export default {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         display: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
+
+      backgroundImage: {
+        pattern: "url('/pattern.svg')",
+      },
     },
   },
 } satisfies Config

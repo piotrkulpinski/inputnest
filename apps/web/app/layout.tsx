@@ -1,13 +1,17 @@
 import type { Metadata } from "next"
+import { SessionProvider } from "next-auth/react"
 import { Inter } from "next/font/google"
 import { headers } from "next/headers"
 import type { PropsWithChildren } from "react"
+import { Checkout } from "~/components/globals/Checkout"
+import { Toaster } from "~/components/globals/Toaster"
 
 import { config } from "~/config"
 import { env } from "~/env"
 import { TRPCProvider } from "~/providers/TrpcProvider"
 
 import "~/public/globals.css"
+import { auth } from "~/services/auth"
 
 const sansFont = Inter({
   subsets: ["latin"],
@@ -40,10 +44,17 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({ children }: PropsWithChildren) {
+  const session = await auth()
+
   return (
-    <html lang="en" className={`${sansFont.variable} font-sans scroll-smooth`}>
-      <body className="bg-gray-50 bg-[url('/pattern.svg')] bg-fixed bg-top bg-repeat-x">
-        <TRPCProvider headers={headers()}>{children}</TRPCProvider>
+    <html lang="en">
+      <body className={`${sansFont.variable} font-sans scroll-smooth`}>
+        <SessionProvider session={session}>
+          <TRPCProvider headers={headers()}>{children}</TRPCProvider>
+        </SessionProvider>
+
+        <Toaster />
+        <Checkout />
       </body>
     </html>
   )

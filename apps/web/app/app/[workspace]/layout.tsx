@@ -3,8 +3,6 @@ import { db, workspaceInclude } from "@repo/database"
 import { notFound } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
-import { Checkout } from "~/components/globals/Checkout"
-import { Toaster } from "~/components/globals/Toaster"
 import { NavBar } from "~/components/navs/NavBar"
 import { NavSide } from "~/components/navs/NavSide"
 import { WorkspaceProvider } from "~/providers/WorkspaceProvider"
@@ -34,9 +32,6 @@ export default async function WorkspaceLayout({ children, params }: WorkspaceLay
           {children}
         </Container>
       </div>
-
-      <Toaster />
-      <Checkout />
     </WorkspaceProvider>
   )
 }
