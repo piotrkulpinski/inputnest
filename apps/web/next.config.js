@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 export default {
-  transpilePackages: ["@repo/database", "@curiousleaf/design", "@curiousleaf/utils"],
+  transpilePackages: ["@inputnest/database", "@curiousleaf/design", "@curiousleaf/utils"],
 
   images: {
     dangerouslyAllowSVG: true,

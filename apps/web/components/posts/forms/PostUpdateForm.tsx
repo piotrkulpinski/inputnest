@@ -1,9 +1,9 @@
 import { Dialog, Header } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { PostSchema } from "@repo/database"
-import { postSchema } from "@repo/database"
-import { forwardRef, type HTMLAttributes } from "react"
-import { useForm, FormProvider } from "react-hook-form"
+import type { PostSchema } from "@inputnest/database"
+import { postSchema } from "@inputnest/database"
+import { type HTMLAttributes, forwardRef } from "react"
+import { FormProvider, useForm } from "react-hook-form"
 import { Form } from "~/components/form/Form"
 
 import { useMutationHandler } from "~/hooks/useMutationHandler"

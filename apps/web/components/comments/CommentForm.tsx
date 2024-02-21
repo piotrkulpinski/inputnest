@@ -2,9 +2,9 @@
 
 import { Label, Series, Switch, cx } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { AppRouter } from "@repo/api"
-import type { CommentSchema } from "@repo/database"
-import { commentSchema } from "@repo/database"
+import type { AppRouter } from "@inputnest/api"
+import type { CommentSchema } from "@inputnest/database"
+import { commentSchema } from "@inputnest/database"
 import type { TRPCClientErrorLike } from "@trpc/client"
 import { useParams } from "next/navigation"
 import { useState } from "react"

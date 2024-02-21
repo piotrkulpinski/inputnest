@@ -1,4 +1,4 @@
-import type { Subscription } from "@repo/database"
+import type { Subscription } from "@inputnest/database"
 
 import { config } from "~/config"
 

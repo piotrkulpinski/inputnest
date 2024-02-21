@@ -1,6 +1,6 @@
 "use client"
 
-import { WorkspaceWithMembers } from "@repo/database"
+import { WorkspaceWithMembers } from "@inputnest/database"
 import type { PropsWithChildren } from "react"
 
 import type { RouterOutputs } from "~/services/trpc"

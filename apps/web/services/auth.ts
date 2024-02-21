@@ -1,6 +1,6 @@
 import Google from "@auth/core/providers/google"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { db } from "@repo/database"
+import { db } from "@inputnest/database"
 import NextAuth from "next-auth"
 
 import { env } from "~/env"

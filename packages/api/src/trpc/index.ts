@@ -1,4 +1,4 @@
-import { Prisma, db } from "@repo/database"
+import { Prisma, db } from "@inputnest/database"
 import { TRPCError, initTRPC } from "@trpc/server"
 import superjson from "superjson"
 import type { typeToFlattenedError } from "zod"

@@ -1,7 +1,5 @@
-import type { AppRouter } from "@repo/api"
+import type { AppRouter } from "@inputnest/api"
 import { createTRPCReact } from "@trpc/react-query"
-import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server"
-import superjson from "superjson"
 
 export const api = createTRPCReact<AppRouter>()
 
