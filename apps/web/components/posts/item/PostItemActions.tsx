@@ -8,15 +8,15 @@ import type { HTMLAttributes } from "react"
 import { DialogConfirm } from "~/components/dialogs/DialogConfirm"
 import { PostUpdateForm } from "~/components/posts/forms/PostUpdateForm"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/CompanyProvider"
 import { usePost } from "~/providers/PostProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import { api } from "~/services/trpc"
 import { getTenantUrl } from "~/utils/helpers"
 
 export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
   const apiUtils = api.useUtils()
   const { handleSuccess } = useMutationHandler()
-  const { id: companyId, slug } = useCompany()
+  const { id: workspaceId, slug } = useWorkspace()
   const { post } = usePost()
   const [copiedText, copyToClipboard] = useCopyToClipboard()
 
@@ -28,7 +28,7 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
       })
 
       // Invalidate the posts cache
-      await apiUtils.posts.getAll.invalidate({ companyId })
+      await apiUtils.posts.getAll.invalidate({ workspaceId })
     },
   })
 

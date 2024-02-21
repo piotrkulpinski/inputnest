@@ -1,5 +1,5 @@
 import { Container } from "@curiousleaf/design"
-import { companyInclude, db } from "@repo/database"
+import { db, workspaceInclude } from "@repo/database"
 import { notFound } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
@@ -7,25 +7,25 @@ import { Checkout } from "~/components/globals/Checkout"
 import { Toaster } from "~/components/globals/Toaster"
 import { NavBar } from "~/components/navs/NavBar"
 import { NavSide } from "~/components/navs/NavSide"
-import { CompanyProvider } from "~/providers/CompanyProvider"
+import { WorkspaceProvider } from "~/providers/WorkspaceProvider"
 import { auth } from "~/services/auth"
 
-type CompanyLayoutProps = PropsWithChildren<{ params: { company: string } }>
+type WorkspaceLayoutProps = PropsWithChildren<{ params: { workspace: string } }>
 
-export default async function CompanyLayout({ children, params }: CompanyLayoutProps) {
+export default async function WorkspaceLayout({ children, params }: WorkspaceLayoutProps) {
   const session = await auth()
   const userId = session?.user?.id
-  const slug = params.company
+  const slug = params.workspace
 
-  const company = await db.company
+  const workspace = await db.workspace
     .findFirstOrThrow({
       where: { slug, members: { some: { userId, role: { in: ["Owner", "Manager"] } } } },
-      include: companyInclude,
+      include: workspaceInclude,
     })
     .catch(() => notFound())
 
   return (
-    <CompanyProvider company={company}>
+    <WorkspaceProvider workspace={workspace}>
       <div className="flex min-h-screen flex-col lg:flex-row">
         <NavBar className="lg:hidden" />
         <NavSide className="max-lg:hidden" floating />
@@ -37,6 +37,6 @@ export default async function CompanyLayout({ children, params }: CompanyLayoutP
 
       <Toaster />
       <Checkout />
-    </CompanyProvider>
+    </WorkspaceProvider>
   )
 }

@@ -2,8 +2,8 @@
 
 import { toSlugCase } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { CompanySchema } from "@repo/database"
-import { companySchema } from "@repo/database"
+import type { WorkspaceSchema } from "@repo/database"
+import { workspaceSchema } from "@repo/database"
 import type { HTMLAttributes } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
@@ -18,20 +18,20 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
   const apiUtils = api.useUtils()
   const { handleSuccess, handleError } = useMutationHandler()
 
-  const form = useForm<CompanySchema>({
-    resolver: zodResolver(companySchema),
-    values: getDefaults(companySchema),
+  const form = useForm<WorkspaceSchema>({
+    resolver: zodResolver(workspaceSchema),
+    values: getDefaults(workspaceSchema),
   })
 
-  const { mutate: createCompany, isLoading } = api.companies.create.useMutation({
+  const { mutate: createWorkspace, isLoading } = api.workspaces.create.useMutation({
     onSuccess: async ({ slug }) => {
       handleSuccess({
         redirect: `/app/${slug}`,
-        success: "Company created successfully",
+        success: "Workspace created successfully",
       })
 
-      // Invalidate the companies cache
-      await apiUtils.companies.getAll.invalidate()
+      // Invalidate the workspaces cache
+      await apiUtils.workspaces.getAll.invalidate()
     },
 
     onError: error => handleError({ error, form }),
@@ -47,7 +47,7 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
 
   return (
     <FormProvider {...form}>
-      <Form onSubmit={form.handleSubmit(v => createCompany(v))} {...props}>
+      <Form onSubmit={form.handleSubmit(v => createWorkspace(v))} {...props}>
         <Form.Fieldset className="size-full">
           <Form.Field control={form.control} name="name" label="Name" required>
             <Form.Input placeholder="Acme Corporation" data-1p-ignore />
@@ -57,7 +57,7 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
             control={form.control}
             name="slug"
             label="Subdomain"
-            hint="Your company is visible at this address."
+            hint="Your workspace is visible at this address."
             required
           >
             <Form.Affix suffix={getTenantHost()}>
@@ -66,7 +66,7 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
           </Form.Field>
 
           <Form.Button loading={isLoading} className="mt-auto w-full">
-            Create Company
+            Create Workspace
           </Form.Button>
         </Form.Fieldset>
       </Form>

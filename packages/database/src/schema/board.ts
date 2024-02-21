@@ -10,7 +10,7 @@ export const boardSchema = z.object({
 })
 
 export const boardRelationSchema = z.object({
-  companyId: z.string(),
+  workspaceId: z.string(),
 })
 
 export const createBoardSchema = boardSchema.merge(boardRelationSchema)

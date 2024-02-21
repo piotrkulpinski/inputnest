@@ -1,9 +1,9 @@
 import {
-  tagRelationSchema,
-  idSchema,
   createTagSchema,
-  updateTagSchema,
+  idSchema,
   idsSchema,
+  tagRelationSchema,
+  updateTagSchema,
 } from "@repo/database"
 
 import { createTRPCRouter, protectedProcedure } from "../trpc"
@@ -11,18 +11,18 @@ import { createTRPCRouter, protectedProcedure } from "../trpc"
 export const tagsRouter = createTRPCRouter({
   getAll: protectedProcedure
     .input(tagRelationSchema)
-    .query(async ({ ctx: { db, userId }, input: { companyId } }) => {
+    .query(async ({ ctx: { db, userId }, input: { workspaceId } }) => {
       return await db.tag.findMany({
-        where: { company: { id: companyId, members: { some: { userId } } } },
+        where: { workspace: { id: workspaceId, members: { some: { userId } } } },
         orderBy: [{ order: "asc" }, { createdAt: "asc" }],
       })
     }),
 
   get: protectedProcedure
     .input(idSchema.merge(tagRelationSchema))
-    .query(async ({ ctx: { db, userId }, input: { id, companyId } }) => {
+    .query(async ({ ctx: { db, userId }, input: { id, workspaceId } }) => {
       return await db.tag.findFirst({
-        where: { id, company: { id: companyId, members: { some: { userId } } } },
+        where: { id, workspace: { id: workspaceId, members: { some: { userId } } } },
       })
     }),
 
@@ -43,7 +43,7 @@ export const tagsRouter = createTRPCRouter({
     const { id } = input
 
     return await db.tag.delete({
-      where: { id, company: { members: { some: { userId } } } },
+      where: { id, workspace: { members: { some: { userId } } } },
     })
   }),
 
@@ -53,7 +53,7 @@ export const tagsRouter = createTRPCRouter({
     await Promise.all(
       ids.map(async (id, order) => {
         await db.tag.update({
-          where: { id, company: { members: { some: { userId } } } },
+          where: { id, workspace: { members: { some: { userId } } } },
           data: { order },
         })
       }),

@@ -5,26 +5,26 @@ import { notFound, useParams } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
 import { Toaster } from "~/components/globals/Toaster"
-import { CompanyProvider } from "~/providers/CompanyProvider"
+import { WorkspaceProvider } from "~/providers/WorkspaceProvider"
 import { api } from "~/services/trpc"
 
-export default function CompanyLayout({ children }: PropsWithChildren) {
-  const { company: slug } = useParams() as { company: string }
+export default function WorkspaceLayout({ children }: PropsWithChildren) {
+  const { workspace: slug } = useParams() as { workspace: string }
 
-  const { data: company, isLoading, isSuccess } = api.companies.getBySlug.useQuery({ slug })
+  const { data: workspace, isLoading, isSuccess } = api.workspaces.getBySlug.useQuery({ slug })
 
   if (isLoading) {
     return "loading..."
   }
 
-  if (!isSuccess || !company) {
+  if (!isSuccess || !workspace) {
     notFound()
   }
 
   return (
-    <CompanyProvider company={company}>
+    <WorkspaceProvider workspace={workspace}>
       <Container>{children}</Container>
       <Toaster />
-    </CompanyProvider>
+    </WorkspaceProvider>
   )
 }

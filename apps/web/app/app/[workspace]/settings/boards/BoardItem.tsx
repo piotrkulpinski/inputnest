@@ -1,11 +1,11 @@
-import { H5, Button, cx, Dialog, Card, Draggable, Series, Action } from "@curiousleaf/design"
+import { Action, Button, Card, Dialog, Draggable, H5, Series, cx } from "@curiousleaf/design"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
-import { BoardForm } from "~/app/app/[company]/settings/boards/BoardForm"
+import { BoardForm } from "~/app/app/[workspace]/settings/boards/BoardForm"
 import { DialogConfirm } from "~/components/dialogs/DialogConfirm"
-import { useCompany } from "~/providers/CompanyProvider"
 import { useSortable } from "~/providers/SortableProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 
@@ -15,19 +15,19 @@ type BoardItemProps = ComponentPropsWithoutRef<typeof Card> & {
 
 export const BoardItem = ({ board, ...props }: BoardItemProps) => {
   const apiUtils = api.useUtils()
-  const { id: companyId } = useCompany()
+  const { id: workspaceId } = useWorkspace()
   const { attributes, listeners, isDragging, ref, style } = useSortable({ id: board.id })
 
   const deleteBoard = api.boards.delete.useMutation({
     onSuccess: async () => {
-      await apiUtils.boards.getAll.invalidate({ companyId })
+      await apiUtils.boards.getAll.invalidate({ workspaceId })
       toast.success("Board deleted successfully")
     },
   })
 
   const defaultBoard = api.boards.makeDefault.useMutation({
     onSuccess: async () => {
-      await apiUtils.boards.getAll.invalidate({ companyId })
+      await apiUtils.boards.getAll.invalidate({ workspaceId })
       toast.success("Default board updated successfully")
     },
   })

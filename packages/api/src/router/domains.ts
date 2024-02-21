@@ -1,7 +1,7 @@
 // export const domainsRouter = createTRPCRouter({
 //   findAll: protectedProcedure.input(z.string().optional()).query(async ({ ctx, input }) => {
 //     return await ctx.db.domain.findMany({
-//       where: { companyId: input },
+//       where: { workspaceId: input },
 //       orderBy: [{ createdAt: "desc" }, { id: "asc" }],
 //     })
 //   }),

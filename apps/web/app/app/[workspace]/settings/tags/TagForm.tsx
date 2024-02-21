@@ -7,7 +7,7 @@ import { FormProvider, useForm } from "react-hook-form"
 import { Dialog, Header } from "@curiousleaf/design"
 import { Form } from "~/components/form/Form"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/CompanyProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 import { getDefaults } from "~/utils/zod"
@@ -19,7 +19,7 @@ type TagFormProps = HTMLAttributes<HTMLFormElement> & {
 export const TagForm = ({ tag, ...props }: TagFormProps) => {
   const apiUtils = api.useUtils()
   const { handleSuccess } = useMutationHandler()
-  const { id: companyId } = useCompany()
+  const { id: workspaceId } = useWorkspace()
   const isEditing = !!tag
 
   const form = useForm<TagSchema>({
@@ -34,8 +34,8 @@ export const TagForm = ({ tag, ...props }: TagFormProps) => {
     })
 
     // Invalidate the tags cache
-    await apiUtils.tags.getAll.invalidate({ companyId })
-    await apiUtils.tags.get.invalidate({ id: tag?.id, companyId })
+    await apiUtils.tags.getAll.invalidate({ workspaceId })
+    await apiUtils.tags.get.invalidate({ id: tag?.id, workspaceId })
 
     // Reset the form
     form.reset()
@@ -51,7 +51,7 @@ export const TagForm = ({ tag, ...props }: TagFormProps) => {
       return updateTag.mutate({ ...data, id: tag.id })
     }
 
-    return createTag.mutate({ ...data, companyId })
+    return createTag.mutate({ ...data, workspaceId })
   }
 
   return (

@@ -10,7 +10,7 @@ export const postSchema = z.object({
 })
 
 export const postRelationSchema = z.object({
-  companyId: z.string(),
+  workspaceId: z.string(),
 })
 
 export const createPostSchema = postSchema.merge(postRelationSchema)

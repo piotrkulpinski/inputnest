@@ -1,9 +1,9 @@
 import {
-  statusRelationSchema,
-  idSchema,
   createStatusSchema,
-  updateStatusSchema,
+  idSchema,
   idsSchema,
+  statusRelationSchema,
+  updateStatusSchema,
 } from "@repo/database"
 
 import { createTRPCRouter, protectedProcedure } from "../trpc"
@@ -11,18 +11,18 @@ import { createTRPCRouter, protectedProcedure } from "../trpc"
 export const statusesRouter = createTRPCRouter({
   getAll: protectedProcedure
     .input(statusRelationSchema)
-    .query(async ({ ctx: { db, userId }, input: { companyId } }) => {
+    .query(async ({ ctx: { db, userId }, input: { workspaceId } }) => {
       return await db.status.findMany({
-        where: { company: { id: companyId, members: { some: { userId } } } },
+        where: { workspace: { id: workspaceId, members: { some: { userId } } } },
         orderBy: [{ order: "asc" }, { createdAt: "asc" }],
       })
     }),
 
   get: protectedProcedure
     .input(idSchema.merge(statusRelationSchema))
-    .query(async ({ ctx: { db, userId }, input: { id, companyId } }) => {
+    .query(async ({ ctx: { db, userId }, input: { id, workspaceId } }) => {
       return await db.status.findFirst({
-        where: { id, company: { id: companyId, members: { some: { userId } } } },
+        where: { id, workspace: { id: workspaceId, members: { some: { userId } } } },
       })
     }),
 
@@ -47,7 +47,7 @@ export const statusesRouter = createTRPCRouter({
     .input(idSchema)
     .mutation(async ({ ctx: { db, userId }, input: { id } }) => {
       return await db.status.delete({
-        where: { id, company: { members: { some: { userId } } } },
+        where: { id, workspace: { members: { some: { userId } } } },
       })
     }),
 
@@ -57,7 +57,7 @@ export const statusesRouter = createTRPCRouter({
       await Promise.all(
         ids.map(async (id, order) => {
           await db.status.update({
-            where: { id, company: { members: { some: { userId } } } },
+            where: { id, workspace: { members: { some: { userId } } } },
             data: { order },
           })
         }),
@@ -69,13 +69,13 @@ export const statusesRouter = createTRPCRouter({
     .mutation(async ({ ctx: { db, userId }, input: { id } }) => {
       // Remove default from all statuss
       await db.status.updateMany({
-        where: { company: { members: { some: { userId } } } },
+        where: { workspace: { members: { some: { userId } } } },
         data: { isDefault: false },
       })
 
       // Set the new default status
       return await db.status.update({
-        where: { id, company: { members: { some: { userId } } } },
+        where: { id, workspace: { members: { some: { userId } } } },
         data: { isDefault: true },
       })
     }),

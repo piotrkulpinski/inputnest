@@ -3,9 +3,9 @@
 import { Accordion, Button, Shortcut, Sidebar } from "@curiousleaf/design"
 import { type ComponentPropsWithoutRef, type ElementRef, forwardRef } from "react"
 
-import { NavCompany } from "~/components/navs/NavCompany"
 import { NavNotifications } from "~/components/navs/NavNotifications"
 import { NavUser } from "~/components/navs/NavUser"
+import { NavWorkspace } from "~/components/navs/NavWorkspace"
 import { useMenu } from "~/hooks/useMenu"
 import { NavItem } from "./NavItem"
 
@@ -17,7 +17,7 @@ export const NavSide = forwardRef<
 
   return (
     <Sidebar ref={ref} {...props}>
-      <NavCompany />
+      <NavWorkspace />
 
       <Accordion type="single" defaultValue={openMenu?.title} asChild>
         <Sidebar.Content>

@@ -5,7 +5,7 @@ import { domainNameSchema } from "./index"
 export const domainSchema = z.object({
   id: z.string().min(1),
   name: domainNameSchema,
-  companyId: z.string().min(1),
+  workspaceId: z.string().min(1),
 })
 
 export const domainCreateSchema = domainSchema.omit({ id: true })

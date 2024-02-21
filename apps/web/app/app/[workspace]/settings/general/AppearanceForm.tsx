@@ -21,7 +21,7 @@ export const AppearanceForm = (props: HTMLAttributes<HTMLElement>) => {
         <Card.Section>
           <Header
             title="Appearance"
-            description="You can customize your company's appearance from here."
+            description="You can customize your workspace's appearance from here."
           />
 
           <Form.Fieldset>

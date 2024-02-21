@@ -2,16 +2,16 @@ import { createTRPCRouter } from "../trpc"
 
 import { boardsRouter } from "./boards"
 import { commentsRouter } from "./comments"
-import { companiesRouter } from "./companies"
 import { postsRouter } from "./posts"
 import { statusesRouter } from "./statuses"
 import { tagsRouter } from "./tags"
 import { votesRouter } from "./votes"
+import { workspacesRouter } from "./workspaces"
 
 // app router
 export const appRouter = createTRPCRouter({
   // stripe: stripeRouter,
-  companies: companiesRouter,
+  workspaces: workspacesRouter,
   // domains: domainsRouter,
   posts: postsRouter,
   boards: boardsRouter,

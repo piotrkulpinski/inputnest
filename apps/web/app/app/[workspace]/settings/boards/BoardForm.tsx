@@ -11,7 +11,7 @@ import { Form } from "~/components/form/Form"
 
 import { useComputedField } from "~/hooks/useComputedField"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/CompanyProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import type { RouterOutputs } from "~/services/trpc"
 import { api } from "~/services/trpc"
 import { getDefaults } from "~/utils/zod"
@@ -23,7 +23,7 @@ type BoardFormProps = HTMLAttributes<HTMLFormElement> & {
 export const BoardForm = ({ board, ...props }: BoardFormProps) => {
   const apiUtils = api.useUtils()
   const { handleSuccess, handleError } = useMutationHandler()
-  const { id: companyId } = useCompany()
+  const { id: workspaceId } = useWorkspace()
   const isEditing = !!board
 
   const form = useForm<BoardSchema>({
@@ -38,8 +38,8 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
     })
 
     // Invalidate the boards cache
-    await apiUtils.boards.getAll.invalidate({ companyId })
-    await apiUtils.boards.get.invalidate({ id: board?.id, companyId })
+    await apiUtils.boards.getAll.invalidate({ workspaceId })
+    await apiUtils.boards.get.invalidate({ id: board?.id, workspaceId })
 
     // Reset the form
     form.reset()
@@ -59,7 +59,7 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
       return updateBoard.mutate({ ...data, id: board.id })
     }
 
-    return createBoard.mutate({ ...data, companyId })
+    return createBoard.mutate({ ...data, workspaceId })
   }
 
   // Set the slug based on the name

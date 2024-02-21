@@ -5,23 +5,23 @@ import type { HTMLAttributes } from "react"
 
 import { DialogConfirm } from "~/components/dialogs/DialogConfirm"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { useCompany } from "~/providers/CompanyProvider"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import { api } from "~/services/trpc"
 
 export const DeleteForm = (props: HTMLAttributes<HTMLElement>) => {
   const { handleSuccess } = useMutationHandler()
   const apiUtils = api.useUtils()
-  const { id, slug } = useCompany()
+  const { id, slug } = useWorkspace()
 
-  const { mutate: deleteCompany, isLoading } = api.companies.delete.useMutation({
+  const { mutate: deleteWorkspace, isLoading } = api.workspaces.delete.useMutation({
     onSuccess: async () => {
       handleSuccess({
         redirect: "/app",
-        success: "Company deleted successfully",
+        success: "Workspace deleted successfully",
       })
 
-      // Invalidate the company list
-      await apiUtils.companies.getAll.invalidate()
+      // Invalidate the workspace list
+      await apiUtils.workspaces.getAll.invalidate()
     },
   })
 
@@ -29,16 +29,16 @@ export const DeleteForm = (props: HTMLAttributes<HTMLElement>) => {
     <Card className="border-red-light" {...props}>
       <Card.Panel asChild>
         <Header
-          title="Delete Company"
-          description="The company will be permanently deleted, including its content and domains. This action is irreversible and can not be undone."
+          title="Delete Workspace"
+          description="The workspace will be permanently deleted, including its content and domains. This action is irreversible and can not be undone."
         />
       </Card.Panel>
 
       <Card.Row direction="rowReverse" className="border-red-light bg-red-lighter">
         <DialogConfirm
-          title="Delete your company?"
-          label="Delete Company"
-          onConfirm={() => deleteCompany({ id })}
+          title="Delete your workspace?"
+          label="Delete Workspace"
+          onConfirm={() => deleteWorkspace({ id })}
           confirmText={slug}
         >
           <Button loading={isLoading} theme="negative" className="min-w-[8rem]">

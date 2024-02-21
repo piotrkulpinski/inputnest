@@ -1,9 +1,9 @@
 import {
   boardRelationSchema,
-  idSchema,
   createBoardSchema,
-  updateBoardSchema,
+  idSchema,
   idsSchema,
+  updateBoardSchema,
 } from "@repo/database"
 
 import { createTRPCRouter, protectedProcedure } from "../trpc"
@@ -11,18 +11,18 @@ import { createTRPCRouter, protectedProcedure } from "../trpc"
 export const boardsRouter = createTRPCRouter({
   getAll: protectedProcedure
     .input(boardRelationSchema)
-    .query(async ({ ctx: { db, userId }, input: { companyId } }) => {
+    .query(async ({ ctx: { db, userId }, input: { workspaceId } }) => {
       return await db.board.findMany({
-        where: { company: { id: companyId, members: { some: { userId } } } },
+        where: { workspace: { id: workspaceId, members: { some: { userId } } } },
         orderBy: [{ order: "asc" }, { createdAt: "asc" }],
       })
     }),
 
   get: protectedProcedure
     .input(idSchema.merge(boardRelationSchema))
-    .query(async ({ ctx: { db, userId }, input: { id, companyId } }) => {
+    .query(async ({ ctx: { db, userId }, input: { id, workspaceId } }) => {
       return await db.board.findFirst({
-        where: { id, company: { id: companyId, members: { some: { userId } } } },
+        where: { id, workspace: { id: workspaceId, members: { some: { userId } } } },
       })
     }),
 
@@ -47,7 +47,7 @@ export const boardsRouter = createTRPCRouter({
     .input(idSchema)
     .mutation(async ({ ctx: { db, userId }, input: { id } }) => {
       return await db.board.delete({
-        where: { id, company: { members: { some: { userId } } } },
+        where: { id, workspace: { members: { some: { userId } } } },
       })
     }),
 
@@ -57,7 +57,7 @@ export const boardsRouter = createTRPCRouter({
       await Promise.all(
         ids.map(async (id, order) => {
           await db.board.update({
-            where: { id, company: { members: { some: { userId } } } },
+            where: { id, workspace: { members: { some: { userId } } } },
             data: { order },
           })
         }),
@@ -71,13 +71,13 @@ export const boardsRouter = createTRPCRouter({
 
       // Remove default from all boards
       await db.board.updateMany({
-        where: { company: { members: { some: { userId } } } },
+        where: { workspace: { members: { some: { userId } } } },
         data: { isDefault: false },
       })
 
       // Set the new default board
       return await db.board.update({
-        where: { id, company: { members: { some: { userId } } } },
+        where: { id, workspace: { members: { some: { userId } } } },
         data: { isDefault: true },
       })
     }),

@@ -1,9 +1,9 @@
 "use client"
 
 import { Button, Header } from "@curiousleaf/design"
-import { SearchIcon, BellRingIcon, CalendarIcon, PlusIcon } from "lucide-react"
+import { BellRingIcon, CalendarIcon, PlusIcon, SearchIcon } from "lucide-react"
 
-export default function CompanyRoute() {
+export default function WorkspaceRoute() {
   return (
     <Header
       title="Dashboard"
