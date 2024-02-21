@@ -1,5 +1,5 @@
 import { Avatar, Button, Divider } from "@curiousleaf/design"
-import { db } from "@repo/database"
+import { db } from "@inputnest/database"
 import { PlusIcon } from "lucide-react"
 import Link from "next/link"
 import { redirect } from "next/navigation"

@@ -1,5 +1,5 @@
 import { Container } from "@curiousleaf/design"
-import { db, workspaceInclude } from "@repo/database"
+import { db, workspaceInclude } from "@inputnest/database"
 import { notFound } from "next/navigation"
 import type { PropsWithChildren } from "react"
 

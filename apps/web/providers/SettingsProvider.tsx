@@ -1,8 +1,8 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { WorkspaceWithMembers } from "@repo/database"
-import { updateWorkspaceSchema } from "@repo/database"
+import type { WorkspaceWithMembers } from "@inputnest/database"
+import { updateWorkspaceSchema } from "@inputnest/database"
 import type { FormEventHandler, PropsWithChildren } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 

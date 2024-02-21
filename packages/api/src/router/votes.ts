@@ -1,4 +1,4 @@
-import { voteRelationSchema } from "@repo/database"
+import { voteRelationSchema } from "@inputnest/database"
 
 import { createTRPCRouter, protectedProcedure } from "../trpc"
 

@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { TagSchema } from "@repo/database"
-import { tagSchema } from "@repo/database"
+import type { TagSchema } from "@inputnest/database"
+import { tagSchema } from "@inputnest/database"
 import type { HTMLAttributes } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 

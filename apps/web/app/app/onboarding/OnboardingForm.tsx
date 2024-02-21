@@ -2,8 +2,8 @@
 
 import { toSlugCase } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { WorkspaceSchema } from "@repo/database"
-import { workspaceSchema } from "@repo/database"
+import type { WorkspaceSchema } from "@inputnest/database"
+import { workspaceSchema } from "@inputnest/database"
 import type { HTMLAttributes } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 

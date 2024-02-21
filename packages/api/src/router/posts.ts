@@ -1,4 +1,9 @@
-import { createPostSchema, idSchema, postRelationSchema, updatePostSchema } from "@repo/database"
+import {
+  createPostSchema,
+  idSchema,
+  postRelationSchema,
+  updatePostSchema,
+} from "@inputnest/database"
 
 import { createTRPCRouter, protectedProcedure } from "../trpc"
 

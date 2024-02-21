@@ -4,7 +4,7 @@ import {
   idsSchema,
   statusRelationSchema,
   updateStatusSchema,
-} from "@repo/database"
+} from "@inputnest/database"
 
 import { createTRPCRouter, protectedProcedure } from "../trpc"
 

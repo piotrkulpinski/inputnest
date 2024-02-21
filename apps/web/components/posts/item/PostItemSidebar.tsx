@@ -2,8 +2,8 @@
 
 import { Action, Field, Prose, Sidebar } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { PostSchema } from "@repo/database"
-import { postSchema } from "@repo/database"
+import type { PostSchema } from "@inputnest/database"
+import { postSchema } from "@inputnest/database"
 import { ArrowLeftIcon } from "lucide-react"
 import Link from "next/link"
 import { type HTMLAttributes, useEffect } from "react"

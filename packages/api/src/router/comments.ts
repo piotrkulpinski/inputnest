@@ -1,9 +1,9 @@
 import {
   commentRelationSchema,
   createCommentSchema,
-  updateCommentSchema,
   idSchema,
-} from "@repo/database"
+  updateCommentSchema,
+} from "@inputnest/database"
 
 import { createTRPCRouter, protectedProcedure } from "../trpc"
 

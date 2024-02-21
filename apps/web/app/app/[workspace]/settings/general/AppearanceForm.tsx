@@ -1,7 +1,7 @@
 "use client"
 
 import { Card, Header } from "@curiousleaf/design"
-import { Theme } from "@repo/database"
+import { Theme } from "@inputnest/database"
 import Image from "next/image"
 import type { HTMLAttributes } from "react"
 import { Form } from "~/components/form/Form"

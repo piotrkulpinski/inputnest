@@ -4,7 +4,7 @@ import {
   idSchema,
   idsSchema,
   updateBoardSchema,
-} from "@repo/database"
+} from "@inputnest/database"
 
 import { createTRPCRouter, protectedProcedure } from "../trpc"
 

@@ -1,5 +1,5 @@
 {
-  "name": "@repo/web",
+  "name": "@inputnest/web",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -27,8 +27,8 @@
     "@knocklabs/node": "0.4.25",
     "@logsnag/node": "^1.0.1",
     "@radix-ui/react-slot": "^1.0.2",
-    "@repo/api": "workspace:*",
-    "@repo/database": "workspace:*",
+    "@inputnest/api": "workspace:*",
+    "@inputnest/database": "workspace:*",
     "@stripe/react-stripe-js": "2.3.2",
     "@stripe/stripe-js": "2.1.11",
     "@t3-oss/env-nextjs": "^0.7.3",
@@ -58,8 +58,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
-    "@repo/biome-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@inputnest/biome-config": "workspace:*",
+    "@inputnest/typescript-config": "workspace:*",
     "@types/node": "^20.11.19",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
