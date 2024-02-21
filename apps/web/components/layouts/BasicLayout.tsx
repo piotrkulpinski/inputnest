@@ -1,6 +1,6 @@
 "use client"
 
-import { Card, H3, Paragraph } from "@curiousleaf/design"
+import { Card, H2, Paragraph } from "@curiousleaf/design"
 import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
 import type { HTMLAttributes, ReactNode } from "react"
@@ -36,7 +36,7 @@ export const BasicLayout = ({ children, title, description }: BasicLayoutProps) 
             <Link href={config.routes.dashboard}>{config.title}</Link>
           </Logo>
 
-          <H3 className="mt-5">{title}</H3>
+          <H2 className="mt-5">{title}</H2>
 
           {!!description && (
             <Paragraph size="sm" wrap="pretty" className="opacity-60">
