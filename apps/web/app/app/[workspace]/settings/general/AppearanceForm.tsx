@@ -1,8 +1,7 @@
 "use client"
 
-import { Card, Header } from "@curiousleaf/design"
+import { Avatar, Card, Header } from "@curiousleaf/design"
 import { Theme } from "@inputnest/database"
-import Image from "next/image"
 import type { HTMLAttributes } from "react"
 import { Form } from "~/components/form/Form"
 
@@ -32,7 +31,7 @@ export const AppearanceForm = (props: HTMLAttributes<HTMLElement>) => {
               hint="Displayed in the header of your website. Recommended size: 96x96px."
             >
               <Form.Uploader folder={id}>
-                {logo && <Image src={logo} alt="" width={48} height={48} className="h-6 w-auto" />}
+                {logo && <Avatar src={logo} alt="" shape="rounded" size="lg" />}
               </Form.Uploader>
             </Form.Field>
 

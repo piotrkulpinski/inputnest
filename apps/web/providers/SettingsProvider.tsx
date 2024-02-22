@@ -46,7 +46,7 @@ export const SettingsProvider = ({ children }: PropsWithChildren) => {
   })
 
   const onSubmit = form.handleSubmit(data => {
-    updateWorkspace(data)
+    updateWorkspace({ ...data, id: workspace.id })
   })
 
   return (

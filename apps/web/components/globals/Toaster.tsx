@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "sonner"
 export const Toaster = (props: ComponentPropsWithoutRef<typeof Sonner>) => {
   return (
     <Sonner
+      gap={10}
       offset="20px"
       className="!z-[60]"
       richColors
