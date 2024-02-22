@@ -5,9 +5,9 @@ import {
   updateCommentSchema,
 } from "@inputnest/database"
 
-import { createTRPCRouter, protectedProcedure } from "../trpc"
+import { protectedProcedure, router } from "../trpc"
 
-export const commentsRouter = createTRPCRouter({
+export const commentsRouter = router({
   getAll: protectedProcedure.input(commentRelationSchema).query(async ({ ctx: { db }, input }) => {
     const { postId } = input
 

@@ -5,9 +5,9 @@ import {
   updatePostSchema,
 } from "@inputnest/database"
 
-import { createTRPCRouter, protectedProcedure } from "../trpc"
+import { protectedProcedure, router } from "../trpc"
 
-export const postsRouter = createTRPCRouter({
+export const postsRouter = router({
   getAll: protectedProcedure
     .input(postRelationSchema)
     .query(async ({ ctx: { db, userId }, input: { workspaceId } }) => {

@@ -36,7 +36,7 @@ export default function Route() {
     setTags(tags.slice().sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id)))
 
     // Update the order of the tags
-    reorderTags({ ids })
+    reorderTags({ ids, workspaceId })
   }
 
   // Update the tags when the loader data changes

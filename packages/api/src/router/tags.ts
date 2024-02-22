@@ -1,62 +1,58 @@
-import {
-  createTagSchema,
-  idSchema,
-  idsSchema,
-  tagRelationSchema,
-  updateTagSchema,
-} from "@inputnest/database"
+import { idSchema, idsSchema, tagSchema } from "@inputnest/database"
 
-import { createTRPCRouter, protectedProcedure } from "../trpc"
+import { router, workspaceProcedure } from "../trpc"
 
-export const tagsRouter = createTRPCRouter({
-  getAll: protectedProcedure
-    .input(tagRelationSchema)
-    .query(async ({ ctx: { db, userId }, input: { workspaceId } }) => {
-      return await db.tag.findMany({
-        where: { workspace: { id: workspaceId, members: { some: { userId } } } },
-        orderBy: [{ order: "asc" }, { createdAt: "asc" }],
-      })
-    }),
+export const tagsRouter = router({
+  getAll: workspaceProcedure.query(async ({ ctx: { db }, input: { workspaceId } }) => {
+    return await db.tag.findMany({
+      where: { workspaceId },
+      orderBy: [{ order: "asc" }, { createdAt: "asc" }],
+    })
+  }),
 
-  get: protectedProcedure
-    .input(idSchema.merge(tagRelationSchema))
-    .query(async ({ ctx: { db, userId }, input: { id, workspaceId } }) => {
+  get: workspaceProcedure
+    .input(idSchema)
+    .query(async ({ ctx: { db }, input: { id, workspaceId } }) => {
       return await db.tag.findFirst({
-        where: { id, workspace: { id: workspaceId, members: { some: { userId } } } },
+        where: { id, workspaceId },
       })
     }),
 
-  create: protectedProcedure.input(createTagSchema).mutation(async ({ ctx: { db }, input }) => {
-    return await db.tag.create({
-      data: input,
-    })
-  }),
+  create: workspaceProcedure
+    .input(tagSchema)
+    .mutation(async ({ ctx: { db }, input: { ...data } }) => {
+      return await db.tag.create({
+        data,
+      })
+    }),
 
-  update: protectedProcedure.input(updateTagSchema).mutation(async ({ ctx: { db }, input }) => {
-    return await db.tag.update({
-      where: { id: input.id },
-      data: input,
-    })
-  }),
+  update: workspaceProcedure
+    .input(tagSchema.merge(idSchema))
+    .mutation(async ({ ctx: { db }, input: { id, workspaceId, ...data } }) => {
+      return await db.tag.update({
+        where: { id, workspaceId },
+        data,
+      })
+    }),
 
-  delete: protectedProcedure.input(idSchema).mutation(async ({ ctx: { db, userId }, input }) => {
-    const { id } = input
+  delete: workspaceProcedure
+    .input(idSchema)
+    .mutation(async ({ ctx: { db }, input: { id, workspaceId } }) => {
+      return await db.tag.delete({
+        where: { id, workspaceId },
+      })
+    }),
 
-    return await db.tag.delete({
-      where: { id, workspace: { members: { some: { userId } } } },
-    })
-  }),
-
-  reorder: protectedProcedure.input(idsSchema).mutation(async ({ ctx: { db, userId }, input }) => {
-    const { ids } = input
-
-    await Promise.all(
-      ids.map(async (id, order) => {
-        await db.tag.update({
-          where: { id, workspace: { members: { some: { userId } } } },
-          data: { order },
-        })
-      }),
-    )
-  }),
+  reorder: workspaceProcedure
+    .input(idsSchema)
+    .mutation(async ({ ctx: { db }, input: { ids, workspaceId } }) => {
+      await Promise.all(
+        ids.map(async (id, order) => {
+          await db.tag.update({
+            where: { id, workspaceId },
+            data: { order },
+          })
+        }),
+      )
+    }),
 })

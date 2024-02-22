@@ -1,5 +1,5 @@
 import { Container } from "@curiousleaf/design"
-import { db, workspaceInclude } from "@inputnest/database"
+import { db, isPrismaError, workspaceInclude } from "@inputnest/database"
 import { notFound } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
@@ -16,11 +16,14 @@ export default async function WorkspaceLayout({ children, params }: WorkspaceLay
   const slug = params.workspace
 
   const workspace = await db.workspace
-    .findFirstOrThrow({
+    .findUniqueOrThrow({
       where: { slug, members: { some: { userId, role: { in: ["Owner", "Manager"] } } } },
       include: workspaceInclude,
     })
-    .catch(() => notFound())
+    .catch(error => {
+      if (isPrismaError(error) && error.code === "P2025") notFound()
+      throw error
+    })
 
   return (
     <WorkspaceProvider workspace={workspace}>

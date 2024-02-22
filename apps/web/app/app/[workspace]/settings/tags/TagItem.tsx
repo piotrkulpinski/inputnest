@@ -51,7 +51,7 @@ export const TagItem = ({ tag, ...props }: TagItemProps) => {
           <DialogConfirm
             title="Delete your tag?"
             label="Delete Tag"
-            onConfirm={() => deleteTag.mutate({ id: tag.id })}
+            onConfirm={() => deleteTag.mutate({ id: tag.id, workspaceId })}
           >
             <Button size="md" theme="negative" variant="outline" isPending={deleteTag.isPending}>
               Delete

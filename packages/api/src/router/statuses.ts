@@ -1,81 +1,73 @@
-import {
-  createStatusSchema,
-  idSchema,
-  idsSchema,
-  statusRelationSchema,
-  updateStatusSchema,
-} from "@inputnest/database"
+import { idSchema, idsSchema, statusSchema } from "@inputnest/database"
 
-import { createTRPCRouter, protectedProcedure } from "../trpc"
+import { router, workspaceProcedure } from "../trpc"
 
-export const statusesRouter = createTRPCRouter({
-  getAll: protectedProcedure
-    .input(statusRelationSchema)
-    .query(async ({ ctx: { db, userId }, input: { workspaceId } }) => {
-      return await db.status.findMany({
-        where: { workspace: { id: workspaceId, members: { some: { userId } } } },
-        orderBy: [{ order: "asc" }, { createdAt: "asc" }],
-      })
-    }),
+export const statusesRouter = router({
+  getAll: workspaceProcedure.query(async ({ ctx: { db }, input: { workspaceId } }) => {
+    return await db.status.findMany({
+      where: { workspaceId },
+      orderBy: [{ order: "asc" }, { createdAt: "asc" }],
+    })
+  }),
 
-  get: protectedProcedure
-    .input(idSchema.merge(statusRelationSchema))
-    .query(async ({ ctx: { db, userId }, input: { id, workspaceId } }) => {
+  get: workspaceProcedure
+    .input(idSchema)
+    .query(async ({ ctx: { db }, input: { id, workspaceId } }) => {
       return await db.status.findFirst({
-        where: { id, workspace: { id: workspaceId, members: { some: { userId } } } },
+        where: { id, workspaceId },
       })
     }),
 
-  create: protectedProcedure
-    .input(createStatusSchema)
-    .mutation(async ({ ctx: { db }, input: data }) => {
+  create: workspaceProcedure
+    .input(statusSchema)
+    .mutation(async ({ ctx: { db }, input: { ...data } }) => {
       return await db.status.create({
         data,
       })
     }),
 
-  update: protectedProcedure
-    .input(updateStatusSchema)
-    .mutation(async ({ ctx: { db }, input: { id, ...data } }) => {
+  update: workspaceProcedure
+    .input(statusSchema.merge(idSchema))
+    .mutation(async ({ ctx: { db }, input: { id, workspaceId, ...data } }) => {
       return await db.status.update({
-        where: { id },
+        where: { id, workspaceId },
         data,
       })
     }),
 
-  delete: protectedProcedure
+  delete: workspaceProcedure
     .input(idSchema)
-    .mutation(async ({ ctx: { db, userId }, input: { id } }) => {
+    .mutation(async ({ ctx: { db }, input: { id, workspaceId } }) => {
       return await db.status.delete({
-        where: { id, workspace: { members: { some: { userId } } } },
+        where: { id, workspaceId },
       })
     }),
 
-  reorder: protectedProcedure
+  reorder: workspaceProcedure
     .input(idsSchema)
-    .mutation(async ({ ctx: { db, userId }, input: { ids } }) => {
+    .mutation(async ({ ctx: { db }, input: { ids, workspaceId } }) => {
       await Promise.all(
         ids.map(async (id, order) => {
           await db.status.update({
-            where: { id, workspace: { members: { some: { userId } } } },
+            where: { id, workspaceId },
             data: { order },
           })
         }),
       )
     }),
 
-  makeDefault: protectedProcedure
+  makeDefault: workspaceProcedure
     .input(idSchema)
-    .mutation(async ({ ctx: { db, userId }, input: { id } }) => {
-      // Remove default from all statuss
+    .mutation(async ({ ctx: { db }, input: { id, workspaceId } }) => {
+      // Remove default from all statuses
       await db.status.updateMany({
-        where: { workspace: { members: { some: { userId } } } },
+        where: { workspaceId },
         data: { isDefault: false },
       })
 
       // Set the new default status
       return await db.status.update({
-        where: { id, workspace: { members: { some: { userId } } } },
+        where: { id, workspaceId },
         data: { isDefault: true },
       })
     }),

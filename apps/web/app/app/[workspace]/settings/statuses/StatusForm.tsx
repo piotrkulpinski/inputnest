@@ -48,7 +48,7 @@ export const StatusForm = ({ status, ...props }: StatusFormProps) => {
   // Handle the form submission
   const onSubmit = (data: StatusSchema) => {
     if (status?.id) {
-      return updateStatus.mutate({ ...data, id: status.id })
+      return updateStatus.mutate({ ...data, id: status.id, workspaceId })
     }
 
     return createStatus.mutate({ ...data, workspaceId })

@@ -1,83 +1,73 @@
-import {
-  boardRelationSchema,
-  createBoardSchema,
-  idSchema,
-  idsSchema,
-  updateBoardSchema,
-} from "@inputnest/database"
+import { boardSchema, idSchema, idsSchema } from "@inputnest/database"
 
-import { createTRPCRouter, protectedProcedure } from "../trpc"
+import { router, workspaceProcedure } from "../trpc"
 
-export const boardsRouter = createTRPCRouter({
-  getAll: protectedProcedure
-    .input(boardRelationSchema)
-    .query(async ({ ctx: { db, userId }, input: { workspaceId } }) => {
-      return await db.board.findMany({
-        where: { workspace: { id: workspaceId, members: { some: { userId } } } },
-        orderBy: [{ order: "asc" }, { createdAt: "asc" }],
-      })
-    }),
+export const boardsRouter = router({
+  getAll: workspaceProcedure.query(async ({ ctx: { db }, input: { workspaceId } }) => {
+    return await db.board.findMany({
+      where: { workspaceId },
+      orderBy: [{ order: "asc" }, { createdAt: "asc" }],
+    })
+  }),
 
-  get: protectedProcedure
-    .input(idSchema.merge(boardRelationSchema))
-    .query(async ({ ctx: { db, userId }, input: { id, workspaceId } }) => {
+  get: workspaceProcedure
+    .input(idSchema)
+    .query(async ({ ctx: { db }, input: { id, workspaceId } }) => {
       return await db.board.findFirst({
-        where: { id, workspace: { id: workspaceId, members: { some: { userId } } } },
+        where: { id, workspaceId },
       })
     }),
 
-  create: protectedProcedure
-    .input(createBoardSchema)
-    .mutation(async ({ ctx: { db }, input: data }) => {
+  create: workspaceProcedure
+    .input(boardSchema)
+    .mutation(async ({ ctx: { db }, input: { ...data } }) => {
       return await db.board.create({
         data,
       })
     }),
 
-  update: protectedProcedure
-    .input(updateBoardSchema)
-    .mutation(async ({ ctx: { db }, input: { id, ...data } }) => {
+  update: workspaceProcedure
+    .input(boardSchema.merge(idSchema))
+    .mutation(async ({ ctx: { db }, input: { id, workspaceId, ...data } }) => {
       return await db.board.update({
-        where: { id },
+        where: { id, workspaceId },
         data,
       })
     }),
 
-  delete: protectedProcedure
+  delete: workspaceProcedure
     .input(idSchema)
-    .mutation(async ({ ctx: { db, userId }, input: { id } }) => {
+    .mutation(async ({ ctx: { db }, input: { id, workspaceId } }) => {
       return await db.board.delete({
-        where: { id, workspace: { members: { some: { userId } } } },
+        where: { id, workspaceId },
       })
     }),
 
-  reorder: protectedProcedure
+  reorder: workspaceProcedure
     .input(idsSchema)
-    .mutation(async ({ ctx: { db, userId }, input: { ids } }) => {
+    .mutation(async ({ ctx: { db }, input: { ids, workspaceId } }) => {
       await Promise.all(
         ids.map(async (id, order) => {
           await db.board.update({
-            where: { id, workspace: { members: { some: { userId } } } },
+            where: { id, workspaceId },
             data: { order },
           })
         }),
       )
     }),
 
-  makeDefault: protectedProcedure
+  makeDefault: workspaceProcedure
     .input(idSchema)
-    .mutation(async ({ ctx: { db, userId }, input }) => {
-      const { id } = input
-
+    .mutation(async ({ ctx: { db }, input: { id, workspaceId } }) => {
       // Remove default from all boards
       await db.board.updateMany({
-        where: { workspace: { members: { some: { userId } } } },
+        where: { workspaceId },
         data: { isDefault: false },
       })
 
       // Set the new default board
       return await db.board.update({
-        where: { id, workspace: { members: { some: { userId } } } },
+        where: { id, workspaceId },
         data: { isDefault: true },
       })
     }),

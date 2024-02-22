@@ -36,7 +36,7 @@ export default function Route() {
     setStatuses(statuses.slice().sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id)))
 
     // Update the order of the statuses
-    reorderStatuses({ ids })
+    reorderStatuses({ ids, workspaceId })
   }
 
   // Update the statuses when the loader data changes

@@ -53,13 +53,13 @@ export const NavItemButton = forwardRef<MenuItemElement, NavItemProps>((props, r
 })
 
 export const NavItemLink = forwardRef<MenuItemElement, NavItemProps>((props, ref) => {
-  const { children, title, href, end, active, ...rest } = props
+  const { children, title, href, end, isActive, ...rest } = props
 
   const pathname = usePathname()
-  const isActive = useMemo(() => isItemActive({ href, end }, pathname), [href, end, pathname])
+  const isPathActive = useMemo(() => isItemActive({ href, end }, pathname), [href, end, pathname])
 
   return (
-    <MenuItem ref={ref} active={active ?? isActive} asChild {...rest}>
+    <MenuItem ref={ref} isActive={isActive ?? isPathActive} asChild {...rest}>
       <Link
         href={href ?? ""}
         target={isExternalLink(href) ? "_blank" : undefined}

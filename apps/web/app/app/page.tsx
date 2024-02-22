@@ -4,13 +4,9 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 import { BasicLayout } from "~/components/layouts/BasicLayout"
 import { config } from "~/config"
-import { auth } from "~/services/auth"
 import { api } from "~/services/trpc/server"
 
 export default async function Route() {
-  const session = await auth()
-  const userId = session?.user?.id
-
   const workspaces = await api.workspaces.getAll.query()
 
   if (!workspaces.length) {
