@@ -28,11 +28,11 @@ export const PostItem = ({ post, ...props }: PostItemProps) => {
               <Status color={post.status.color}>{post.status.name}</Status>
             </Badge>
 
-            <Badge theme="gray" variant="soft">
+            <Badge theme="gray" variant="outline">
               {post.board.name}
             </Badge>
 
-            <Badge theme="gray" variant="soft" prefix={<MessageCircleIcon />}>
+            <Badge theme="gray" variant="outline" prefix={<MessageCircleIcon />}>
               {post._count.comments}
             </Badge>
           </Series>
