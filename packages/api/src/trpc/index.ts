@@ -1,8 +1,7 @@
-import { db, isPrismaError } from "@inputnest/database"
+import { Prisma, db } from "@inputnest/database"
 import { TRPCError, initTRPC } from "@trpc/server"
-import superjson from "superjson"
-import type { typeToFlattenedError } from "zod"
-import { ZodError, z } from "zod"
+import SuperJSON from "superjson"
+import { ZodError, typeToFlattenedError, z } from "zod"
 
 /**
  * 1. CONTEXT
@@ -33,26 +32,30 @@ export const createTRPCContext = async ({ userId }: CreateContextOptions) => {
  * transformer
  */
 const t = initTRPC.context<typeof createTRPCContext>().create({
-  transformer: superjson,
+  transformer: SuperJSON,
 
-  errorFormatter: ({ shape, error }) => {
+  errorFormatter: ({ shape, error: { cause } }) => {
     let dataError: typeToFlattenedError<any, string> = {
       formErrors: [],
       fieldErrors: {},
     }
 
     // Zod error
-    if (error.cause instanceof ZodError) {
-      dataError = Object.assign(dataError, error.cause.flatten())
+    if (cause instanceof ZodError) {
+      dataError = Object.assign(dataError, cause.flatten())
     }
 
     // Prisma error
-    if (isPrismaError(error.cause) && error.cause.meta?.target) {
-      const name = (error.cause.meta.target as string[]).at(-1)
-
+    if (cause instanceof Prisma.PrismaClientKnownRequestError) {
       // Unique constraint
-      if (name && error.cause.code === "P2002") {
-        dataError.fieldErrors[name] = [`That ${name} has been taken. Please choose another`]
+      if (cause.code === "P2002") {
+        if (cause.meta?.target) {
+          const name = (cause.meta?.target as string[]).at(-1)
+
+          if (name) {
+            dataError.fieldErrors[name] = [`That ${name} has been taken. Please choose another`]
+          }
+        }
       }
     }
 

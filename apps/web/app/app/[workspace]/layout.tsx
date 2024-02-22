@@ -1,29 +1,28 @@
 import { Container } from "@curiousleaf/design"
-import { db, isPrismaError, workspaceInclude } from "@inputnest/database"
 import { notFound } from "next/navigation"
-import type { PropsWithChildren } from "react"
+import { type PropsWithChildren, cache } from "react"
 
 import { NavBar } from "~/components/navs/NavBar"
 import { NavSide } from "~/components/navs/NavSide"
 import { WorkspaceProvider } from "~/providers/WorkspaceProvider"
-import { auth } from "~/services/auth"
+import { api } from "~/services/trpc/server"
 
-type WorkspaceLayoutProps = PropsWithChildren<{ params: { workspace: string } }>
+type Params = {
+  params: { workspace: string }
+}
 
-export default async function WorkspaceLayout({ children, params }: WorkspaceLayoutProps) {
-  const session = await auth()
-  const userId = session?.user?.id
-  const slug = params.workspace
+export const getWorkspaceBySlug = cache(async (slug: string) => {
+  const workspace = await api.workspaces.getBySlug.query({ slug })
 
-  const workspace = await db.workspace
-    .findUniqueOrThrow({
-      where: { slug, members: { some: { userId, role: { in: ["Owner", "Manager"] } } } },
-      include: workspaceInclude,
-    })
-    .catch(error => {
-      if (isPrismaError(error) && error.code === "P2025") notFound()
-      throw error
-    })
+  if (!workspace) {
+    notFound()
+  }
+
+  return workspace
+})
+
+export default async function WorkspaceLayout({ children, params }: PropsWithChildren<Params>) {
+  const workspace = await getWorkspaceBySlug(params.workspace)
 
   return (
     <WorkspaceProvider workspace={workspace}>
