@@ -15,7 +15,6 @@ import type { HTMLAttributes } from "react"
 import { useState } from "react"
 
 import { useCrisp } from "~/hooks/useCrisp"
-import { useMutationHandler } from "~/hooks/useMutationHandler"
 
 import { signOut, useSession } from "next-auth/react"
 import { toast } from "sonner"
@@ -24,12 +23,11 @@ import type { NavItemProps } from "./NavItem"
 import { NavItemButton } from "./NavItem"
 
 export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) => {
-  const { handleSuccess } = useMutationHandler()
   const { data: session, status } = useSession()
-  const [isLogoutLoading, setIsLogoutLoading] = useState(false)
-  const { isLoading: isChatLoading, toggleChat } = useCrisp()
+  const [isSignOutPending, setIsSignOutPending] = useState(false)
+  const { isPending: isChatPending, toggleChat } = useCrisp()
 
-  // const { mutate, isLoading: isBillingLoading } = api.stripe.billingSession.create.useMutation({
+  // const { mutate, isPending: isBillingLoading } = api.stripe.billingSession.create.useMutation({
   //   onSuccess: ({ url }) => {
   //     window.location.href = url
   //   },
@@ -44,11 +42,11 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
   //   mutate({ returnUrl: env.VITE_APP_URL })
   // }
 
-  const handleLogout = async (e: React.MouseEvent) => {
+  const handleSignOut = async (e: React.MouseEvent) => {
     e.preventDefault()
 
     // Set loading state
-    setIsLogoutLoading(true)
+    setIsSignOutPending(true)
 
     // Sign out
     await signOut()
@@ -69,7 +67,7 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
       {
         title: "Live Chat",
         prefix: <MessagesSquareIcon />,
-        loading: isChatLoading,
+        isPending: isChatPending,
         onClick: toggleChat,
       },
       {
@@ -102,8 +100,8 @@ export const NavUser = ({ className, ...props }: HTMLAttributes<HTMLElement>) =>
       {
         title: "Sign out",
         prefix: <LogOutIcon />,
-        loading: isLogoutLoading,
-        onClick: handleLogout,
+        isPending: isSignOutPending,
+        onClick: handleSignOut,
       },
     ],
   ]

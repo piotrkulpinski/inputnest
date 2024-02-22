@@ -1,6 +1,7 @@
 "use client"
 
 import { Button, Card, Dialog, Header, Paragraph, Series } from "@curiousleaf/design"
+import { RouterOutputs } from "@inputnest/api"
 import { PlusIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 
@@ -12,7 +13,7 @@ import { QueryCell } from "~/components/utils/QueryCell"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { SortableProvider } from "~/providers/SortableProvider"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import { type RouterOutputs, api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 
 export default function Route() {
   const apiUtils = api.useUtils()
@@ -66,7 +67,7 @@ export default function Route() {
         <Series size="lg" direction="column">
           <QueryCell
             query={statusesQuery}
-            loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
+            pending={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
             error={() => (
               <Paragraph className="text-red">There was an error loading the statuses.</Paragraph>
             )}

@@ -104,7 +104,7 @@ const NavNotificationsDropdown = ({ className, ...props }: HTMLAttributes<HTMLEl
               theme="secondary"
               variant="outline"
               onClick={() => feedClient.fetchNextPage()}
-              loading={networkStatus === NetworkStatus.fetchMore}
+              isPending={networkStatus === NetworkStatus.fetchMore}
               disabled={requestInFlight}
             >
               Load more

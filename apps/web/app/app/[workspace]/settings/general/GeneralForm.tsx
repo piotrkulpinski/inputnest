@@ -8,7 +8,7 @@ import { useSettings } from "~/providers/SettingsProvider"
 import { getTenantHost } from "~/utils/helpers"
 
 export const GeneralForm = (props: HTMLAttributes<HTMLElement>) => {
-  const { form, onSubmit, isLoading } = useSettings()
+  const { form, onSubmit, isPending } = useSettings()
 
   return (
     <Card asChild {...props}>
@@ -17,7 +17,7 @@ export const GeneralForm = (props: HTMLAttributes<HTMLElement>) => {
           <Header title="General" description="View and update your workspace details." />
 
           <Form.Fieldset>
-            <Form.Field control={form.control} name="name" label="Workspace Name" required>
+            <Form.Field control={form.control} name="name" label="Workspace Name" isRequired>
               <Form.Input data-1p-ignore className="max-w-lg" />
             </Form.Field>
 
@@ -26,7 +26,7 @@ export const GeneralForm = (props: HTMLAttributes<HTMLElement>) => {
               name="slug"
               label="Subdomain"
               hint="Your workspace is visible at this address."
-              required
+              isRequired
             >
               <Form.Affix suffix={getTenantHost()} className="max-w-sm">
                 <Form.Input />
@@ -36,7 +36,7 @@ export const GeneralForm = (props: HTMLAttributes<HTMLElement>) => {
         </Card.Section>
 
         <Card.Row direction="rowReverse">
-          <Form.Button loading={isLoading}>Save Changes</Form.Button>
+          <Form.Button isPending={isPending}>Save Changes</Form.Button>
         </Card.Row>
       </Form>
     </Card>

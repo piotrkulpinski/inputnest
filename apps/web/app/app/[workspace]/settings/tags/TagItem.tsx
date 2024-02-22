@@ -1,4 +1,5 @@
 import { Button, Card, Dialog, Draggable, H5, Series } from "@curiousleaf/design"
+import { RouterOutputs } from "@inputnest/api"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
@@ -7,8 +8,7 @@ import { DialogConfirm } from "~/components/dialogs/DialogConfirm"
 import { Status } from "~/components/interface/Status"
 import { useSortable } from "~/providers/SortableProvider"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import type { RouterOutputs } from "~/services/trpc"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 
 type TagItemProps = ComponentPropsWithoutRef<typeof Card> & {
   tag: RouterOutputs["tags"]["getAll"][number]
@@ -53,7 +53,7 @@ export const TagItem = ({ tag, ...props }: TagItemProps) => {
             label="Delete Tag"
             onConfirm={() => deleteTag.mutate({ id: tag.id })}
           >
-            <Button size="md" theme="negative" variant="outline" loading={deleteTag.isLoading}>
+            <Button size="md" theme="negative" variant="outline" isPending={deleteTag.isPending}>
               Delete
             </Button>
           </DialogConfirm>

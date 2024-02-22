@@ -10,7 +10,7 @@ import { FormProvider, useForm } from "react-hook-form"
 import { Form } from "~/components/form/Form"
 import { useComputedField } from "~/hooks/useComputedField"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 import { getTenantHost } from "~/utils/helpers"
 import { getDefaults } from "~/utils/zod"
 
@@ -23,7 +23,7 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
     values: getDefaults(workspaceSchema),
   })
 
-  const { mutate: createWorkspace, isLoading } = api.workspaces.create.useMutation({
+  const { mutate: createWorkspace, isPending } = api.workspaces.create.useMutation({
     onSuccess: async ({ slug }) => {
       handleSuccess({
         redirect: `/app/${slug}`,
@@ -49,7 +49,7 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
     <FormProvider {...form}>
       <Form onSubmit={form.handleSubmit(v => createWorkspace(v))} {...props}>
         <Form.Fieldset className="size-full">
-          <Form.Field control={form.control} name="name" label="Name" required>
+          <Form.Field control={form.control} name="name" label="Name" isRequired>
             <Form.Input placeholder="Acme Corporation" data-1p-ignore />
           </Form.Field>
 
@@ -58,14 +58,14 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
             name="slug"
             label="Subdomain"
             hint="Your workspace is visible at this address."
-            required
+            isRequired
           >
             <Form.Affix suffix={getTenantHost()}>
               <Form.Input placeholder="acme" />
             </Form.Affix>
           </Form.Field>
 
-          <Form.Button loading={isLoading} className="mt-auto w-full">
+          <Form.Button isPending={isPending} className="mt-auto w-full">
             Create Workspace
           </Form.Button>
         </Form.Fieldset>

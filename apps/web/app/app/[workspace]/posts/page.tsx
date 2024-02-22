@@ -9,7 +9,7 @@ import { PostCreateForm } from "~/components/posts/forms/PostCreateForm"
 import { HeadingCounter } from "~/components/utils/HeadingCounter"
 import { QueryCell } from "~/components/utils/QueryCell"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 
 export default function Route() {
   const { id: workspaceId } = useWorkspace()
@@ -38,7 +38,7 @@ export default function Route() {
         <Series direction="column">
           <QueryCell
             query={postsQuery}
-            loading={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
+            pending={() => Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />)}
             error={() => (
               <Paragraph className="text-red">There was an error loading the posts.</Paragraph>
             )}

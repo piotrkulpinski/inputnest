@@ -10,7 +10,7 @@ export const FormButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref
   return (
     <Button
       ref={ref}
-      loading={isSubmitting}
+      isPending={isSubmitting}
       disabled={isSubmitting || (isSubmitted && !isValid)}
       {...props}
     />

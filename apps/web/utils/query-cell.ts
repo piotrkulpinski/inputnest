@@ -3,7 +3,7 @@
  */
 import type {
   QueryObserverLoadingErrorResult,
-  QueryObserverLoadingResult,
+  QueryObserverPendingResult,
   QueryObserverRefetchErrorResult,
   QueryObserverSuccessResult,
   UseQueryResult,
@@ -20,9 +20,9 @@ type CreateQueryCellOptions<TError> = {
    */
   error: (query: ErrorResult<unknown, TError>) => ReactNode
   /**
-   * Default loading handler for this cell
+   * Default pending handler for this cell
    */
-  loading: (query: QueryObserverLoadingResult<unknown, TError>) => ReactNode
+  pending: (query: QueryObserverPendingResult<unknown, TError>) => ReactNode
 }
 
 type QueryCellOptions<TData, TError> = {
@@ -32,9 +32,9 @@ type QueryCellOptions<TData, TError> = {
    */
   error?: (query: ErrorResult<TData, TError>) => ReactNode
   /**
-   * Optionally override loading state
+   * Optionally override pending state
    */
-  loading?: (query: QueryObserverLoadingResult<TData, TError>) => ReactNode
+  pending?: (query: QueryObserverPendingResult<TData, TError>) => ReactNode
 }
 
 type QueryCellOptionsWithEmpty<TData, TError> = {
@@ -75,8 +75,8 @@ export const createQueryCell = <TError>(queryCellOpts: CreateQueryCellOptions<TE
       return opts.error?.(query) ?? queryCellOpts.error(query)
     }
 
-    if (query.status === "loading") {
-      return opts.loading?.(query) ?? queryCellOpts.loading(query)
+    if (query.status === "pending") {
+      return opts.pending?.(query) ?? queryCellOpts.pending(query)
     }
 
     // impossible state

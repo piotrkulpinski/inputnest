@@ -11,7 +11,7 @@ import { PostItemSidebar } from "~/components/posts/item/PostItemSidebar"
 import { QueryCell } from "~/components/utils/QueryCell"
 import { PostProvider } from "~/providers/PostProvider"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 
 type PostItemProps = HTMLAttributes<HTMLElement> & {
   id: string
@@ -24,7 +24,7 @@ export const PostItem = ({ id, ...props }: PostItemProps) => {
   return (
     <QueryCell
       query={postQuery}
-      loading={() => <PostItemSkeleton />}
+      pending={() => <PostItemSkeleton />}
       error={() => notFound()}
       success={({ data }) => (
         <PostProvider post={data}>

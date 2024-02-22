@@ -9,7 +9,7 @@ import { Form } from "~/components/form/Form"
 import { useSettings } from "~/providers/SettingsProvider"
 
 export const AppearanceForm = (props: HTMLAttributes<HTMLElement>) => {
-  const { form, onSubmit, isLoading } = useSettings()
+  const { form, onSubmit, isPending } = useSettings()
 
   // Watch form values
   const id = form.getValues("id")
@@ -41,7 +41,7 @@ export const AppearanceForm = (props: HTMLAttributes<HTMLElement>) => {
               name="theme"
               label="Theme"
               hint="Select an interface theme for your public portal."
-              required
+              isRequired
             >
               <Form.RadioGroup
                 options={[{ value: Theme.Light }, { value: Theme.Dark }, { value: Theme.System }]}
@@ -53,7 +53,7 @@ export const AppearanceForm = (props: HTMLAttributes<HTMLElement>) => {
               name="brandColor"
               label="Brand Color"
               hint="Assign a brand color to your public portal."
-              required
+              isRequired
             >
               <Form.ColorPicker />
             </Form.Field>
@@ -61,7 +61,7 @@ export const AppearanceForm = (props: HTMLAttributes<HTMLElement>) => {
         </Card.Section>
 
         <Card.Row direction="rowReverse">
-          <Form.Button loading={isLoading}>Save Changes</Form.Button>
+          <Form.Button isPending={isPending}>Save Changes</Form.Button>
         </Card.Row>
       </Form>
     </Card>

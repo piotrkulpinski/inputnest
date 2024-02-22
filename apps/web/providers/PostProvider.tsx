@@ -1,6 +1,6 @@
+import { RouterOutputs } from "@inputnest/api"
 import type { PropsWithChildren } from "react"
 
-import type { RouterOutputs } from "~/services/trpc"
 import { createSimpleContext } from "~/utils/providers"
 
 type PostContext = {

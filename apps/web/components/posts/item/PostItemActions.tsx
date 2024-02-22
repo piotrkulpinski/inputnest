@@ -10,7 +10,7 @@ import { PostUpdateForm } from "~/components/posts/forms/PostUpdateForm"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { usePost } from "~/providers/PostProvider"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 import { getTenantUrl } from "~/utils/helpers"
 
 export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
@@ -59,7 +59,7 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
         label="Delete Post"
         onConfirm={() => deletePost.mutate({ id: post.id })}
       >
-        <Button size="md" theme="negative" variant="outline" loading={deletePost.isLoading}>
+        <Button size="md" theme="negative" variant="outline" isPending={deletePost.isPending}>
           Delete
         </Button>
       </DialogConfirm>

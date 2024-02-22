@@ -1,9 +1,9 @@
 "use client"
 
+import { RouterOutputs } from "@inputnest/api"
 import { WorkspaceWithMembers } from "@inputnest/database"
 import type { PropsWithChildren } from "react"
 
-import type { RouterOutputs } from "~/services/trpc"
 import { createSimpleContext } from "~/utils/providers"
 
 type Workspace = NonNullable<RouterOutputs["workspaces"]["getBySlug"]>

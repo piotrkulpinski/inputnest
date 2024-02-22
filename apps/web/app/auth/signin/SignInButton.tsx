@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, ButtonElement, IconLoader, cx } from "@curiousleaf/design"
+import { Button, ButtonElement, IconSpinner, cx } from "@curiousleaf/design"
 import { capitalize } from "@curiousleaf/utils"
 import type { BuiltInProviderType } from "next-auth/providers/index"
 import { signIn } from "next-auth/react"
@@ -19,10 +19,10 @@ export const SignInButton = forwardRef<ButtonElement, SignInButtonProps>((props,
   const searchParams = useSearchParams()
   const error = searchParams?.get("error")
 
-  const [loading, setIsLoading] = useState(false)
+  const [isPending, setIsPending] = useState(false)
 
   const onClick = () => {
-    setIsLoading(true)
+    setIsPending(true)
 
     signIn(provider, {
       callbackUrl: config.routes.dashboard,
@@ -35,10 +35,10 @@ export const SignInButton = forwardRef<ButtonElement, SignInButtonProps>((props,
       ref={ref}
       theme={theme}
       variant={variant}
-      prefix={loading ? <IconLoader /> : prefix}
+      prefix={isPending ? <IconSpinner /> : prefix}
       onClick={onClick}
       className={cx("w-full", className)}
-      disabled={loading}
+      disabled={isPending}
       {...rest}
     >
       Continue with {capitalize(provider)}

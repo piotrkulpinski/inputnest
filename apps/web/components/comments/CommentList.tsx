@@ -10,7 +10,7 @@ import { CommentTree } from "~/components/comments/CommentTree"
 import { HeadingCounter } from "~/components/utils/HeadingCounter"
 import { QueryCell } from "~/components/utils/QueryCell"
 import { CommentsProvider } from "~/providers/CommentsProvider"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 import { buildCommentsTree } from "~/utils/comments"
 
 export const CommentList = () => {
@@ -24,14 +24,14 @@ export const CommentList = () => {
         <HeadingCounter data={commentsQuery.data}>Comments</HeadingCounter>
       </H5>
 
-      <CommentForm isLoading={commentsQuery.isLoading} />
+      <CommentForm isPending={commentsQuery.isPending} />
 
       <QueryCell
         query={commentsQuery}
         error={() => (
           <Paragraph className="mt-4 text-red">There was an error loading the comments.</Paragraph>
         )}
-        loading={() => (
+        pending={() => (
           <CommentTree>
             {Array.from({ length: 2 }).map((_, i) => (
               <CommentItemSkeleton key={i} />

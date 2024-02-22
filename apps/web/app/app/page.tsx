@@ -1,19 +1,17 @@
 import { Avatar, Button, Divider } from "@curiousleaf/design"
-import { db } from "@inputnest/database"
 import { PlusIcon } from "lucide-react"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { BasicLayout } from "~/components/layouts/BasicLayout"
 import { config } from "~/config"
 import { auth } from "~/services/auth"
+import { api } from "~/services/trpc/server"
 
 export default async function Route() {
   const session = await auth()
   const userId = session?.user?.id
 
-  const workspaces = await db.workspace.findMany({
-    where: { members: { some: { userId, role: { in: ["Owner", "Manager"] } } } },
-  })
+  const workspaces = await api.workspaces.getAll.query()
 
   if (!workspaces.length) {
     redirect(config.routes.onboarding)

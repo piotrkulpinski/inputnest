@@ -1,5 +1,6 @@
 import { Dialog, Header } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { RouterOutputs } from "@inputnest/api"
 import type { StatusSchema } from "@inputnest/database"
 import { statusSchema } from "@inputnest/database"
 import type { HTMLAttributes } from "react"
@@ -8,8 +9,7 @@ import { Form } from "~/components/form/Form"
 
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import type { RouterOutputs } from "~/services/trpc"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 import { getDefaults } from "~/utils/zod"
 
 type StatusFormProps = HTMLAttributes<HTMLFormElement> & {
@@ -43,7 +43,7 @@ export const StatusForm = ({ status, ...props }: StatusFormProps) => {
 
   const createStatus = api.statuses.create.useMutation({ onSuccess })
   const updateStatus = api.statuses.update.useMutation({ onSuccess })
-  const isLoading = createStatus.isLoading || updateStatus.isLoading
+  const isPending = createStatus.isPending || updateStatus.isPending
 
   // Handle the form submission
   const onSubmit = (data: StatusSchema) => {
@@ -66,18 +66,21 @@ export const StatusForm = ({ status, ...props }: StatusFormProps) => {
 
           <Dialog.Panel scrollable>
             <Form.Fieldset>
-              <Form.Field control={form.control} name="name" label="Name" required>
+              <Form.Field control={form.control} name="name" label="Name" isRequired>
                 <Form.Input data-1p-ignore />
               </Form.Field>
 
-              <Form.Field control={form.control} name="color" label="Color" required>
+              <Form.Field control={form.control} name="color" label="Color" isRequired>
                 <Form.ColorPicker />
               </Form.Field>
             </Form.Fieldset>
           </Dialog.Panel>
 
           <Dialog.Footer>
-            <Form.Button loading={isLoading}>{isEditing ? "Update" : "Create"} Status</Form.Button>
+            <Form.Button isPending={isPending}>
+              {isEditing ? "Update" : "Create"} Status
+            </Form.Button>
+
             <Dialog.Cancel />
           </Dialog.Footer>
         </Form>

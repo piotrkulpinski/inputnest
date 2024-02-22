@@ -1,4 +1,4 @@
-import type { RouterOutputs } from "~/services/trpc"
+import { RouterOutputs } from "@inputnest/api"
 
 export type Comment = RouterOutputs["comments"]["getAll"][number]
 export type CommentWithChildren = Comment & { children: CommentWithChildren[] }

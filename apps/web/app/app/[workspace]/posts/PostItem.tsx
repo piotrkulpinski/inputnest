@@ -1,10 +1,10 @@
 import { Badge, Card, H5, Series } from "@curiousleaf/design"
+import { RouterOutputs } from "@inputnest/api"
 import { ChevronUpIcon, MessageCircleIcon } from "lucide-react"
 import Link from "next/link"
 import type { ComponentPropsWithoutRef } from "react"
 
 import { Status } from "~/components/interface/Status"
-import type { RouterOutputs } from "~/services/trpc"
 
 type PostItemProps = ComponentPropsWithoutRef<typeof Card> & {
   post: RouterOutputs["posts"]["getAll"][number]

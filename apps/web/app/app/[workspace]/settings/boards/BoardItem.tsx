@@ -1,4 +1,5 @@
 import { Action, Button, Card, Dialog, Draggable, H5, Series, cx } from "@curiousleaf/design"
+import { RouterOutputs } from "@inputnest/api"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
@@ -6,8 +7,7 @@ import { BoardForm } from "~/app/app/[workspace]/settings/boards/BoardForm"
 import { DialogConfirm } from "~/components/dialogs/DialogConfirm"
 import { useSortable } from "~/providers/SortableProvider"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import type { RouterOutputs } from "~/services/trpc"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 
 type BoardItemProps = ComponentPropsWithoutRef<typeof Card> & {
   board: RouterOutputs["boards"]["getAll"][number]
@@ -47,7 +47,7 @@ export const BoardItem = ({ board, ...props }: BoardItemProps) => {
               "order-last text-2xs font-medium md:order-first",
               board.isDefault ? "pointer-events-none" : "md:hidden md:group-hover/board:flex",
             )}
-            loading={defaultBoard.isLoading}
+            isPending={defaultBoard.isPending}
             onClick={() => defaultBoard.mutate({ id: board.id })}
           >
             {board.isDefault ? "Default" : "Make Default"}
@@ -68,7 +68,7 @@ export const BoardItem = ({ board, ...props }: BoardItemProps) => {
             label="Delete Board"
             onConfirm={() => deleteBoard.mutate({ id: board.id })}
           >
-            <Button size="md" theme="negative" variant="outline" loading={deleteBoard.isLoading}>
+            <Button size="md" theme="negative" variant="outline" isPending={deleteBoard.isPending}>
               Delete
             </Button>
           </DialogConfirm>

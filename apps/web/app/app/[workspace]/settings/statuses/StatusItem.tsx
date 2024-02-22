@@ -1,4 +1,5 @@
 import { Action, Button, Card, Dialog, Draggable, H5, Series, cx } from "@curiousleaf/design"
+import { RouterOutputs } from "@inputnest/api"
 import type { ComponentPropsWithoutRef } from "react"
 import { toast } from "sonner"
 
@@ -7,8 +8,7 @@ import { DialogConfirm } from "~/components/dialogs/DialogConfirm"
 import { Status } from "~/components/interface/Status"
 import { useSortable } from "~/providers/SortableProvider"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import type { RouterOutputs } from "~/services/trpc"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 
 type StatusItemProps = ComponentPropsWithoutRef<typeof Card> & {
   status: RouterOutputs["statuses"]["getAll"][number]
@@ -50,7 +50,7 @@ export const StatusItem = ({ status, ...props }: StatusItemProps) => {
               "order-last text-2xs font-medium md:order-first",
               status.isDefault ? "pointer-events-none" : "md:hidden md:group-hover/status:flex",
             )}
-            loading={defaultStatus.isLoading}
+            isPending={defaultStatus.isPending}
             onClick={() => defaultStatus.mutate({ id: status.id })}
           >
             {status.isDefault ? "Default" : "Make Default"}
@@ -71,7 +71,7 @@ export const StatusItem = ({ status, ...props }: StatusItemProps) => {
             label="Delete Status"
             onConfirm={() => deleteStatus.mutate({ id: status.id })}
           >
-            <Button size="md" theme="negative" variant="outline" loading={deleteStatus.isLoading}>
+            <Button size="md" theme="negative" variant="outline" isPending={deleteStatus.isPending}>
               Delete
             </Button>
           </DialogConfirm>
