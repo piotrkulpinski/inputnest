@@ -15,7 +15,6 @@ export const workspacesRouter = createTRPCRouter({
       return await db.workspace.findFirst({
         where: { slug },
         include: {
-          domain: true,
           subscription: true,
           members: {
             where: { role: { in: ["Owner", "Manager"] } },

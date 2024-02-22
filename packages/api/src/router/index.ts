@@ -12,7 +12,6 @@ import { workspacesRouter } from "./workspaces"
 export const appRouter = createTRPCRouter({
   // stripe: stripeRouter,
   workspaces: workspacesRouter,
-  // domains: domainsRouter,
   posts: postsRouter,
   boards: boardsRouter,
   tags: tagsRouter,
