@@ -1,20 +1,22 @@
-import { WorkspaceMemberRole, idSchema, workspaceSchema } from "@inputnest/database"
+import { Prisma, WorkspaceMemberRole, idSchema, workspaceSchema } from "@inputnest/database"
 
 import { protectedProcedure, publicProcedure, router } from "../trpc"
+
+const workspaceInclude = {
+  subscription: true,
+  members: {
+    where: { role: { in: ["Owner", "Manager"] } },
+    include: { user: true },
+  },
+} satisfies Prisma.WorkspaceDefaultArgs["include"]
 
 export const workspacesRouter = router({
   getBySlug: publicProcedure
     .input(workspaceSchema.pick({ slug: true }))
     .query(async ({ ctx: { db }, input: { slug } }) => {
-      return await db.workspace.findFirst({
+      return await db.workspace.findUnique({
         where: { slug },
-        include: {
-          subscription: true,
-          members: {
-            where: { role: { in: ["Owner", "Manager"] } },
-            include: { user: true },
-          },
-        },
+        include: workspaceInclude,
       })
     }),
 

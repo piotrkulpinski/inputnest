@@ -1,36 +1,35 @@
 import { Container } from "@curiousleaf/design"
-import { db, workspaceInclude } from "@inputnest/database"
 import { notFound } from "next/navigation"
-import type { PropsWithChildren } from "react"
+import { type PropsWithChildren, cache } from "react"
 
 import { Toaster } from "~/components/globals/Toaster"
 import { WorkspaceProvider } from "~/providers/WorkspaceProvider"
+import { api } from "~/services/trpc/server"
 
-type WorkspaceParams = {
+type Params = {
   params: { workspace: string }
 }
 
-export async function generateMetadata({ params }: WorkspaceParams) {
-  const slug = params.workspace
+export const getWorkspaceBySlug = cache(async (slug: string) => {
+  const workspace = await api.workspaces.getBySlug.query({ slug })
 
-  const workspace = await db.workspace
-    .findFirstOrThrow({ where: { slug }, include: workspaceInclude })
-    .catch(() => notFound())
+  if (!workspace) {
+    notFound()
+  }
+
+  return workspace
+})
+
+export async function generateMetadata({ params }: Params) {
+  const workspace = await getWorkspaceBySlug(params.workspace)
 
   return {
     title: `Feedback – ${workspace.name}`,
   }
 }
 
-export default async function WorkspaceLayout({
-  children,
-  params,
-}: PropsWithChildren<WorkspaceParams>) {
-  const slug = params.workspace
-
-  const workspace = await db.workspace
-    .findFirstOrThrow({ where: { slug }, include: workspaceInclude })
-    .catch(() => notFound())
+export default async function WorkspaceLayout({ children, params }: PropsWithChildren<Params>) {
+  const workspace = await getWorkspaceBySlug(params.workspace)
 
   return (
     <WorkspaceProvider workspace={workspace}>

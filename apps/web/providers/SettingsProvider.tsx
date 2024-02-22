@@ -1,8 +1,8 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { WorkspaceWithMembers } from "@inputnest/database"
-import { updateWorkspaceSchema } from "@inputnest/database"
+import { RouterOutputs } from "@inputnest/api"
+import { workspaceSchema } from "@inputnest/database"
 import type { FormEventHandler, PropsWithChildren } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
@@ -12,7 +12,7 @@ import { api } from "~/services/trpc/client"
 import { createSimpleContext } from "~/utils/providers"
 
 export type SettingsContext = {
-  form: ReturnType<typeof useForm<WorkspaceWithMembers>>
+  form: ReturnType<typeof useForm<NonNullable<RouterOutputs["workspaces"]["getBySlug"]>>>
   isPending: boolean
   onSubmit: FormEventHandler<HTMLFormElement>
 }
@@ -25,7 +25,7 @@ export const SettingsProvider = ({ children }: PropsWithChildren) => {
   const workspace = useWorkspace()
 
   const form = useForm({
-    resolver: zodResolver(updateWorkspaceSchema),
+    resolver: zodResolver(workspaceSchema),
     values: workspace,
   })
 
