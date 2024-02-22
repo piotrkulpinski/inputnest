@@ -36,7 +36,7 @@ export default function Route() {
     setBoards(boards.slice().sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id)))
 
     // Update the order of the boards
-    reorderBoards({ ids })
+    reorderBoards({ ids, workspaceId })
   }
 
   // Update the boards when the loader data changes

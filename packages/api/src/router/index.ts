@@ -1,4 +1,4 @@
-import { createTRPCRouter } from "../trpc"
+import { router } from "../trpc"
 
 import { boardsRouter } from "./boards"
 import { commentsRouter } from "./comments"
@@ -9,7 +9,7 @@ import { votesRouter } from "./votes"
 import { workspacesRouter } from "./workspaces"
 
 // app router
-export const appRouter = createTRPCRouter({
+export const appRouter = router({
   // stripe: stripeRouter,
   workspaces: workspacesRouter,
   posts: postsRouter,

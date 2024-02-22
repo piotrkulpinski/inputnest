@@ -38,12 +38,13 @@ export const useMutationHandler = () => {
     form: UseFormReturn<T>
   }
 
-  const handleError = <T extends FieldValues>({
-    error: { data, message },
-    form,
-  }: HandleError<T>) => {
+  const handleError = <T extends FieldValues>({ error, form }: HandleError<T>) => {
+    const { data, message } = error
+
     if (!data?.fieldErrors || !Object.keys(data?.fieldErrors).length) {
-      toast.error(message)
+      toast.error(message) // Show the error message
+      form.reset() // Reset the form
+
       return
     }
 

@@ -2,7 +2,7 @@ import { isLightColor } from "@curiousleaf/utils"
 import * as z from "zod"
 
 import { Theme } from "@prisma/client"
-import { colorSchema, idSchema, isReservedSlug, slugSchema } from "./index"
+import { colorSchema, isReservedSlug, slugSchema } from "./index"
 
 export const workspaceSchema = z.object({
   name: z.string().trim().min(3).default(""),
@@ -21,8 +21,5 @@ export const workspaceSchema = z.object({
     })
     .default("#0051FF"),
 })
-
-export const createWorkspaceSchema = workspaceSchema
-export const updateWorkspaceSchema = workspaceSchema.merge(idSchema)
 
 export type WorkspaceSchema = z.infer<typeof workspaceSchema>

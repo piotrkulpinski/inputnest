@@ -48,7 +48,7 @@ export const TagForm = ({ tag, ...props }: TagFormProps) => {
   // Handle the form submission
   const onSubmit = (data: TagSchema) => {
     if (tag?.id) {
-      return updateTag.mutate({ ...data, id: tag.id })
+      return updateTag.mutate({ ...data, id: tag.id, workspaceId })
     }
 
     return createTag.mutate({ ...data, workspaceId })

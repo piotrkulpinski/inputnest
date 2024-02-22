@@ -48,7 +48,7 @@ export const BoardItem = ({ board, ...props }: BoardItemProps) => {
               board.isDefault ? "pointer-events-none" : "md:hidden md:group-hover/board:flex",
             )}
             isPending={defaultBoard.isPending}
-            onClick={() => defaultBoard.mutate({ id: board.id })}
+            onClick={() => defaultBoard.mutate({ id: board.id, workspaceId })}
           >
             {board.isDefault ? "Default" : "Make Default"}
           </Action>
@@ -66,7 +66,7 @@ export const BoardItem = ({ board, ...props }: BoardItemProps) => {
           <DialogConfirm
             title="Delete your board?"
             label="Delete Board"
-            onConfirm={() => deleteBoard.mutate({ id: board.id })}
+            onConfirm={() => deleteBoard.mutate({ id: board.id, workspaceId })}
           >
             <Button size="md" theme="negative" variant="outline" isPending={deleteBoard.isPending}>
               Delete

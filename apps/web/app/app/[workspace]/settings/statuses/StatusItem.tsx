@@ -51,7 +51,7 @@ export const StatusItem = ({ status, ...props }: StatusItemProps) => {
               status.isDefault ? "pointer-events-none" : "md:hidden md:group-hover/status:flex",
             )}
             isPending={defaultStatus.isPending}
-            onClick={() => defaultStatus.mutate({ id: status.id })}
+            onClick={() => defaultStatus.mutate({ id: status.id, workspaceId })}
           >
             {status.isDefault ? "Default" : "Make Default"}
           </Action>
@@ -69,7 +69,7 @@ export const StatusItem = ({ status, ...props }: StatusItemProps) => {
           <DialogConfirm
             title="Delete your status?"
             label="Delete Status"
-            onConfirm={() => deleteStatus.mutate({ id: status.id })}
+            onConfirm={() => deleteStatus.mutate({ id: status.id, workspaceId })}
           >
             <Button size="md" theme="negative" variant="outline" isPending={deleteStatus.isPending}>
               Delete

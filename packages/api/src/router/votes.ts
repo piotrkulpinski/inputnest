@@ -1,8 +1,8 @@
 import { voteRelationSchema } from "@inputnest/database"
 
-import { createTRPCRouter, protectedProcedure } from "../trpc"
+import { protectedProcedure, router } from "../trpc"
 
-export const votesRouter = createTRPCRouter({
+export const votesRouter = router({
   getAll: protectedProcedure
     .input(voteRelationSchema)
     .query(async ({ ctx: { db }, input: { postId } }) => {

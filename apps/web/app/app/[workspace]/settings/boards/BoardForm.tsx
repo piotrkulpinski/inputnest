@@ -55,7 +55,7 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
   // Handle the form submission
   const onSubmit = (data: BoardSchema) => {
     if (board?.id) {
-      return updateBoard.mutate({ ...data, id: board.id })
+      return updateBoard.mutate({ ...data, id: board.id, workspaceId })
     }
 
     return createBoard.mutate({ ...data, workspaceId })

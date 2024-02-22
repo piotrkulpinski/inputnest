@@ -1,8 +1,8 @@
-import { Prisma, db } from "@inputnest/database"
+import { db, isPrismaError } from "@inputnest/database"
 import { TRPCError, initTRPC } from "@trpc/server"
 import superjson from "superjson"
 import type { typeToFlattenedError } from "zod"
-import { ZodError } from "zod"
+import { ZodError, z } from "zod"
 
 /**
  * 1. CONTEXT
@@ -47,7 +47,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
     }
 
     // Prisma error
-    if (error.cause instanceof Prisma.PrismaClientKnownRequestError && error.cause.meta?.target) {
+    if (isPrismaError(error.cause) && error.cause.meta?.target) {
       const name = (error.cause.meta.target as string[]).at(-1)
 
       // Unique constraint
@@ -77,7 +77,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
  * This is how you create new routers and subrouters in your tRPC API
  * @see https://trpc.io/docs/router
  */
-export const createTRPCRouter = t.router
+export const router = t.router
 
 /**
  * Reusable middleware that enforces users are logged in before running the
@@ -106,7 +106,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
 export const publicProcedure = t.procedure
 
 /**
- * Protected (authed) procedure
+ * Protected (authed) procedures
  *
  * If you want a query or mutation to ONLY be accessible to logged in users, use
  * this. It verifies the session is valid and guarantees ctx.session.user is not
@@ -115,3 +115,21 @@ export const publicProcedure = t.procedure
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed)
+
+// procedure that a user is a member of a specific workspace
+export const workspaceProcedure = protectedProcedure
+  .input(z.object({ workspaceId: z.string() }))
+  .use(async ({ ctx: { db, userId }, input: { workspaceId }, next }) => {
+    const workspace = await db.workspace.findFirst({
+      where: {
+        id: workspaceId,
+        members: { some: { userId, role: { in: ["Owner", "Manager"] } } },
+      },
+    })
+
+    if (!workspace) {
+      throw new TRPCError({ code: "FORBIDDEN" })
+    }
+
+    return next({ ctx: { workspace } })
+  })
