@@ -57,7 +57,7 @@ export const PostItemActions = ({ ...props }: HTMLAttributes<HTMLElement>) => {
       <DialogConfirm
         title="Delete your post?"
         label="Delete Post"
-        onConfirm={() => deletePost.mutate({ id: post.id })}
+        onConfirm={() => deletePost.mutate({ id: post.id, workspaceId })}
       >
         <Button size="md" theme="negative" variant="outline" isPending={deletePost.isPending}>
           Delete

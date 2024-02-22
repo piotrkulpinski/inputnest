@@ -48,7 +48,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
   })
 
   const onSubmit = form.handleSubmit((data: PostSchema) => {
-    return updatePost({ ...data, id: post.id })
+    return updatePost({ ...data, id: post.id, workspaceId })
   })
 
   useEffect(() => {
