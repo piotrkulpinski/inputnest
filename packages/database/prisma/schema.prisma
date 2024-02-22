@@ -90,12 +90,12 @@ model Workspace {
   theme      Theme    @default(System)
   logo       String?
   brandColor String?
+  domain     String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
   // Relations
   members      WorkspaceMember[]
-  domain       Domain?
   subscription Subscription?
   boards       Board[]
   tags         Tag[]
@@ -123,17 +123,6 @@ model Subscription {
   currentPeriodStart Int
   currentPeriodEnd   Int
   cancelAtPeriodEnd  Boolean @default(false)
-
-  // Relations
-  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  workspaceId String    @unique
-}
-
-model Domain {
-  id        String   @id @default(cuid())
-  name      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   // Relations
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)

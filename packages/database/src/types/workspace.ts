@@ -1,7 +1,6 @@
 import { Prisma } from "@prisma/client"
 
 export const workspaceInclude = {
-  domain: true,
   subscription: true,
   members: {
     where: { role: { in: ["Owner", "Manager"] } },
