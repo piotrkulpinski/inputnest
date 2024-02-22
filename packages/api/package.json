@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@inputnest/database": "workspace:*",
-    "@trpc/server": "^10.44.1",
+    "@trpc/server": "next",
     "superjson": "^2.2.1",
     "zod": "^3.22.4"
   },

@@ -12,14 +12,14 @@ export type FormUploaderProps = Omit<UploaderProps, "label" | "onChange" | "onCl
 export const FormUploader = forwardRef<UploaderElement, FormUploaderProps>((props, ref) => {
   const { folder, ...rest } = props
 
-  const [loading, setLoading] = useState<boolean>(false)
+  const [isPending, setIsPending] = useState<boolean>(false)
   const { setError, clearErrors, watch } = useFormContext()
   const { field } = useFieldContext()
   const value = watch(field.name)
 
   const onChange = async (file: File) => {
     clearErrors(field.name)
-    setLoading(true)
+    setIsPending(true)
 
     try {
       await uploadImage({ file, folder }).then(({ url }) => {
@@ -31,8 +31,8 @@ export const FormUploader = forwardRef<UploaderElement, FormUploaderProps>((prop
       // Set the error
       setError(field.name, { type: "custom", message: getErrorMessage(e) })
     } finally {
-      // Set loading to false
-      setLoading(false)
+      // Set isPending to false
+      setIsPending(false)
     }
   }
 
@@ -43,7 +43,7 @@ export const FormUploader = forwardRef<UploaderElement, FormUploaderProps>((prop
   return (
     <Uploader
       ref={ref}
-      loading={loading}
+      isPending={isPending}
       onChange={onChange}
       onClear={value && onClear}
       {...rest}

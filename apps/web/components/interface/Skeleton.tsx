@@ -8,11 +8,11 @@ export const Skeleton = ({ ...props }: HTMLAttributes<HTMLElement>) => {
         <H5 className="w-40 rounded bg-current opacity-10">&nbsp;</H5>
 
         <Series>
-          <Button size="md" theme="secondary" variant="outline" loading>
+          <Button size="md" theme="secondary" variant="outline" isPending>
             Edit
           </Button>
 
-          <Button size="md" theme="secondary" variant="outline" loading>
+          <Button size="md" theme="secondary" variant="outline" isPending>
             Delete
           </Button>
         </Series>

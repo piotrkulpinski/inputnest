@@ -6,7 +6,7 @@ import type { HTMLAttributes } from "react"
 
 import { config } from "~/config"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 import { NavDropdown } from "./NavDropdown"
 import { NavItemButton, NavItemProps } from "./NavItem"
 

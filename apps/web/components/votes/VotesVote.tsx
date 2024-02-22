@@ -3,7 +3,7 @@ import { TriangleIcon } from "lucide-react"
 import type { ComponentPropsWithoutRef, ElementRef } from "react"
 import { forwardRef } from "react"
 
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 
 type VotesVoteProps = ComponentPropsWithoutRef<typeof Button> & {
   postId: string
@@ -13,14 +13,14 @@ export const VotesVote = forwardRef<ElementRef<typeof Button>, VotesVoteProps>((
   const { className, postId, ...rest } = props
   const apiUtils = api.useUtils()
 
-  const { data: vote, isLoading: isLoadingVote } = api.votes.get.useQuery(
+  const { data: vote, isPending: isPendingVote } = api.votes.get.useQuery(
     { postId },
     { enabled: !!postId },
   )
 
   const action = vote ? "delete" : "create"
 
-  const { mutate: toggleUpvote, isLoading } = api.votes[action].useMutation({
+  const { mutate: toggleUpvote, isPending } = api.votes[action].useMutation({
     onSuccess: async () => {
       await apiUtils.posts.get.invalidate({ id: postId })
       await apiUtils.posts.getAll.invalidate()
@@ -42,7 +42,7 @@ export const VotesVote = forwardRef<ElementRef<typeof Button>, VotesVoteProps>((
         className,
       )}
       onClick={() => postId && toggleUpvote({ postId })}
-      loading={isLoadingVote || isLoading}
+      isPending={isPendingVote || isPending}
       {...rest}
     />
   )

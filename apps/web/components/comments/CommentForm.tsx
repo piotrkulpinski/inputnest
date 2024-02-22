@@ -15,14 +15,14 @@ import { toast } from "sonner"
 import { Form } from "~/components/form/Form"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useComments } from "~/providers/CommentsProvider"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 import { getDefaults } from "~/utils/zod"
 
 type CommentFormProps = HTMLAttributes<HTMLFormElement> & {
-  isLoading?: boolean
+  isPending?: boolean
 }
 
-export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
+export const CommentForm = ({ isPending, ...props }: CommentFormProps) => {
   const { id: postId } = useParams() as { id: string }
   const { replying, editing, onReplyCancel, onEditCancel } = useComments()
   const { handleError } = useMutationHandler()
@@ -70,7 +70,7 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
 
   const createComment = api.comments.create.useMutation({ onSuccess, onError })
   const updateComment = api.comments.update.useMutation({ onSuccess, onError })
-  const isMutating = createComment.isLoading || updateComment.isLoading
+  const isMutating = createComment.isPending || updateComment.isPending
 
   // Handle the form submission
   const onSubmit = form.handleSubmit((data: CommentSchema) => {
@@ -101,8 +101,8 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
   return (
     <FormProvider {...form}>
       <Form onSubmit={onSubmit} className="relative @container" {...props}>
-        <fieldset className="contents" disabled={isMutating || isLoading}>
-          <Form.Field control={form.control} name="content" hideError required>
+        <fieldset className="contents" disabled={isMutating || isPending}>
+          <Form.Field control={form.control} name="content" hideError isRequired>
             <Form.Editor
               minRows={3}
               placeholder={placeholder}
@@ -112,7 +112,7 @@ export const CommentForm = ({ isLoading, ...props }: CommentFormProps) => {
           </Form.Field>
 
           <Series className="mt-3 @lg:absolute @lg:bottom-2 @lg:right-2 @lg:mt-0">
-            <Form.Button size="md" loading={isMutating} className="@lg:order-last">
+            <Form.Button size="md" isPending={isMutating} className="@lg:order-last">
               {isMetaKeyDown && "Press Enter to Submit"}
               {!isMetaKeyDown && `${editing ? "Update" : "Post"} ${replying ? "Reply" : "Comment"}`}
             </Form.Button>

@@ -8,12 +8,12 @@ import { FormProvider, useForm } from "react-hook-form"
 
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 import { createSimpleContext } from "~/utils/providers"
 
 export type SettingsContext = {
   form: ReturnType<typeof useForm<WorkspaceWithMembers>>
-  isLoading: boolean
+  isPending: boolean
   onSubmit: FormEventHandler<HTMLFormElement>
 }
 
@@ -29,7 +29,7 @@ export const SettingsProvider = ({ children }: PropsWithChildren) => {
     values: workspace,
   })
 
-  const { mutate: updateWorkspace, isLoading } = api.workspaces.update.useMutation({
+  const { mutate: updateWorkspace, isPending } = api.workspaces.update.useMutation({
     onSuccess: async ({ slug }) => {
       handleSuccess({
         refresh: workspace.slug === slug,
@@ -50,7 +50,7 @@ export const SettingsProvider = ({ children }: PropsWithChildren) => {
   })
 
   return (
-    <SettingsContext.Provider value={{ form, isLoading, onSubmit }}>
+    <SettingsContext.Provider value={{ form, isPending, onSubmit }}>
       <FormProvider {...form}>{children}</FormProvider>
     </SettingsContext.Provider>
   )

@@ -10,7 +10,7 @@ import { getDefaults } from "~/utils/zod"
 import { Status } from "~/components/interface/Status"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 
 export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFormElement>>(
   ({ ...props }, ref) => {
@@ -32,7 +32,7 @@ export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFor
       },
     })
 
-    const { mutate: createPost, isLoading } = api.posts.create.useMutation({
+    const { mutate: createPost, isPending } = api.posts.create.useMutation({
       onSuccess: async post => {
         handleSuccess({
           redirect: `posts/${post.id}`,
@@ -62,18 +62,18 @@ export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFor
             </Dialog.Panel>
 
             <Dialog.Panel scrollable>
-              <Form.Fieldset layout="stacked" columns={2} disabled={isLoading}>
+              <Form.Fieldset layout="stacked" columns={2} disabled={isPending}>
                 <Form.Field
                   control={form.control}
                   name="title"
                   label="Title"
                   className="col-span-2"
-                  required
+                  isRequired
                 >
                   <Form.Input placeholder="Short, descriptive title" />
                 </Form.Field>
 
-                <Form.Field control={form.control} name="boardId" label="Board" required>
+                <Form.Field control={form.control} name="boardId" label="Board" isRequired>
                   <Form.Select
                     options={boards.data?.map(({ name, id }) => ({
                       label: name,
@@ -82,7 +82,7 @@ export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFor
                   />
                 </Form.Field>
 
-                <Form.Field control={form.control} name="statusId" label="Status" required>
+                <Form.Field control={form.control} name="statusId" label="Status" isRequired>
                   <Form.Select
                     options={statuses.data?.map(({ name, id, color }) => ({
                       label: <Status color={color}>{name}</Status>,
@@ -103,7 +103,7 @@ export const PostCreateForm = forwardRef<HTMLFormElement, HTMLAttributes<HTMLFor
             </Dialog.Panel>
 
             <Dialog.Footer>
-              <Form.Button loading={isLoading}>Create Post</Form.Button>
+              <Form.Button isPending={isPending}>Create Post</Form.Button>
               <Dialog.Cancel />
             </Dialog.Footer>
           </Form>

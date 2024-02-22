@@ -1,7 +1,7 @@
 import { Dialog, Header } from "@curiousleaf/design"
 import { toSlugCase } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { AppRouter } from "@inputnest/api"
+import type { AppRouter, RouterOutputs } from "@inputnest/api"
 import type { BoardSchema } from "@inputnest/database"
 import { boardSchema } from "@inputnest/database"
 import type { TRPCClientErrorLike } from "@trpc/client"
@@ -12,8 +12,7 @@ import { Form } from "~/components/form/Form"
 import { useComputedField } from "~/hooks/useComputedField"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import type { RouterOutputs } from "~/services/trpc"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 import { getDefaults } from "~/utils/zod"
 
 type BoardFormProps = HTMLAttributes<HTMLFormElement> & {
@@ -51,7 +50,7 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
 
   const createBoard = api.boards.create.useMutation({ onSuccess, onError })
   const updateBoard = api.boards.update.useMutation({ onSuccess, onError })
-  const isLoading = createBoard.isLoading || updateBoard.isLoading
+  const isPending = createBoard.isPending || updateBoard.isPending
 
   // Handle the form submission
   const onSubmit = (data: BoardSchema) => {
@@ -83,18 +82,18 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
 
           <Dialog.Panel scrollable>
             <Form.Fieldset>
-              <Form.Field control={form.control} name="name" label="Name" required>
+              <Form.Field control={form.control} name="name" label="Name" isRequired>
                 <Form.Input data-1p-ignore />
               </Form.Field>
 
-              <Form.Field control={form.control} name="slug" label="Slug" required>
+              <Form.Field control={form.control} name="slug" label="Slug" isRequired>
                 <Form.Input />
               </Form.Field>
             </Form.Fieldset>
           </Dialog.Panel>
 
           <Dialog.Footer>
-            <Form.Button loading={isLoading}>{isEditing ? "Update" : "Create"} Board</Form.Button>
+            <Form.Button isPending={isPending}>{isEditing ? "Update" : "Create"} Board</Form.Button>
             <Dialog.Cancel />
           </Dialog.Footer>
         </Form>

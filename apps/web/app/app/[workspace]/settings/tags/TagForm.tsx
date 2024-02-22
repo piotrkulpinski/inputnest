@@ -5,11 +5,11 @@ import type { HTMLAttributes } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
 import { Dialog, Header } from "@curiousleaf/design"
+import { RouterOutputs } from "@inputnest/api"
 import { Form } from "~/components/form/Form"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import type { RouterOutputs } from "~/services/trpc"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 import { getDefaults } from "~/utils/zod"
 
 type TagFormProps = HTMLAttributes<HTMLFormElement> & {
@@ -43,7 +43,7 @@ export const TagForm = ({ tag, ...props }: TagFormProps) => {
 
   const createTag = api.tags.create.useMutation({ onSuccess })
   const updateTag = api.tags.update.useMutation({ onSuccess })
-  const isLoading = createTag.isLoading || updateTag.isLoading
+  const isPending = createTag.isPending || updateTag.isPending
 
   // Handle the form submission
   const onSubmit = (data: TagSchema) => {
@@ -66,18 +66,18 @@ export const TagForm = ({ tag, ...props }: TagFormProps) => {
 
           <Dialog.Panel scrollable>
             <Form.Fieldset>
-              <Form.Field control={form.control} name="name" label="Name" required>
+              <Form.Field control={form.control} name="name" label="Name" isRequired>
                 <Form.Input data-1p-ignore />
               </Form.Field>
 
-              <Form.Field control={form.control} name="color" label="Color" required>
+              <Form.Field control={form.control} name="color" label="Color" isRequired>
                 <Form.ColorPicker />
               </Form.Field>
             </Form.Fieldset>
           </Dialog.Panel>
 
           <Dialog.Footer>
-            <Form.Button loading={isLoading}>{isEditing ? "Update" : "Create"} Tag</Form.Button>
+            <Form.Button isPending={isPending}>{isEditing ? "Update" : "Create"} Tag</Form.Button>
             <Dialog.Cancel />
           </Dialog.Footer>
         </Form>

@@ -16,7 +16,7 @@ import { VotesSkeleton } from "~/components/votes/VotesSkeleton"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { usePost } from "~/providers/PostProvider"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 
 export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElement>) => {
   const apiUtils = api.useUtils()
@@ -30,7 +30,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
     t.votes.getAll({ postId: post.id }),
   ])
 
-  const isLoading = boards.isLoading || statuses.isLoading
+  const isPending = boards.isPending || statuses.isPending
 
   const form = useForm<PostSchema>({
     resolver: zodResolver(postSchema),
@@ -62,7 +62,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
   return (
     <FormProvider {...form}>
       <Sidebar size="lg" className="h-auto max-md:static max-md:w-auto">
-        <Form.Fieldset className="sticky top-16 lg:top-6" disabled={isLoading}>
+        <Form.Fieldset className="sticky top-16 lg:top-6" disabled={isPending}>
           <Form.Field control={form.control} name="boardId" label="Board">
             <Form.Select
               options={boards.data?.map(({ name, id }) => ({
@@ -82,7 +82,7 @@ export const PostItemSidebar = ({ className, ...props }: HTMLAttributes<HTMLElem
           </Form.Field>
 
           <Field label={`Voters (${votes.data?.length ?? "0"})`}>
-            {votes.isLoading && <VotesSkeleton />}
+            {votes.isPending && <VotesSkeleton />}
             {votes.isSuccess && !votes.data?.length && <Prose size="xs">No votes yet.</Prose>}
             {votes.isSuccess && !!votes.data?.length && <VotesList votes={votes.data} />}
           </Field>

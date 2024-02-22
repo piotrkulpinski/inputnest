@@ -10,13 +10,13 @@ import {
   Trash2Icon,
   UnlockIcon,
 } from "lucide-react"
-import { useState, type HTMLAttributes } from "react"
+import { type HTMLAttributes, useState } from "react"
 import { toast } from "sonner"
 import { NavDropdown } from "~/components/navs/NavDropdown"
 import { NavItemProps } from "~/components/navs/NavItem"
 
 import { useComments } from "~/providers/CommentsProvider"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 import type { CommentWithChildren } from "~/utils/comments"
 
 type CommentItemProps = HTMLAttributes<HTMLElement> & {
@@ -57,13 +57,13 @@ export const CommentItemActions = ({ comment, ...props }: CommentItemProps) => {
       {
         title: `Make ${isPrivate ? "Public" : "Private"}`,
         prefix: isPrivate ? <UnlockIcon /> : <LockIcon />,
-        loading: updateComment.isLoading,
+        isPending: updateComment.isPending,
         onClick: () => updateComment.mutate({ ...comment, isPrivate: !isPrivate }),
       },
       {
         title: `${isPinned ? "Unpin" : "Pin"} Comment`,
         prefix: isPinned ? <PinOffIcon /> : <PinIcon />,
-        loading: updateComment.isLoading,
+        isPending: updateComment.isPending,
         onClick: () => updateComment.mutate({ ...comment, isPinned: !isPinned }),
       },
       {
@@ -74,8 +74,8 @@ export const CommentItemActions = ({ comment, ...props }: CommentItemProps) => {
       {
         title: `${isConfirming ? "Are you sure?" : "Delete Comment"}`,
         prefix: <Trash2Icon />,
-        loading: deleteComment.isLoading,
         theme: "negative",
+        isPending: deleteComment.isPending,
         onClick: handleDelete,
       },
     ],

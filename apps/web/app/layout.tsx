@@ -50,7 +50,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
     <html lang="en">
       <body className={`${sansFont.variable} font-sans scroll-smooth`}>
         <SessionProvider session={session}>
-          <TRPCProvider headers={headers()}>{children}</TRPCProvider>
+          <TRPCProvider>{children}</TRPCProvider>
         </SessionProvider>
 
         <Toaster />

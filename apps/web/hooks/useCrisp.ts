@@ -10,7 +10,7 @@ import { env } from "~/env"
 
 export const useCrisp = () => {
   const { data: session } = useSession()
-  const [isLoading, setIsLoading] = useState(false)
+  const [isPending, setIsPending] = useState(false)
 
   // Initialize Crisp and set event listeners
   useEffect(() => {
@@ -19,7 +19,7 @@ export const useCrisp = () => {
     })
 
     Crisp.session.onLoaded(() => {
-      setIsLoading(false)
+      setIsPending(false)
       publishEscape()
     })
 
@@ -44,7 +44,7 @@ export const useCrisp = () => {
   const toggleChat: MouseEventHandler = e => {
     if (!Crisp.isCrispInjected()) {
       e.preventDefault()
-      setIsLoading(true)
+      setIsPending(true)
     }
 
     if (!Crisp.chat.isVisible()) {
@@ -54,5 +54,5 @@ export const useCrisp = () => {
     }
   }
 
-  return { isLoading, toggleChat }
+  return { isPending, toggleChat }
 }

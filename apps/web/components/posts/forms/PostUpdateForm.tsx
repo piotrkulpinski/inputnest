@@ -1,5 +1,6 @@
 import { Dialog, Header } from "@curiousleaf/design"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { RouterOutputs } from "@inputnest/api"
 import type { PostSchema } from "@inputnest/database"
 import { postSchema } from "@inputnest/database"
 import { type HTMLAttributes, forwardRef } from "react"
@@ -7,8 +8,7 @@ import { FormProvider, useForm } from "react-hook-form"
 import { Form } from "~/components/form/Form"
 
 import { useMutationHandler } from "~/hooks/useMutationHandler"
-import type { RouterOutputs } from "~/services/trpc"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 
 type PostUpdateFormProps = HTMLAttributes<HTMLFormElement> & {
   post: RouterOutputs["posts"]["get"]
@@ -24,7 +24,7 @@ export const PostUpdateForm = forwardRef<HTMLFormElement, PostUpdateFormProps>(
       values: post,
     })
 
-    const { mutate: updatePost, isLoading } = api.posts.update.useMutation({
+    const { mutate: updatePost, isPending } = api.posts.update.useMutation({
       onSuccess: async () => {
         handleSuccess({
           close: true,
@@ -55,8 +55,8 @@ export const PostUpdateForm = forwardRef<HTMLFormElement, PostUpdateFormProps>(
             </Dialog.Panel>
 
             <Dialog.Panel scrollable>
-              <Form.Fieldset layout="stacked" disabled={isLoading}>
-                <Form.Field control={form.control} name="title" label="Title" required>
+              <Form.Fieldset layout="stacked" disabled={isPending}>
+                <Form.Field control={form.control} name="title" label="Title" isRequired>
                   <Form.Input placeholder="Short, descriptive title" />
                 </Form.Field>
 
@@ -67,7 +67,7 @@ export const PostUpdateForm = forwardRef<HTMLFormElement, PostUpdateFormProps>(
             </Dialog.Panel>
 
             <Dialog.Footer>
-              <Form.Button loading={isLoading}>Update Post</Form.Button>
+              <Form.Button isPending={isPending}>Update Post</Form.Button>
               <Dialog.Cancel />
             </Dialog.Footer>
           </Form>

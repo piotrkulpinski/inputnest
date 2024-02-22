@@ -6,14 +6,14 @@ import type { HTMLAttributes } from "react"
 import { DialogConfirm } from "~/components/dialogs/DialogConfirm"
 import { useMutationHandler } from "~/hooks/useMutationHandler"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
-import { api } from "~/services/trpc"
+import { api } from "~/services/trpc/client"
 
 export const DeleteForm = (props: HTMLAttributes<HTMLElement>) => {
   const { handleSuccess } = useMutationHandler()
   const apiUtils = api.useUtils()
   const { id, slug } = useWorkspace()
 
-  const { mutate: deleteWorkspace, isLoading } = api.workspaces.delete.useMutation({
+  const { mutate: deleteWorkspace, isPending } = api.workspaces.delete.useMutation({
     onSuccess: async () => {
       handleSuccess({
         redirect: "/app",
@@ -41,7 +41,7 @@ export const DeleteForm = (props: HTMLAttributes<HTMLElement>) => {
           onConfirm={() => deleteWorkspace({ id })}
           confirmText={slug}
         >
-          <Button loading={isLoading} theme="negative" className="min-w-[8rem]">
+          <Button isPending={isPending} theme="negative" className="min-w-[8rem]">
             Delete
           </Button>
         </DialogConfirm>
