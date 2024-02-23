@@ -1,6 +1,7 @@
 import { Container } from "@curiousleaf/design"
 import { notFound } from "next/navigation"
 import { type PropsWithChildren, cache } from "react"
+import { NavBar } from "~/app/tenant/[workspace]/NavBar"
 
 import { Toaster } from "~/components/globals/Toaster"
 import { WorkspaceProvider } from "~/providers/WorkspaceProvider"
@@ -33,7 +34,12 @@ export default async function WorkspaceLayout({ children, params }: PropsWithChi
 
   return (
     <WorkspaceProvider workspace={workspace}>
-      <Container>{children}</Container>
+      <NavBar />
+
+      <div className="h-[150vh] py-10 bg-white">
+        <Container>{children}</Container>
+      </div>
+
       <Toaster />
     </WorkspaceProvider>
   )
