@@ -8,10 +8,10 @@ export default function Route() {
 
   return (
     <Header.Root>
-      <Header.Title size="h1">Share your product feedback!</Header.Title>
+      <Header.Title size="h1">Roadmap</Header.Title>
       <Header.Description
         size="lg"
-        content={`Please tell us what we can do to make ${workspace.name} the best product for you.`}
+        content="Follow our indie hacker journey with 100% transparency"
       />
     </Header.Root>
   )
