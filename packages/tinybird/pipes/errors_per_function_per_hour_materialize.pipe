@@ -1,0 +1,10 @@
+NODE mv
+SQL >
+    SELECT path(url) AS function_name, toStartOfHour(event_ts) AS hour, countState() AS total
+    FROM logs
+    WHERE log_level = 'ERROR'
+    GROUP BY hour, function_name
+    ORDER BY hour ASC
+
+TYPE MATERIALIZED
+DATASOURCE errors_per_function_per_hour

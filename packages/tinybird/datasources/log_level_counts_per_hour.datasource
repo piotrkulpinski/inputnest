@@ -1,0 +1,8 @@
+SCHEMA >
+    `hour` DateTime,
+    `log_level` String,
+    `total` AggregateFunction(count)
+
+ENGINE AggregatingMergeTree
+ENGINE_PARTITION_KEY tuple()
+ENGINE_SORTING_KEY hour, log_level
