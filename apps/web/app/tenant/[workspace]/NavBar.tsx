@@ -1,14 +1,19 @@
 "use client"
 
-import { Action, Avatar, Container, H3, Series, Tabs } from "@curiousleaf/design"
+import { Action, Avatar, Container, H3, Series, Tabs, cx } from "@curiousleaf/design"
 import { GanttChartSquareIcon, LightbulbIcon, MilestoneIcon } from "lucide-react"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { HTMLAttributes } from "react"
+import { NavGuest } from "~/app/tenant/[workspace]/NavGuest"
+import { NavUser } from "~/app/tenant/[workspace]/NavUser"
 import { Search } from "~/app/tenant/[workspace]/Search"
 import { NavItemProps } from "~/components/navs/NavItem"
 import { useWorkspace } from "~/providers/WorkspaceProvider"
 
-export const NavBar = () => {
+export const NavBar = ({ className, ...props }: HTMLAttributes<HTMLElement>) => {
+  const { status } = useSession()
   const workspace = useWorkspace()
   const pathname = usePathname()
 
@@ -19,7 +24,7 @@ export const NavBar = () => {
   ] satisfies NavItemProps[]
 
   return (
-    <div className="border-b bg-white">
+    <div className={cx("border-b bg-white", className)} {...props}>
       <Container>
         <div className="flex items-center justify-between py-4 md:py-6">
           <H3>
@@ -32,9 +37,11 @@ export const NavBar = () => {
               </Link>
             </Series>
           </H3>
+
+          {status === "unauthenticated" ? <NavGuest /> : <NavUser />}
         </div>
 
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between md:gap-6">
           <Tabs defaultValue={pathname} asChild>
             <Tabs.List className="lg:gap-x-8">
               {navs.map(item => (
