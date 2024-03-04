@@ -1,6 +1,6 @@
 import { Button } from "@curiousleaf/design"
 import Link from "next/link"
-import { BasicLayout } from "~/components/layouts/BasicLayout"
+import { BasicLayout } from "~/components/layouts/basic/BasicLayout"
 import { config } from "~/config"
 
 export default function NotFound() {

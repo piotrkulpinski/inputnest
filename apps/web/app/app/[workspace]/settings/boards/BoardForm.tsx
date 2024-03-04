@@ -1,5 +1,5 @@
 import { Dialog, Header } from "@curiousleaf/design"
-import { toSlugCase } from "@curiousleaf/utils"
+import { kebabCase } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { AppRouter, RouterOutputs } from "@inputnest/api"
 import type { BoardSchema } from "@inputnest/database"
@@ -67,7 +67,7 @@ export const BoardForm = ({ board, ...props }: BoardFormProps) => {
     sourceField: "name",
     computedField: "slug",
     enabled: !isEditing,
-    callback: toSlugCase,
+    callback: kebabCase,
   })
 
   return (

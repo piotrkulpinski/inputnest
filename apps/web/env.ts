@@ -2,6 +2,14 @@ import { createEnv } from "@t3-oss/env-nextjs"
 import { z } from "zod"
 
 export const env = createEnv({
+  shared: {
+    PORT: z.coerce.number().default(8000),
+    VERCEL_URL: z
+      .string()
+      .optional()
+      .transform(v => (v ? `https://${v}` : undefined)),
+  },
+
   /**
    * Specify your server-side environment variables schema here. This way you can ensure the app isn't
    * built with invalid env vars.
@@ -11,10 +19,14 @@ export const env = createEnv({
     NEXTAUTH_SECRET: z.string().min(1),
     GOOGLE_CLIENT_ID: z.string().min(1),
     GOOGLE_CLIENT_SECRET: z.string().min(1),
+    GITHUB_CLIENT_ID: z.string().min(1),
+    GITHUB_CLIENT_SECRET: z.string().min(1),
     S3_BUCKET: z.string().min(1),
     S3_REGION: z.string().min(1),
     S3_ACCESS_KEY: z.string().min(1),
     S3_SECRET_ACCESS_KEY: z.string().min(1),
+    SMTP_SERVER: z.string().min(1),
+    SMTP_FROM: z.string().min(1),
     STRIPE_SECRET_KEY: z.string().min(1),
     STRIPE_WEBHOOK_SECRET: z.string().min(1),
     CLOUDINARY_API_KEY: z.string().min(1),
@@ -47,6 +59,8 @@ export const env = createEnv({
    * Destructure all variables from `process.env` to make sure they aren't tree-shaken away.
    */
   experimental__runtimeEnv: {
+    PORT: process.env.PORT,
+    VERCEL_URL: process.env.VERCEL_URL,
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
     NEXT_PUBLIC_TENANT_URL: process.env.NEXT_PUBLIC_TENANT_URL,
     NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,

@@ -1,6 +1,5 @@
 import { Modal } from "@curiousleaf/design"
 import { redirect } from "next/navigation"
-import { AuthSignIn } from "~/components/auth/AuthSignIn"
 import { BasicLayout } from "~/components/layouts/basic/BasicLayout"
 import { config } from "~/config"
 import { auth } from "~/services/auth"
@@ -15,11 +14,9 @@ export default async function SignInPage() {
   return (
     <Modal size="sm">
       <BasicLayout
-        title="Sign in to your account"
-        description={`An ${config.title} account is all you need to start collecting customer feedback.`}
-      >
-        <AuthSignIn />
-      </BasicLayout>
+        title="Check your email"
+        description="Please check your email inbox, spam, or junk folders for the magic link we've sent. Clicking on the link will instantly sign you into your account."
+      />
     </Modal>
   )
 }

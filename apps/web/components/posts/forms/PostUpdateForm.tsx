@@ -8,6 +8,7 @@ import { FormProvider, useForm } from "react-hook-form"
 import { Form } from "~/components/form/Form"
 
 import { useMutationHandler } from "~/hooks/useMutationHandler"
+import { useWorkspace } from "~/providers/WorkspaceProvider"
 import { api } from "~/services/trpc/client"
 
 type PostUpdateFormProps = HTMLAttributes<HTMLFormElement> & {
@@ -18,6 +19,7 @@ export const PostUpdateForm = forwardRef<HTMLFormElement, PostUpdateFormProps>(
   ({ post, ...props }, ref) => {
     const apiUtils = api.useUtils()
     const { handleSuccess, handleError } = useMutationHandler()
+    const { id: workspaceId } = useWorkspace()
 
     const form = useForm<PostSchema>({
       resolver: zodResolver(postSchema),
@@ -41,7 +43,7 @@ export const PostUpdateForm = forwardRef<HTMLFormElement, PostUpdateFormProps>(
 
     // Handle the form submission
     const onSubmit = async (data: PostSchema) => {
-      return updatePost({ ...data, id: post.id })
+      return updatePost({ ...data, id: post.id, workspaceId })
     }
 
     return (

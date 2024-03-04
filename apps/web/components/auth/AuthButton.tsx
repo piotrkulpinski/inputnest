@@ -1,7 +1,7 @@
 "use client"
 
 import { Button, ButtonElement, IconSpinner, cx } from "@curiousleaf/design"
-import { capitalize } from "@curiousleaf/utils"
+import { upperFirst } from "@curiousleaf/utils"
 import type { BuiltInProviderType } from "next-auth/providers/index"
 import { signIn } from "next-auth/react"
 import { useSearchParams } from "next/navigation"
@@ -9,11 +9,11 @@ import type { ComponentProps } from "react"
 import { forwardRef, useState } from "react"
 import { config } from "~/config"
 
-type SignInButtonProps = ComponentProps<typeof Button> & {
+type AuthButtonProps = ComponentProps<typeof Button> & {
   provider: BuiltInProviderType
 }
 
-export const SignInButton = forwardRef<ButtonElement, SignInButtonProps>((props, ref) => {
+export const AuthButton = forwardRef<ButtonElement, AuthButtonProps>((props, ref) => {
   const { className, provider, theme = "secondary", variant = "outline", prefix, ...rest } = props
 
   const searchParams = useSearchParams()
@@ -41,7 +41,7 @@ export const SignInButton = forwardRef<ButtonElement, SignInButtonProps>((props,
       disabled={isPending}
       {...rest}
     >
-      Continue with {capitalize(provider)}
+      Continue with {upperFirst(provider)}
     </Button>
   )
 })
