@@ -1,6 +1,6 @@
 "use client"
 
-import { toSlugCase } from "@curiousleaf/utils"
+import { kebabCase } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { WorkspaceSchema } from "@inputnest/database"
 import { workspaceSchema } from "@inputnest/database"
@@ -42,7 +42,7 @@ export const OnboardingForm = ({ ...props }: HTMLAttributes<HTMLFormElement>) =>
     form,
     sourceField: "name",
     computedField: "slug",
-    callback: toSlugCase,
+    callback: kebabCase,
   })
 
   return (

@@ -16,7 +16,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: designConfig.theme.colors.blue,
+        primary: {
+          lighter: `var(--color-primary-lighter, ${designConfig.theme.colors.blue.lighter})`,
+          light: `var(--color-primary-light, ${designConfig.theme.colors.blue.light})`,
+          DEFAULT: `var(--color-primary, ${designConfig.theme.colors.blue.DEFAULT})`,
+          dark: `var(--color-primary-dark, ${designConfig.theme.colors.blue.dark})`,
+          darker: `var(--color-primary-darker, ${designConfig.theme.colors.blue.darker})`,
+        },
       },
 
       fontFamily: {
