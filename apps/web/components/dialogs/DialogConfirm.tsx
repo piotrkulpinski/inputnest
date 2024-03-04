@@ -66,7 +66,7 @@ export const DialogConfirm = forwardRef<HTMLButtonElement, DialogConfirmProps>((
                     control={form.control}
                     name="confirm"
                     label={`Type "${confirmText}" to confirm`}
-                    required
+                    isRequired
                   >
                     <Form.Input placeholder={confirmText} />
                   </Form.Field>

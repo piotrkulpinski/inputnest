@@ -40,10 +40,10 @@ export const config = {
      * - api (API routes)
      * - _next/static (static files)
      * - _next/image (image optimization files)
-     * - pattern.svg (pattern file)
+     * - images (image file)
      * - favicon.ico (favicon file)
      * - robots.txt (robots file)
      */
-    "/((?!api|_next/static|_next/image|pattern.svg|favicon.ico|robots.txt).*)",
+    "/((?!api|_next/static|_next/image|images|favicon.ico|robots.txt).*)",
   ],
 }

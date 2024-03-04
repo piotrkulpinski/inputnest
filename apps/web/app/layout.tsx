@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { SessionProvider } from "next-auth/react"
 import { Inter } from "next/font/google"
-import { headers } from "next/headers"
 import type { PropsWithChildren } from "react"
 import { Checkout } from "~/components/globals/Checkout"
 import { Toaster } from "~/components/globals/Toaster"

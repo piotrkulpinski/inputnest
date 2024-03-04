@@ -1,8 +1,11 @@
+import { env } from "~/env"
+
 export const routesConfig = {
   routes: {
-    dashboard: "/app/",
-    onboarding: "/app/onboarding",
-    signIn: "/auth/signin",
-    signUp: "/auth/signup",
+    dashboard: `${env.NEXT_PUBLIC_URL}/app/`,
+    onboarding: `${env.NEXT_PUBLIC_URL}/app/onboarding`,
+    signIn: `${env.NEXT_PUBLIC_URL}/auth/signin`,
+    signUp: `${env.NEXT_PUBLIC_URL}/auth/signup`,
+    verify: `${env.NEXT_PUBLIC_URL}/auth/verify`,
   },
 }

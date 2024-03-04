@@ -25,7 +25,7 @@ export default {
       },
 
       backgroundImage: {
-        pattern: "url('/pattern.svg')",
+        pattern: "url('/images/pattern.svg')",
       },
     },
   },
